@@ -103,11 +103,7 @@
             background-color: var(--folder-yellow);
         }
 
-        .window-body {
-            padding: 20px;
-        }
-
-        /* 3 Column Desktop Layout */
+        /* Responsive Grid Formats */
         .desktop-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -286,8 +282,9 @@
 </head>
 <body>
 
+    <!-- Header Bar -->
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v3.0_FINAL_PROD</div>
+        <div class="nav-logo">💾 FOOD_OS // v3.5_DUAL_CALENDAR</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -297,41 +294,61 @@
 
     <main class="desktop-layout">
 
-        <section class="retro-window full-width">
-            <div class="window-header yellow-variant">
-                <span>System_Schedule: Shared_iCloud_Calendar.live</span>
+        <!-- DUAL CALENDAR GENERATOR: RYAN'S LIVE WINDOW -->
+        <section class="retro-window">
+            <div class="window-header blue-variant">
+                <span>User_Schedule: Ryan_iCloud.live</span>
                 <span>✖</span>
             </div>
             <div class="window-body" style="padding: 0; height: 320px; background-color: #ffffff;">
                 <iframe 
-                    src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE&skin=flat&tabs=week&controls=today,next,prev&title=Our%20Schedule" 
+                    src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE&skin=flat&tabs=week&controls=today,next,prev&title=Ryan's%20Schedule" 
                     style="border: none; width: 100%; height: 100%;" 
                     frameborder="0">
                 </iframe>
             </div>
         </section>
 
+        <!-- DUAL CALENDAR GENERATOR: BEA'S LIVE WINDOW -->
+        <section class="retro-window">
+            <div class="window-header">
+                <span>User_Schedule: Bea_iCloud.live</span>
+                <span>✖</span>
+            </div>
+            <div class="window-body" style="padding: 0; height: 320px; background-color: #ffffff;">
+                <iframe 
+                    src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fp138-caldav.icloud.com%2Fpublished%2F2%2FMTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU&skin=flat&tabs=week&controls=today,next,prev&title=Bea's%20Schedule" 
+                    style="border: none; width: 100%; height: 100%;" 
+                    frameborder="0">
+                </iframe>
+            </div>
+        </section>
+
+        <!-- SYSTEM WINDOW: Meal Prep Dual-Scanner Diagnostics Engine -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
-                <span>Diagnostics_Log: Empty_Day_Prep_Scanner.exe</span>
+                <span>Diagnostics_Log: Dual_Empty_Day_Scanner.exe</span>
                 <span>✖</span>
             </div>
             <div class="window-body">
                 <div class="prep-log" id="prep-alert-terminal">
-                    Scanning active iCloud streams... 
+                    Booting diagnostic proxy pathways... Syncing dual user matrices...
                 </div>
             </div>
         </section>
         
+        <!-- Left Window: Meal Planner -->
         <section class="retro-window">
-            <div class="window-header">
+            <div class="window-header yellow-variant">
                 <span>Group Chat: What's Cooking This Week?</span>
                 <span>✖</span>
             </div>
             <div class="window-body chat-layout" id="meal-chat-container">
-                </div>
+                <!-- Programmatically populated inputs -->
+            </div>
         </section>
 
+        <!-- Right Window: Grocery Checklist -->
         <section class="retro-window">
             <div class="window-header blue-variant">
                 <span>System Error: Missing Ingredients</span>
@@ -344,7 +361,8 @@
                     <button onclick="addItem()" class="retro-btn">Enter...</button>
                 </div>
                 <ul class="shopping-list" id="shopping-list">
-                    </ul>
+                    <!-- Target element for checklists arrays -->
+                </ul>
             </div>
         </section>
 
@@ -354,12 +372,12 @@
         const fullDayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        // NEW FRESH LOCALSTORAGE SCHEMAS (Clears older corrupted keys)
+        // Strict LocalStorage separation schema definitions
         let mealPlan = {};
         try {
             const savedMeals = localStorage.getItem('food_os_meals_v3');
             if (savedMeals) mealPlan = JSON.parse(savedMeals);
-        } catch (e) { console.error("Storage read blocked:", e); }
+        } catch (e) { console.error(e); }
 
         let shoppingList = [];
         try {
@@ -372,7 +390,7 @@
                     { name: 'Tomatoes', checked: true }
                 ];
             }
-        } catch (e) { console.error("Storage read blocked:", e); }
+        } catch (e) { console.error(e); }
 
         // GENERATE PLANNER INTERFACE
         const chatContainer = document.getElementById('meal-chat-container');
@@ -400,34 +418,49 @@
             } catch(e) {}
         }
 
-        // LIVE AUTOMATED CALENDAR TIMELINE ANALYSIS
+        // ASYNC CORE ENGINE: SYNCHRONIZED CALENDAR TRACKING LABELS
         async function runPrepDiagnostics() {
             const logTerminal = document.getElementById('prep-alert-terminal');
-            const rawIcalUrl = "https://p71-caldav.icloud.com/published/2/NDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE";
-            const secureProxyUrl = `https://corsproxy.io/?${encodeURIComponent(rawIcalUrl)}`;
+            
+            const ryanUrl = "https://p71-caldav.icloud.com/published/2/NDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE";
+            const beaUrl = "https://p138-caldav.icloud.com/published/2/MTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
+
+            const proxyRyan = `https://corsproxy.io/?${encodeURIComponent(ryanUrl)}`;
+            const proxyBea = `https://corsproxy.io/?${encodeURIComponent(beaUrl)}`;
 
             try {
-                const response = await fetch(secureProxyUrl);
-                if (!response.ok) throw new Error("Connection failed");
-                const rawDataString = await response.text();
+                // Fetch both calendar assets concurrently
+                const [resRyan, resBea] = await Promise.all([fetch(proxyRyan), fetch(proxyBea)]);
+                if (!resRyan.ok || !resBea.ok) throw new Error("Stream connection failed.");
+
+                const txtRyan = await resRyan.text();
+                const txtBea = await resBea.text();
 
                 const today = new Date();
                 today.setHours(0,0,0,0);
                 
                 const bookedDatesSet = new Set();
-                const matches = rawDataString.match(/DTSTART[^:]*:([0-9]{8})/g);
-                
-                if (matches) {
-                    matches.forEach(match => {
-                        const datePart = match.split(':')[1];
-                        const year = parseInt(datePart.substring(0, 4));
-                        const month = parseInt(datePart.substring(4, 6)) - 1;
-                        const day = parseInt(datePart.substring(6, 8));
-                        const parsedDate = new Date(year, month, day);
-                        parsedDate.setHours(0,0,0,0);
-                        bookedDatesSet.add(parsedDate.getTime());
-                    });
-                }
+                const regexPattern = /DTSTART[^:]*:([0-9]{8})/g;
+
+                // Function to extract dates from raw iCal strings
+                const extractDates = (rawData) => {
+                    const matches = rawData.match(regexPattern);
+                    if (matches) {
+                        matches.forEach(match => {
+                            const datePart = match.split(':')[1];
+                            const year = parseInt(datePart.substring(0, 4));
+                            const month = parseInt(datePart.substring(4, 6)) - 1;
+                            const day = parseInt(datePart.substring(6, 8));
+                            const parsedDate = new Date(year, month, day);
+                            parsedDate.setHours(0,0,0,0);
+                            bookedDatesSet.add(parsedDate.getTime());
+                        });
+                    }
+                };
+
+                // Map both text streams to the timeline set matrix
+                extractDates(txtRyan);
+                extractDates(txtBea);
 
                 logTerminal.innerHTML = '';
                 let alertCounter = 0;
@@ -437,6 +470,7 @@
                     checkDay.setDate(today.getDate() + dayOffset);
                     const timelineStamp = checkDay.getTime();
                     
+                    // If a day has no events on EITHER Ryan's or Bea's calendar
                     if (!bookedDatesSet.has(timelineStamp)) {
                         alertCounter++;
                         const weekdayLabel = shortDayNames[checkDay.getDay()];
@@ -445,23 +479,23 @@
                         const alertRow = document.createElement('div');
                         alertRow.className = 'prep-item';
                         alertRow.style.color = '#ff4d4d'; 
-                        alertRow.innerHTML = `⚠️ ALERT: [${weekdayLabel} ${numericLabel}] has no calendar event. Plan meals/prep accordingly!`;
+                        alertRow.innerHTML = `⚠️ DUAL ALERT: [${weekdayLabel} ${numericLabel}] is empty on both calendars. Plan meal prep!`;
                         logTerminal.appendChild(alertRow);
                     }
                 }
 
                 if (alertCounter === 0) {
-                    logTerminal.innerHTML = "🏁 SCANNER RESUME: 100% of the next 14 days have events booked. No preparation gaps flagged.";
+                    logTerminal.innerHTML = "🏁 SCANNER RESUME: 100% of upcoming timeline metrics contain scheduled events. No preparation gaps found.";
                     logTerminal.style.color = "#1aff1a";
                 }
 
             } catch (error) {
-                logTerminal.innerHTML = "❌ INTERFACE DISCONNECT: Cloud matrix streams are dropping requests. Retrying data extraction pipes on next viewport update...";
+                logTerminal.innerHTML = "❌ DIAGNOSTICS OFFLINE: Cloud handshake streams dropped. Recalibrating proxy channels...";
                 logTerminal.style.color = "#ff4d4d";
             }
         }
 
-        // GROCERY CHECKLIST LOGIC
+        // GROCERY TRACKER CHECKLIST LOGIC
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
             listEl.innerHTML = '';
