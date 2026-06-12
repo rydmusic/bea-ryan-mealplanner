@@ -213,7 +213,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v4.2_WEEK_VIEW_FIXED</div>
+        <div class="nav-logo">💾 FOOD_OS // v4.3_MONTH_VIEW</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -228,9 +228,9 @@
                 <span>User_Schedule: Consolidated_Master_Calendar.live</span>
                 <span>✖</span>
             </div>
-            <div class="window-body" style="padding: 0; height: 350px; background-color: #ffffff;">
+            <div class="window-body" style="padding: 0; height: 480px; background-color: #ffffff;">
                 <iframe 
-                    src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE&color=%23e15c32&url=https%3A%2F%2Fp138-caldav.icloud.com%2Fpublished%2F2%2FMTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU&color=%23f2a6b4&skin=flat&tab=week&controls=prev,next,today,date&title=Master%20Timeline" 
+                    src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE&color=%23e15c32&url=https%3A%2F%2Fp138-caldav.icloud.com%2Fpublished%2F2%2FMTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU&color=%23f2a6b4&skin=flat&tab=month&controls=prev,next,today,date&title=Master%20Timeline" 
                     style="border: none; width: 100%; height: 100%;" 
                     frameborder="0">
                 </iframe>
@@ -322,10 +322,9 @@
             localStorage.setItem('food_os_meals_v4', JSON.stringify(mealPlan));
         }
 
-        // FIXED ASYNC DUAL TIMELINE ROUTER SCRIPT
+        // ASYNC DUAL TIMELINE ROUTER SCRIPT
         async function routeSmartDinners() {
             const ryanUrl = "https://p71-caldav.icloud.com/published/2/NDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE";
-            // FIXED: Corrected string capitalization case assignment typo block 'MTk3MzYw...'
             const maxUrl = "https://p138-caldav.icloud.com/published/2/MTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
 
             try {
@@ -385,7 +384,6 @@
 
                     let columnTarget = "both";
 
-                    // CORE ROUTING EVALUATION MATRIX
                     if (ryanTxt.includes("ryan") || (ryanTxt && !beaTxt && !ryanTxt.includes("together") && !ryanTxt.includes("both") && !ryanTxt.includes("date"))) {
                         columnTarget = "ryan";
                     } else if (beaTxt.includes("bea") || (beaTxt && !ryanTxt && !beaTxt.includes("together") && !beaTxt.includes("both") && !beaTxt.includes("date"))) {
