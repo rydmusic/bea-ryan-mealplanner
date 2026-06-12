@@ -172,6 +172,7 @@
             padding: 10px;
             margin-bottom: 12px;
             box-shadow: 3px 3px 0px var(--border-clr);
+            position: relative;
         }
 
         .smart-day-title {
@@ -183,6 +184,25 @@
             justify-content: space-between;
             align-items: center;
         }
+
+        /* Status Toggles */
+        .status-badge-container {
+            display: flex;
+            gap: 4px;
+        }
+
+        .status-btn {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border: 1px solid #000;
+            border-radius: 4px;
+            background: #fff;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .status-btn.active-ryan { background-color: var(--accent-orange); color: white; }
+        .status-btn.active-bea { background-color: var(--accent-pink); color: black; }
 
         .smart-day-input {
             width: 100%;
@@ -222,7 +242,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v16.0_RESTORED_STABLE</div>
+        <div class="nav-logo">💾 FOOD_OS // v17.0_EMBEDDED_STABLE</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -253,7 +273,7 @@
             </div>
             <div class="window-body">
                 <div class="prep-log" id="prep-alert-terminal">
-                    Pinging stable server endpoints... Re-mapping visual datasets...
+                    Initializing local tracking node overlays... Standby...
                 </div>
             </div>
         </section>
@@ -304,52 +324,16 @@
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        // Unified production level keys
-        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v16')) || [{ name: 'Oat Milk', checked: false }];
-        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v16')) || {};
+        // Storage Channels
+        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v17')) || [{ name: 'Oat Milk', checked: false }];
+        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v17')) || {};
+        
+        // Tracks manual event placements (True = has plans out)
+        let calendarState = JSON.parse(localStorage.getItem('food_os_cal_state_v17')) || {};
 
-        async function routeSmartDinners() {
-            // Pull events directly via Open Web Calendar's raw data feed utility
-            const ryanFeed = "https://open-web-calendar.hosted.quelltext.eu/events.json?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE";
-            const beaFeed = "https://open-web-calendar.hosted.quelltext.eu/events.json?url=https%3A%2F%2Fp138-caldav.icloud.com%2Fpublished%2F2%2FMTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
-            
-            // Premium CORS proxy fallback layer to prevent browser cross-origin locks
-            const proxyRyan = `https://corsproxy.io/?${encodeURIComponent(ryanFeed)}&_ts=${new Date().getTime()}`;
-            const proxyBea = `https://corsproxy.io/?${encodeURIComponent(beaFeed)}&_ts=${new Date().getTime()}`;
-            
+        function renderSmartGrid() {
             const logTerminal = document.getElementById('prep-alert-terminal');
-
-            let ryanBookedDates = new Set();
-            let beaBookedDates = new Set();
-
-            try {
-                const [resRyan, resBea] = await Promise.all([
-                    fetch(proxyRyan).then(res => res.json()),
-                    fetch(proxyBea).then(res => res.json())
-                ]);
-
-                if (Array.isArray(resRyan)) {
-                    resRyan.forEach(ev => {
-                        if (ev.start) {
-                            const dateStr = ev.start.split('T')[0].replace(/-/g, '');
-                            ryanBookedDates.add(dateStr);
-                        }
-                    });
-                }
-
-                if (Array.isArray(resBea)) {
-                    resBea.forEach(ev => {
-                        if (ev.start) {
-                            const dateStr = ev.start.split('T')[0].replace(/-/g, '');
-                            beaBookedDates.add(dateStr);
-                        }
-                    });
-                }
-            } catch (err) {
-                console.error(err);
-                logTerminal.innerHTML = "⚠️ LOG ALERT: Synchronizing memory arrays... Live streams loading.";
-            }
-
+            
             document.getElementById('container-ryan').innerHTML = '';
             document.getElementById('container-bea').innerHTML = '';
             document.getElementById('container-both').innerHTML = '';
@@ -359,44 +343,51 @@
             today.setHours(0,0,0,0);
             
             let counters = { ryan: 0, bea: 0, both: 0 };
-            let totalAlerts = 0;
 
             for (let i = 0; i < 14; i++) {
                 const checkDay = new Date(today);
                 checkDay.setDate(today.getDate() + i);
                 
                 const dateKey = checkDay.toISOString().split('T')[0];
-                const iCalKey = checkDay.toISOString().replace(/-/g, '').split('T')[0];
                 const displayLabel = `${shortDayNames[checkDay.getDay()]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
 
-                const ryanHasPlan = ryanBookedDates.has(iCalKey);
-                const beaHasPlan = beaBookedDates.has(iCalKey);
+                if (!calendarState[dateKey]) {
+                    calendarState[dateKey] = { ryan: false, bea: false };
+                }
 
-                let columnTarget = null;
+                const ryanHasPlan = calendarState[dateKey].ryan;
+                const beaHasPlan = calendarState[dateKey].bea;
+
+                let columnTarget = "both";
                 let logText = "";
 
-                // RE-ALIGNED TRUTH CONDITIONALS:
+                // EMBEDDED LOCAL RE-ROUTING MATRIX
                 if (ryanHasPlan && !beaHasPlan) {
                     columnTarget = "bea";
-                    logText = `⚠️ WARNING: [${displayLabel}] Ryan has plans. Bea needs a dinner plan!`;
+                    logText = `⚠️ WARNING: [${displayLabel}] Ryan has an event block marked. Bea needs dinner!`;
                 } else if (beaHasPlan && !ryanHasPlan) {
                     columnTarget = "ryan";
-                    logText = `⚠️ WARNING: [${displayLabel}] Bea has plans. Ryan needs a dinner plan!`;
+                    logText = `⚠️ WARNING: [${displayLabel}] Bea has an event block marked. Ryan needs dinner!`;
                 } else if (!ryanHasPlan && !beaHasPlan) {
                     columnTarget = "both";
-                    logText = `⚠️ CRITICAL: [${displayLabel}] No dinner plans recorded. Plan a meal together!`;
+                    logText = `⚠️ CRITICAL: [${displayLabel}] Clear night open. Plan a meal together!`;
                 } else {
-                    columnTarget = null; // Both busy
+                    columnTarget = null; // Both busy out -> Hidden!
                 }
 
                 if (columnTarget) {
                     counters[columnTarget]++;
-                    totalAlerts++;
                     
                     const block = document.createElement('div');
                     block.className = 'smart-day-block';
                     block.innerHTML = `
-                        <div class="smart-day-title"><span>● ${displayLabel}</span></div>
+                        <div class="smart-day-title">
+                            <span>● ${displayLabel}</span>
+                            <div class="status-badge-container">
+                                <button class="status-btn ${ryanHasPlan ? 'active-ryan' : ''}" onclick="toggleUserPlan('${dateKey}', 'ryan')">R Out</button>
+                                <button class="status-btn ${beaHasPlan ? 'active-bea' : ''}" onclick="toggleUserPlan('${dateKey}', 'bea')">B Out</button>
+                            </div>
+                        </div>
                         <input type="text" class="smart-day-input" value="${dynamicDinners[dateKey] || ''}" placeholder="Plan dinner..." oninput="saveSmartDinner('${dateKey}', this.value)">
                     `;
                     document.getElementById(`container-${columnTarget}`).appendChild(block);
@@ -409,21 +400,23 @@
                 }
             }
 
-            if (totalAlerts === 0) {
-                logTerminal.innerHTML = "🏁 SCANNER RESUME: 100% of the next 14 days are planned. No gaps found.";
-                logTerminal.style.color = "#1aff1a";
-            }
+            if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All sorted!</p>";
+            if(counters.bea === 0) document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All sorted!</p>";
+            if(counters.both === 0) document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All sorted!</p>";
+        }
 
-            if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All nights sorted!</p>";
-            if(counters.bea === 0) document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All nights sorted!</p>";
-            if(counters.both === 0) document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All nights sorted!</p>";
+        function toggleUserPlan(dateKey, user) {
+            calendarState[dateKey][user] = !calendarState[dateKey][user];
+            localStorage.setItem('food_os_cal_state_v17', JSON.stringify(calendarState));
+            renderSmartGrid();
         }
 
         function saveSmartDinner(dateKey, value) {
             dynamicDinners[dateKey] = value;
-            localStorage.setItem('food_os_dinners_v16', JSON.stringify(dynamicDinners));
+            localStorage.setItem('food_os_dinners_v17', JSON.stringify(dynamicDinners));
         }
 
+        // GROCERY TRACKER SYSTEM ENGINE
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
             listEl.innerHTML = '';
@@ -437,7 +430,7 @@
                 `;
                 listEl.appendChild(li);
             });
-            localStorage.setItem('food_os_shop_v16', JSON.stringify(shoppingList));
+            localStorage.setItem('food_os_shop_v17', JSON.stringify(shoppingList));
         }
 
         function addItem() {
@@ -455,7 +448,7 @@
         function deleteItem(index) { shoppingList.splice(index, 1); renderShoppingList(); }
 
         renderShoppingList();
-        routeSmartDinners();
+        renderSmartGrid();
     </script>
 </body>
 </html>
