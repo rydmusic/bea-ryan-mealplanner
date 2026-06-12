@@ -204,8 +204,9 @@
 </head>
 <body>
 
+    <!-- Header Navigation Bar -->
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v6.1_CORRECT_LOGIC</div>
+        <div class="nav-logo">💾 FOOD_OS // v6.2_REGEX_PARSER</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -213,8 +214,10 @@
         </div>
     </nav>
 
+    <!-- Master Layout Split Grid -->
     <main class="desktop-layout">
 
+        <!-- UNIFIED MASTER CALENDAR WINDOW -->
         <section class="retro-window full-width">
             <div class="window-header yellow-variant">
                 <span>User_Schedule: Consolidated_Master_Calendar.live</span>
@@ -229,23 +232,27 @@
             </div>
         </section>
 
-        <section class="retro-window">
+        <!-- DINNER PLANNER INTERACTIVE COLUMNS FRAME -->
+        <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span>Intelligent_Router: Dinner_Router.exe</span>
                 <span>✖</span>
             </div>
             <div class="window-body smart-dinner-grid">
                 
+                <!-- COLUMN 1 -->
                 <div class="smart-column" id="col-ryan">
                     <div class="column-header-tag tag-ryan">Ryan Nights In</div>
                     <div id="container-ryan">Booting stream lines...</div>
                 </div>
 
+                <!-- COLUMN 2 -->
                 <div class="smart-column" id="col-bea">
                     <div class="column-header-tag tag-bea">Bea Nights In</div>
                     <div id="container-bea">Booting stream lines...</div>
                 </div>
 
+                <!-- COLUMN 3 -->
                 <div class="smart-column" id="col-both">
                     <div class="column-header-tag tag-both">Nights In Together</div>
                     <div id="container-both">Booting stream lines...</div>
@@ -254,7 +261,8 @@
             </div>
         </section>
 
-        <section class="retro-window">
+        <!-- GROCERY SYSTEM CHECKLIST WINDOW -->
+        <section class="retro-window full-width">
             <div class="window-header blue-variant">
                 <span>System Error: Missing Ingredients</span>
                 <span>✖</span>
@@ -266,7 +274,8 @@
                     <button onclick="addItem()" class="retro-btn">Enter...</button>
                 </div>
                 <ul class="shopping-list" id="shopping-list">
-                    </ul>
+                    <!-- Target element for checklists arrays -->
+                </ul>
             </div>
         </section>
 
@@ -316,16 +325,20 @@
                 const ryanBookedDates = new Set();
                 const beaBookedDates = new Set();
 
+                // DEEP REGEX SCRIPT REWRITE: Captures standard format, all-day format, and timezone-injected format lines effortlessly
                 const parseICalStream = (text, targetSet) => {
                     if (!text) return;
                     const lines = text.split(/\r?\n/);
                     let activeDate = null;
                     for(let line of lines) {
                         if(line.startsWith("BEGIN:VEVENT")) activeDate = null;
+                        
+                        // Scans lines matching DTSTART followed by any timezone parameters up until the colon and reads the 8-digit date code
                         if(line.startsWith("DTSTART")) {
-                            const match = line.match(/:([0-9]{8})/);
+                            const match = line.match(/[:=]([0-9]{8})/);
                             if(match) activeDate = match[1];
                         }
+                        
                         if(line.startsWith("END:VEVENT") && activeDate) {
                             targetSet.add(activeDate);
                         }
@@ -355,15 +368,15 @@
 
                     let columnTarget = null;
 
-                    // YOUR EXACT LOGIC SPECIFICATIONS:
+                    // STRICT BUSINESS RULES MATRIX
                     if (ryanHasPlan && !beaHasPlan) {
-                        columnTarget = "bea";    // Ryan has an orange event, Bea doesn't -> Drop into Bea Nights In
+                        columnTarget = "bea";    // Ryan has an orange dot, Bea doesn't -> Bea is home alone cooking!
                     } else if (beaHasPlan && !ryanHasPlan) {
-                        columnTarget = "ryan";   // Bea has a red event, Ryan doesn't -> Drop into Ryan Nights In
+                        columnTarget = "ryan";   // Bea has a red dot, Ryan doesn't -> Ryan is home alone cooking!
                     } else if (!ryanHasPlan && !beaHasPlan) {
-                        columnTarget = "both";   // No plans anywhere on this date -> Drop into Nights In Together
+                        columnTarget = "both";   // No events on either calendar -> Cook together!
                     } else {
-                        columnTarget = null;     // Both have plans -> Dinner is fully handled, skip!
+                        columnTarget = null;     // Both have events logged -> Fully sorted, skip display completely!
                     }
 
                     if (columnTarget) {
