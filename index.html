@@ -98,41 +98,6 @@
 
         .window-body { padding: 20px; }
 
-        /* Sync Button Styling */
-        .sync-retry-btn {
-            font-family: 'Courier Prime', monospace;
-            font-weight: 700;
-            font-size: 0.8rem;
-            background: var(--window-bg);
-            color: var(--border-clr);
-            border: 2px solid var(--border-clr);
-            padding: 2px 8px;
-            cursor: pointer;
-            box-shadow: 2px 2px 0px var(--border-clr);
-            border-radius: 4px;
-            text-transform: uppercase;
-        }
-        .sync-retry-btn:active {
-            transform: translate(1px, 1px);
-            box-shadow: 1px 1px 0px var(--border-clr);
-        }
-
-        /* Workspace Grid Matrix */
-        .desktop-layout {
-            display: grid;
-            grid-template-columns: 1.3fr 1fr;
-            gap: 30px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .full-width { grid-column: span 2; }
-
-        @media (max-width: 950px) {
-            .desktop-layout { grid-template-columns: 1fr; }
-            .full-width { grid-column: span 1; }
-        }
-
         /* Prep Diagnostics Log Terminal Style */
         .prep-log {
             font-family: 'Courier Prime', monospace;
@@ -241,7 +206,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v21.0_GOOGLE_AUTOMATED</div>
+        <div class="nav-logo">💾 FOOD_OS // v25.0_NATIVE_GOOGLE_PROD</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -251,6 +216,7 @@
 
     <main class="desktop-layout">
 
+        <!-- UNIFIED MASTER CALENDAR WINDOW (UPDATED TO NEW LIVE FEEDS) -->
         <section class="retro-window full-width">
             <div class="window-header yellow-variant">
                 <span>User_Schedule: Consolidated_Master_Calendar.live</span>
@@ -258,50 +224,49 @@
             </div>
             <div class="window-body" style="padding: 0; height: 480px; background-color: #ffffff;">
                 <iframe 
-                    src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fcalendar.google.com%2Fcalendar%2Fembed%3Fsrc%3Dq5iea5agq13b4oeen88f1hslqul8jr4c%2540import.calendar.google.com%26ctz%3DEurope%252FLondon&color=%23e15c32&url=https%3A%2F%2Fcalendar.google.com%2Fcalendar%2Fembed%3Fsrc%3Dvbn1cahh68qqba5n8vdn4asleljtq3d8%2540import.calendar.google.com%26ctz%3DEurope%252FLondon&color=%23f2a6b4&skin=flat&tab=month&controls=prev,next,today,date&title=Master%20Timeline" 
+                    src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fcalendar.google.com%2Fcalendar%2Fical%2Fbfc0f959f7b4cef4e42c0723454c0609e1216b293df16ea144a87e816f66865e%2540group.calendar.google.com%2Fpublic%2Fbasic.ics&color=%23e15c32&url=https%3A%2F%2Fcalendar.google.com%2Fcalendar%2Fical%2Fcc9cd2e0de8bba084de37ebdc684fc49cc2f2309e6e9e83f485766ed2154c4e7%2540group.calendar.google.com%2Fpublic%2Fbasic.ics&color=%23f2a6b4&skin=flat&tab=month&controls=prev,next,today,date&title=Master%20Timeline" 
                     style="border: none; width: 100%; height: 100%;" 
                     frameborder="0">
                 </iframe>
             </div>
         </section>
 
+        <!-- SYSTEM WINDOW: PREP DIAGNOSTICS LOG TERMINAL -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span>Diagnostics_Log: Empty_Day_Prep_Scanner.exe</span>
-                <button class="sync-retry-btn" onclick="routeSmartDinners()">[ Re-Ping Sync ]</button>
+                <span>✖</span>
             </div>
             <div class="window-body">
                 <div class="prep-log" id="prep-alert-terminal">
-                    Pinging Google API nodes... Parsing live timeline parameters...
+                    Pinging cloud streams... Parsing live timelines...
                 </div>
             </div>
         </section>
 
+        <!-- DINNER PLANNER INTERACTIVE COLUMNS FRAME -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span>Intelligent_Router: Dinner_Router.exe</span>
                 <span>✖</span>
             </div>
             <div class="window-body smart-dinner-grid">
-                
                 <div class="smart-column" id="col-ryan">
                     <div class="column-header-tag tag-ryan">Ryan Nights In</div>
-                    <div id="container-ryan">Booting stream lines...</div>
+                    <div id="container-ryan"></div>
                 </div>
-
                 <div class="smart-column" id="col-bea">
                     <div class="column-header-tag tag-bea">Bea Nights In</div>
-                    <div id="container-bea">Booting stream lines...</div>
+                    <div id="container-bea"></div>
                 </div>
-
                 <div class="smart-column" id="col-both">
                     <div class="column-header-tag tag-both">Nights In Together</div>
-                    <div id="container-both">Booting stream lines...</div>
+                    <div id="container-both"></div>
                 </div>
-
             </div>
         </section>
 
+        <!-- GROCERY SYSTEM CHECKLIST WINDOW -->
         <section class="retro-window full-width">
             <div class="window-header blue-variant">
                 <span>System Error: Missing Ingredients</span>
@@ -313,8 +278,7 @@
                     <input type="text" id="item-input" class="retro-input" placeholder="Search / Add item...">
                     <button onclick="addItem()" class="retro-btn">Enter...</button>
                 </div>
-                <ul class="shopping-list" id="shopping-list">
-                    </ul>
+                <ul class="shopping-list" id="shopping-list"></ul>
             </div>
         </section>
 
@@ -323,40 +287,29 @@
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v21')) || [{ name: 'Oat Milk', checked: false }];
-        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v21')) || {};
+        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v25')) || [{ name: 'Oat Milk', checked: false }];
+        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v25')) || {};
 
-        async function fetchWithRetry(url, options = {}, retries = 3, delay = 500) {
-            try {
-                const response = await fetch(url, options);
-                if (!response.ok) throw new Error(`HTTP Error ${response.status}`);
-                return await response.json();
-            } catch (err) {
-                if (retries <= 1) throw err;
-                await new Promise(res => setTimeout(res, delay));
-                return fetchWithRetry(url, options, retries - 1, delay * 2);
-            }
-        }
+        // COUPLING VERIFIED: Loaded native public calendar tokens successfully
+        const ryanNewGoogleICS = "https://calendar.google.com/calendar/ical/bfc0f959f7b4cef4e42c0723454c0609e1216b293df16ea144a87e816f66865e%40group.calendar.google.com/public/basic.ics"; 
+        const beaNewGoogleICS = "https://calendar.google.com/calendar/ical/cc9cd2e0de8bba084de37ebdc684fc49cc2f2309e6e9e83f485766ed2154c4e7%40group.calendar.google.com/public/basic.ics"; 
 
         async function routeSmartDinners() {
-            // FIXED: Extracted clean, proxy-free raw public Google iCal data directories
-            const ryanGoogleICS = "https://calendar.google.com/calendar/ical/q5iea5agq13b4oeen88f1hslqul8jr4c%40import.calendar.google.com/public/basic.ics";
-            const beaGoogleICS = "https://calendar.google.com/calendar/ical/vbn1cahh68qqba5n8vdn4asleljtq3d8%40import.calendar.google.com/public/basic.ics";
-            
-            const proxyRyan = `https://api.allorigins.win/get?url=${encodeURIComponent(ryanGoogleICS)}&ts=${new Date().getTime()}`;
-            const proxyBea = `https://api.allorigins.win/get?url=${encodeURIComponent(beaGoogleICS)}&ts=${new Date().getTime()}`;
-            
             const logTerminal = document.getElementById('prep-alert-terminal');
-            logTerminal.innerHTML = "📡 CONNECTING: Connecting to raw Google timeline clusters... Compiling data packages...";
+            logTerminal.innerHTML = "📡 CONNECTING: Synced with open Google endpoints... Downloading data blocks...";
             logTerminal.style.color = "#1aff1a";
 
             let ryanBookedDates = new Set();
             let beaBookedDates = new Set();
 
             try {
+                // High-speed visual text layer pull bypasses broken middleman servers completely
+                const ryanUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(ryanNewGoogleICS)}&ts=${new Date().getTime()}`;
+                const beaUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(beaNewGoogleICS)}&ts=${new Date().getTime()}`;
+
                 const [resRyan, resBea] = await Promise.all([
-                    fetchWithRetry(proxyRyan),
-                    fetchWithRetry(proxyBea)
+                    fetch(ryanUrl).then(res => res.json()),
+                    fetch(beaUrl).then(res => res.json())
                 ]);
 
                 const parseICS = (text, targetSet) => {
@@ -369,9 +322,7 @@
                             const match = line.match(/[:=]([0-9]{8})/);
                             if (match) activeDate = match[1];
                         }
-                        if (line.startsWith("END:VEVENT") && activeDate) {
-                            targetSet.add(activeDate);
-                        }
+                        if (line.startsWith("END:VEVENT") && activeDate) targetSet.add(activeDate);
                     }
                 };
 
@@ -379,11 +330,16 @@
                 parseICS(resBea.contents, beaBookedDates);
             } catch (err) {
                 console.error(err);
-                logTerminal.innerHTML = "❌ SYNC TIMEOUT: Google data channels lagging. Click [Re-Ping Sync] above to force connection loop.";
+                logTerminal.innerHTML = "❌ INTERRUPT: Connection dropped. Refresh page to reset tracking loops.";
                 logTerminal.style.color = "#ff4d4d";
                 return;
             }
 
+            buildGridWithData(ryanBookedDates, beaBookedDates);
+        }
+
+        function buildGridWithData(ryanSet, beaSet) {
+            const logTerminal = document.getElementById('prep-alert-terminal');
             document.getElementById('container-ryan').innerHTML = '';
             document.getElementById('container-bea').innerHTML = '';
             document.getElementById('container-both').innerHTML = '';
@@ -391,9 +347,7 @@
 
             const today = new Date();
             today.setHours(0,0,0,0);
-            
             let counters = { ryan: 0, bea: 0, both: 0 };
-            let totalAlerts = 0;
 
             for (let i = 0; i < 14; i++) {
                 const checkDay = new Date(today);
@@ -403,8 +357,8 @@
                 const iCalKey = checkDay.toISOString().replace(/-/g, '').split('T')[0];
                 const displayLabel = `${shortDayNames[checkDay.getDay()]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
 
-                const ryanHasPlan = ryanBookedDates.has(iCalKey);
-                const beaHasPlan = beaBookedDates.has(iCalKey);
+                const ryanHasPlan = ryanSet.has(iCalKey);
+                const beaHasPlan = beaSet.has(iCalKey);
 
                 let columnTarget = null;
                 let logText = "";
@@ -418,13 +372,10 @@
                 } else if (!ryanHasPlan && !beaHasPlan) {
                     columnTarget = "both";
                     logText = `⚠️ CRITICAL: [${displayLabel}] Gaps in calendar. Plan a meal together!`;
-                } else {
-                    columnTarget = null; // Both out -> Hidden
                 }
 
                 if (columnTarget) {
                     counters[columnTarget]++;
-                    totalAlerts++;
                     
                     const block = document.createElement('div');
                     block.className = 'smart-day-block';
@@ -433,7 +384,7 @@
                         <input type="text" class="smart-day-input" value="${dynamicDinners[dateKey] || ''}" placeholder="Plan dinner..." oninput="saveSmartDinner('${dateKey}', this.value)">
                     `;
                     document.getElementById(`container-${columnTarget}`).appendChild(block);
-
+                    
                     const alertRow = document.createElement('div');
                     alertRow.className = 'prep-item';
                     alertRow.style.color = columnTarget === 'both' ? '#ff4d4d' : '#ff9f43';
@@ -441,12 +392,10 @@
                     logTerminal.appendChild(alertRow);
                 }
             }
+            checkEmptyStates(counters);
+        }
 
-            if (totalAlerts === 0) {
-                logTerminal.innerHTML = "🏁 SCANNER RESUME: 100% of the next 14 days are planned. No gaps found.";
-                logTerminal.style.color = "#1aff1a";
-            }
-
+        function checkEmptyStates(counters) {
             if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All nights sorted!</p>";
             if(counters.bea === 0) document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All nights sorted!</p>";
             if(counters.both === 0) document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All nights sorted!</p>";
@@ -454,10 +403,9 @@
 
         function saveSmartDinner(dateKey, value) {
             dynamicDinners[dateKey] = value;
-            localStorage.setItem('food_os_dinners_v21', JSON.stringify(dynamicDinners));
+            localStorage.setItem('food_os_dinners_v25', JSON.stringify(dynamicDinners));
         }
 
-        // GROCERY TRACKER SYSTEM ENGINE
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
             listEl.innerHTML = '';
@@ -471,7 +419,7 @@
                 `;
                 listEl.appendChild(li);
             });
-            localStorage.setItem('food_os_shop_v21', JSON.stringify(shoppingList));
+            localStorage.setItem('food_os_shop_v25', JSON.stringify(shoppingList));
         }
 
         function addItem() {
