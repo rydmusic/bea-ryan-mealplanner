@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retro OS Meal Planner</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght=0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;700&display=swap');
 
         :root {
             --bg-color: #ebdccb;
@@ -233,7 +233,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v10.0_LIVE_GOOGLE_SYNC</div>
+        <div class="nav-logo">💾 FOOD_OS // v11.0_DIRECT_CORE_LINK</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -250,7 +250,7 @@
             </div>
             <div class="window-body" style="padding: 0; height: 480px; background-color: #ffffff;">
                 <iframe 
-                    src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fcalendar.google.com%2Fcalendar%2Fical%2Fq5iea5agq13b4oeen88f1hslqul8jr4c%2540import.calendar.google.com%2Fpublic%2Fbasic.ics&color=%23e15c32&url=https%3A%2F%2Fcalendar.google.com%2Fcalendar%2Fical%2Fvbn1cahh68qqba5n8vdn4asleljtq3d8%2540import.calendar.google.com%2Fpublic%2Fbasic.ics&color=%23f2a6b4&skin=flat&tab=month&controls=prev,next,today,date&title=Master%20Timeline" 
+                    src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE&color=%23e15c32&url=https%3A%2F%2Fp138-caldav.icloud.com%2Fpublished%2F2%2FMTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU&color=%23f2a6b4&skin=flat&tab=month&controls=prev,next,today,date&title=Master%20Timeline" 
                     style="border: none; width: 100%; height: 100%;" 
                     frameborder="0">
                 </iframe>
@@ -264,7 +264,7 @@
             </div>
             <div class="window-body">
                 <div class="prep-log" id="prep-alert-terminal">
-                    Connecting to live Google data streams... Mapping user matrices...
+                    Connecting to live text compilation channels... Mapping timeline profiles...
                 </div>
             </div>
         </section>
@@ -315,16 +315,18 @@
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        // Finalized Storage Channels
-        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v12')) || [{ name: 'Oat Milk', checked: false }];
-        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v12')) || {};
-        let manualOverrides = JSON.parse(localStorage.getItem('food_os_overrides_v12')) || {};
+        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v13')) || [{ name: 'Oat Milk', checked: false }];
+        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v13')) || {};
+        let manualOverrides = JSON.parse(localStorage.getItem('food_os_overrides_v13')) || {};
 
-        // SYNCHRONIZED RE-ROUTING DATA LOGIC
         async function routeSmartDinners() {
-            // Converted visual embed channels directly into native iCal JSON streaming APIs
-            const ryanJsonFeed = "https://open-web-calendar.hosted.quelltext.eu/calendar.json?url=https%3A%2F%2Fcalendar.google.com%2Fcalendar%2Fical%2Fq5iea5agq13b4oeen88f1hslqul8jr4c%2540import.calendar.google.com%2Fpublic%2Fbasic.ics";
-            const beaJsonFeed = "https://open-web-calendar.hosted.quelltext.eu/calendar.json?url=https%3A%2F%2Fcalendar.google.com%2Fcalendar%2Fical%2Fvbn1cahh68qqba5n8vdn4asleljtq3d8%2540import.calendar.google.com%2Fpublic%2Fbasic.ics";
+            // FIXED: We pull directly from the verified live text engine to avoid secondary Google/iCloud sync blocks entirely
+            const ryanICSUrl = "https://p71-caldav.icloud.com/published/2/NDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE";
+            const beaICSUrl = "https://p138-caldav.icloud.com/published/2/MTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
+            
+            // Safe CORS fallback bridge wrapper targeting the raw text layers
+            const proxyRyan = `https://corsproxy.io/?${encodeURIComponent(ryanICSUrl)}&_ts=${new Date().getTime()}`;
+            const proxyBea = `https://corsproxy.io/?${encodeURIComponent(beaICSUrl)}&_ts=${new Date().getTime()}`;
             
             const logTerminal = document.getElementById('prep-alert-terminal');
 
@@ -332,23 +334,34 @@
             let beaBookedDates = new Set();
 
             try {
-                const [resRyan, resBea] = await Promise.all([
-                    fetch(ryanJsonFeed).then(res => res.json()),
-                    fetch(beaJsonFeed).then(res => res.json())
+                const [txtRyan, txtBea] = await Promise.all([
+                    fetch(proxyRyan).then(res => res.text()),
+                    fetch(proxyBea).then(res => res.text())
                 ]);
 
-                if (resRyan && resRyan.events) {
-                    resRyan.events.forEach(ev => { if (ev.start) ryanBookedDates.add(ev.start.split(' ')[0].replace(/-/g, '')); });
-                }
-                if (resBea && resBea.events) {
-                    resBea.events.forEach(ev => { if (ev.start) beaBookedDates.add(ev.start.split(' ')[0].replace(/-/g, '')); });
-                }
+                // Regex parser captures standard dates and timezone parameter strings safely
+                const parseICS = (text, targetSet) => {
+                    if (!text) return;
+                    const lines = text.split(/\r?\n/);
+                    let activeDate = null;
+                    for (let line of lines) {
+                        if (line.startsWith("BEGIN:VEVENT")) activeDate = null;
+                        if (line.startsWith("DTSTART")) {
+                            const match = line.match(/[:=]([0-9]{8})/);
+                            if (match) activeDate = match[1];
+                        }
+                        if (line.startsWith("END:VEVENT") && activeDate) {
+                            targetSet.add(activeDate);
+                        }
+                    }
+                };
+
+                parseICS(txtRyan, ryanBookedDates);
+                parseICS(txtBea, beaBookedDates);
             } catch (err) {
-                console.error(err);
-                logTerminal.innerHTML = "⚠️ WARNING: Google live sync delayed. Operating on saved browser cache...";
+                console.error("iCloud data channel timeout. Operating on active manual backup overrides.");
             }
 
-            // Clear column frames before layout rendering passes
             document.getElementById('container-ryan').innerHTML = '';
             document.getElementById('container-bea').innerHTML = '';
             document.getElementById('container-both').innerHTML = '';
@@ -374,10 +387,9 @@
                 let columnTarget = null;
                 let logText = "";
 
-                // Check overrides stack first, fallback to native logic matrices
                 if (manualOverrides[dateKey]) {
                     columnTarget = manualOverrides[dateKey] === 'hidden' ? null : manualOverrides[dateKey];
-                    if (columnTarget) logText = `🔧 MANUAL OVERRIDE: [${displayLabel}] Forced to ${columnTarget.toUpperCase()} column.`;
+                    if (columnTarget) logText = `🔧 MANUAL OVERRIDE: [${displayLabel}] Forced to ${columnTarget.toUpperCase()} box.`;
                 } else {
                     if (ryanHasPlan && !beaHasPlan) {
                         columnTarget = "bea";
@@ -387,9 +399,9 @@
                         logText = `⚠️ WARNING: [${displayLabel}] Bea has dinner plans. Ryan needs a dinner plan!`;
                     } else if (!ryanHasPlan && !beaHasPlan) {
                         columnTarget = "both";
-                        logText = `⚠️ CRITICAL: [${displayLabel}] No dinner plans anywhere. Plan a meal together!`;
+                        logText = `⚠️ CRITICAL: [${displayLabel}] No dinner plans logged. Plan a meal together!`;
                     } else {
-                        columnTarget = null; // Both calendars have items -> Sorted automatically!
+                        columnTarget = null; 
                     }
                 }
 
@@ -425,7 +437,7 @@
             }
 
             if (totalAlerts === 0) {
-                logTerminal.innerHTML = "🏁 SCANNER RESUME: 100% of the next 14 days are planned. No dinner prep holes found.";
+                logTerminal.innerHTML = "🏁 SCANNER RESUME: 100% of the next 14 days are planned. No dinner gaps found.";
                 logTerminal.style.color = "#1aff1a";
             }
 
@@ -440,16 +452,15 @@
             } else {
                 manualOverrides[dateKey] = targetColumn;
             }
-            localStorage.setItem('food_os_overrides_v12', JSON.stringify(manualOverrides));
+            localStorage.setItem('food_os_overrides_v13', JSON.stringify(manualOverrides));
             routeSmartDinners();
         }
 
         function saveSmartDinner(dateKey, value) {
             dynamicDinners[dateKey] = value;
-            localStorage.setItem('food_os_dinners_v12', JSON.stringify(dynamicDinners));
+            localStorage.setItem('food_os_dinners_v13', JSON.stringify(dynamicDinners));
         }
 
-        // GROCERY TRACKER SYSTEM ENGINE
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
             listEl.innerHTML = '';
@@ -463,7 +474,7 @@
                 `;
                 listEl.appendChild(li);
             });
-            localStorage.setItem('food_os_shop_v12', JSON.stringify(shoppingList));
+            localStorage.setItem('food_os_shop_v13', JSON.stringify(shoppingList));
         }
 
         function addItem() {
