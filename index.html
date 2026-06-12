@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZiggyZag Meal Planner</title>
+    <title>Retro OS Meal Planner</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700;1,900&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;700&display=swap');
 
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.45);
-            --glass-border: rgba(255, 255, 255, 0.4);
-            --input-bg: rgba(255, 255, 255, 0.75);
-            --text-dark: #111111;
+            --bg-color: #ebdccb;
+            --window-bg: #fffcf7;
+            --border-clr: #000000;
+            --accent-orange: #e15c32;
+            --accent-pink: #f2a6b4;
+            --accent-blue: #3283c4;
+            --folder-yellow: #f5cd79;
         }
 
         * {
@@ -21,307 +24,293 @@
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--border-clr);
+            padding: 30px;
             min-height: 100vh;
-            color: var(--text-dark);
-            overflow-x: hidden;
-            position: relative;
         }
 
-        /* Ambient Cloud Background Video */
-        .video-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -2;
-            pointer-events: none;
-        }
-
-        .overlay-dim {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(2px);
-            z-index: -1;
-        }
-
-        /* Top Navigation Header */
-        header {
+        /* Top Menu bar mimicking the asset design */
+        .top-nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 40px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .nav-badge {
-            background-color: #f7f393;
-            color: #000;
-            padding: 5px 15px;
-            font-weight: bold;
-            font-style: italic;
-            text-transform: uppercase;
-            border: 2px solid #000;
+            border: 2px solid var(--border-clr);
+            background-color: var(--window-bg);
+            padding: 8px 20px;
+            box-shadow: 4px 4px 0px var(--border-clr);
+            margin-bottom: 40px;
             border-radius: 4px;
-            text-decoration: none;
-            box-shadow: 2px 2px 0px #000;
-            font-size: 0.9rem;
         }
 
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            font-weight: 900;
-            font-style: italic;
-            color: #fff;
-            text-shadow: 2px 2px 0px #ff3366, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000, 1px 1px 0px #000;
-            letter-spacing: -1px;
+        .nav-logo {
+            font-family: 'Courier Prime', monospace;
+            font-weight: 700;
+            font-size: 1.4rem;
+            text-transform: uppercase;
         }
 
-        .social-icons {
+        .window-controls-dummy {
             display: flex;
-            gap: 15px;
-            color: white;
-            font-size: 1.2rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            gap: 8px;
         }
 
-        /* Main Workspace split into columns */
-        .workspace {
+        .dot-control {
+            width: 12px;
+            height: 12px;
+            border: 2px solid var(--border-clr);
+            border-radius: 50%;
+            background: white;
+        }
+
+        /* Workspace Grid */
+        .desktop-layout {
             display: grid;
             grid-template-columns: 1.2fr 1fr;
             gap: 40px;
-            max-width: 1400px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 20px 40px 60px 40px;
-            position: relative;
-            z-index: 5;
         }
 
         @media (max-width: 900px) {
-            .workspace {
+            .desktop-layout {
                 grid-template-columns: 1fr;
             }
         }
 
-        /* Styled Section Headers */
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            font-style: italic;
-            text-transform: uppercase;
-            text-align: center;
-            line-height: 1.1;
-            margin-bottom: 25px;
-            color: #000;
-            letter-spacing: -1px;
-        }
-
-        /* Glassmorphism containers */
-        .glass-panel {
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px) saturate(140%);
-            -webkit-backdrop-filter: blur(12px) saturate(140%);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 30px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-        }
-
-        /* Meal Grid Structure */
-        .meal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
-        }
-
-        .day-card {
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 16px;
-            padding: 12px;
-        }
-
-        .day-title {
-            font-weight: 700;
-            font-size: 1.05rem;
-            margin-bottom: 8px;
-            text-align: center;
-        }
-
-        .input-block {
-            margin-bottom: 8px;
-        }
-
-        .input-block:last-child {
-            margin-bottom: 0;
-        }
-
-        .input-block label {
-            display: block;
-            font-size: 0.65rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #444;
-            margin-left: 4px;
-            margin-bottom: 2px;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 8px 12px;
-            background: var(--input-bg);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 10px;
-            font-family: inherit;
-            font-size: 0.9rem;
-            color: var(--text-dark);
-            outline: none;
-            transition: all 0.2s ease;
-        }
-
-        input[type="text"]:focus {
-            background: #ffffff;
-            box-shadow: 0 0 0 3px rgba(255,255,255,0.5);
-        }
-
-        /* Grocery Shopping List Elements */
-        .grocery-input-wrapper {
-            position: relative;
+        /* Reusable Retro UI Window Wrapper */
+        .retro-window {
+            background-color: var(--window-bg);
+            border: 2px solid var(--border-clr);
+            border-radius: 8px;
+            box-shadow: 6px 6px 0px var(--border-clr);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
             margin-bottom: 20px;
         }
 
-        .grocery-input-wrapper input {
-            padding-right: 80px;
-            height: 45px;
-            font-size: 1rem;
+        .window-header {
+            background-color: var(--accent-pink);
+            border-bottom: 2px solid var(--border-clr);
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Courier Prime', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .grocery-input-wrapper button {
-            position: absolute;
-            right: 6px;
-            top: 6px;
-            bottom: 6px;
-            background: #000;
-            color: #fff;
-            border: none;
-            padding: 0 15px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
+        .window-header.blue-variant {
+            background-color: var(--accent-blue);
+            color: white;
+        }
+
+        .window-body {
+            padding: 20px;
+        }
+
+        /* Left Side: Meal Planner (Styled like a Group Chat/Log window) */
+        .chat-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .day-bubble-row {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .day-tag {
             font-size: 0.85rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-family: 'Courier Prime', monospace;
+            display: inline-block;
         }
 
+        .chat-bubble-input {
+            width: 100%;
+            border: 2px solid var(--border-clr);
+            border-radius: 12px;
+            padding: 10px 15px;
+            background-color: white;
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+            box-shadow: inset 2px 2px 0px rgba(0,0,0,0.05);
+        }
+
+        .chat-bubble-input:focus {
+            background-color: #fffdf0;
+            border-color: var(--accent-orange);
+        }
+
+        /* Colored variations like the reference image */
+        .lunch-box input {
+            border-color: var(--border-clr);
+            background-color: #fff2ed; /* Tint of orange */
+        }
+        .dinner-box input {
+            border-color: var(--border-clr);
+            background-color: white;
+        }
+
+        /* Right Side: Grocery Shopping System Error Box */
+        .search-bar-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .retro-input {
+            flex: 1;
+            border: 2px solid var(--border-clr);
+            border-radius: 4px;
+            padding: 10px;
+            font-family: 'Courier Prime', monospace;
+            font-size: 1rem;
+            background-color: white;
+            outline: none;
+        }
+
+        .retro-btn {
+            border: 2px solid var(--border-clr);
+            background-color: var(--window-bg);
+            padding: 0 20px;
+            font-family: 'Courier Prime', monospace;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 3px 3px 0px var(--border-clr);
+            border-radius: 4px;
+            transition: transform 0.05s ease;
+        }
+
+        .retro-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px var(--border-clr);
+        }
+
+        /* Grocery Items Checklist */
         .shopping-list {
             list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .shopping-item {
+        .grocery-item {
             display: flex;
             align-items: center;
-            background: var(--input-bg);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            padding: 12px 16px;
-            border-radius: 12px;
-            margin-bottom: 10px;
+            border: 2px solid var(--border-clr);
+            background: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            box-shadow: 2px 2px 0px var(--border-clr);
             cursor: pointer;
-            transition: transform 0.1s ease;
         }
 
-        .shopping-item:hover {
-            transform: translateY(-1px);
+        .grocery-item.checked {
+            background-color: #f0ede6;
+            opacity: 0.7;
         }
 
-        .shopping-item.checked {
-            opacity: 0.6;
-        }
-
-        .shopping-item.checked .item-text {
+        .grocery-item.checked .item-text {
             text-decoration: line-through;
         }
 
-        .checkbox-custom {
+        /* Custom Pixel/Retro Square Checkboxes */
+        .retro-checkbox {
             width: 18px;
             height: 18px;
-            border: 2px solid #444;
-            border-radius: 4px;
-            margin-right: 12px;
+            border: 2px solid var(--border-clr);
+            background: white;
+            margin-right: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.7rem;
-            background: white;
         }
 
-        .shopping-item.checked .checkbox-custom::after {
-            content: "✓";
-            font-weight: bold;
-            color: #000;
+        .grocery-item.checked .retro-checkbox::after {
+            content: "";
+            width: 8px;
+            height: 8px;
+            background: var(--accent-orange);
         }
 
         .item-text {
             flex: 1;
-            font-size: 0.95rem;
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 1rem;
         }
 
         .delete-btn {
-            background: transparent;
+            background: none;
             border: none;
-            color: #ff3366;
+            font-family: monospace;
             font-weight: bold;
+            font-size: 1.1rem;
             cursor: pointer;
-            padding: 0 5px;
-            font-size: 1rem;
+            color: var(--border-clr);
+        }
+
+        .delete-btn:hover {
+            color: var(--accent-orange);
+        }
+        
+        /* Subtle Checkerboard pattern banner like your image */
+        .checker-banner {
+            height: 16px;
+            background-image: linear-gradient(45deg, #000 25%, transparent 25%), linear-gradient(-45deg, #000 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #000 75%), linear-gradient(-45deg, transparent 75%, #000 75%);
+            background-size: 16px 16px;
+            background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+            background-color: var(--accent-blue);
+            border-bottom: 2px solid var(--border-clr);
         }
     </style>
 </head>
 <body>
 
-    <video class="video-bg" autoplay loop muted playsinline poster="https://assets.mixkit.co/videos/preview/mixkit-clouds-moving-fast-in-the-sky-34220-large.jpg">
-        <source src="https://assets.mixkit.co/videos/preview/mixkit-clouds-moving-fast-in-the-sky-34220-large.mp4" type="video/mp4">
-    </video>
-    <div class="overlay-dim"></div>
-
-    <header>
-        <div>
-            <a href="#" class="nav-badge">Home Dashboard</a>
+    <nav class="top-nav">
+        <div class="nav-logo">💾 FOOD_OS // v1.0</div>
+        <div class="window-controls-dummy">
+            <div class="dot-control"></div>
+            <div class="dot-control"></div>
+            <div class="dot-control"></div>
         </div>
-        <div class="logo">ZiggyZag</div>
-        <div class="social-icons">
-            <span>📷</span>
-            <span>𝕏</span>
-            <span>ⓕ</span>
-            <span>in</span>
-        </div>
-    </header>
+    </nav>
 
-    <main class="workspace">
+    <main class="desktop-layout">
         
-        <section class="glass-panel">
-            <h2 class="section-title">Weekly<br>Meal Planner</h2>
-            <div class="meal-grid" id="meal-grid">
+        <section class="retro-window">
+            <div class="window-header">
+                <span>Group Chat: What's Cooking?</span>
+                <span>✖</span>
+            </div>
+            <div class="window-body chat-layout" id="meal-chat-container">
                 </div>
         </section>
 
-        <section class="glass-panel">
-            <h2 class="section-title">Grocery<br>Shopping List</h2>
-            
-            <div class="grocery-input-wrapper">
-                <input type="text" id="item-input" placeholder="Add item...">
-                <button onclick="addItem()">Add Items</button>
+        <section class="retro-window">
+            <div class="window-header blue-variant">
+                <span>System Error: Missing Ingredients</span>
+                <span>✖</span>
             </div>
+            <div class="checker-banner"></div>
+            <div class="window-body">
+                <div class="search-bar-container">
+                    <input type="text" id="item-input" class="retro-input" placeholder="Search / Add item...">
+                    <button onclick="addItem()" class="retro-btn">Enter...</button>
+                </div>
 
-            <ul class="shopping-list" id="shopping-list">
-                </ul>
+                <ul class="shopping-list" id="shopping-list">
+                    </ul>
+            </div>
         </section>
 
     </main>
@@ -329,56 +318,53 @@
     <script>
         const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
         
-        // Initializing reactive components with stateful LocalStorage persistence
-        let mealPlan = JSON.parse(localStorage.getItem('z_mealPlan')) || {};
-        let shoppingList = JSON.parse(localStorage.getItem('z_shoppingList')) || [
+        let mealPlan = JSON.parse(localStorage.getItem('retro_mealPlan')) || {};
+        let shoppingList = JSON.parse(localStorage.getItem('retro_shoppingList')) || [
             { name: 'Oat Milk', checked: false },
-            { name: 'Gummy Bears', checked: false },
+            { name: 'Tomatoes', checked: true },
             { name: 'Coffee Beans', checked: false }
         ];
 
-        // Structural Rendering Engine for the Day Grid
-        const mealGrid = document.getElementById('meal-grid');
+        // Renders the planner inputs to look like a message history log
+        const chatContainer = document.getElementById('meal-chat-container');
         days.forEach(day => {
             if (!mealPlan[day]) mealPlan[day] = { lunch: '', dinner: '' };
             
-            const card = document.createElement('div');
-            card.className = 'day-card';
-            card.innerHTML = `
-                <div class="day-title">${day}</div>
-                <div class="input-block">
-                    <label>Lunch</label>
-                    <input type="text" value="${mealPlan[day].lunch}" oninput="updateMeal('${day}', 'lunch', this.value)">
+            const daySection = document.createElement('div');
+            daySection.className = 'day-bubble-row';
+            daySection.innerHTML = `
+                <div class="day-tag">● User_${day}</div>
+                <div class="lunch-box">
+                    <input type="text" class="chat-bubble-input" value="${mealPlan[day].lunch}" placeholder="Lunch plan..." oninput="updateMeal('${day}', 'lunch', this.value)">
                 </div>
-                <div class="input-block">
-                    <label>Dinner</label>
-                    <input type="text" value="${mealPlan[day].dinner}" oninput="updateMeal('${day}', 'dinner', this.value)">
+                <div class="dinner-box">
+                    <input type="text" class="chat-bubble-input" value="${mealPlan[day].dinner}" placeholder="Dinner plan..." oninput="updateMeal('${day}', 'dinner', this.value)">
                 </div>
             `;
-            mealGrid.appendChild(card);
+            chatContainer.appendChild(daySection);
         });
 
         function updateMeal(day, mealType, value) {
             mealPlan[day][mealType] = value;
-            localStorage.setItem('z_mealPlan', JSON.stringify(mealPlan));
+            localStorage.setItem('retro_mealPlan', JSON.stringify(mealPlan));
         }
 
-        // Functional Pipeline for Grocery Management 
+        // Checklist Engine
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
             listEl.innerHTML = '';
             
             shoppingList.forEach((item, index) => {
                 const li = document.createElement('li');
-                li.className = `shopping-item ${item.checked ? 'checked' : ''}`;
+                li.className = `grocery-item ${item.checked ? 'checked' : ''}`;
                 li.innerHTML = `
-                    <div class="checkbox-custom" onclick="toggleItem(${index})"></div>
+                    <div class="retro-checkbox" onclick="toggleItem(${index})"></div>
                     <span class="item-text" onclick="toggleItem(${index})">${item.name}</span>
-                    <button class="delete-btn" onclick="deleteItem(${index})">✕</button>
+                    <button class="delete-btn" onclick="deleteItem(${index})">⌫</button>
                 `;
                 listEl.appendChild(li);
             });
-            localStorage.setItem('z_shoppingList', JSON.stringify(shoppingList));
+            localStorage.setItem('retro_shoppingList', JSON.stringify(shoppingList));
         }
 
         function addItem() {
@@ -405,7 +391,7 @@
             renderShoppingList();
         }
 
-        // Execute layout paint on runtime init
+        // Initialize lists on document load
         renderShoppingList();
     </script>
 </body>
