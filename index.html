@@ -178,7 +178,7 @@
         }
         .smart-day-input:focus { background-color: #fffdf0; border-color: #000; }
 
-        /* Grocery Checklist Tracker Layout Elements */
+        /* Grocery Checklist Layout Elements */
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; }
         .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 20px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; }
@@ -205,7 +205,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v6.5_ULTRA_FIRMWARE</div>
+        <div class="nav-logo">💾 FOOD_OS // v7.0_STABLE_ROUTER</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -229,7 +229,7 @@
             </div>
         </section>
 
-        <section class="retro-window">
+        <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span>Intelligent_Router: Dinner_Router.exe</span>
                 <span>✖</span>
@@ -254,7 +254,7 @@
             </div>
         </section>
 
-        <section class="retro-window">
+        <section class="retro-window full-width">
             <div class="window-header blue-variant">
                 <span>System Error: Missing Ingredients</span>
                 <span>✖</span>
@@ -275,49 +275,22 @@
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        // Final Fresh Key Schemas
+        // LocalStorage Memory Keys
         let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v7')) || [
             { name: 'Oat Milk', checked: false }
         ];
         let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v7')) || {};
 
-        // DEEP DUAL-PROXY ENGINE WITH DYNAMIC TIMEOUT SWITCHES
-        async function fetchCalendarWithFailsafe(calendarUrl) {
-            const cacheBuster = `&_cb=${new Date().getTime()}`;
-            
-            // Premium Proxy Node 1: Thingproxy Worker
-            const routeA = `https://thingproxy.freeboard.io/fetch/${encodeURIComponent(calendarUrl)}`;
-            // Premium Proxy Node 2: Base CorsProxy Engine
-            const routeB = `https://corsproxy.io/?${encodeURIComponent(calendarUrl)}${cacheBuster}`;
-            // Premium Proxy Node 3: AllOrigins Script Tunnel
-            const routeC = `https://api.allorigins.win/get?url=${encodeURIComponent(calendarUrl)}&ts=${new Date().getTime()}`;
-
-            try {
-                const res = await fetch(routeA);
-                if(!res.ok) throw new Error("A failed");
-                return await res.text();
-            } catch (err) {
-                try {
-                    const resB = await fetch(routeB);
-                    if(!resB.ok) throw new Error("B failed");
-                    return await resB.text();
-                } catch(err2) {
-                    const resC = await fetch(routeC);
-                    if(!resC.ok) throw new Error("All endpoints rejected mapping requests.");
-                    const json = await resC.json();
-                    return json.contents;
-                }
-            }
-        }
-
+        // ROBUST DIRECT FEED INTERFACE CALCULATION ENGINE
         async function routeSmartDinners() {
-            const ryanUrl = "https://p71-caldav.icloud.com/published/2/NDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE";
-            const beaUrl = "https://p138-caldav.icloud.com/published/2/MTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
+            // Using Open Web Calendar's native JSON renderer completely cuts out erratic CORS proxies!
+            const ryanJsonFeed = "https://open-web-calendar.hosted.quelltext.eu/events.json?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE";
+            const beaJsonFeed = "https://open-web-calendar.hosted.quelltext.eu/events.json?url=https%3A%2F%2Fp138-caldav.icloud.com%2Fpublished%2F2%2FMTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
 
             try {
-                const [txtRyan, txtBea] = await Promise.all([
-                    fetchCalendarWithFailsafe(ryanUrl),
-                    fetchCalendarWithFailsafe(beaUrl)
+                const [resRyan, resBea] = await Promise.all([
+                    fetch(ryanJsonFeed).then(res => res.json()),
+                    fetch(beaJsonFeed).then(res => res.json())
                 ]);
 
                 const today = new Date();
@@ -326,27 +299,24 @@
                 const ryanBookedDates = new Set();
                 const beaBookedDates = new Set();
 
-                const parseICalStream = (text, targetSet) => {
-                    if (!text) return;
-                    const lines = text.split(/\r?\n/);
-                    let activeDate = null;
-                    for(let line of lines) {
-                        if(line.startsWith("BEGIN:VEVENT")) activeDate = null;
-                        
-                        // Strict fix catches all forms of standard, metadata, or timezone-locked markers
-                        if(line.startsWith("DTSTART")) {
-                            const match = line.match(/[:=]([0-9]{8})/);
-                            if(match) activeDate = match[1];
+                // Clean parsing routine extracts date strings instantly out of structured JSON array structures
+                if(Array.isArray(resRyan)) {
+                    resRyan.forEach(ev => {
+                        if(ev.start) {
+                            const dateStr = ev.start.split('T')[0].replace(/-/g, '');
+                            ryanBookedDates.add(dateStr);
                         }
-                        
-                        if(line.startsWith("END:VEVENT") && activeDate) {
-                            targetSet.add(activeDate);
-                        }
-                    }
-                };
+                    });
+                }
 
-                parseICalStream(txtRyan, ryanBookedDates);
-                parseICalStream(txtBea, beaBookedDates);
+                if(Array.isArray(resBea)) {
+                    resBea.forEach(ev => {
+                        if(ev.start) {
+                            const dateStr = ev.start.split('T')[0].replace(/-/g, '');
+                            beaBookedDates.add(dateStr);
+                        }
+                    });
+                }
 
                 document.getElementById('container-ryan').innerHTML = '';
                 document.getElementById('container-bea').innerHTML = '';
@@ -368,14 +338,15 @@
 
                     let columnTarget = null;
 
+                    // Apply Exact Conditions Flipped Logic Maps
                     if (ryanHasPlan && !beaHasPlan) {
-                        columnTarget = "bea";   
+                        columnTarget = "bea";    // Ryan has a plan, Bea doesn't -> Bea Nights In
                     } else if (beaHasPlan && !ryanHasPlan) {
-                        columnTarget = "ryan";  
+                        columnTarget = "ryan";   // Bea has a plan, Ryan doesn't -> Ryan Nights In
                     } else if (!ryanHasPlan && !beaHasPlan) {
-                        columnTarget = "both";  
+                        columnTarget = "both";   // No plans on either calendar -> Nights In Together
                     } else {
-                        columnTarget = null;    // Both have dinner logged -> Sorted!
+                        columnTarget = null;     // Both have plans -> Sorted!
                     }
 
                     if (columnTarget) {
@@ -396,9 +367,9 @@
 
             } catch (err) {
                 console.error(err);
-                document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Handshake failed.</p>";
-                document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Handshake failed.</p>";
-                document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Handshake failed.</p>";
+                document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Feed sync error.</p>";
+                document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Feed sync error.</p>";
+                document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Feed sync error.</p>";
             }
         }
 
