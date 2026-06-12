@@ -15,8 +15,6 @@
             --accent-pink: #f2a6b4;
             --accent-blue: #3283c4;
             --folder-yellow: #f5cd79;
-            --ryan-blue: #d2e4f1;
-            --bea-pink: #fcdbdc;
         }
 
         * {
@@ -103,65 +101,6 @@
         .window-body {
             padding: 20px;
         }
-
-        /* 2-Week Live Calendar Styles */
-        .calendar-container {
-            overflow-x: auto;
-            padding-bottom: 5px;
-        }
-
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(14, minmax(110px, 1fr));
-            gap: 10px;
-        }
-
-        .cal-day-header {
-            text-align: center;
-            font-family: 'Courier Prime', monospace;
-            font-weight: 700;
-            font-size: 0.8rem;
-            border-bottom: 2px solid var(--border-clr);
-            padding-bottom: 4px;
-            line-height: 1.2;
-        }
-
-        .cal-day-header .date-sub {
-            display: block;
-            font-size: 0.7rem;
-            font-weight: normal;
-            color: #555;
-            margin-top: 2px;
-        }
-
-        .cal-input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-top: 6px;
-        }
-
-        .cal-row-label {
-            font-size: 0.7rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-bottom: -2px;
-            font-family: 'Courier Prime', monospace;
-        }
-
-        .cal-input {
-            width: 100%;
-            border: 2px solid var(--border-clr);
-            border-radius: 4px;
-            padding: 6px;
-            font-family: inherit;
-            font-size: 0.8rem;
-            outline: none;
-        }
-
-        .cal-input.ryan { background-color: var(--ryan-blue); }
-        .cal-input.bea { background-color: var(--bea-pink); }
-        .cal-input:focus { background-color: #ffffff; }
 
         /* Workspace Split Grid for meals/shopping */
         .desktop-layout {
@@ -320,7 +259,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v1.6_FIXED</div>
+        <div class="nav-logo">💾 FOOD_OS // v2.0_LIVE_ICLOUD</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -330,12 +269,15 @@
 
     <section class="retro-window">
         <div class="window-header yellow-variant">
-            <span>System_Schedule: Rolling_2_Weeks.exe</span>
+            <span>System_Schedule: Shared_iCloud_Calendar.live</span>
             <span>✖</span>
         </div>
-        <div class="window-body calendar-container">
-            <div class="calendar-grid" id="calendar-grid">
-                </div>
+        <div class="window-body" style="padding: 0; height: 450px; background-color: #ffffff;">
+            <iframe 
+                src="https://p71-caldav.icloud.com/published/2/NDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE" 
+                style="border: none; width: 100%; height: 100%;" 
+                frameborder="0">
+            </iframe>
         </div>
     </section>
 
@@ -369,71 +311,16 @@
     </main>
 
     <script>
-        const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
         const fullDayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
         
-        // Stateful LocalStorage Setup
+        // Stateful LocalStorage Setup for Meals and Shopping
         let mealPlan = JSON.parse(localStorage.getItem('retro_mealPlan')) || {};
         let shoppingList = JSON.parse(localStorage.getItem('retro_shoppingList')) || [
             { name: 'Oat Milk', checked: false },
             { name: 'Tomatoes', checked: true }
         ];
-        let calendarPlan = JSON.parse(localStorage.getItem('retro_calendarPlan')) || {};
 
-        // Helper function to find the Monday of the current week
-        function getCurrentWeekMonday() {
-            const today = new Date();
-            const day = today.getDay();
-            const diff = today.getDate() - day + (day === 0 ? -6 : 1); 
-            const monday = new Date(today.setDate(diff));
-            monday.setHours(0,0,0,0);
-            return monday;
-        }
-
-        const currentMonday = getCurrentWeekMonday();
-
-        // 1. GENERATE THE LIVE 2-WEEK CALENDAR ENTRIES
-        const calendarGrid = document.getElementById('calendar-grid');
-        
-        for (let i = 0; i < 14; i++) {
-            const targetDate = new Date(currentMonday);
-            targetDate.setDate(currentMonday.getDate() + i);
-
-            const dayName = dayNames[targetDate.getDay() === 0 ? 6 : targetDate.getDay() - 1];
-            const dateString = `${targetDate.getDate().toString().padStart(2, '0')}/${(targetDate.getMonth() + 1).toString().padStart(2, '0')}`;
-            const dateStorageKey = targetDate.toISOString().split('T')[0];
-
-            // CRITICAL FIX: Ensure the object skeleton exists in state immediately on load
-            if (!calendarPlan[dateStorageKey]) {
-                calendarPlan[dateStorageKey] = { ryan: '', bea: '' };
-            }
-
-            const dayCol = document.createElement('div');
-            dayCol.className = 'calendar-column';
-            dayCol.innerHTML = `
-                <div class="cal-day-header">
-                    ${dayName}
-                    <span class="date-sub">${dateString}</span>
-                </div>
-                <div class="cal-input-group">
-                    <div class="cal-row-label">Ryan</div>
-                    <input type="text" class="cal-input ryan" value="${calendarPlan[dateStorageKey].ryan || ''}" placeholder="..." oninput="updateCalendar('${dateStorageKey}', 'ryan', this.value)">
-                    <div class="cal-row-label">Bea</div>
-                    <input type="text" class="cal-input bea" value="${calendarPlan[dateStorageKey].bea || ''}" placeholder="..." oninput="updateCalendar('${dateStorageKey}', 'bea', this.value)">
-                </div>
-            `;
-            calendarGrid.appendChild(dayCol);
-        }
-
-        // Save the calendar state immediately to confirm structure persistence
-        localStorage.setItem('retro_calendarPlan', JSON.stringify(calendarPlan));
-
-        function updateCalendar(dateKey, person, value) {
-            calendarPlan[dateKey][person] = value;
-            localStorage.setItem('retro_calendarPlan', JSON.stringify(calendarPlan));
-        }
-
-        // 2. GENERATE THE MEAL PLANNER
+        // GENERATE THE MEAL PLANNER
         const chatContainer = document.getElementById('meal-chat-container');
         fullDayNames.forEach(day => {
             if (!mealPlan[day]) mealPlan[day] = { lunch: '', dinner: '' };
@@ -452,6 +339,7 @@
             chatContainer.appendChild(daySection);
         });
 
+        // Initialize object footprint structure
         localStorage.setItem('retro_mealPlan', JSON.stringify(mealPlan));
 
         function updateMeal(day, mealType, value) {
@@ -459,7 +347,7 @@
             localStorage.setItem('retro_mealPlan', JSON.stringify(mealPlan));
         }
 
-        // 3. GROCERY ENGINE
+        // GROCERY ENGINE
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
             listEl.innerHTML = '';
