@@ -98,6 +98,25 @@
 
         .window-body { padding: 20px; }
 
+        /* Sync Button Styling */
+        .sync-retry-btn {
+            font-family: 'Courier Prime', monospace;
+            font-weight: 700;
+            font-size: 0.8rem;
+            background: var(--window-bg);
+            color: var(--border-clr);
+            border: 2px solid var(--border-clr);
+            padding: 2px 8px;
+            cursor: pointer;
+            box-shadow: 2px 2px 0px var(--border-clr);
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .sync-retry-btn:active {
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px var(--border-clr);
+        }
+
         /* Workspace Grid Matrix */
         .desktop-layout {
             display: grid;
@@ -222,7 +241,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v20.0_AUTO_ROUTER</div>
+        <div class="nav-logo">💾 FOOD_OS // v20.5_RETRY_BRIDGE</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -249,7 +268,7 @@
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span>Diagnostics_Log: Empty_Day_Prep_Scanner.exe</span>
-                <span>✖</span>
+                <button class="sync-retry-btn" onclick="routeSmartDinners()">[ Re-Ping Sync ]</button>
             </div>
             <div class="window-body">
                 <div class="prep-log" id="prep-alert-terminal">
@@ -307,23 +326,38 @@
         let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v20')) || [{ name: 'Oat Milk', checked: false }];
         let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v20')) || {};
 
+        // Helper function that retries fetching data if the network hangs up
+        async function fetchWithRetry(url, options = {}, retries = 3, delay = 500) {
+            try {
+                const response = await fetch(url, options);
+                if (!response.ok) throw new Error(`HTTP Error ${response.status}`);
+                return await response.json();
+            } catch (err) {
+                if (retries <= 1) throw err;
+                await new Promise(res => setTimeout(res, delay));
+                return fetchWithRetry(url, options, retries - 1, delay * 2);
+            }
+        }
+
         async function routeSmartDinners() {
             const ryanICSUrl = "https://p71-caldav.icloud.com/published/2/NDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE";
             const beaICSUrl = "https://p138-caldav.icloud.com/published/2/MTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
             
-            // Fixed: Swapped out un-reliable cors proxies for premium, high-speed development tunnels to ensure zero data drops
             const proxyRyan = `https://api.allorigins.win/get?url=${encodeURIComponent(ryanICSUrl)}&ts=${new Date().getTime()}`;
             const proxyBea = `https://api.allorigins.win/get?url=${encodeURIComponent(beaICSUrl)}&ts=${new Date().getTime()}`;
             
             const logTerminal = document.getElementById('prep-alert-terminal');
+            logTerminal.innerHTML = "📡 CONNECTING: Syncing with iCloud stream networks... Attempting data dump...";
+            logTerminal.style.color = "#1aff1a";
 
             let ryanBookedDates = new Set();
             let beaBookedDates = new Set();
 
             try {
+                // Fire off the concurrent fetch routines utilizing the retry logic
                 const [resRyan, resBea] = await Promise.all([
-                    fetch(proxyRyan).then(res => res.json()),
-                    fetch(proxyBea).then(res => res.json())
+                    fetchWithRetry(proxyRyan),
+                    fetchWithRetry(proxyBea)
                 ]);
 
                 const parseICS = (text, targetSet) => {
@@ -346,7 +380,8 @@
                 parseICS(resBea.contents, beaBookedDates);
             } catch (err) {
                 console.error(err);
-                logTerminal.innerHTML = "❌ SYNC DELAY: Handshake timed out. Re-pinging data nodes...";
+                logTerminal.innerHTML = "❌ SYNC DELAY: Handshake timed out. Click [Re-Ping Sync] above to retry.";
+                logTerminal.style.color = "#ff4d4d";
                 return;
             }
 
