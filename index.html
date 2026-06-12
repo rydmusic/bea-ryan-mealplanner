@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Weekly Meal Planner</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --accent-color: #4caf50;
+            --danger-color: #f44336;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .day-card {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .day-card h3 {
+            margin-top: 0;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 5px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 2px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .shop-section {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .list-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .list-input-group input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        .shopping-list {
+            list-style: none;
+            padding: 0;
+        }
+        .shopping-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .shopping-list li.checked span {
+            text-decoration: line-through;
+            color: #888;
+        }
+        .delete-btn {
+            background-color: var(--danger-color);
+            padding: 5px 10px;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🥑 Our Weekly Food Planner</h1>
+    
+    <div class="grid" id="meal-grid">
+        </div>
+
+    <div class="shop-section">
+        <h2>🛒 Grocery Shopping List</h2>
+        <div class="list-input-group">
+            <input type="text" id="item-input" placeholder="Add an item (e.g., Oat milk, Tomatoes)...">
+            <button onclick="addItem()">Add</button>
+        </div>
+        <ul class="shopping-list" id="shopping-list">
+            </ul>
+    </div>
+</div>
+
+<script>
+    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    
+    // Load data from LocalStorage or set defaults
+    let mealPlan = JSON.parse(localStorage.getItem('mealPlan')) || {};
+    let shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || [];
+
+    // Render the 7 Days
+    const mealGrid = document.getElementById('meal-grid');
+    days.forEach(day => {
+        if (!mealPlan[day]) mealPlan[day] = { lunch: '', dinner: '' };
+        
+        const card = document.createElement('div');
+        card.className = 'day-card';
+        card.innerHTML = `
+            <h3>${day}</h3>
+            <label>Lunch</label>
+            <input type="text" value="${mealPlan[day].lunch}" oninput="saveMeal('${day}', 'lunch', this.value)">
+            <label>Dinner</label>
+            <input type="text" value="${mealPlan[day].dinner}" oninput="saveMeal('${day}', 'dinner', this.value)">
+        `;
+        mealGrid.appendChild(card);
+    });
+
+    // Save meal adjustments
+    function saveMeal(day, mealType, value) {
+        mealPlan[day][mealType] = value;
+        localStorage.setItem('mealPlan', JSON.stringify(mealPlan));
+    }
+
+    // Render Shopping List
+    function renderShoppingList() {
+        const listEl = document.getElementById('shopping-list');
+        listEl.innerHTML = '';
+        shoppingList.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.className = item.checked ? 'checked' : '';
+            li.innerHTML = `
+                <span onclick="toggleItem(${index})" style="cursor:pointer; flex: 1;">
+                    ${item.checked ? '✅' : '⬜'} ${item.name}
+                </span>
+                <button class="delete-btn" onclick="deleteItem(${index})">X</button>
+            `;
+            listEl.appendChild(li);
+        });
+        localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+    }
+
+    // Add item to shopping list
+    function addItem() {
+        const input = document.getElementById('item-input');
+        if (input.value.trim() !== '') {
+            shoppingList.push({ name: input.value.trim(), checked: false });
+            input.value = '';
+            renderShoppingList();
+        }
+    }
+
+    // Allow pressing "Enter" to add items
+    document.getElementById('item-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') addItem();
+    });
+
+    function toggleItem(index) {
+        shoppingList[index].checked = !shoppingList[index].checked;
+        renderShoppingList();
+    }
+
+    function deleteItem(index) {
+        shoppingList.splice(index, 1);
+        renderShoppingList();
+    }
+
+    // Initial render of shopping list
+    renderShoppingList();
+</script>
+
+</body>
+</html>
