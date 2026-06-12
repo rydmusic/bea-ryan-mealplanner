@@ -260,7 +260,7 @@
 
     <!-- Header Bar -->
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v2.2_STABLE_ICLOUD</div>
+        <div class="nav-logo">💾 FOOD_OS // v2.3_PERSISTENT_STATE</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -268,16 +268,17 @@
         </div>
     </nav>
 
-    <!-- TOP WINDOW: Rendered iCloud Shared Calendar Link -->
+    <!-- TOP WINDOW: Shrunk Apple Calendar (Defaults directly to Week View) -->
     <section class="retro-window">
         <div class="window-header yellow-variant">
             <span>System_Schedule: Shared_iCloud_Calendar.live</span>
             <span>✖</span>
         </div>
-        <div class="window-body" style="padding: 0; height: 500px; background-color: #ffffff;">
-            <!-- Swapped to the live rendering domain endpoint -->
+        <!-- Shrunk window height down to 320px for high-density week view layout -->
+        <div class="window-body" style="padding: 0; height: 320px; background-color: #ffffff;">
+            <!-- Appended query params targeting directly a week views interface layout -->
             <iframe 
-                src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE&skin=flat&tabs=week&title=Our%20Schedule" 
+                src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE&skin=flat&tabs=week&controls=today,next,prev&title=Our%20Schedule" 
                 style="border: none; width: 100%; height: 100%;" 
                 frameborder="0">
             </iframe>
@@ -294,7 +295,7 @@
                 <span>✖</span>
             </div>
             <div class="window-body chat-layout" id="meal-chat-container">
-                <!-- Mon-Sun meal logging inputs -->
+                <!-- Days will auto populate here with structural storage listeners -->
             </div>
         </section>
 
@@ -311,7 +312,7 @@
                     <button onclick="addItem()" class="retro-btn">Enter...</button>
                 </div>
                 <ul class="shopping-list" id="shopping-list">
-                    <!-- Checkable items listed here -->
+                    <!-- Dynamic items rendered via storage sync logs -->
                 </ul>
             </div>
         </section>
@@ -321,13 +322,14 @@
     <script>
         const fullDayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
         
+        // Persistent State Management Checkpoints
         let mealPlan = JSON.parse(localStorage.getItem('retro_mealPlan')) || {};
         let shoppingList = JSON.parse(localStorage.getItem('retro_shoppingList')) || [
             { name: 'Oat Milk', checked: false },
             { name: 'Tomatoes', checked: true }
         ];
 
-        // GENERATE THE MEAL PLANNER
+        // RENDER MEAL PLANNER DATA LOOP
         const chatContainer = document.getElementById('meal-chat-container');
         fullDayNames.forEach(day => {
             if (!mealPlan[day]) mealPlan[day] = { lunch: '', dinner: '' };
@@ -346,6 +348,7 @@
             chatContainer.appendChild(daySection);
         });
 
+        // Forced backup validation to lock default key configurations on launch
         localStorage.setItem('retro_mealPlan', JSON.stringify(mealPlan));
 
         function updateMeal(day, mealType, value) {
@@ -353,7 +356,7 @@
             localStorage.setItem('retro_mealPlan', JSON.stringify(mealPlan));
         }
 
-        // GROCERY ENGINE
+        // DYNAMIC GROCERY CORE ENGINE
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
             listEl.innerHTML = '';
@@ -368,6 +371,7 @@
                 `;
                 listEl.appendChild(li);
             });
+            // Instant tracking updates committed straight into browser data matrices on execution bounds
             localStorage.setItem('retro_shoppingList', JSON.stringify(shoppingList));
         }
 
@@ -395,6 +399,7 @@
             renderShoppingList();
         }
 
+        // Initialize display arrays
         renderShoppingList();
     </script>
 </body>
