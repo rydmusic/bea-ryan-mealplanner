@@ -3,206 +3,410 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Weekly Meal Planner</title>
+    <title>ZiggyZag Meal Planner</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700;1,900&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+
         :root {
-            --bg-color: #f4f7f6;
-            --card-bg: #ffffff;
-            --text-color: #333;
-            --accent-color: #4caf50;
-            --danger-color: #f44336;
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --input-bg: rgba(255, 255, 255, 0.75);
+            --text-dark: #111111;
         }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        h1, h2 {
-            text-align: center;
-            color: #2c3e50;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-        .day-card {
-            background: var(--card-bg);
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        .day-card h3 {
-            margin-top: 0;
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 5px;
-        }
-        label {
-            display: block;
-            margin: 10px 0 2px;
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 8px;
+
+        * {
             box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .shop-section {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        .list-input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .list-input-group input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            padding: 10px 15px;
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        button:hover {
-            opacity: 0.9;
-        }
-        .shopping-list {
-            list-style: none;
+            margin: 0;
             padding: 0;
         }
-        .shopping-list li {
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient Cloud Background Video */
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .overlay-dim {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(2px);
+            z-index: -1;
+        }
+
+        /* Top Navigation Header */
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #eee;
+            padding: 20px 40px;
+            position: relative;
+            z-index: 10;
         }
-        .shopping-list li.checked span {
+
+        .nav-badge {
+            background-color: #f7f393;
+            color: #000;
+            padding: 5px 15px;
+            font-weight: bold;
+            font-style: italic;
+            text-transform: uppercase;
+            border: 2px solid #000;
+            border-radius: 4px;
+            text-decoration: none;
+            box-shadow: 2px 2px 0px #000;
+            font-size: 0.9rem;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            font-style: italic;
+            color: #fff;
+            text-shadow: 2px 2px 0px #ff3366, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000, 1px 1px 0px #000;
+            letter-spacing: -1px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            color: white;
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* Main Workspace split into columns */
+        .workspace {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 40px 60px 40px;
+            position: relative;
+            z-index: 5;
+        }
+
+        @media (max-width: 900px) {
+            .workspace {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Styled Section Headers */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            color: #000;
+            letter-spacing: -1px;
+        }
+
+        /* Glassmorphism containers */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px) saturate(140%);
+            -webkit-backdrop-filter: blur(12px) saturate(140%);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        /* Meal Grid Structure */
+        .meal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .day-card {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 16px;
+            padding: 12px;
+        }
+
+        .day-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .input-block {
+            margin-bottom: 8px;
+        }
+
+        .input-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .input-block label {
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #444;
+            margin-left: 4px;
+            margin-bottom: 2px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px 12px;
+            background: var(--input-bg);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        input[type="text"]:focus {
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.5);
+        }
+
+        /* Grocery Shopping List Elements */
+        .grocery-input-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .grocery-input-wrapper input {
+            padding-right: 80px;
+            height: 45px;
+            font-size: 1rem;
+        }
+
+        .grocery-input-wrapper button {
+            position: absolute;
+            right: 6px;
+            top: 6px;
+            bottom: 6px;
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 0 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .shopping-list {
+            list-style: none;
+        }
+
+        .shopping-item {
+            display: flex;
+            align-items: center;
+            background: var(--input-bg);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        .shopping-item:hover {
+            transform: translateY(-1px);
+        }
+
+        .shopping-item.checked {
+            opacity: 0.6;
+        }
+
+        .shopping-item.checked .item-text {
             text-decoration: line-through;
-            color: #888;
         }
+
+        .checkbox-custom {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #444;
+            border-radius: 4px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            background: white;
+        }
+
+        .shopping-item.checked .checkbox-custom::after {
+            content: "✓";
+            font-weight: bold;
+            color: #000;
+        }
+
+        .item-text {
+            flex: 1;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
         .delete-btn {
-            background-color: var(--danger-color);
-            padding: 5px 10px;
-            font-size: 0.8rem;
+            background: transparent;
+            border: none;
+            color: #ff3366;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0 5px;
+            font-size: 1rem;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>🥑 Our Weekly Food Planner</h1>
-    
-    <div class="grid" id="meal-grid">
+    <video class="video-bg" autoplay loop muted playsinline poster="https://assets.mixkit.co/videos/preview/mixkit-clouds-moving-fast-in-the-sky-34220-large.jpg">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-clouds-moving-fast-in-the-sky-34220-large.mp4" type="video/mp4">
+    </video>
+    <div class="overlay-dim"></div>
+
+    <header>
+        <div>
+            <a href="#" class="nav-badge">Home Dashboard</a>
         </div>
-
-    <div class="shop-section">
-        <h2>🛒 Grocery Shopping List</h2>
-        <div class="list-input-group">
-            <input type="text" id="item-input" placeholder="Add an item (e.g., Oat milk, Tomatoes)...">
-            <button onclick="addItem()">Add</button>
+        <div class="logo">ZiggyZag</div>
+        <div class="social-icons">
+            <span>📷</span>
+            <span>𝕏</span>
+            <span>ⓕ</span>
+            <span>in</span>
         </div>
-        <ul class="shopping-list" id="shopping-list">
-            </ul>
-    </div>
-</div>
+    </header>
 
-<script>
-    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-    
-    // Load data from LocalStorage or set defaults
-    let mealPlan = JSON.parse(localStorage.getItem('mealPlan')) || {};
-    let shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || [];
-
-    // Render the 7 Days
-    const mealGrid = document.getElementById('meal-grid');
-    days.forEach(day => {
-        if (!mealPlan[day]) mealPlan[day] = { lunch: '', dinner: '' };
+    <main class="workspace">
         
-        const card = document.createElement('div');
-        card.className = 'day-card';
-        card.innerHTML = `
-            <h3>${day}</h3>
-            <label>Lunch</label>
-            <input type="text" value="${mealPlan[day].lunch}" oninput="saveMeal('${day}', 'lunch', this.value)">
-            <label>Dinner</label>
-            <input type="text" value="${mealPlan[day].dinner}" oninput="saveMeal('${day}', 'dinner', this.value)">
-        `;
-        mealGrid.appendChild(card);
-    });
+        <section class="glass-panel">
+            <h2 class="section-title">Weekly<br>Meal Planner</h2>
+            <div class="meal-grid" id="meal-grid">
+                </div>
+        </section>
 
-    // Save meal adjustments
-    function saveMeal(day, mealType, value) {
-        mealPlan[day][mealType] = value;
-        localStorage.setItem('mealPlan', JSON.stringify(mealPlan));
-    }
+        <section class="glass-panel">
+            <h2 class="section-title">Grocery<br>Shopping List</h2>
+            
+            <div class="grocery-input-wrapper">
+                <input type="text" id="item-input" placeholder="Add item...">
+                <button onclick="addItem()">Add Items</button>
+            </div>
 
-    // Render Shopping List
-    function renderShoppingList() {
-        const listEl = document.getElementById('shopping-list');
-        listEl.innerHTML = '';
-        shoppingList.forEach((item, index) => {
-            const li = document.createElement('li');
-            li.className = item.checked ? 'checked' : '';
-            li.innerHTML = `
-                <span onclick="toggleItem(${index})" style="cursor:pointer; flex: 1;">
-                    ${item.checked ? '✅' : '⬜'} ${item.name}
-                </span>
-                <button class="delete-btn" onclick="deleteItem(${index})">X</button>
+            <ul class="shopping-list" id="shopping-list">
+                </ul>
+        </section>
+
+    </main>
+
+    <script>
+        const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        
+        // Initializing reactive components with stateful LocalStorage persistence
+        let mealPlan = JSON.parse(localStorage.getItem('z_mealPlan')) || {};
+        let shoppingList = JSON.parse(localStorage.getItem('z_shoppingList')) || [
+            { name: 'Oat Milk', checked: false },
+            { name: 'Gummy Bears', checked: false },
+            { name: 'Coffee Beans', checked: false }
+        ];
+
+        // Structural Rendering Engine for the Day Grid
+        const mealGrid = document.getElementById('meal-grid');
+        days.forEach(day => {
+            if (!mealPlan[day]) mealPlan[day] = { lunch: '', dinner: '' };
+            
+            const card = document.createElement('div');
+            card.className = 'day-card';
+            card.innerHTML = `
+                <div class="day-title">${day}</div>
+                <div class="input-block">
+                    <label>Lunch</label>
+                    <input type="text" value="${mealPlan[day].lunch}" oninput="updateMeal('${day}', 'lunch', this.value)">
+                </div>
+                <div class="input-block">
+                    <label>Dinner</label>
+                    <input type="text" value="${mealPlan[day].dinner}" oninput="updateMeal('${day}', 'dinner', this.value)">
+                </div>
             `;
-            listEl.appendChild(li);
+            mealGrid.appendChild(card);
         });
-        localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
-    }
 
-    // Add item to shopping list
-    function addItem() {
-        const input = document.getElementById('item-input');
-        if (input.value.trim() !== '') {
-            shoppingList.push({ name: input.value.trim(), checked: false });
-            input.value = '';
+        function updateMeal(day, mealType, value) {
+            mealPlan[day][mealType] = value;
+            localStorage.setItem('z_mealPlan', JSON.stringify(mealPlan));
+        }
+
+        // Functional Pipeline for Grocery Management 
+        function renderShoppingList() {
+            const listEl = document.getElementById('shopping-list');
+            listEl.innerHTML = '';
+            
+            shoppingList.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.className = `shopping-item ${item.checked ? 'checked' : ''}`;
+                li.innerHTML = `
+                    <div class="checkbox-custom" onclick="toggleItem(${index})"></div>
+                    <span class="item-text" onclick="toggleItem(${index})">${item.name}</span>
+                    <button class="delete-btn" onclick="deleteItem(${index})">✕</button>
+                `;
+                listEl.appendChild(li);
+            });
+            localStorage.setItem('z_shoppingList', JSON.stringify(shoppingList));
+        }
+
+        function addItem() {
+            const input = document.getElementById('item-input');
+            const val = input.value.trim();
+            if (val !== '') {
+                shoppingList.push({ name: val, checked: false });
+                input.value = '';
+                renderShoppingList();
+            }
+        }
+
+        document.getElementById('item-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') addItem();
+        });
+
+        function toggleItem(index) {
+            shoppingList[index].checked = !shoppingList[index].checked;
             renderShoppingList();
         }
-    }
 
-    // Allow pressing "Enter" to add items
-    document.getElementById('item-input').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') addItem();
-    });
+        function deleteItem(index) {
+            shoppingList.splice(index, 1);
+            renderShoppingList();
+        }
 
-    function toggleItem(index) {
-        shoppingList[index].checked = !shoppingList[index].checked;
+        // Execute layout paint on runtime init
         renderShoppingList();
-    }
-
-    function deleteItem(index) {
-        shoppingList.splice(index, 1);
-        renderShoppingList();
-    }
-
-    // Initial render of shopping list
-    renderShoppingList();
-</script>
-
+    </script>
 </body>
 </html>
