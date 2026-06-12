@@ -213,7 +213,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v4.3_MONTH_VIEW</div>
+        <div class="nav-logo">💾 FOOD_OS // v4.5_STREAM_ROUTING</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -322,17 +322,18 @@
             localStorage.setItem('food_os_meals_v4', JSON.stringify(mealPlan));
         }
 
-        // ASYNC DUAL TIMELINE ROUTER SCRIPT
+        // UPGRADED LINK-BASED ORIGIN TRACKER ROUTER
         async function routeSmartDinners() {
             const ryanUrl = "https://p71-caldav.icloud.com/published/2/NDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE";
-            const maxUrl = "https://p138-caldav.icloud.com/published/2/MTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
+            const beaUrl = "https://p138-caldav.icloud.com/published/2/MTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
+
+            const cacheBuster = `&_cb=${new Date().getTime()}`;
+            const proxyRyan = `https://corsproxy.io/?${encodeURIComponent(ryanUrl)}${cacheBuster}`;
+            const proxyBea = `https://corsproxy.io/?${encodeURIComponent(beaUrl)}${cacheBuster}`;
 
             try {
-                const [resRyan, resBea] = await Promise.all([
-                    fetch(`https://corsproxy.io/?${encodeURIComponent(ryanUrl)}`),
-                    fetch(`https://corsproxy.io/?${encodeURIComponent(maxUrl)}`)
-                ]);
-                if (!resRyan.ok || !resBea.ok) throw new Error("Stream error.");
+                const [resRyan, resBea] = await Promise.all([fetch(proxyRyan), fetch(proxyBea)]);
+                if (!resRyan.ok || !resBea.ok) throw new Error("Stream connection failed.");
 
                 const txtRyan = await resRyan.text();
                 const txtBea = await resBea.text();
@@ -340,29 +341,27 @@
                 const today = new Date();
                 today.setHours(0,0,0,0);
 
-                const ryanEvents = {};
-                const beaEvents = {};
+                // Initialize maps to see WHO has an event on a specific date string
+                const ryanBookedDates = new Set();
+                const beaBookedDates = new Set();
 
-                const parseLines = (text, targetObj) => {
+                const parseICalStream = (text, targetSet) => {
                     const lines = text.split(/\r?\n/);
                     let activeDate = null;
-                    let activeSummary = "";
-
                     for(let line of lines) {
-                        if(line.startsWith("BEGIN:VEVENT")) { activeDate = null; activeSummary = ""; }
+                        if(line.startsWith("BEGIN:VEVENT")) activeDate = null;
                         if(line.startsWith("DTSTART")) {
                             const match = line.match(/:([0-9]{8})/);
                             if(match) activeDate = match[1];
                         }
-                        if(line.startsWith("SUMMARY")) { activeSummary = line.split(":")[1] || ""; }
                         if(line.startsWith("END:VEVENT") && activeDate) {
-                            targetObj[activeDate] = activeSummary.toLowerCase().trim();
+                            targetSet.add(activeDate);
                         }
                     }
                 };
 
-                parseLines(txtRyan, ryanEvents);
-                parseLines(txtBea, beaEvents);
+                parseICalStream(txtRyan, ryanBookedDates);
+                parseICalStream(txtBea, beaBookedDates);
 
                 document.getElementById('container-ryan').innerHTML = '';
                 document.getElementById('container-bea').innerHTML = '';
@@ -379,17 +378,19 @@
 
                     const displayLabel = `${shortDayNames[checkDay.getDay()]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
 
-                    const ryanTxt = ryanEvents[iCalKey] || "";
-                    const beaTxt = beaEvents[iCalKey] || "";
+                    // Look up origin footprints by checking calendar sets directly
+                    const ryanIsOut = ryanBookedDates.has(iCalKey);
+                    const beaIsOut = beaBookedDates.has(iCalKey);
 
                     let columnTarget = "both";
 
-                    if (ryanTxt.includes("ryan") || (ryanTxt && !beaTxt && !ryanTxt.includes("together") && !ryanTxt.includes("both") && !ryanTxt.includes("date"))) {
-                        columnTarget = "ryan";
-                    } else if (beaTxt.includes("bea") || (beaTxt && !ryanTxt && !beaTxt.includes("together") && !beaTxt.includes("both") && !beaTxt.includes("date"))) {
-                        columnTarget = "bea";
+                    // DYNAMIC ASSIGNMENT ENGINE MATCHING DOT COLOR CHANNELS
+                    if (ryanIsOut && !beaIsOut) {
+                        columnTarget = "bea";   // Ryan has plans out -> Bea is home on her own!
+                    } else if (beaIsOut && !ryanIsOut) {
+                        columnTarget = "ryan";  // Bea has plans out -> Ryan is home on his own!
                     } else {
-                        columnTarget = "both";
+                        columnTarget = "both";  // Both are free OR both are out -> Night in together fallback box
                     }
 
                     counters[columnTarget]++;
@@ -404,9 +405,9 @@
                     document.getElementById(`container-${columnTarget}`).appendChild(block);
                 }
 
-                if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>No days flagged.</p>";
-                if(counters.bea === 0) document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>No days flagged.</p>";
-                if(counters.both === 0) document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>No days flagged.</p>";
+                if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>No individual nights.</p>";
+                if(counters.bea === 0) document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>No individual nights.</p>";
+                if(counters.both === 0) document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>No shared nights.</p>";
 
             } catch (err) {
                 console.error(err);
