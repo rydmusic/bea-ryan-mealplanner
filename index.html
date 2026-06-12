@@ -205,7 +205,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v5.0_PROD_CLEAN</div>
+        <div class="nav-logo">💾 FOOD_OS // v5.5_FAILSAFE_STABLE</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -238,17 +238,17 @@
                 
                 <div class="smart-column" id="col-ryan">
                     <div class="column-header-tag tag-ryan">Ryan Nights In</div>
-                    <div id="container-ryan">Analyzing streams...</div>
+                    <div id="container-ryan">Booting stream lines...</div>
                 </div>
 
                 <div class="smart-column" id="col-bea">
                     <div class="column-header-tag tag-bea">Bea Nights In</div>
-                    <div id="container-bea">Analyzing streams...</div>
+                    <div id="container-bea">Booting stream lines...</div>
                 </div>
 
                 <div class="smart-column" id="col-both">
                     <div class="column-header-tag tag-both">Nights In Together</div>
-                    <div id="container-both">Analyzing streams...</div>
+                    <div id="container-both">Booting stream lines...</div>
                 </div>
 
             </div>
@@ -275,27 +275,47 @@
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        // Strict storage structures initialization
-        let shoppingList = JSON.parse(localStorage.getItem('food_os_shopping_v4')) || [
-            { name: 'Oat Milk', checked: false }
+        // COMPLETELY NEW STORAGE KEY SCHEMAS TO ENFORCE CACHE OVERRIDES
+        let shoppingList = JSON.parse(localStorage.getItem('food_os_shopping_v5_prod')) || [
+            { name: 'Oat Milk', checked: false },
+            { name: 'Tomatoes', checked: false }
         ];
-        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dynamic_dinners_v4')) || {};
+        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v5_prod')) || {};
 
-        // MAIN TRACKING ROUTER LOOPS
+        // FAILSAFE ASYNC ENGINE WITH FALLBACK PROXIES
+        async function fetchCalendarWithFallback(primaryUrl, fallbackProxyUrl) {
+            try {
+                const res = await fetch(primaryUrl);
+                if (!res.ok) throw new Error("Primary proxy choked.");
+                return await res.text();
+            } catch (err) {
+                console.warn("Primary proxy connection failed, engaging backup route...");
+                const resFallback = await fetch(fallbackProxyUrl);
+                if (!resFallback.ok) throw new Error("All proxy servers are unreachable.");
+                const dataJson = await resFallback.json();
+                return dataJson.contents; // Extract contents wrapper out of backup payload
+            }
+        }
+
         async function routeSmartDinners() {
             const ryanUrl = "https://p71-caldav.icloud.com/published/2/NDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE";
             const beaUrl = "https://p138-caldav.icloud.com/published/2/MTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
 
             const cacheBuster = `&_cb=${new Date().getTime()}`;
-            const proxyRyan = `https://corsproxy.io/?${encodeURIComponent(ryanUrl)}${cacheBuster}`;
-            const proxyBea = `https://corsproxy.io/?${encodeURIComponent(beaUrl)}${cacheBuster}`;
+            
+            // Channel 1 Paths (Primary and Fallback Proxy Endpoints)
+            const primaryRyan = `https://corsproxy.io/?${encodeURIComponent(ryanUrl)}${cacheBuster}`;
+            const fallbackRyan = `https://api.allorigins.win/get?url=${encodeURIComponent(ryanUrl)}&ts=${new Date().getTime()}`;
+
+            // Channel 2 Paths (Primary and Fallback Proxy Endpoints)
+            const primaryBea = `https://corsproxy.io/?${encodeURIComponent(beaUrl)}${cacheBuster}`;
+            const fallbackBea = `https://api.allorigins.win/get?url=${encodeURIComponent(beaUrl)}&ts=${new Date().getTime()}`;
 
             try {
-                const [resRyan, resBea] = await Promise.all([fetch(proxyRyan), fetch(proxyBea)]);
-                if (!resRyan.ok || !resBea.ok) throw new Error("Connection failed.");
-
-                const txtRyan = await resRyan.text();
-                const txtBea = await resBea.text();
+                const [txtRyan, txtBea] = await Promise.all([
+                    fetchCalendarWithFallback(primaryRyan, fallbackRyan),
+                    fetchCalendarWithFallback(primaryBea, fallbackBea)
+                ]);
 
                 const today = new Date();
                 today.setHours(0,0,0,0);
@@ -304,6 +324,7 @@
                 const beaBookedDates = new Set();
 
                 const parseICalStream = (text, targetSet) => {
+                    if (!text) return;
                     const lines = text.split(/\r?\n/);
                     let activeDate = null;
                     for(let line of lines) {
@@ -355,7 +376,7 @@
                     block.className = 'smart-day-block';
                     block.innerHTML = `
                         <div class="smart-day-title"><span>● ${displayLabel}</span></div>
-                        <input type="text" class="smart-day-input" value="${dynamicDinners[dateKey] || ''}" placeholder="Plan dinner..." oninput="saveSmartDinner('${dateKey}', this.value)">
+                        <input type="text" class="smart-day-input" data-date="${dateKey}" value="${dynamicDinners[dateKey] || ''}" placeholder="Plan dinner..." oninput="saveSmartDinner('${dateKey}', this.value)">
                     `;
 
                     document.getElementById(`container-${columnTarget}`).appendChild(block);
@@ -367,18 +388,20 @@
 
             } catch (err) {
                 console.error(err);
-                document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;color:red;'>Handshake failed.</p>";
-                document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;color:red;'>Handshake failed.</p>";
-                document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;color:red;'>Handshake failed.</p>";
+                document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Sync connection timeout.</p>";
+                document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Sync connection timeout.</p>";
+                document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Sync connection timeout.</p>";
             }
         }
 
+        // FULL PROD LEVEL ERROR CHECKED PERSISTENCE FUNCTIONS
         function saveSmartDinner(dateKey, value) {
             dynamicDinners[dateKey] = value;
-            localStorage.setItem('food_os_dynamic_dinners_v4', JSON.stringify(dynamicDinners));
+            try {
+                localStorage.setItem('food_os_dinners_v5_prod', JSON.stringify(dynamicDinners));
+            } catch(e) { console.error("Storage save blocked:", e); }
         }
 
-        // GROCERY CHECKLIST INTERACTIVE MATRIX
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
             listEl.innerHTML = '';
@@ -392,7 +415,9 @@
                 `;
                 listEl.appendChild(li);
             });
-            localStorage.setItem('food_os_shopping_v4', JSON.stringify(shoppingList));
+            try {
+                localStorage.setItem('food_os_shopping_v5_prod', JSON.stringify(shoppingList));
+            } catch(e) { console.error("Storage save blocked:", e); }
         }
 
         function addItem() {
@@ -406,8 +431,16 @@
         }
 
         document.getElementById('item-input').addEventListener('keypress', function(e) { if (e.key === 'Enter') addItem(); });
-        function toggleItem(index) { shoppingList[index].checked = !shoppingList[index].checked; renderShoppingList(); }
-        function deleteItem(index) { shoppingList.splice(index, 1); renderShoppingList(); }
+        
+        function toggleItem(index) { 
+            shoppingList[index].checked = !shoppingList[index].checked; 
+            renderShoppingList(); 
+        }
+        
+        function deleteItem(index) { 
+            shoppingList.splice(index, 1); 
+            renderShoppingList(); 
+        }
 
         renderShoppingList();
         routeSmartDinners();
