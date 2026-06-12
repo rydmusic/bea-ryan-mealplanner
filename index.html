@@ -205,7 +205,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v5.5_FAILSAFE_STABLE</div>
+        <div class="nav-logo">💾 FOOD_OS // v6.0_INVERTED_PLANNER</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -275,25 +275,22 @@
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        // COMPLETELY NEW STORAGE KEY SCHEMAS TO ENFORCE CACHE OVERRIDES
-        let shoppingList = JSON.parse(localStorage.getItem('food_os_shopping_v5_prod')) || [
-            { name: 'Oat Milk', checked: false },
-            { name: 'Tomatoes', checked: false }
+        // Final Storage Schemas
+        let shoppingList = JSON.parse(localStorage.getItem('food_os_shopping_v6_prod')) || [
+            { name: 'Oat Milk', checked: false }
         ];
-        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v5_prod')) || {};
+        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v6_prod')) || {};
 
-        // FAILSAFE ASYNC ENGINE WITH FALLBACK PROXIES
         async function fetchCalendarWithFallback(primaryUrl, fallbackProxyUrl) {
             try {
                 const res = await fetch(primaryUrl);
-                if (!res.ok) throw new Error("Primary proxy choked.");
+                if (!res.ok) throw new Error("Primary proxy down.");
                 return await res.text();
             } catch (err) {
-                console.warn("Primary proxy connection failed, engaging backup route...");
                 const resFallback = await fetch(fallbackProxyUrl);
-                if (!resFallback.ok) throw new Error("All proxy servers are unreachable.");
+                if (!resFallback.ok) throw new Error("Fallback failed.");
                 const dataJson = await resFallback.json();
-                return dataJson.contents; // Extract contents wrapper out of backup payload
+                return dataJson.contents;
             }
         }
 
@@ -302,12 +299,8 @@
             const beaUrl = "https://p138-caldav.icloud.com/published/2/MTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
 
             const cacheBuster = `&_cb=${new Date().getTime()}`;
-            
-            // Channel 1 Paths (Primary and Fallback Proxy Endpoints)
             const primaryRyan = `https://corsproxy.io/?${encodeURIComponent(ryanUrl)}${cacheBuster}`;
             const fallbackRyan = `https://api.allorigins.win/get?url=${encodeURIComponent(ryanUrl)}&ts=${new Date().getTime()}`;
-
-            // Channel 2 Paths (Primary and Fallback Proxy Endpoints)
             const primaryBea = `https://corsproxy.io/?${encodeURIComponent(beaUrl)}${cacheBuster}`;
             const fallbackBea = `https://api.allorigins.win/get?url=${encodeURIComponent(beaUrl)}&ts=${new Date().getTime()}`;
 
@@ -357,49 +350,52 @@
 
                     const displayLabel = `${shortDayNames[checkDay.getDay()]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
 
-                    const ryanIsOut = ryanBookedDates.has(iCalKey);
-                    const beaIsOut = beaBookedDates.has(iCalKey);
+                    // TRUE FLIPPED INVENTORY CHECKERS
+                    const ryanHasDinnerPlanned = ryanBookedDates.has(iCalKey);
+                    const beaHasDinnerPlanned = beaBookedDates.has(iCalKey);
 
-                    let columnTarget = "both";
+                    let columnTarget = null;
 
-                    if (ryanIsOut && !beaIsOut) {
-                        columnTarget = "bea"; 
-                    } else if (beaIsOut && !ryanIsOut) {
-                        columnTarget = "ryan";
+                    // LOGIC SWAP DEFINITIONS:
+                    if (!ryanHasDinnerPlanned && !beaHasDinnerPlanned) {
+                        columnTarget = "both";   // Both calendars are completely blank -> Needs a joint dinner plan!
+                    } else if (!ryanHasDinnerPlanned && beaHasDinnerPlanned) {
+                        columnTarget = "ryan";   // Ryan has NO dinner plan, but Bea does -> Ryan is home on his own!
+                    } else if (ryanHasDinnerPlanned && !beaHasDinnerPlanned) {
+                        columnTarget = "bea";    // Bea has NO dinner plan, but Ryan does -> Bea is home on her own!
                     } else {
-                        columnTarget = "both";
+                        columnTarget = null;     // BOTH calendars have dinner plans -> Hide completely, zero prep required!
                     }
 
-                    counters[columnTarget]++;
-
-                    const block = document.createElement('div');
-                    block.className = 'smart-day-block';
-                    block.innerHTML = `
-                        <div class="smart-day-title"><span>● ${displayLabel}</span></div>
-                        <input type="text" class="smart-day-input" data-date="${dateKey}" value="${dynamicDinners[dateKey] || ''}" placeholder="Plan dinner..." oninput="saveSmartDinner('${dateKey}', this.value)">
-                    `;
-
-                    document.getElementById(`container-${columnTarget}`).appendChild(block);
+                    if (columnTarget) {
+                        counters[columnTarget]++;
+                        const block = document.createElement('div');
+                        block.className = 'smart-day-block';
+                        block.innerHTML = `
+                            <div class="smart-day-title"><span>● ${displayLabel}</span></div>
+                            <input type="text" class="smart-day-input" data-date="${dateKey}" value="${dynamicDinners[dateKey] || ''}" placeholder="Plan dinner..." oninput="saveSmartDinner('${dateKey}', this.value)">
+                        `;
+                        document.getElementById(`container-${columnTarget}`).appendChild(block);
+                    }
                 }
 
-                if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>No individual nights.</p>";
-                if(counters.bea === 0) document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>No individual nights.</p>";
-                if(counters.both === 0) document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>No shared nights.</p>";
+                if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All nights sorted!</p>";
+                if(counters.bea === 0) document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All nights sorted!</p>";
+                if(counters.both === 0) document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All nights sorted!</p>";
 
             } catch (err) {
                 console.error(err);
-                document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Sync connection timeout.</p>";
-                document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Sync connection timeout.</p>";
-                document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Sync connection timeout.</p>";
+                document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Sync error.</p>";
+                document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Sync error.</p>";
+                document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Sync error.</p>";
             }
         }
 
-        // FULL PROD LEVEL ERROR CHECKED PERSISTENCE FUNCTIONS
         function saveSmartDinner(dateKey, value) {
             dynamicDinners[dateKey] = value;
             try {
-                localStorage.setItem('food_os_dinners_v5_prod', JSON.stringify(dynamicDinners));
-            } catch(e) { console.error("Storage save blocked:", e); }
+                localStorage.setItem('food_os_dinners_v6_prod', JSON.stringify(dynamicDinners));
+            } catch(e) {}
         }
 
         function renderShoppingList() {
@@ -416,8 +412,8 @@
                 listEl.appendChild(li);
             });
             try {
-                localStorage.setItem('food_os_shopping_v5_prod', JSON.stringify(shoppingList));
-            } catch(e) { console.error("Storage save blocked:", e); }
+                localStorage.setItem('food_os_shopping_v6_prod', JSON.stringify(shoppingList));
+            } catch(e) {}
         }
 
         function addItem() {
@@ -431,16 +427,8 @@
         }
 
         document.getElementById('item-input').addEventListener('keypress', function(e) { if (e.key === 'Enter') addItem(); });
-        
-        function toggleItem(index) { 
-            shoppingList[index].checked = !shoppingList[index].checked; 
-            renderShoppingList(); 
-        }
-        
-        function deleteItem(index) { 
-            shoppingList.splice(index, 1); 
-            renderShoppingList(); 
-        }
+        function toggleItem(index) { shoppingList[index].checked = !shoppingList[index].checked; renderShoppingList(); }
+        function deleteItem(index) { shoppingList.splice(index, 1); renderShoppingList(); }
 
         renderShoppingList();
         routeSmartDinners();
