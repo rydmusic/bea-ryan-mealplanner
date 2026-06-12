@@ -15,6 +15,8 @@
             --accent-pink: #f2a6b4;
             --accent-blue: #3283c4;
             --folder-yellow: #f5cd79;
+            --ryan-blue: #d2e4f1;
+            --bea-pink: #fcdbdc;
         }
 
         * {
@@ -31,7 +33,7 @@
             min-height: 100vh;
         }
 
-        /* Top Menu bar mimicking the asset design */
+        /* Top Menu bar */
         .top-nav {
             display: flex;
             justify-content: space-between;
@@ -40,7 +42,7 @@
             background-color: var(--window-bg);
             padding: 8px 20px;
             box-shadow: 4px 4px 0px var(--border-clr);
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             border-radius: 4px;
         }
 
@@ -64,21 +66,6 @@
             background: white;
         }
 
-        /* Workspace Grid */
-        .desktop-layout {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 40px;
-            max-width: 1300px;
-            margin: 0 auto;
-        }
-
-        @media (max-width: 900px) {
-            .desktop-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
         /* Reusable Retro UI Window Wrapper */
         .retro-window {
             background-color: var(--window-bg);
@@ -88,7 +75,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .window-header {
@@ -109,11 +96,81 @@
             color: white;
         }
 
+        .window-header.yellow-variant {
+            background-color: var(--folder-yellow);
+        }
+
         .window-body {
             padding: 20px;
         }
 
-        /* Left Side: Meal Planner (Styled like a Group Chat/Log window) */
+        /* 2-Week Calendar Styles */
+        .calendar-container {
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(14, minmax(100px, 1fr));
+            gap: 10px;
+        }
+
+        .cal-day-header {
+            text-align: center;
+            font-family: 'Courier Prime', monospace;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border-bottom: 2px solid var(--border-clr);
+            padding-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .cal-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .cal-row-label {
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: -2px;
+            font-family: 'Courier Prime', monospace;
+        }
+
+        .cal-input {
+            width: 100%;
+            border: 2px solid var(--border-clr);
+            border-radius: 4px;
+            padding: 6px;
+            font-family: inherit;
+            font-size: 0.8rem;
+            outline: none;
+        }
+
+        .cal-input.ryan { background-color: var(--ryan-blue); }
+        .cal-input.bea { background-color: var(--bea-pink); }
+        .cal-input:focus { background-color: #ffffff; }
+
+        /* Workspace Split Grid for meals/shopping */
+        .desktop-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 900px) {
+            .desktop-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Meal Planner Layout */
         .chat-layout {
             display: flex;
             flex-direction: column;
@@ -143,25 +200,15 @@
             font-family: inherit;
             font-size: 0.95rem;
             outline: none;
-            box-shadow: inset 2px 2px 0px rgba(0,0,0,0.05);
         }
 
         .chat-bubble-input:focus {
             background-color: #fffdf0;
-            border-color: var(--accent-orange);
         }
 
-        /* Colored variations like the reference image */
-        .lunch-box input {
-            border-color: var(--border-clr);
-            background-color: #fff2ed; /* Tint of orange */
-        }
-        .dinner-box input {
-            border-color: var(--border-clr);
-            background-color: white;
-        }
+        .lunch-box input { background-color: #fff2ed; }
 
-        /* Right Side: Grocery Shopping System Error Box */
+        /* Grocery Tracker Elements */
         .search-bar-container {
             display: flex;
             gap: 10px;
@@ -188,7 +235,6 @@
             cursor: pointer;
             box-shadow: 3px 3px 0px var(--border-clr);
             border-radius: 4px;
-            transition: transform 0.05s ease;
         }
 
         .retro-btn:active {
@@ -196,7 +242,6 @@
             box-shadow: 1px 1px 0px var(--border-clr);
         }
 
-        /* Grocery Items Checklist */
         .shopping-list {
             list-style: none;
             display: flex;
@@ -224,7 +269,6 @@
             text-decoration: line-through;
         }
 
-        /* Custom Pixel/Retro Square Checkboxes */
         .retro-checkbox {
             width: 18px;
             height: 18px;
@@ -256,14 +300,8 @@
             font-weight: bold;
             font-size: 1.1rem;
             cursor: pointer;
-            color: var(--border-clr);
         }
 
-        .delete-btn:hover {
-            color: var(--accent-orange);
-        }
-        
-        /* Subtle Checkerboard pattern banner like your image */
         .checker-banner {
             height: 16px;
             background-image: linear-gradient(45deg, #000 25%, transparent 25%), linear-gradient(-45deg, #000 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #000 75%), linear-gradient(-45deg, transparent 75%, #000 75%);
@@ -277,7 +315,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v1.0</div>
+        <div class="nav-logo">💾 FOOD_OS // v1.2</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -285,11 +323,22 @@
         </div>
     </nav>
 
+    <section class="retro-window">
+        <div class="window-header yellow-variant">
+            <span>System_Schedule: Next_2_Weeks.exe</span>
+            <span>✖</span>
+        </div>
+        <div class="window-body calendar-container">
+            <div class="calendar-grid" id="calendar-grid">
+                </div>
+        </div>
+    </section>
+
     <main class="desktop-layout">
         
         <section class="retro-window">
             <div class="window-header">
-                <span>Group Chat: What's Cooking?</span>
+                <span>Group Chat: What's Cooking This Week?</span>
                 <span>✖</span>
             </div>
             <div class="window-body chat-layout" id="meal-chat-container">
@@ -307,7 +356,6 @@
                     <input type="text" id="item-input" class="retro-input" placeholder="Search / Add item...">
                     <button onclick="addItem()" class="retro-btn">Enter...</button>
                 </div>
-
                 <ul class="shopping-list" id="shopping-list">
                     </ul>
             </div>
@@ -318,14 +366,40 @@
     <script>
         const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
         
+        // Stateful LocalStorage Setup
         let mealPlan = JSON.parse(localStorage.getItem('retro_mealPlan')) || {};
         let shoppingList = JSON.parse(localStorage.getItem('retro_shoppingList')) || [
             { name: 'Oat Milk', checked: false },
-            { name: 'Tomatoes', checked: true },
-            { name: 'Coffee Beans', checked: false }
+            { name: 'Tomatoes', checked: true }
         ];
+        let calendarPlan = JSON.parse(localStorage.getItem('retro_calendarPlan')) || {};
 
-        // Renders the planner inputs to look like a message history log
+        // 1. GENERATE THE 2-WEEK CALENDAR ENTRIES (Days 1-14)
+        const calendarGrid = document.getElementById('calendar-grid');
+        for (let i = 1; i <= 14; i++) {
+            const dayLabel = i <= 7 ? `W1 D${i}` : `W2 D${i-7}`;
+            if (!calendarPlan[i]) calendarPlan[i] = { ryan: '', bea: '' };
+
+            const dayCol = document.createElement('div');
+            dayCol.className = 'calendar-column';
+            dayCol.innerHTML = `
+                <div class="cal-day-header">${dayLabel}</div>
+                <div class="cal-input-group">
+                    <div class="cal-row-label">Ryan</div>
+                    <input type="text" class="cal-input ryan" value="${calendarPlan[i].ryan}" placeholder="..." oninput="updateCalendar(${i}, 'ryan', this.value)">
+                    <div class="cal-row-label">Bea</div>
+                    <input type="text" class="cal-input bea" value="${calendarPlan[i].bea}" placeholder="..." oninput="updateCalendar(${i}, 'bea', this.value)">
+                </div>
+            `;
+            calendarGrid.appendChild(dayCol);
+        }
+
+        function updateCalendar(dayIndex, person, value) {
+            calendarPlan[dayIndex][person] = value;
+            localStorage.setItem('retro_calendarPlan', JSON.stringify(calendarPlan));
+        }
+
+        // 2. GENERATE THE MEAL PLANNER
         const chatContainer = document.getElementById('meal-chat-container');
         days.forEach(day => {
             if (!mealPlan[day]) mealPlan[day] = { lunch: '', dinner: '' };
@@ -349,7 +423,7 @@
             localStorage.setItem('retro_mealPlan', JSON.stringify(mealPlan));
         }
 
-        // Checklist Engine
+        // 3. GROCERY ENGINE
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
             listEl.innerHTML = '';
@@ -391,7 +465,6 @@
             renderShoppingList();
         }
 
-        // Initialize lists on document load
         renderShoppingList();
     </script>
 </body>
