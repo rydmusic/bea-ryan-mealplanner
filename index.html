@@ -184,17 +184,6 @@
             align-items: center;
         }
 
-        .column-override-select {
-            font-family: 'Courier Prime', monospace;
-            font-size: 0.75rem;
-            border: 1px solid #000;
-            border-radius: 4px;
-            padding: 2px;
-            background: #fff;
-            cursor: pointer;
-            outline: none;
-        }
-
         .smart-day-input {
             width: 100%;
             border: 1px solid #777;
@@ -233,7 +222,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v11.0_DIRECT_CORE_LINK</div>
+        <div class="nav-logo">💾 FOOD_OS // v12.0_TEXT_PARSER_RESTORED</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -264,12 +253,12 @@
             </div>
             <div class="window-body">
                 <div class="prep-log" id="prep-alert-terminal">
-                    Connecting to live text compilation channels... Mapping timeline profiles...
+                    Re-initializing original text keyword scanners... Running diagnostics...
                 </div>
             </div>
         </section>
 
-        <section class="retro-window">
+        <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span>Intelligent_Router: Dinner_Router.exe</span>
                 <span>✖</span>
@@ -294,7 +283,7 @@
             </div>
         </section>
 
-        <section class="retro-window">
+        <section class="retro-window full-width">
             <div class="window-header blue-variant">
                 <span>System Error: Missing Ingredients</span>
                 <span>✖</span>
@@ -315,23 +304,21 @@
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v13')) || [{ name: 'Oat Milk', checked: false }];
-        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v13')) || {};
-        let manualOverrides = JSON.parse(localStorage.getItem('food_os_overrides_v13')) || {};
+        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v14')) || [{ name: 'Oat Milk', checked: false }];
+        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v14')) || {};
 
+        // RESTORED ORIGINAL KEYWORD TEXT SCANNERS
         async function routeSmartDinners() {
-            // FIXED: We pull directly from the verified live text engine to avoid secondary Google/iCloud sync blocks entirely
             const ryanICSUrl = "https://p71-caldav.icloud.com/published/2/NDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE";
             const beaICSUrl = "https://p138-caldav.icloud.com/published/2/MTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
             
-            // Safe CORS fallback bridge wrapper targeting the raw text layers
             const proxyRyan = `https://corsproxy.io/?${encodeURIComponent(ryanICSUrl)}&_ts=${new Date().getTime()}`;
             const proxyBea = `https://corsproxy.io/?${encodeURIComponent(beaICSUrl)}&_ts=${new Date().getTime()}`;
             
             const logTerminal = document.getElementById('prep-alert-terminal');
 
-            let ryanBookedDates = new Set();
-            let beaBookedDates = new Set();
+            let ryanEvents = {};
+            let beaEvents = {};
 
             try {
                 const [txtRyan, txtBea] = await Promise.all([
@@ -339,27 +326,34 @@
                     fetch(proxyBea).then(res => res.text())
                 ]);
 
-                // Regex parser captures standard dates and timezone parameter strings safely
-                const parseICS = (text, targetSet) => {
+                // Original line-by-line iCal content tokenizer
+                const parseICS = (text, targetObj) => {
                     if (!text) return;
                     const lines = text.split(/\r?\n/);
                     let activeDate = null;
+                    let activeSummary = "";
+
                     for (let line of lines) {
-                        if (line.startsWith("BEGIN:VEVENT")) activeDate = null;
+                        if (line.startsWith("BEGIN:VEVENT")) { activeDate = null; activeSummary = ""; }
                         if (line.startsWith("DTSTART")) {
                             const match = line.match(/[:=]([0-9]{8})/);
                             if (match) activeDate = match[1];
                         }
+                        if (line.startsWith("SUMMARY")) {
+                            activeSummary = line.split(":")[1] || "";
+                        }
                         if (line.startsWith("END:VEVENT") && activeDate) {
-                            targetSet.add(activeDate);
+                            targetObj[activeDate] = activeSummary.toLowerCase().trim();
                         }
                     }
                 };
 
-                parseICS(txtRyan, ryanBookedDates);
-                parseICS(txtBea, beaBookedDates);
+                parseICS(txtRyan, ryanEvents);
+                parseICS(txtBea, beaEvents);
             } catch (err) {
-                console.error("iCloud data channel timeout. Operating on active manual backup overrides.");
+                console.error(err);
+                logTerminal.innerHTML = "⚠️ ERROR: Handshake failed. Please verify live proxy connections.";
+                return;
             }
 
             document.getElementById('container-ryan').innerHTML = '';
@@ -381,84 +375,48 @@
                 const iCalKey = checkDay.toISOString().replace(/-/g, '').split('T')[0];
                 const displayLabel = `${shortDayNames[checkDay.getDay()]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
 
-                const ryanHasPlan = ryanBookedDates.has(iCalKey);
-                const beaHasPlan = beaBookedDates.has(iCalKey);
+                const ryanText = ryanEvents[iCalKey] || "";
+                const beaText = beaEvents[iCalKey] || "";
 
-                let columnTarget = null;
+                let columnTarget = "both";
                 let logText = "";
 
-                if (manualOverrides[dateKey]) {
-                    columnTarget = manualOverrides[dateKey] === 'hidden' ? null : manualOverrides[dateKey];
-                    if (columnTarget) logText = `🔧 MANUAL OVERRIDE: [${displayLabel}] Forced to ${columnTarget.toUpperCase()} box.`;
+                // RESTORED ORIGINAL TEXT MATCHING FILTERS
+                if (ryanText.includes("ryan") || (ryanText && !beaText && !ryanText.includes("together") && !ryanText.includes("both") && !ryanText.includes("date"))) {
+                    columnTarget = "ryan";
+                    logText = `⚠️ WARNING: [${displayLabel}] Ryan has plans ("${ryanText}"). Bea needs dinner!`;
+                } else if (beaText.includes("bea") || (beaText && !ryanText && !beaText.includes("together") && !beaText.includes("both") && !beaText.includes("date"))) {
+                    columnTarget = "bea";
+                    logText = `⚠️ WARNING: [${displayLabel}] Bea has plans ("${beaText}"). Ryan needs dinner!`;
                 } else {
-                    if (ryanHasPlan && !beaHasPlan) {
-                        columnTarget = "bea";
-                        logText = `⚠️ WARNING: [${displayLabel}] Ryan has dinner plans. Bea needs a dinner plan!`;
-                    } else if (beaHasPlan && !ryanHasPlan) {
-                        columnTarget = "ryan";
-                        logText = `⚠️ WARNING: [${displayLabel}] Bea has dinner plans. Ryan needs a dinner plan!`;
-                    } else if (!ryanHasPlan && !beaHasPlan) {
-                        columnTarget = "both";
-                        logText = `⚠️ CRITICAL: [${displayLabel}] No dinner plans logged. Plan a meal together!`;
-                    } else {
-                        columnTarget = null; 
-                    }
+                    columnTarget = "both";
+                    logText = `⚠️ CRITICAL: [${displayLabel}] Clear night out. Plan a meal together!`;
                 }
 
-                if (columnTarget) {
-                    counters[columnTarget]++;
-                    totalAlerts++;
-                    
-                    const block = document.createElement('div');
-                    block.className = 'smart-day-block';
-                    block.innerHTML = `
-                        <div class="smart-day-title">
-                            <span>● ${displayLabel}</span>
-                            <select class="column-override-select" onchange="forceMoveDay('${dateKey}', this.value)">
-                                <option value="">Auto</option>
-                                <option value="both" ${columnTarget==='both'?'selected':''}>Together</option>
-                                <option value="ryan" ${columnTarget==='ryan'?'selected':''}>Ryan</option>
-                                <option value="bea" ${columnTarget==='bea'?'selected':''}>Bea</option>
-                                <option value="hidden">Hide</option>
-                            </select>
-                        </div>
-                        <input type="text" class="smart-day-input" value="${dynamicDinners[dateKey] || ''}" placeholder="Plan dinner..." oninput="saveSmartDinner('${dateKey}', this.value)">
-                    `;
-                    document.getElementById(`container-${columnTarget}`).appendChild(block);
-                }
+                counters[columnTarget]++;
+                totalAlerts++;
+                
+                const block = document.createElement('div');
+                block.className = 'smart-day-block';
+                block.innerHTML = `
+                    <div class="smart-day-title"><span>● ${displayLabel}</span></div>
+                    <input type="text" class="smart-day-input" value="${dynamicDinners[dateKey] || ''}" placeholder="Plan dinner..." oninput="saveSmartDinner('${dateKey}', this.value)">
+                `;
+                document.getElementById(`container-${columnTarget}`).appendChild(block);
 
                 if (logText) {
                     const alertRow = document.createElement('div');
                     alertRow.className = 'prep-item';
-                    alertRow.style.color = logText.includes("MANUAL") ? "#1aff1a" : (columnTarget === 'both' ? '#ff4d4d' : '#ff9f43');
+                    alertRow.style.color = columnTarget === 'both' ? '#ff4d4d' : '#ff9f43';
                     alertRow.innerHTML = logText;
                     logTerminal.appendChild(alertRow);
                 }
             }
-
-            if (totalAlerts === 0) {
-                logTerminal.innerHTML = "🏁 SCANNER RESUME: 100% of the next 14 days are planned. No dinner gaps found.";
-                logTerminal.style.color = "#1aff1a";
-            }
-
-            if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All nights sorted!</p>";
-            if(counters.bea === 0) document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All nights sorted!</p>";
-            if(counters.both === 0) document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All nights sorted!</p>";
-        }
-
-        function forceMoveDay(dateKey, targetColumn) {
-            if (targetColumn === "") {
-                delete manualOverrides[dateKey];
-            } else {
-                manualOverrides[dateKey] = targetColumn;
-            }
-            localStorage.setItem('food_os_overrides_v13', JSON.stringify(manualOverrides));
-            routeSmartDinners();
         }
 
         function saveSmartDinner(dateKey, value) {
             dynamicDinners[dateKey] = value;
-            localStorage.setItem('food_os_dinners_v13', JSON.stringify(dynamicDinners));
+            localStorage.setItem('food_os_dinners_v14', JSON.stringify(dynamicDinners));
         }
 
         function renderShoppingList() {
@@ -474,7 +432,7 @@
                 `;
                 listEl.appendChild(li);
             });
-            localStorage.setItem('food_os_shop_v13', JSON.stringify(shoppingList));
+            localStorage.setItem('food_os_shop_v14', JSON.stringify(shoppingList));
         }
 
         function addItem() {
