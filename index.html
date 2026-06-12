@@ -241,7 +241,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v20.5_RETRY_BRIDGE</div>
+        <div class="nav-logo">💾 FOOD_OS // v21.0_GOOGLE_AUTOMATED</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -258,7 +258,7 @@
             </div>
             <div class="window-body" style="padding: 0; height: 480px; background-color: #ffffff;">
                 <iframe 
-                    src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE&color=%23e15c32&url=https%3A%2F%2Fp138-caldav.icloud.com%2Fpublished%2F2%2FMTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU&color=%23f2a6b4&skin=flat&tab=month&controls=prev,next,today,date&title=Master%20Timeline" 
+                    src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fcalendar.google.com%2Fcalendar%2Fembed%3Fsrc%3Dq5iea5agq13b4oeen88f1hslqul8jr4c%2540import.calendar.google.com%26ctz%3DEurope%252FLondon&color=%23e15c32&url=https%3A%2F%2Fcalendar.google.com%2Fcalendar%2Fembed%3Fsrc%3Dvbn1cahh68qqba5n8vdn4asleljtq3d8%2540import.calendar.google.com%26ctz%3DEurope%252FLondon&color=%23f2a6b4&skin=flat&tab=month&controls=prev,next,today,date&title=Master%20Timeline" 
                     style="border: none; width: 100%; height: 100%;" 
                     frameborder="0">
                 </iframe>
@@ -272,7 +272,7 @@
             </div>
             <div class="window-body">
                 <div class="prep-log" id="prep-alert-terminal">
-                    Pinging cloud streams... Parsing live timelines...
+                    Pinging Google API nodes... Parsing live timeline parameters...
                 </div>
             </div>
         </section>
@@ -323,10 +323,9 @@
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v20')) || [{ name: 'Oat Milk', checked: false }];
-        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v20')) || {};
+        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v21')) || [{ name: 'Oat Milk', checked: false }];
+        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v21')) || {};
 
-        // Helper function that retries fetching data if the network hangs up
         async function fetchWithRetry(url, options = {}, retries = 3, delay = 500) {
             try {
                 const response = await fetch(url, options);
@@ -340,21 +339,21 @@
         }
 
         async function routeSmartDinners() {
-            const ryanICSUrl = "https://p71-caldav.icloud.com/published/2/NDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE";
-            const beaICSUrl = "https://p138-caldav.icloud.com/published/2/MTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
+            // FIXED: Extracted clean, proxy-free raw public Google iCal data directories
+            const ryanGoogleICS = "https://calendar.google.com/calendar/ical/q5iea5agq13b4oeen88f1hslqul8jr4c%40import.calendar.google.com/public/basic.ics";
+            const beaGoogleICS = "https://calendar.google.com/calendar/ical/vbn1cahh68qqba5n8vdn4asleljtq3d8%40import.calendar.google.com/public/basic.ics";
             
-            const proxyRyan = `https://api.allorigins.win/get?url=${encodeURIComponent(ryanICSUrl)}&ts=${new Date().getTime()}`;
-            const proxyBea = `https://api.allorigins.win/get?url=${encodeURIComponent(beaICSUrl)}&ts=${new Date().getTime()}`;
+            const proxyRyan = `https://api.allorigins.win/get?url=${encodeURIComponent(ryanGoogleICS)}&ts=${new Date().getTime()}`;
+            const proxyBea = `https://api.allorigins.win/get?url=${encodeURIComponent(beaGoogleICS)}&ts=${new Date().getTime()}`;
             
             const logTerminal = document.getElementById('prep-alert-terminal');
-            logTerminal.innerHTML = "📡 CONNECTING: Syncing with iCloud stream networks... Attempting data dump...";
+            logTerminal.innerHTML = "📡 CONNECTING: Connecting to raw Google timeline clusters... Compiling data packages...";
             logTerminal.style.color = "#1aff1a";
 
             let ryanBookedDates = new Set();
             let beaBookedDates = new Set();
 
             try {
-                // Fire off the concurrent fetch routines utilizing the retry logic
                 const [resRyan, resBea] = await Promise.all([
                     fetchWithRetry(proxyRyan),
                     fetchWithRetry(proxyBea)
@@ -380,7 +379,7 @@
                 parseICS(resBea.contents, beaBookedDates);
             } catch (err) {
                 console.error(err);
-                logTerminal.innerHTML = "❌ SYNC DELAY: Handshake timed out. Click [Re-Ping Sync] above to retry.";
+                logTerminal.innerHTML = "❌ SYNC TIMEOUT: Google data channels lagging. Click [Re-Ping Sync] above to force connection loop.";
                 logTerminal.style.color = "#ff4d4d";
                 return;
             }
@@ -412,15 +411,15 @@
 
                 if (ryanHasPlan && !beaHasPlan) {
                     columnTarget = "bea";
-                    logText = `⚠️ WARNING: [${displayLabel}] Ryan has an orange dot. Bea needs a dinner plan!`;
+                    logText = `⚠️ WARNING: [${displayLabel}] Ryan has an event block marked. Bea needs dinner!`;
                 } else if (beaHasPlan && !ryanHasPlan) {
                     columnTarget = "ryan";
-                    logText = `⚠️ WARNING: [${displayLabel}] Bea has a pink dot. Ryan needs a dinner plan!`;
+                    logText = `⚠️ WARNING: [${displayLabel}] Bea has an event block marked. Ryan needs dinner!`;
                 } else if (!ryanHasPlan && !beaHasPlan) {
                     columnTarget = "both";
                     logText = `⚠️ CRITICAL: [${displayLabel}] Gaps in calendar. Plan a meal together!`;
                 } else {
-                    columnTarget = null; // Both busy out -> Hidden!
+                    columnTarget = null; // Both out -> Hidden
                 }
 
                 if (columnTarget) {
@@ -455,9 +454,10 @@
 
         function saveSmartDinner(dateKey, value) {
             dynamicDinners[dateKey] = value;
-            localStorage.setItem('food_os_dinners_v20', JSON.stringify(dynamicDinners));
+            localStorage.setItem('food_os_dinners_v21', JSON.stringify(dynamicDinners));
         }
 
+        // GROCERY TRACKER SYSTEM ENGINE
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
             listEl.innerHTML = '';
@@ -471,7 +471,7 @@
                 `;
                 listEl.appendChild(li);
             });
-            localStorage.setItem('food_os_shop_v20', JSON.stringify(shoppingList));
+            localStorage.setItem('food_os_shop_v21', JSON.stringify(shoppingList));
         }
 
         function addItem() {
