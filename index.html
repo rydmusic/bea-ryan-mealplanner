@@ -94,6 +94,11 @@
             color: white;
         }
 
+        .window-header.orange-variant {
+            background-color: var(--accent-orange);
+            color: white;
+        }
+
         .window-header.yellow-variant {
             background-color: var(--folder-yellow);
         }
@@ -102,18 +107,25 @@
             padding: 20px;
         }
 
-        /* Workspace Split Grid for meals/shopping */
+        /* 3 Column Desktop Layout */
         .desktop-layout {
             display: grid;
-            grid-template-columns: 1.2fr 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 30px;
             max-width: 1400px;
             margin: 0 auto;
         }
 
+        .full-width {
+            grid-column: span 2;
+        }
+
         @media (max-width: 900px) {
             .desktop-layout {
                 grid-template-columns: 1fr;
+            }
+            .full-width {
+                grid-column: span 1;
             }
         }
 
@@ -254,13 +266,28 @@
             background-color: var(--accent-blue);
             border-bottom: 2px solid var(--border-clr);
         }
+
+        /* Prep Diagnostics Log window styles */
+        .prep-log {
+            font-family: 'Courier Prime', monospace;
+            background: #222;
+            color: #1aff1a;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .prep-item {
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Header Bar -->
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v2.3_PERSISTENT_STATE</div>
+        <div class="nav-logo">💾 FOOD_OS // v2.4_PREP_DIAGNOSTICS</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -268,38 +295,43 @@
         </div>
     </nav>
 
-    <!-- TOP WINDOW: Shrunk Apple Calendar (Defaults directly to Week View) -->
-    <section class="retro-window">
-        <div class="window-header yellow-variant">
-            <span>System_Schedule: Shared_iCloud_Calendar.live</span>
-            <span>✖</span>
-        </div>
-        <!-- Shrunk window height down to 320px for high-density week view layout -->
-        <div class="window-body" style="padding: 0; height: 320px; background-color: #ffffff;">
-            <!-- Appended query params targeting directly a week views interface layout -->
-            <iframe 
-                src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE&skin=flat&tabs=week&controls=today,next,prev&title=Our%20Schedule" 
-                style="border: none; width: 100%; height: 100%;" 
-                frameborder="0">
-            </iframe>
-        </div>
-    </section>
-
-    <!-- Lower Split Workspace Grid -->
     <main class="desktop-layout">
+
+        <section class="retro-window full-width">
+            <div class="window-header yellow-variant">
+                <span>System_Schedule: Shared_iCloud_Calendar.live</span>
+                <span>✖</span>
+            </div>
+            <div class="window-body" style="padding: 0; height: 320px; background-color: #ffffff;">
+                <iframe 
+                    src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE&skin=flat&tabs=week&controls=today,next,prev&title=Our%20Schedule" 
+                    style="border: none; width: 100%; height: 100%;" 
+                    frameborder="0">
+                </iframe>
+            </div>
+        </section>
+
+        <section class="retro-window full-width">
+            <div class="window-header orange-variant">
+                <span>Diagnostics_Log: Empty_Day_Prep_Scanner.exe</span>
+                <span>✖</span>
+            </div>
+            <div class="window-body">
+                <div class="prep-log" id="prep-alert-terminal">
+                    Scanning active iCloud streams... 
+                </div>
+            </div>
+        </section>
         
-        <!-- Left Window: Meal Planner -->
         <section class="retro-window">
             <div class="window-header">
                 <span>Group Chat: What's Cooking This Week?</span>
                 <span>✖</span>
             </div>
             <div class="window-body chat-layout" id="meal-chat-container">
-                <!-- Days will auto populate here with structural storage listeners -->
-            </div>
+                </div>
         </section>
 
-        <!-- Right Window: Grocery Checklist -->
         <section class="retro-window">
             <div class="window-header blue-variant">
                 <span>System Error: Missing Ingredients</span>
@@ -312,8 +344,7 @@
                     <button onclick="addItem()" class="retro-btn">Enter...</button>
                 </div>
                 <ul class="shopping-list" id="shopping-list">
-                    <!-- Dynamic items rendered via storage sync logs -->
-                </ul>
+                    </ul>
             </div>
         </section>
 
@@ -321,15 +352,15 @@
 
     <script>
         const fullDayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        // Persistent State Management Checkpoints
         let mealPlan = JSON.parse(localStorage.getItem('retro_mealPlan')) || {};
         let shoppingList = JSON.parse(localStorage.getItem('retro_shoppingList')) || [
             { name: 'Oat Milk', checked: false },
             { name: 'Tomatoes', checked: true }
         ];
 
-        // RENDER MEAL PLANNER DATA LOOP
+        // 1. GENERATE THE MEAL PLANNER CHAT INTERFACE
         const chatContainer = document.getElementById('meal-chat-container');
         fullDayNames.forEach(day => {
             if (!mealPlan[day]) mealPlan[day] = { lunch: '', dinner: '' };
@@ -348,7 +379,6 @@
             chatContainer.appendChild(daySection);
         });
 
-        // Forced backup validation to lock default key configurations on launch
         localStorage.setItem('retro_mealPlan', JSON.stringify(mealPlan));
 
         function updateMeal(day, mealType, value) {
@@ -356,7 +386,85 @@
             localStorage.setItem('retro_mealPlan', JSON.stringify(mealPlan));
         }
 
-        // DYNAMIC GROCERY CORE ENGINE
+        // 2. LIVE AUTOMATED CALENDAR EMPTY-DAY ANALYSIS ENGINE
+        async function runPrepDiagnostics() {
+            const logTerminal = document.getElementById('prep-alert-terminal');
+            
+            // Raw ics direct cloud file channel
+            const rawIcalUrl = "https://p71-caldav.icloud.com/published/2/NDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE";
+            
+            // Free proxy bridge bypasses cross-origin request policies securely
+            const proxyCorsUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(rawIcalUrl)}`;
+
+            try {
+                const response = await fetch(proxyCorsUrl);
+                if (!response.ok) throw new Error("Connection timed out.");
+                
+                const responseData = await fetch(proxyCorsUrl).then(res => res.json());
+                const rawDataString = responseData.contents;
+
+                // Establish rolling timeline indexes
+                const today = new Date();
+                today.setHours(0,0,0,0);
+                
+                const endWindowDate = new Date();
+                endWindowDate.setDate(today.getDate() + 14);
+                endWindowDate.setHours(23,59,59,999);
+
+                // Quick parse raw ics structures for timestamp blocks
+                const bookedDatesSet = new Set();
+                const matches = rawDataString.match(/DTSTART[^:]*:([0-9]{8})/g);
+                
+                if (matches) {
+                    matches.forEach(match => {
+                        const datePart = match.split(':')[1]; // Returns YYYYMMDD string
+                        const year = parseInt(datePart.substring(0, 4));
+                        const month = parseInt(datePart.substring(4, 6)) - 1;
+                        const day = parseInt(datePart.substring(6, 8));
+                        const parsedDate = new Date(year, month, day);
+                        parsedDate.setHours(0,0,0,0);
+                        
+                        bookedDatesSet.add(parsedDate.getTime());
+                    });
+                }
+
+                // Scan timeline gaps
+                logTerminal.innerHTML = '';
+                let alertCounter = 0;
+
+                for (let dayOffset = 0; dayOffset < 14; dayOffset++) {
+                    const checkDay = new Date(today);
+                    checkDay.setDate(today.getDate() + dayOffset);
+                    
+                    const timelineStamp = checkDay.getTime();
+                    
+                    // Check if day is totally blank in data arrays
+                    if (!bookedDatesSet.has(timelineStamp)) {
+                        alertCounter++;
+                        const weekdayLabel = shortDayNames[checkDay.getDay()];
+                        const numericLabel = `${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
+                        
+                        const alertRow = document.createElement('div');
+                        alertRow.className = 'prep-item';
+                        alertRow.style.color = '#ff4d4d'; // Red warning font style
+                        alertRow.innerHTML = `⚠️ CRITICAL: [${weekdayLabel} ${numericLabel}] is empty. Meal prep required!`;
+                        logTerminal.appendChild(alertRow);
+                    }
+                }
+
+                if (alertCounter === 0) {
+                    logTerminal.innerHTML = "🏁 DIAGNOSTICS COMPLETE: 100% of days are planned! No empty gaps found.";
+                    logTerminal.style.color = "#1aff1a";
+                }
+
+            } catch (error) {
+                logTerminal.innerHTML = "❌ SYSTEM ERROR: Secure cross-origin bypass link failed. Retrying sync on next layout paint loops...";
+                logTerminal.style.color = "#ff4d4d";
+                console.error(error);
+            }
+        }
+
+        // 3. GROCERY CORE ENGINE
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
             listEl.innerHTML = '';
@@ -371,7 +479,6 @@
                 `;
                 listEl.appendChild(li);
             });
-            // Instant tracking updates committed straight into browser data matrices on execution bounds
             localStorage.setItem('retro_shoppingList', JSON.stringify(shoppingList));
         }
 
@@ -399,8 +506,9 @@
             renderShoppingList();
         }
 
-        // Initialize display arrays
+        // Initialize runtime displays and execute cloud async scanners
         renderShoppingList();
+        runPrepDiagnostics();
     </script>
 </body>
 </html>
