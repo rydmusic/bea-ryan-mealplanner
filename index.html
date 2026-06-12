@@ -212,9 +212,8 @@
 </head>
 <body>
 
-    <!-- Header Bar -->
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v4.1_COMBINED_SYSTEM</div>
+        <div class="nav-logo">💾 FOOD_OS // v4.2_WEEK_VIEW_FIXED</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -224,23 +223,20 @@
 
     <main class="desktop-layout">
 
-        <!-- COMBINED MASTER CALENDAR WINDOW -->
         <section class="retro-window full-width">
             <div class="window-header yellow-variant">
                 <span>User_Schedule: Consolidated_Master_Calendar.live</span>
                 <span>✖</span>
             </div>
             <div class="window-body" style="padding: 0; height: 350px; background-color: #ffffff;">
-                <!-- Both calendar URLs are merged into a single frame, color-coded orange and red -->
                 <iframe 
-                    src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE&color=%23e15c32&url=https%3A%2F%2Fp138-caldav.icloud.com%2Fpublished%2F2%2FMTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU&color=%23f2a6b4&skin=flat&tabs=week&controls=today,next,prev&title=Master%20Timeline" 
+                    src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE&color=%23e15c32&url=https%3A%2F%2Fp138-caldav.icloud.com%2Fpublished%2F2%2FMTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU&color=%23f2a6b4&skin=flat&tab=week&controls=prev,next,today,date&title=Master%20Timeline" 
                     style="border: none; width: 100%; height: 100%;" 
                     frameborder="0">
                 </iframe>
             </div>
         </section>
 
-        <!-- AUTOMATED DINNER GRID TARGETS (3 FIXED COLUMNS) -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span>Intelligent_Router: Dinner_Router.exe</span>
@@ -248,19 +244,16 @@
             </div>
             <div class="window-body smart-dinner-grid">
                 
-                <!-- COLUMN 1 -->
                 <div class="smart-column" id="col-ryan">
                     <div class="column-header-tag tag-ryan">Ryan Nights In</div>
                     <div id="container-ryan">Analyzing streams...</div>
                 </div>
 
-                <!-- COLUMN 2 -->
                 <div class="smart-column" id="col-bea">
                     <div class="column-header-tag tag-bea">Bea Nights In</div>
                     <div id="container-bea">Analyzing streams...</div>
                 </div>
 
-                <!-- COLUMN 3 -->
                 <div class="smart-column" id="col-both">
                     <div class="column-header-tag tag-both">Nights In Together</div>
                     <div id="container-both">Analyzing streams...</div>
@@ -269,18 +262,15 @@
             </div>
         </section>
         
-        <!-- Left Window: Weekly Group Chat Log -->
         <section class="retro-window">
             <div class="window-header">
                 <span>Group Chat: What's Cooking This Week?</span>
                 <span>✖</span>
             </div>
             <div class="window-body chat-layout" id="meal-chat-container">
-                <!-- Programmatically populated via state listeners -->
-            </div>
+                </div>
         </section>
 
-        <!-- Right Window: Grocery Checklist -->
         <section class="retro-window">
             <div class="window-header blue-variant">
                 <span>System Error: Missing Ingredients</span>
@@ -293,8 +283,7 @@
                     <button onclick="addItem()" class="retro-btn">Enter...</button>
                 </div>
                 <ul class="shopping-list" id="shopping-list">
-                    <!-- Targeted checkpoint for local checklist data rows -->
-                </ul>
+                    </ul>
             </div>
         </section>
 
@@ -304,7 +293,6 @@
         const fullDayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        // LocalStorage Engine Variables
         let mealPlan = JSON.parse(localStorage.getItem('food_os_meals_v4')) || {};
         let shoppingList = JSON.parse(localStorage.getItem('food_os_shopping_v4')) || [
             { name: 'Oat Milk', checked: false }
@@ -334,15 +322,16 @@
             localStorage.setItem('food_os_meals_v4', JSON.stringify(mealPlan));
         }
 
-        // ASYNC DUAL TIMELINE ROUTER SCRIPT
+        // FIXED ASYNC DUAL TIMELINE ROUTER SCRIPT
         async function routeSmartDinners() {
             const ryanUrl = "https://p71-caldav.icloud.com/published/2/NDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE";
-            const beaUrl = "https://p138-caldav.icloud.com/published/2/MTk7MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
+            // FIXED: Corrected string capitalization case assignment typo block 'MTk3MzYw...'
+            const maxUrl = "https://p138-caldav.icloud.com/published/2/MTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
 
             try {
                 const [resRyan, resBea] = await Promise.all([
                     fetch(`https://corsproxy.io/?${encodeURIComponent(ryanUrl)}`),
-                    fetch(`https://corsproxy.io/?${encodeURIComponent(beaUrl)}`)
+                    fetch(`https://corsproxy.io/?${encodeURIComponent(maxUrl)}`)
                 ]);
                 if (!resRyan.ok || !resBea.ok) throw new Error("Stream error.");
 
@@ -355,7 +344,6 @@
                 const ryanEvents = {};
                 const beaEvents = {};
 
-                // Unified iCal line array breakdown reader loop
                 const parseLines = (text, targetObj) => {
                     const lines = text.split(/\r?\n/);
                     let activeDate = null;
@@ -377,7 +365,6 @@
                 parseLines(txtRyan, ryanEvents);
                 parseLines(txtBea, beaEvents);
 
-                // Clean column container displays completely
                 document.getElementById('container-ryan').innerHTML = '';
                 document.getElementById('container-bea').innerHTML = '';
                 document.getElementById('container-both').innerHTML = '';
@@ -398,7 +385,7 @@
 
                     let columnTarget = "both";
 
-                    // ROUTING DECISION LOGIC MATRIX
+                    // CORE ROUTING EVALUATION MATRIX
                     if (ryanTxt.includes("ryan") || (ryanTxt && !beaTxt && !ryanTxt.includes("together") && !ryanTxt.includes("both") && !ryanTxt.includes("date"))) {
                         columnTarget = "ryan";
                     } else if (beaTxt.includes("bea") || (beaTxt && !ryanTxt && !beaTxt.includes("together") && !beaTxt.includes("both") && !beaTxt.includes("date"))) {
@@ -425,10 +412,9 @@
 
             } catch (err) {
                 console.error(err);
-                // Graceful layout placeholder injections if network calls bounce
-                document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;color:red;'>Sync error.</p>";
-                document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;color:red;'>Sync error.</p>";
-                document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;color:red;'>Sync error.</p>";
+                document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;color:red;'>Handshake failed.</p>";
+                document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;color:red;'>Handshake failed.</p>";
+                document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;color:red;'>Handshake failed.</p>";
             }
         }
 
