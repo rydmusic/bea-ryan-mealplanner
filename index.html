@@ -206,7 +206,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v30.0_FINAL_STABLE</div>
+        <div class="nav-logo">💾 FOOD_OS // v35.0_PROX_IMMUNE_LIVE</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -223,6 +223,7 @@
             </div>
             <div class="window-body" style="padding: 0; height: 480px; background-color: #ffffff;">
                 <iframe 
+                    id="calendar-frame"
                     src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE&color=%23e15c32&url=https%3A%2F%2Fp138-caldav.icloud.com%2Fpublished%2F2%2FMTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU&color=%23f2a6b4&skin=flat&tab=month&controls=prev,next,today,date&title=Master%20Timeline" 
                     style="border: none; width: 100%; height: 100%;" 
                     frameborder="0">
@@ -237,7 +238,7 @@
             </div>
             <div class="window-body">
                 <div class="prep-log" id="prep-alert-terminal">
-                    Pinging stable cloud streams... Parsing unified Apple timeline files...
+                    Awaiting display broadcast synchronization data from visual master calendar stream layer...
                 </div>
             </div>
         </section>
@@ -283,59 +284,54 @@
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v30')) || [{ name: 'Oat Milk', checked: false }];
-        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v30')) || {};
+        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v35')) || [{ name: 'Oat Milk', checked: false }];
+        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v35')) || {};
 
-        // Hardcoded, case-corrected absolute secure paths
-        const ryanNewGoogleICS = "https://p71-caldav.icloud.com/published/2/NDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE"; 
-        const beaNewGoogleICS = "https://p138-caldav.icloud.com/published/2/MTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU"; 
+        // PROX-IMMUNE MESSAGE PASSING BRIDGE
+        // Open Web Calendar frames automatically send an event message up when events successfully populate on-screen
+        window.addEventListener("message", function(event) {
+            // Security limit verification checks out data layer origins
+            if (!event.origin.includes("quelltext.eu")) return;
+            
+            // Look specifically for the internal data list broadcasted by the visual calendar script
+            if (event.data && event.data.type === "calendar-events" || event.data.events) {
+                const embeddedEvents = event.data.events || [];
+                parseLiveDisplayData(embeddedEvents);
+            }
+        });
 
-        async function routeSmartDinners() {
+        // Fallback network trigger manually scrapes public fallback if client message drops
+        async function runDirectScrapeFallback() {
+            const fallbackUrl = "https://open-web-calendar.hosted.quelltext.eu/events.json?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE&url=https%3A%2F%2Fp138-caldav.icloud.com%2Fpublished%2F2%2FMTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
+            try {
+                const res = await fetch(fallbackUrl);
+                if (res.ok) {
+                    const data = await res.json();
+                    parseLiveDisplayData(data);
+                }
+            } catch(e) {
+                buildDefaultGrid();
+            }
+        }
+
+        function parseLiveDisplayData(eventsArray) {
             const logTerminal = document.getElementById('prep-alert-terminal');
-            logTerminal.innerHTML = "📡 CONNECTING: Compiling live calendar stream layers... Analyzing data files...";
-            logTerminal.style.color = "#1aff1a";
-
+            
             let ryanBookedDates = new Set();
             let beaBookedDates = new Set();
 
-            try {
-                // High-speed visual pass-through layer guarantees proxy immune loading loops
-                const ryanUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(ryanNewGoogleICS)}&ts=${new Date().getTime()}`;
-                const beaUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(beaNewGoogleICS)}&ts=${new Date().getTime()}`;
-
-                const [resRyan, resBea] = await Promise.all([
-                    fetch(ryanUrl).then(res => res.json()),
-                    fetch(beaUrl).then(res => res.json())
-                ]);
-
-                const parseICS = (text, targetSet) => {
-                    if (!text) return;
-                    const lines = text.split(/\r?\n/);
-                    let activeDate = null;
-                    for (let line of lines) {
-                        if (line.startsWith("BEGIN:VEVENT")) activeDate = null;
-                        if (line.startsWith("DTSTART")) {
-                            const match = line.match(/[:=]([0-9]{8})/);
-                            if (match) activeDate = match[1];
-                        }
-                        if (line.startsWith("END:VEVENT") && activeDate) targetSet.add(activeDate);
+            eventsArray.forEach(ev => {
+                if (ev.start) {
+                    const dateStr = ev.start.split('T')[0].replace(/-/g, '');
+                    // Discovers calendar color classifications directly to segregate user matrices
+                    if (ev.color === "%23e15c32" || ev.url && ev.url.includes("p71")) {
+                        ryanBookedDates.add(dateStr);
+                    } else {
+                        beaBookedDates.add(dateStr);
                     }
-                };
+                }
+            });
 
-                parseICS(resRyan.contents, ryanBookedDates);
-                parseICS(resBea.contents, beaBookedDates);
-            } catch (err) {
-                console.error(err);
-                logTerminal.innerHTML = "❌ INTERRUPT: Stream timeout. Reloading page arrays...";
-                logTerminal.style.color = "#ff4d4d";
-                return;
-            }
-
-            buildGridWithData(ryanBookedDates, beaBookedDates);
-        }
-
-        function buildGridWithData(ryanSet, beaSet) {
-            const logTerminal = document.getElementById('prep-alert-terminal');
             document.getElementById('container-ryan').innerHTML = '';
             document.getElementById('container-bea').innerHTML = '';
             document.getElementById('container-both').innerHTML = '';
@@ -353,8 +349,8 @@
                 const iCalKey = checkDay.toISOString().replace(/-/g, '').split('T')[0];
                 const displayLabel = `${shortDayNames[checkDay.getDay()]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
 
-                const ryanHasPlan = ryanSet.has(iCalKey);
-                const beaHasPlan = beaSet.has(iCalKey);
+                const ryanHasPlan = ryanBookedDates.has(iCalKey);
+                const beaHasPlan = beaBookedDates.has(iCalKey);
 
                 let columnTarget = null;
                 let logText = "";
@@ -367,7 +363,7 @@
                     logText = `⚠️ WARNING: [${displayLabel}] Bea has a pink dot. Ryan needs a dinner plan!`;
                 } else if (!ryanHasPlan && !beaHasPlan) {
                     columnTarget = "both";
-                    logText = `⚠️ CRITICAL: [${displayLabel}] Gaps in calendar. Plan a meal together!`;
+                    logText = `⚠️ CRITICAL: [${displayLabel}] Clear evening open. Plan a meal together!`;
                 }
 
                 if (columnTarget) {
@@ -391,6 +387,28 @@
             checkEmptyStates(counters);
         }
 
+        function buildDefaultGrid() {
+            document.getElementById('container-ryan').innerHTML = '';
+            document.getElementById('container-bea').innerHTML = '';
+            document.getElementById('container-both').innerHTML = '';
+            const today = new Date();
+            today.setHours(0,0,0,0);
+            for (let i = 0; i < 14; i++) {
+                const checkDay = new Date(today);
+                checkDay.setDate(today.getDate() + i);
+                const dateKey = checkDay.toISOString().split('T')[0];
+                const displayLabel = `${shortDayNames[checkDay.getDay()]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
+                
+                const block = document.createElement('div');
+                block.className = 'smart-day-block';
+                block.innerHTML = `
+                    <div class="smart-day-title"><span>● ${displayLabel}</span></div>
+                    <input type="text" class="smart-day-input" value="${dynamicDinners[dateKey] || ''}" placeholder="Plan dinner..." oninput="saveSmartDinner('${dateKey}', this.value)">
+                `;
+                document.getElementById('container-both').appendChild(block);
+            }
+        }
+
         function checkEmptyStates(counters) {
             if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All nights sorted!</p>";
             if(counters.bea === 0) document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All nights sorted!</p>";
@@ -399,7 +417,7 @@
 
         function saveSmartDinner(dateKey, value) {
             dynamicDinners[dateKey] = value;
-            localStorage.setItem('food_os_dinners_v30', JSON.stringify(dynamicDinners));
+            localStorage.setItem('food_os_dinners_v35', JSON.stringify(dynamicDinners));
         }
 
         function renderShoppingList() {
@@ -415,7 +433,7 @@
                 `;
                 listEl.appendChild(li);
             });
-            localStorage.setItem('food_os_shop_v30', JSON.stringify(shoppingList));
+            localStorage.setItem('food_os_shop_v35', JSON.stringify(shoppingList));
         }
 
         function addItem() {
@@ -433,7 +451,7 @@
         function deleteItem(index) { shoppingList.splice(index, 1); renderShoppingList(); }
 
         renderShoppingList();
-        routeSmartDinners();
+        runDirectScrapeFallback();
     </script>
 </body>
 </html>
