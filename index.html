@@ -205,7 +205,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v6.0_INVERTED_PLANNER</div>
+        <div class="nav-logo">💾 FOOD_OS // v6.1_CORRECT_LOGIC</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -350,21 +350,20 @@
 
                     const displayLabel = `${shortDayNames[checkDay.getDay()]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
 
-                    // TRUE FLIPPED INVENTORY CHECKERS
-                    const ryanHasDinnerPlanned = ryanBookedDates.has(iCalKey);
-                    const beaHasDinnerPlanned = beaBookedDates.has(iCalKey);
+                    const ryanHasPlan = ryanBookedDates.has(iCalKey);
+                    const beaHasPlan = beaBookedDates.has(iCalKey);
 
                     let columnTarget = null;
 
-                    // LOGIC SWAP DEFINITIONS:
-                    if (!ryanHasDinnerPlanned && !beaHasDinnerPlanned) {
-                        columnTarget = "both";   // Both calendars are completely blank -> Needs a joint dinner plan!
-                    } else if (!ryanHasDinnerPlanned && beaHasDinnerPlanned) {
-                        columnTarget = "ryan";   // Ryan has NO dinner plan, but Bea does -> Ryan is home on his own!
-                    } else if (ryanHasDinnerPlanned && !beaHasDinnerPlanned) {
-                        columnTarget = "bea";    // Bea has NO dinner plan, but Ryan does -> Bea is home on her own!
+                    // YOUR EXACT LOGIC SPECIFICATIONS:
+                    if (ryanHasPlan && !beaHasPlan) {
+                        columnTarget = "bea";    // Ryan has an orange event, Bea doesn't -> Drop into Bea Nights In
+                    } else if (beaHasPlan && !ryanHasPlan) {
+                        columnTarget = "ryan";   // Bea has a red event, Ryan doesn't -> Drop into Ryan Nights In
+                    } else if (!ryanHasPlan && !beaHasPlan) {
+                        columnTarget = "both";   // No plans anywhere on this date -> Drop into Nights In Together
                     } else {
-                        columnTarget = null;     // BOTH calendars have dinner plans -> Hide completely, zero prep required!
+                        columnTarget = null;     // Both have plans -> Dinner is fully handled, skip!
                     }
 
                     if (columnTarget) {
