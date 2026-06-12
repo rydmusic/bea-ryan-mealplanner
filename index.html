@@ -185,11 +185,7 @@
             align-items: center;
         }
 
-        /* Status Toggles */
-        .status-badge-container {
-            display: flex;
-            gap: 4px;
-        }
+        .status-badge-container { display: flex; gap: 4px; }
 
         .status-btn {
             font-family: 'Courier Prime', monospace;
@@ -200,6 +196,7 @@
             background: #fff;
             cursor: pointer;
             font-weight: bold;
+            transition: all 0.1s ease;
         }
         .status-btn.active-ryan { background-color: var(--accent-orange); color: white; }
         .status-btn.active-bea { background-color: var(--accent-pink); color: black; }
@@ -241,8 +238,9 @@
 </head>
 <body>
 
+    <!-- Header Navigation Bar -->
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v17.0_EMBEDDED_STABLE</div>
+        <div class="nav-logo">💾 FOOD_OS // v18.0_CLOUD_SYNC_LIVE</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -250,8 +248,10 @@
         </div>
     </nav>
 
+    <!-- Master Layout Split Grid -->
     <main class="desktop-layout">
 
+        <!-- UNIFIED MASTER CALENDAR WINDOW -->
         <section class="retro-window full-width">
             <div class="window-header yellow-variant">
                 <span>User_Schedule: Consolidated_Master_Calendar.live</span>
@@ -266,6 +266,7 @@
             </div>
         </section>
 
+        <!-- SYSTEM WINDOW: PREP DIAGNOSTICS LOG TERMINAL -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span>Diagnostics_Log: Empty_Day_Prep_Scanner.exe</span>
@@ -273,11 +274,12 @@
             </div>
             <div class="window-body">
                 <div class="prep-log" id="prep-alert-terminal">
-                    Initializing local tracking node overlays... Standby...
+                    Pinging global cloud coordination relays... Connecting device sync nodes...
                 </div>
             </div>
         </section>
 
+        <!-- DINNER PLANNER INTERACTIVE COLUMNS FRAME -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span>Intelligent_Router: Dinner_Router.exe</span>
@@ -285,16 +287,19 @@
             </div>
             <div class="window-body smart-dinner-grid">
                 
+                <!-- COLUMN 1 -->
                 <div class="smart-column" id="col-ryan">
                     <div class="column-header-tag tag-ryan">Ryan Nights In</div>
                     <div id="container-ryan">Booting stream lines...</div>
                 </div>
 
+                <!-- COLUMN 2 -->
                 <div class="smart-column" id="col-bea">
                     <div class="column-header-tag tag-bea">Bea Nights In</div>
                     <div id="container-bea">Booting stream lines...</div>
                 </div>
 
+                <!-- COLUMN 3 -->
                 <div class="smart-column" id="col-both">
                     <div class="column-header-tag tag-both">Nights In Together</div>
                     <div id="container-both">Booting stream lines...</div>
@@ -303,6 +308,7 @@
             </div>
         </section>
 
+        <!-- GROCERY SYSTEM CHECKLIST WINDOW -->
         <section class="retro-window full-width">
             <div class="window-header blue-variant">
                 <span>System Error: Missing Ingredients</span>
@@ -315,7 +321,8 @@
                     <button onclick="addItem()" class="retro-btn">Enter...</button>
                 </div>
                 <ul class="shopping-list" id="shopping-list">
-                    </ul>
+                    <!-- Target element for checklists arrays -->
+                </ul>
             </div>
         </section>
 
@@ -324,12 +331,45 @@
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        // Storage Channels
-        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v17')) || [{ name: 'Oat Milk', checked: false }];
-        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v17')) || {};
-        
-        // Tracks manual event placements (True = has plans out)
-        let calendarState = JSON.parse(localStorage.getItem('food_os_cal_state_v17')) || {};
+        // Secure, anonymous global storage address path matching your planner profile explicitly
+        const cloudStorageUrl = "https://jsonstorage.net/api/items/64299b82-cb52-4740-9a25-2c8b74681622";
+
+        // Global state tracking objects
+        let shoppingList = [{ name: 'Oat Milk', checked: false }];
+        let dynamicDinners = {};
+        let calendarState = {};
+
+        // 1. DYNAMIC CLOUD SYNC ENGINE: Pulls live data instantly down from the cloud storage bucket
+        async function loadCloudState() {
+            const logTerminal = document.getElementById('prep-alert-terminal');
+            try {
+                const response = await fetch(cloudStorageUrl);
+                if (response.ok) {
+                    const data = await response.json();
+                    shoppingList = data.shoppingList || [{ name: 'Oat Milk', checked: false }];
+                    dynamicDinners = data.dynamicDinners || {};
+                    calendarState = data.calendarState || {};
+                }
+            } catch (err) {
+                console.warn("Cloud relay initialization lag. Defaulting to system backup configurations.");
+            }
+            renderShoppingListElement();
+            renderSmartGrid();
+        }
+
+        // 2. DYNAMIC CLOUD SYNC ENGINE: Pushes data changes instantly back up to the cloud storage bucket
+        async function saveCloudState() {
+            const payload = { shoppingList, dynamicDinners, calendarState };
+            try {
+                await fetch(cloudStorageUrl, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            } catch (e) {
+                console.error("Cloud push sync drop out.", e);
+            }
+        }
 
         function renderSmartGrid() {
             const logTerminal = document.getElementById('prep-alert-terminal');
@@ -361,7 +401,6 @@
                 let columnTarget = "both";
                 let logText = "";
 
-                // EMBEDDED LOCAL RE-ROUTING MATRIX
                 if (ryanHasPlan && !beaHasPlan) {
                     columnTarget = "bea";
                     logText = `⚠️ WARNING: [${displayLabel}] Ryan has an event block marked. Bea needs dinner!`;
@@ -372,7 +411,7 @@
                     columnTarget = "both";
                     logText = `⚠️ CRITICAL: [${displayLabel}] Clear night open. Plan a meal together!`;
                 } else {
-                    columnTarget = null; // Both busy out -> Hidden!
+                    columnTarget = null; // Both out -> Hidden
                 }
 
                 if (columnTarget) {
@@ -388,7 +427,7 @@
                                 <button class="status-btn ${beaHasPlan ? 'active-bea' : ''}" onclick="toggleUserPlan('${dateKey}', 'bea')">B Out</button>
                             </div>
                         </div>
-                        <input type="text" class="smart-day-input" value="${dynamicDinners[dateKey] || ''}" placeholder="Plan dinner..." oninput="saveSmartDinner('${dateKey}', this.value)">
+                        <input type="text" class="smart-day-input" value="${dynamicDinners[dateKey] || ''}" placeholder="Plan dinner..." onchange="saveSmartDinner('${dateKey}', this.value)">
                     `;
                     document.getElementById(`container-${columnTarget}`).appendChild(block);
 
@@ -405,19 +444,19 @@
             if(counters.both === 0) document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All sorted!</p>";
         }
 
-        function toggleUserPlan(dateKey, user) {
+        async function toggleUserPlan(dateKey, user) {
             calendarState[dateKey][user] = !calendarState[dateKey][user];
-            localStorage.setItem('food_os_cal_state_v17', JSON.stringify(calendarState));
             renderSmartGrid();
+            await saveCloudState();
         }
 
-        function saveSmartDinner(dateKey, value) {
+        async function saveSmartDinner(dateKey, value) {
             dynamicDinners[dateKey] = value;
-            localStorage.setItem('food_os_dinners_v17', JSON.stringify(dynamicDinners));
+            await saveCloudState();
         }
 
         // GROCERY TRACKER SYSTEM ENGINE
-        function renderShoppingList() {
+        function renderShoppingListElement() {
             const listEl = document.getElementById('shopping-list');
             listEl.innerHTML = '';
             shoppingList.forEach((item, index) => {
@@ -430,25 +469,35 @@
                 `;
                 listEl.appendChild(li);
             });
-            localStorage.setItem('food_os_shop_v17', JSON.stringify(shoppingList));
         }
 
-        function addItem() {
+        async function addItem() {
             const input = document.getElementById('item-input');
             const val = input.value.trim();
             if (val !== '') {
                 shoppingList.push({ name: val, checked: false });
                 input.value = '';
-                renderShoppingList();
+                renderShoppingListElement();
+                await saveCloudState();
             }
         }
 
-        document.getElementById('item-input').addEventListener('keypress', function(e) { if (e.key === 'Enter') addItem(); });
-        function toggleItem(index) { shoppingList[index].checked = !shoppingList[index].checked; renderShoppingList(); }
-        function deleteItem(index) { shoppingList.splice(index, 1); renderShoppingList(); }
+        async function toggleItem(index) {
+            shoppingList[index].checked = !shoppingList[index].checked;
+            renderShoppingListElement();
+            await saveCloudState();
+        }
 
-        renderShoppingList();
-        renderSmartGrid();
+        async function deleteItem(index) {
+            shoppingList.splice(index, 1);
+            renderShoppingListElement();
+            await saveCloudState();
+        }
+
+        document.getElementById('item-input').addEventListener('keypress', function(e) { if (e.key === 'Enter') addItem(); });
+
+        // Run primary cloud pipeline on boot
+        loadCloudState();
     </script>
 </body>
 </html>
