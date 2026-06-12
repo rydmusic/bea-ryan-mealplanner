@@ -287,7 +287,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v2.4_PREP_DIAGNOSTICS</div>
+        <div class="nav-logo">💾 FOOD_OS // v2.5_STABLE_STATE</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -354,16 +354,26 @@
         const fullDayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        let mealPlan = JSON.parse(localStorage.getItem('retro_mealPlan')) || {};
-        let shoppingList = JSON.parse(localStorage.getItem('retro_shoppingList')) || [
-            { name: 'Oat Milk', checked: false },
-            { name: 'Tomatoes', checked: true }
-        ];
+        // REPAIRED PERSISTENT STATE STORAGE CAPTURE
+        let mealPlan = JSON.parse(localStorage.getItem('retro_mealPlan'));
+        if (!mealPlan || typeof mealPlan !== 'object') {
+            mealPlan = {};
+        }
 
-        // 1. GENERATE THE MEAL PLANNER CHAT INTERFACE
+        let shoppingList = JSON.parse(localStorage.getItem('retro_shoppingList'));
+        if (!shoppingList || !Array.isArray(shoppingList)) {
+            shoppingList = [
+                { name: 'Oat Milk', checked: false },
+                { name: 'Tomatoes', checked: true }
+            ];
+        }
+
+        // GENERATE PLANNER FORWARD MATRIX LAYOUT
         const chatContainer = document.getElementById('meal-chat-container');
         fullDayNames.forEach(day => {
-            if (!mealPlan[day]) mealPlan[day] = { lunch: '', dinner: '' };
+            if (!mealPlan[day]) {
+                mealPlan[day] = { lunch: '', dinner: '' };
+            }
             
             const daySection = document.createElement('div');
             daySection.className = 'day-bubble-row';
@@ -379,6 +389,7 @@
             chatContainer.appendChild(daySection);
         });
 
+        // Initialize state markers on initial run parameters
         localStorage.setItem('retro_mealPlan', JSON.stringify(mealPlan));
 
         function updateMeal(day, mealType, value) {
@@ -386,38 +397,29 @@
             localStorage.setItem('retro_mealPlan', JSON.stringify(mealPlan));
         }
 
-        // 2. LIVE AUTOMATED CALENDAR EMPTY-DAY ANALYSIS ENGINE
+        // IMPROVED ROBUST TIMELINE GAP CAPTURE VIA TRANSPARENT WORKER TUNNEL
         async function runPrepDiagnostics() {
             const logTerminal = document.getElementById('prep-alert-terminal');
-            
-            // Raw ics direct cloud file channel
             const rawIcalUrl = "https://p71-caldav.icloud.com/published/2/NDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE";
             
-            // Free proxy bridge bypasses cross-origin request policies securely
-            const proxyCorsUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(rawIcalUrl)}`;
+            // Replaced unreliable proxy server with high-performance corsproxy.io worker node
+            const secureProxyUrl = `https://corsproxy.io/?${encodeURIComponent(rawIcalUrl)}`;
 
             try {
-                const response = await fetch(proxyCorsUrl);
-                if (!response.ok) throw new Error("Connection timed out.");
+                const response = await fetch(secureProxyUrl);
+                if (!response.ok) throw new Error("Proxy node handshake rejected.");
                 
-                const responseData = await fetch(proxyCorsUrl).then(res => res.json());
-                const rawDataString = responseData.contents;
+                const rawDataString = await response.text();
 
-                // Establish rolling timeline indexes
                 const today = new Date();
                 today.setHours(0,0,0,0);
                 
-                const endWindowDate = new Date();
-                endWindowDate.setDate(today.getDate() + 14);
-                endWindowDate.setHours(23,59,59,999);
-
-                // Quick parse raw ics structures for timestamp blocks
                 const bookedDatesSet = new Set();
                 const matches = rawDataString.match(/DTSTART[^:]*:([0-9]{8})/g);
                 
                 if (matches) {
                     matches.forEach(match => {
-                        const datePart = match.split(':')[1]; // Returns YYYYMMDD string
+                        const datePart = match.split(':')[1];
                         const year = parseInt(datePart.substring(0, 4));
                         const month = parseInt(datePart.substring(4, 6)) - 1;
                         const day = parseInt(datePart.substring(6, 8));
@@ -428,17 +430,14 @@
                     });
                 }
 
-                // Scan timeline gaps
                 logTerminal.innerHTML = '';
                 let alertCounter = 0;
 
                 for (let dayOffset = 0; dayOffset < 14; dayOffset++) {
                     const checkDay = new Date(today);
                     checkDay.setDate(today.getDate() + dayOffset);
-                    
                     const timelineStamp = checkDay.getTime();
                     
-                    // Check if day is totally blank in data arrays
                     if (!bookedDatesSet.has(timelineStamp)) {
                         alertCounter++;
                         const weekdayLabel = shortDayNames[checkDay.getDay()];
@@ -446,25 +445,25 @@
                         
                         const alertRow = document.createElement('div');
                         alertRow.className = 'prep-item';
-                        alertRow.style.color = '#ff4d4d'; // Red warning font style
-                        alertRow.innerHTML = `⚠️ CRITICAL: [${weekdayLabel} ${numericLabel}] is empty. Meal prep required!`;
+                        alertRow.style.color = '#ff4d4d'; 
+                        alertRow.innerHTML = `⚠️ ALERT: [${weekdayLabel} ${numericLabel}] has no calendar event. Plan meals/prep accordingly!`;
                         logTerminal.appendChild(alertRow);
                     }
                 }
 
                 if (alertCounter === 0) {
-                    logTerminal.innerHTML = "🏁 DIAGNOSTICS COMPLETE: 100% of days are planned! No empty gaps found.";
+                    logTerminal.innerHTML = "🏁 SCANNER RESUME: 100% of the next 14 days have events booked. No preparation gaps flagged.";
                     logTerminal.style.color = "#1aff1a";
                 }
 
             } catch (error) {
-                logTerminal.innerHTML = "❌ SYSTEM ERROR: Secure cross-origin bypass link failed. Retrying sync on next layout paint loops...";
+                logTerminal.innerHTML = "❌ INTERFACE DISCONNECT: Cloud matrix streams are dropping requests. Retrying data extraction pipes on next viewport update...";
                 logTerminal.style.color = "#ff4d4d";
                 console.error(error);
             }
         }
 
-        // 3. GROCERY CORE ENGINE
+        // GROCERY CHECKLIST LOGIC
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
             listEl.innerHTML = '';
@@ -506,7 +505,6 @@
             renderShoppingList();
         }
 
-        // Initialize runtime displays and execute cloud async scanners
         renderShoppingList();
         runPrepDiagnostics();
     </script>
