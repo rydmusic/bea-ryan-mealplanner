@@ -204,9 +204,8 @@
 </head>
 <body>
 
-    <!-- Header Navigation Bar -->
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v6.2_REGEX_PARSER</div>
+        <div class="nav-logo">💾 FOOD_OS // v6.5_ULTRA_FIRMWARE</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -214,10 +213,8 @@
         </div>
     </nav>
 
-    <!-- Master Layout Split Grid -->
     <main class="desktop-layout">
 
-        <!-- UNIFIED MASTER CALENDAR WINDOW -->
         <section class="retro-window full-width">
             <div class="window-header yellow-variant">
                 <span>User_Schedule: Consolidated_Master_Calendar.live</span>
@@ -232,27 +229,23 @@
             </div>
         </section>
 
-        <!-- DINNER PLANNER INTERACTIVE COLUMNS FRAME -->
-        <section class="retro-window full-width">
+        <section class="retro-window">
             <div class="window-header orange-variant">
                 <span>Intelligent_Router: Dinner_Router.exe</span>
                 <span>✖</span>
             </div>
             <div class="window-body smart-dinner-grid">
                 
-                <!-- COLUMN 1 -->
                 <div class="smart-column" id="col-ryan">
                     <div class="column-header-tag tag-ryan">Ryan Nights In</div>
                     <div id="container-ryan">Booting stream lines...</div>
                 </div>
 
-                <!-- COLUMN 2 -->
                 <div class="smart-column" id="col-bea">
                     <div class="column-header-tag tag-bea">Bea Nights In</div>
                     <div id="container-bea">Booting stream lines...</div>
                 </div>
 
-                <!-- COLUMN 3 -->
                 <div class="smart-column" id="col-both">
                     <div class="column-header-tag tag-both">Nights In Together</div>
                     <div id="container-both">Booting stream lines...</div>
@@ -261,8 +254,7 @@
             </div>
         </section>
 
-        <!-- GROCERY SYSTEM CHECKLIST WINDOW -->
-        <section class="retro-window full-width">
+        <section class="retro-window">
             <div class="window-header blue-variant">
                 <span>System Error: Missing Ingredients</span>
                 <span>✖</span>
@@ -274,8 +266,7 @@
                     <button onclick="addItem()" class="retro-btn">Enter...</button>
                 </div>
                 <ul class="shopping-list" id="shopping-list">
-                    <!-- Target element for checklists arrays -->
-                </ul>
+                    </ul>
             </div>
         </section>
 
@@ -284,22 +275,38 @@
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        // Final Storage Schemas
-        let shoppingList = JSON.parse(localStorage.getItem('food_os_shopping_v6_prod')) || [
+        // Final Fresh Key Schemas
+        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v7')) || [
             { name: 'Oat Milk', checked: false }
         ];
-        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v6_prod')) || {};
+        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v7')) || {};
 
-        async function fetchCalendarWithFallback(primaryUrl, fallbackProxyUrl) {
+        // DEEP DUAL-PROXY ENGINE WITH DYNAMIC TIMEOUT SWITCHES
+        async function fetchCalendarWithFailsafe(calendarUrl) {
+            const cacheBuster = `&_cb=${new Date().getTime()}`;
+            
+            // Premium Proxy Node 1: Thingproxy Worker
+            const routeA = `https://thingproxy.freeboard.io/fetch/${encodeURIComponent(calendarUrl)}`;
+            // Premium Proxy Node 2: Base CorsProxy Engine
+            const routeB = `https://corsproxy.io/?${encodeURIComponent(calendarUrl)}${cacheBuster}`;
+            // Premium Proxy Node 3: AllOrigins Script Tunnel
+            const routeC = `https://api.allorigins.win/get?url=${encodeURIComponent(calendarUrl)}&ts=${new Date().getTime()}`;
+
             try {
-                const res = await fetch(primaryUrl);
-                if (!res.ok) throw new Error("Primary proxy down.");
+                const res = await fetch(routeA);
+                if(!res.ok) throw new Error("A failed");
                 return await res.text();
             } catch (err) {
-                const resFallback = await fetch(fallbackProxyUrl);
-                if (!resFallback.ok) throw new Error("Fallback failed.");
-                const dataJson = await resFallback.json();
-                return dataJson.contents;
+                try {
+                    const resB = await fetch(routeB);
+                    if(!resB.ok) throw new Error("B failed");
+                    return await resB.text();
+                } catch(err2) {
+                    const resC = await fetch(routeC);
+                    if(!resC.ok) throw new Error("All endpoints rejected mapping requests.");
+                    const json = await resC.json();
+                    return json.contents;
+                }
             }
         }
 
@@ -307,16 +314,10 @@
             const ryanUrl = "https://p71-caldav.icloud.com/published/2/NDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE";
             const beaUrl = "https://p138-caldav.icloud.com/published/2/MTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
 
-            const cacheBuster = `&_cb=${new Date().getTime()}`;
-            const primaryRyan = `https://corsproxy.io/?${encodeURIComponent(ryanUrl)}${cacheBuster}`;
-            const fallbackRyan = `https://api.allorigins.win/get?url=${encodeURIComponent(ryanUrl)}&ts=${new Date().getTime()}`;
-            const primaryBea = `https://corsproxy.io/?${encodeURIComponent(beaUrl)}${cacheBuster}`;
-            const fallbackBea = `https://api.allorigins.win/get?url=${encodeURIComponent(beaUrl)}&ts=${new Date().getTime()}`;
-
             try {
                 const [txtRyan, txtBea] = await Promise.all([
-                    fetchCalendarWithFallback(primaryRyan, fallbackRyan),
-                    fetchCalendarWithFallback(primaryBea, fallbackBea)
+                    fetchCalendarWithFailsafe(ryanUrl),
+                    fetchCalendarWithFailsafe(beaUrl)
                 ]);
 
                 const today = new Date();
@@ -325,7 +326,6 @@
                 const ryanBookedDates = new Set();
                 const beaBookedDates = new Set();
 
-                // DEEP REGEX SCRIPT REWRITE: Captures standard format, all-day format, and timezone-injected format lines effortlessly
                 const parseICalStream = (text, targetSet) => {
                     if (!text) return;
                     const lines = text.split(/\r?\n/);
@@ -333,7 +333,7 @@
                     for(let line of lines) {
                         if(line.startsWith("BEGIN:VEVENT")) activeDate = null;
                         
-                        // Scans lines matching DTSTART followed by any timezone parameters up until the colon and reads the 8-digit date code
+                        // Strict fix catches all forms of standard, metadata, or timezone-locked markers
                         if(line.startsWith("DTSTART")) {
                             const match = line.match(/[:=]([0-9]{8})/);
                             if(match) activeDate = match[1];
@@ -368,15 +368,14 @@
 
                     let columnTarget = null;
 
-                    // STRICT BUSINESS RULES MATRIX
                     if (ryanHasPlan && !beaHasPlan) {
-                        columnTarget = "bea";    // Ryan has an orange dot, Bea doesn't -> Bea is home alone cooking!
+                        columnTarget = "bea";   
                     } else if (beaHasPlan && !ryanHasPlan) {
-                        columnTarget = "ryan";   // Bea has a red dot, Ryan doesn't -> Ryan is home alone cooking!
+                        columnTarget = "ryan";  
                     } else if (!ryanHasPlan && !beaHasPlan) {
-                        columnTarget = "both";   // No events on either calendar -> Cook together!
+                        columnTarget = "both";  
                     } else {
-                        columnTarget = null;     // Both have events logged -> Fully sorted, skip display completely!
+                        columnTarget = null;    // Both have dinner logged -> Sorted!
                     }
 
                     if (columnTarget) {
@@ -397,16 +396,16 @@
 
             } catch (err) {
                 console.error(err);
-                document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Sync error.</p>";
-                document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Sync error.</p>";
-                document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Sync error.</p>";
+                document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Handshake failed.</p>";
+                document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Handshake failed.</p>";
+                document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Handshake failed.</p>";
             }
         }
 
         function saveSmartDinner(dateKey, value) {
             dynamicDinners[dateKey] = value;
             try {
-                localStorage.setItem('food_os_dinners_v6_prod', JSON.stringify(dynamicDinners));
+                localStorage.setItem('food_os_dinners_v7', JSON.stringify(dynamicDinners));
             } catch(e) {}
         }
 
@@ -424,7 +423,7 @@
                 listEl.appendChild(li);
             });
             try {
-                localStorage.setItem('food_os_shopping_v6_prod', JSON.stringify(shoppingList));
+                localStorage.setItem('food_os_shop_v7', JSON.stringify(shoppingList));
             } catch(e) {}
         }
 
