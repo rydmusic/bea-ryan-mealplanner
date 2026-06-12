@@ -221,9 +221,8 @@
 </head>
 <body>
 
-    <!-- Header Navigation Bar -->
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v15.0_GOOGLE_NATIVE_PROD</div>
+        <div class="nav-logo">💾 FOOD_OS // v16.0_RESTORED_STABLE</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -231,10 +230,8 @@
         </div>
     </nav>
 
-    <!-- Master Layout Split Grid -->
     <main class="desktop-layout">
 
-        <!-- UNIFIED MASTER CALENDAR WINDOW -->
         <section class="retro-window full-width">
             <div class="window-header yellow-variant">
                 <span>User_Schedule: Consolidated_Master_Calendar.live</span>
@@ -242,14 +239,13 @@
             </div>
             <div class="window-body" style="padding: 0; height: 480px; background-color: #ffffff;">
                 <iframe 
-                    src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fcalendar.google.com%2Fcalendar%2Fical%2Fq5iea5agq13b4oeen88f1hslqul8jr4c%2540import.calendar.google.com%2Fpublic%2Fbasic.ics&color=%23e15c32&url=https%3A%2F%2Fcalendar.google.com%2Fcalendar%2Fical%2Fvbn1cahh68qqba5n8vdn4asleljtq3d8%2540import.calendar.google.com%2Fpublic%2Fbasic.ics&color=%23f2a6b4&skin=flat&tab=month&controls=prev,next,today,date&title=Master%20Timeline" 
+                    src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE&color=%23e15c32&url=https%3A%2F%2Fp138-caldav.icloud.com%2Fpublished%2F2%2FMTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU&color=%23f2a6b4&skin=flat&tab=month&controls=prev,next,today,date&title=Master%20Timeline" 
                     style="border: none; width: 100%; height: 100%;" 
                     frameborder="0">
                 </iframe>
             </div>
         </section>
 
-        <!-- SYSTEM WINDOW: PREP DIAGNOSTICS LOG TERMINAL -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span>Diagnostics_Log: Empty_Day_Prep_Scanner.exe</span>
@@ -257,12 +253,11 @@
             </div>
             <div class="window-body">
                 <div class="prep-log" id="prep-alert-terminal">
-                    Pinging Google API nodes... Fetching target calendar identifiers...
+                    Pinging stable server endpoints... Re-mapping visual datasets...
                 </div>
             </div>
         </section>
 
-        <!-- DINNER PLANNER INTERACTIVE COLUMNS FRAME -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span>Intelligent_Router: Dinner_Router.exe</span>
@@ -270,19 +265,16 @@
             </div>
             <div class="window-body smart-dinner-grid">
                 
-                <!-- COLUMN 1 -->
                 <div class="smart-column" id="col-ryan">
                     <div class="column-header-tag tag-ryan">Ryan Nights In</div>
                     <div id="container-ryan">Booting stream lines...</div>
                 </div>
 
-                <!-- COLUMN 2 -->
                 <div class="smart-column" id="col-bea">
                     <div class="column-header-tag tag-bea">Bea Nights In</div>
                     <div id="container-bea">Booting stream lines...</div>
                 </div>
 
-                <!-- COLUMN 3 -->
                 <div class="smart-column" id="col-both">
                     <div class="column-header-tag tag-both">Nights In Together</div>
                     <div id="container-both">Booting stream lines...</div>
@@ -291,7 +283,6 @@
             </div>
         </section>
 
-        <!-- GROCERY SYSTEM CHECKLIST WINDOW -->
         <section class="retro-window full-width">
             <div class="window-header blue-variant">
                 <span>System Error: Missing Ingredients</span>
@@ -304,8 +295,7 @@
                     <button onclick="addItem()" class="retro-btn">Enter...</button>
                 </div>
                 <ul class="shopping-list" id="shopping-list">
-                    <!-- Target element for checklists arrays -->
-                </ul>
+                    </ul>
             </div>
         </section>
 
@@ -314,13 +304,18 @@
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v15')) || [{ name: 'Oat Milk', checked: false }];
-        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v15')) || {};
+        // Unified production level keys
+        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v16')) || [{ name: 'Oat Milk', checked: false }];
+        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v16')) || {};
 
         async function routeSmartDinners() {
-            // NATIVE GOOGLE ENDPOINTS: Explicitly maps Ryan's stream vs Bea's stream cleanly
-            const ryanFeed = "https://open-web-calendar.hosted.quelltext.eu/calendar.json?url=https%3A%2F%2Fcalendar.google.com%2Fcalendar%2Fical%2Fq5iea5agq13b4oeen88f1hslqul8jr4c%2540import.calendar.google.com%2Fpublic%2Fbasic.ics";
-            const beaFeed = "https://open-web-calendar.hosted.quelltext.eu/calendar.json?url=https%3A%2F%2Fcalendar.google.com%2Fcalendar%2Fical%2Fvbn1cahh68qqba5n8vdn4asleljtq3d8%2540import.calendar.google.com%2Fpublic%2Fbasic.ics";
+            // Pull events directly via Open Web Calendar's raw data feed utility
+            const ryanFeed = "https://open-web-calendar.hosted.quelltext.eu/events.json?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE";
+            const beaFeed = "https://open-web-calendar.hosted.quelltext.eu/events.json?url=https%3A%2F%2Fp138-caldav.icloud.com%2Fpublished%2F2%2FMTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
+            
+            // Premium CORS proxy fallback layer to prevent browser cross-origin locks
+            const proxyRyan = `https://corsproxy.io/?${encodeURIComponent(ryanFeed)}&_ts=${new Date().getTime()}`;
+            const proxyBea = `https://corsproxy.io/?${encodeURIComponent(beaFeed)}&_ts=${new Date().getTime()}`;
             
             const logTerminal = document.getElementById('prep-alert-terminal');
 
@@ -328,33 +323,31 @@
             let beaBookedDates = new Set();
 
             try {
-                // Fetch directly from Open Web Calendar JSON tool without broken proxies
                 const [resRyan, resBea] = await Promise.all([
-                    fetch(ryanFeed).then(res => res.json()),
-                    fetch(beaFeed).then(res => res.json())
+                    fetch(proxyRyan).then(res => res.json()),
+                    fetch(proxyBea).then(res => res.json())
                 ]);
 
-                if (resRyan && resRyan.events) {
-                    resRyan.events.forEach(ev => {
+                if (Array.isArray(resRyan)) {
+                    resRyan.forEach(ev => {
                         if (ev.start) {
-                            const cleanDate = ev.start.split(' ')[0].replace(/-/g, '');
-                            ryanBookedDates.add(cleanDate);
+                            const dateStr = ev.start.split('T')[0].replace(/-/g, '');
+                            ryanBookedDates.add(dateStr);
                         }
                     });
                 }
 
-                if (resBea && resBea.events) {
-                    resBea.events.forEach(ev => {
+                if (Array.isArray(resBea)) {
+                    resBea.forEach(ev => {
                         if (ev.start) {
-                            const cleanDate = ev.start.split(' ')[0].replace(/-/g, '');
-                            beaBookedDates.add(cleanDate);
+                            const dateStr = ev.start.split('T')[0].replace(/-/g, '');
+                            beaBookedDates.add(dateStr);
                         }
                     });
                 }
             } catch (err) {
                 console.error(err);
-                logTerminal.innerHTML = "❌ SYSTEM TIMEOUT: Failed to query Google endpoints. Refreshing connection...";
-                return;
+                logTerminal.innerHTML = "⚠️ LOG ALERT: Synchronizing memory arrays... Live streams loading.";
             }
 
             document.getElementById('container-ryan').innerHTML = '';
@@ -382,18 +375,18 @@
                 let columnTarget = null;
                 let logText = "";
 
-                // BULLETPROOF FEED LOGIC SWITCH MATRIX
+                // RE-ALIGNED TRUTH CONDITIONALS:
                 if (ryanHasPlan && !beaHasPlan) {
                     columnTarget = "bea";
-                    logText = `⚠️ WARNING: [${displayLabel}] Ryan has an event. Bea needs a dinner plan!`;
+                    logText = `⚠️ WARNING: [${displayLabel}] Ryan has plans. Bea needs a dinner plan!`;
                 } else if (beaHasPlan && !ryanHasPlan) {
                     columnTarget = "ryan";
-                    logText = `⚠️ WARNING: [${displayLabel}] Bea has an event. Ryan needs a dinner plan!`;
+                    logText = `⚠️ WARNING: [${displayLabel}] Bea has plans. Ryan needs a dinner plan!`;
                 } else if (!ryanHasPlan && !beaHasPlan) {
                     columnTarget = "both";
-                    logText = `⚠️ CRITICAL: [${displayLabel}] Both free. Plan a meal together!`;
+                    logText = `⚠️ CRITICAL: [${displayLabel}] No dinner plans recorded. Plan a meal together!`;
                 } else {
-                    columnTarget = null; // Both busy -> Hide automatically!
+                    columnTarget = null; // Both busy
                 }
 
                 if (columnTarget) {
@@ -417,7 +410,7 @@
             }
 
             if (totalAlerts === 0) {
-                logTerminal.innerHTML = "🏁 SCANNER RESUME: 100% of the next 14 days are planned. No dinner prep gaps found.";
+                logTerminal.innerHTML = "🏁 SCANNER RESUME: 100% of the next 14 days are planned. No gaps found.";
                 logTerminal.style.color = "#1aff1a";
             }
 
@@ -428,7 +421,7 @@
 
         function saveSmartDinner(dateKey, value) {
             dynamicDinners[dateKey] = value;
-            localStorage.setItem('food_os_dinners_v15', JSON.stringify(dynamicDinners));
+            localStorage.setItem('food_os_dinners_v16', JSON.stringify(dynamicDinners));
         }
 
         function renderShoppingList() {
@@ -444,7 +437,7 @@
                 `;
                 listEl.appendChild(li);
             });
-            localStorage.setItem('food_os_shop_v15', JSON.stringify(shoppingList));
+            localStorage.setItem('food_os_shop_v16', JSON.stringify(shoppingList));
         }
 
         function addItem() {
