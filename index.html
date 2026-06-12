@@ -15,6 +15,9 @@
             --accent-pink: #f2a6b4;
             --accent-blue: #3283c4;
             --folder-yellow: #f5cd79;
+            --ryan-blue: #d2e4f1;
+            --bea-pink: #fcdbdc;
+            --together-purple: #e2dbfc;
         }
 
         * {
@@ -89,21 +92,13 @@
             letter-spacing: 1px;
         }
 
-        .window-header.blue-variant {
-            background-color: var(--accent-blue);
-            color: white;
-        }
+        .window-header.blue-variant { background-color: var(--accent-blue); color: white; }
+        .window-header.orange-variant { background-color: var(--accent-orange); color: white; }
+        .window-header.yellow-variant { background-color: var(--folder-yellow); }
 
-        .window-header.orange-variant {
-            background-color: var(--accent-orange);
-            color: white;
-        }
+        .window-body { padding: 20px; }
 
-        .window-header.yellow-variant {
-            background-color: var(--folder-yellow);
-        }
-
-        /* Responsive Grid Formats */
+        /* Workspace Formats */
         .desktop-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -112,147 +107,99 @@
             margin: 0 auto;
         }
 
-        .full-width {
-            grid-column: span 2;
-        }
+        .full-width { grid-column: span 2; }
 
         @media (max-width: 900px) {
-            .desktop-layout {
-                grid-template-columns: 1fr;
-            }
-            .full-width {
-                grid-column: span 1;
-            }
+            .desktop-layout { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
         }
 
-        /* Meal Planner Layout */
-        .chat-layout {
+        /* Intelligent Smart Dinner Grid */
+        .smart-dinner-grid {
+            display: grid;
+            grid-template-columns: repeat(3, iit, 1fr);
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            gap: 20px;
         }
 
-        .day-bubble-row {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
+        @media (max-width: 750px) {
+            .smart-dinner-grid { flex-direction: column; }
         }
 
-        .day-tag {
-            font-size: 0.85rem;
-            font-weight: bold;
-            text-transform: uppercase;
+        .smart-column {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.03);
+            border: 2px dashed var(--border-clr);
+            border-radius: 6px;
+            padding: 15px;
+        }
+
+        .column-header-tag {
             font-family: 'Courier Prime', monospace;
-            display: inline-block;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 6px;
+            border: 2px solid #000;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            box-shadow: 2px 2px 0px #000;
+        }
+        .tag-ryan { background-color: var(--ryan-blue); }
+        .tag-bea { background-color: var(--bea-pink); }
+        .tag-both { background-color: var(--together-purple); }
+
+        .smart-day-block {
+            background: #ffffff;
+            border: 2px solid var(--border-clr);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 12px;
+            box-shadow: 3px 3px 0px var(--border-clr);
         }
 
-        .chat-bubble-input {
+        .smart-day-title {
+            font-family: 'Courier Prime', monospace;
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .smart-day-input {
             width: 100%;
-            border: 2px solid var(--border-clr);
-            border-radius: 12px;
-            padding: 10px 15px;
-            background-color: white;
+            border: 1px solid #777;
+            border-radius: 4px;
+            padding: 6px;
             font-family: inherit;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             outline: none;
         }
+        .smart-day-input:focus { background-color: #fffdf0; border-color: #000; }
 
+        /* Meal Planner Layout */
+        .chat-layout { display: flex; flex-direction: column; gap: 15px; }
+        .day-bubble-row { display: flex; flex-direction: column; gap: 6px; }
+        .day-tag { font-size: 0.85rem; font-weight: bold; text-transform: uppercase; font-family: 'Courier Prime', monospace; display: inline-block; }
+        .chat-bubble-input { width: 100%; border: 2px solid var(--border-clr); border-radius: 12px; padding: 10px 15px; background-color: white; font-family: inherit; font-size: 0.95rem; outline: none; }
         .chat-bubble-input:focus { background-color: #fffdf0; }
         .lunch-box input { background-color: #fff2ed; }
 
-        /* Grocery Tracker Elements */
-        .search-bar-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .retro-input {
-            flex: 1;
-            border: 2px solid var(--border-clr);
-            border-radius: 4px;
-            padding: 10px;
-            font-family: 'Courier Prime', monospace;
-            font-size: 1rem;
-            background-color: white;
-            outline: none;
-        }
-
-        .retro-btn {
-            border: 2px solid var(--border-clr);
-            background-color: var(--window-bg);
-            padding: 0 20px;
-            font-family: 'Courier Prime', monospace;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 3px 3px 0px var(--border-clr);
-            border-radius: 4px;
-        }
-
-        .retro-btn:active {
-            transform: translate(2px, 2px);
-            box-shadow: 1px 1px 0px var(--border-clr);
-        }
-
-        .shopping-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .grocery-item {
-            display: flex;
-            align-items: center;
-            border: 2px solid var(--border-clr);
-            background: white;
-            padding: 10px 15px;
-            border-radius: 6px;
-            box-shadow: 2px 2px 0px var(--border-clr);
-            cursor: pointer;
-        }
-
-        .grocery-item.checked {
-            background-color: #f0ede6;
-            opacity: 0.7;
-        }
-
-        .grocery-item.checked .item-text {
-            text-decoration: line-through;
-        }
-
-        .retro-checkbox {
-            width: 18px;
-            height: 18px;
-            border: 2px solid var(--border-clr);
-            background: white;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .grocery-item.checked .retro-checkbox::after {
-            content: "";
-            width: 8px;
-            height: 8px;
-            background: var(--accent-orange);
-        }
-
-        .item-text {
-            flex: 1;
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-        .delete-btn {
-            background: none;
-            border: none;
-            font-family: monospace;
-            font-weight: bold;
-            font-size: 1.1rem;
-            cursor: pointer;
-        }
+        /* Grocery Elements */
+        .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
+        .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; }
+        .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 20px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; }
+        .retro-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0px var(--border-clr); }
+        .shopping-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .grocery-item { display: flex; align-items: center; border: 2px solid var(--border-clr); background: white; padding: 10px 15px; border-radius: 6px; box-shadow: 2px 2px 0px var(--border-clr); cursor: pointer; }
+        .grocery-item.checked { background-color: #f0ede6; opacity: 0.7; }
+        .grocery-item.checked .item-text { text-decoration: line-through; }
+        .retro-checkbox { width: 18px; height: 18px; border: 2px solid var(--border-clr); background: white; margin-right: 15px; display: flex; align-items: center; justify-content: center; }
+        .grocery-item.checked .retro-checkbox::after { content: ""; width: 8px; height: 8px; background: var(--accent-orange); }
+        .item-text { flex: 1; font-weight: 700; font-size: 1rem; }
+        .delete-btn { background: none; border: none; font-family: monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; }
 
         .checker-banner {
             height: 16px;
@@ -262,29 +209,12 @@
             background-color: var(--accent-blue);
             border-bottom: 2px solid var(--border-clr);
         }
-
-        /* Prep Diagnostics Log window styles */
-        .prep-log {
-            font-family: 'Courier Prime', monospace;
-            background: #222;
-            color: #1aff1a;
-            padding: 15px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        .prep-item {
-            margin-bottom: 5px;
-        }
     </style>
 </head>
 <body>
 
-    <!-- Header Bar -->
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v3.5_DUAL_CALENDAR</div>
+        <div class="nav-logo">💾 FOOD_OS // v4.0_INTELLIGENT_ROUTING</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -294,7 +224,6 @@
 
     <main class="desktop-layout">
 
-        <!-- DUAL CALENDAR GENERATOR: RYAN'S LIVE WINDOW -->
         <section class="retro-window">
             <div class="window-header blue-variant">
                 <span>User_Schedule: Ryan_iCloud.live</span>
@@ -309,7 +238,6 @@
             </div>
         </section>
 
-        <!-- DUAL CALENDAR GENERATOR: BEA'S LIVE WINDOW -->
         <section class="retro-window">
             <div class="window-header">
                 <span>User_Schedule: Bea_iCloud.live</span>
@@ -324,31 +252,40 @@
             </div>
         </section>
 
-        <!-- SYSTEM WINDOW: Meal Prep Dual-Scanner Diagnostics Engine -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
-                <span>Diagnostics_Log: Dual_Empty_Day_Scanner.exe</span>
+                <span>Intelligent_Router: Automated_Dinner_Planner.exe</span>
                 <span>✖</span>
             </div>
-            <div class="window-body">
-                <div class="prep-log" id="prep-alert-terminal">
-                    Booting diagnostic proxy pathways... Syncing dual user matrices...
+            <div class="window-body smart-dinner-grid">
+                
+                <div class="smart-column" id="col-ryan">
+                    <div class="column-header tag-ryan">Ryan Nights In</div>
+                    <div class="column-content" id="container-ryan">Loading timelines...</div>
                 </div>
+
+                <div class="smart-column" id="col-bea">
+                    <div class="column-header tag-bea">Bea Nights In</div>
+                    <div class="column-content" id="container-bea">Loading timelines...</div>
+                </div>
+
+                <div class="smart-column" id="col-both">
+                    <div class="column-header tag-both">Nights In Together</div>
+                    <div class="column-content" id="container-both">Loading timelines...</div>
+                </div>
+
             </div>
         </section>
         
-        <!-- Left Window: Meal Planner -->
         <section class="retro-window">
             <div class="window-header yellow-variant">
                 <span>Group Chat: What's Cooking This Week?</span>
                 <span>✖</span>
             </div>
             <div class="window-body chat-layout" id="meal-chat-container">
-                <!-- Programmatically populated inputs -->
-            </div>
+                </div>
         </section>
 
-        <!-- Right Window: Grocery Checklist -->
         <section class="retro-window">
             <div class="window-header blue-variant">
                 <span>System Error: Missing Ingredients</span>
@@ -361,8 +298,7 @@
                     <button onclick="addItem()" class="retro-btn">Enter...</button>
                 </div>
                 <ul class="shopping-list" id="shopping-list">
-                    <!-- Target element for checklists arrays -->
-                </ul>
+                    </ul>
             </div>
         </section>
 
@@ -372,31 +308,16 @@
         const fullDayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        // Strict LocalStorage separation schema definitions
-        let mealPlan = {};
-        try {
-            const savedMeals = localStorage.getItem('food_os_meals_v3');
-            if (savedMeals) mealPlan = JSON.parse(savedMeals);
-        } catch (e) { console.error(e); }
+        let mealPlan = JSON.parse(localStorage.getItem('food_os_meals_v4')) || {};
+        let shoppingList = JSON.parse(localStorage.getItem('food_os_shopping_v4')) || [
+            { name: 'Oat Milk', checked: false }
+        ];
+        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dynamic_dinners_v4')) || {};
 
-        let shoppingList = [];
-        try {
-            const savedShopping = localStorage.getItem('food_os_shopping_v3');
-            if (savedShopping) {
-                shoppingList = JSON.parse(savedShopping);
-            } else {
-                shoppingList = [
-                    { name: 'Oat Milk', checked: false },
-                    { name: 'Tomatoes', checked: true }
-                ];
-            }
-        } catch (e) { console.error(e); }
-
-        // GENERATE PLANNER INTERFACE
+        // 1. GENERATE WEEKLY LOG INTERFACES
         const chatContainer = document.getElementById('meal-chat-container');
         fullDayNames.forEach(day => {
             if (!mealPlan[day]) mealPlan[day] = { lunch: '', dinner: '' };
-            
             const daySection = document.createElement('div');
             daySection.className = 'day-bubble-row';
             daySection.innerHTML = `
@@ -413,93 +334,126 @@
 
         function updateMeal(day, mealType, value) {
             mealPlan[day][mealType] = value;
-            try {
-                localStorage.setItem('food_os_meals_v3', JSON.stringify(mealPlan));
-            } catch(e) {}
+            localStorage.setItem('food_os_meals_v4', JSON.stringify(mealPlan));
         }
 
-        // ASYNC CORE ENGINE: SYNCHRONIZED CALENDAR TRACKING LABELS
-        async function runPrepDiagnostics() {
-            const logTerminal = document.getElementById('prep-alert-terminal');
-            
+        // 2. INTELLIGENT ROUTER & MULTI-CHANNEL PARSER
+        async function routeSmartDinners() {
             const ryanUrl = "https://p71-caldav.icloud.com/published/2/NDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE";
             const beaUrl = "https://p138-caldav.icloud.com/published/2/MTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
 
-            const proxyRyan = `https://corsproxy.io/?${encodeURIComponent(ryanUrl)}`;
-            const proxyBea = `https://corsproxy.io/?${encodeURIComponent(beaUrl)}`;
-
             try {
-                // Fetch both calendar assets concurrently
-                const [resRyan, resBea] = await Promise.all([fetch(proxyRyan), fetch(proxyBea)]);
-                if (!resRyan.ok || !resBea.ok) throw new Error("Stream connection failed.");
+                const [resRyan, resBea] = await Promise.all([
+                    fetch(`https://corsproxy.io/?${encodeURIComponent(ryanUrl)}`),
+                    fetch(`https://corsproxy.io/?${encodeURIComponent(beaUrl)}`)
+                ]);
+                if (!resRyan.ok || !resBea.ok) throw new Error("Drop connection.");
 
                 const txtRyan = await resRyan.text();
                 const txtBea = await resBea.text();
 
                 const today = new Date();
                 today.setHours(0,0,0,0);
-                
-                const bookedDatesSet = new Set();
-                const regexPattern = /DTSTART[^:]*:([0-9]{8})/g;
 
-                // Function to extract dates from raw iCal strings
-                const extractDates = (rawData) => {
-                    const matches = rawData.match(regexPattern);
-                    if (matches) {
-                        matches.forEach(match => {
-                            const datePart = match.split(':')[1];
-                            const year = parseInt(datePart.substring(0, 4));
-                            const month = parseInt(datePart.substring(4, 6)) - 1;
-                            const day = parseInt(datePart.substring(6, 8));
-                            const parsedDate = new Date(year, month, day);
-                            parsedDate.setHours(0,0,0,0);
-                            bookedDatesSet.add(parsedDate.getTime());
-                        });
+                // Tracking objects for keyword scanning
+                const ryanCalendarEvents = {};
+                const beaCalendarEvents = {};
+
+                const parseICalToEvents = (textData, targetObj) => {
+                    const lines = textData.split(/\r?\n/);
+                    let currentEventDate = null;
+                    let currentSummary = "";
+
+                    for(let line of lines) {
+                        if(line.startsWith("BEGIN:VEVENT")) {
+                            currentEventDate = null;
+                            currentSummary = "";
+                        }
+                        if(line.startsWith("DTSTART")) {
+                            const parts = line.split(":");
+                            if(parts[1]) currentEventDate = parts[1].substring(0, 8); // YYYYMMDD
+                        }
+                        if(line.startsWith("SUMMARY")) {
+                            currentSummary = line.split(":")[1] || "";
+                        }
+                        if(line.startsWith("END:VEVENT") && currentEventDate) {
+                            targetObj[currentEventDate] = currentSummary.toLowerCase();
+                        }
                     }
                 };
 
-                // Map both text streams to the timeline set matrix
-                extractDates(txtRyan);
-                extractDates(txtBea);
+                parseICalToEvents(txtRyan, ryanCalendarEvents);
+                parseICalToEvents(txtBea, ryanCalendarEvents); // Fallback mapping loops
 
-                logTerminal.innerHTML = '';
-                let alertCounter = 0;
+                // Clear columns
+                document.getElementById('container-ryan').innerHTML = '';
+                document.getElementById('container-bea').innerHTML = '';
+                document.getElementById('container-both').innerHTML = '';
 
-                for (let dayOffset = 0; dayOffset < 14; dayOffset++) {
+                let counters = { ryan: 0, bea: 0, both: 0 };
+
+                for (let i = 0; i < 14; i++) {
                     const checkDay = new Date(today);
-                    checkDay.setDate(today.getDate() + dayOffset);
-                    const timelineStamp = checkDay.getTime();
-                    
-                    // If a day has no events on EITHER Ryan's or Bea's calendar
-                    if (!bookedDatesSet.has(timelineStamp)) {
-                        alertCounter++;
-                        const weekdayLabel = shortDayNames[checkDay.getDay()];
-                        const numericLabel = `${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
-                        
-                        const alertRow = document.createElement('div');
-                        alertRow.className = 'prep-item';
-                        alertRow.style.color = '#ff4d4d'; 
-                        alertRow.innerHTML = `⚠️ DUAL ALERT: [${weekdayLabel} ${numericLabel}] is empty on both calendars. Plan meal prep!`;
-                        logTerminal.appendChild(alertRow);
+                    checkDay.setDate(today.getDate() + i);
+                    const dateKey = checkDay.toISOString().split('T')[0];
+                    const iCalKey = checkDay.toISOString().replace(/-/g, '').split('T')[0];
+
+                    const weekdayLabel = shortDayNames[checkDay.getDay()];
+                    const numericLabel = `${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
+                    const displayLabel = `${weekdayLabel} ${numericLabel}`;
+
+                    // Extract text tokens to identify matches
+                    const ryanTxt = ryanCalendarEvents[iCalKey] || "";
+                    const beaTxt = ryanCalendarEvents[iCalKey] ? "" : ""; // Explicit token logic definitions
+
+                    let computedColumn = "both"; // Default fallback assignment path
+
+                    // CORE ALGORITHMIC INTELLIGENCE FLAGS
+                    const ryanHasOutMatch = ryanTxt.includes("out") || ryanTxt.includes("work") || ryanTxt.includes("busy");
+                    const beaHasOutMatch = beaTxt.includes("out") || ryanTxt.includes("work") || ryanTxt.includes("busy");
+
+                    if (ryanTxt.includes("ryan") || (ryanTxt && !beaTxt && !ryanTxt.includes("together") && !ryanTxt.includes("both"))) {
+                        computedColumn = "ryan";
+                    } else if (ryanTxt.includes("bea") || (beaTxt && !ryanTxt)) {
+                        computedColumn = "bea";
+                    } else {
+                        computedColumn = "both";
                     }
+
+                    counters[computedColumn]++;
+
+                    // Build block node elements dynamically
+                    const block = document.createElement('div');
+                    block.className = 'smart-day-block';
+                    block.innerHTML = `
+                        <div class="smart-day-title">
+                            <span>● ${displayLabel}</span>
+                        </div>
+                        <input type="text" class="smart-day-input" value="${dynamicDinners[dateKey] || ''}" placeholder="Dinner text..." oninput="saveSmartDinner('${dateKey}', this.value)">
+                    `;
+
+                    document.getElementById(`container-${computedColumn}`).appendChild(block);
                 }
 
-                if (alertCounter === 0) {
-                    logTerminal.innerHTML = "🏁 SCANNER RESUME: 100% of upcoming timeline metrics contain scheduled events. No preparation gaps found.";
-                    logTerminal.style.color = "#1aff1a";
-                }
+                // Append notification fallbacks for clean columns
+                if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;opacity:0.5;'>No individual nights.</p>";
+                if(counters.bea === 0) document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;opacity:0.5;'>No individual nights.</p>";
+                if(counters.both === 0) document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;opacity:0.5;'>No shared nights found.</p>";
 
-            } catch (error) {
-                logTerminal.innerHTML = "❌ DIAGNOSTICS OFFLINE: Cloud handshake streams dropped. Recalibrating proxy channels...";
-                logTerminal.style.color = "#ff4d4d";
+            } catch (err) {
+                console.error(err);
             }
         }
 
-        // GROCERY TRACKER CHECKLIST LOGIC
+        function saveSmartDinner(dateKey, value) {
+            dynamicDinners[dateKey] = value;
+            localStorage.setItem('food_os_dynamic_dinners_v4', JSON.stringify(dynamicDinners));
+        }
+
+        // GROCERY CHECKLIST LOGIC
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
             listEl.innerHTML = '';
-            
             shoppingList.forEach((item, index) => {
                 const li = document.createElement('li');
                 li.className = `grocery-item ${item.checked ? 'checked' : ''}`;
@@ -510,9 +464,7 @@
                 `;
                 listEl.appendChild(li);
             });
-            try {
-                localStorage.setItem('food_os_shopping_v3', JSON.stringify(shoppingList));
-            } catch(e) {}
+            localStorage.setItem('food_os_shopping_v4', JSON.stringify(shoppingList));
         }
 
         function addItem() {
@@ -525,22 +477,12 @@
             }
         }
 
-        document.getElementById('item-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') addItem();
-        });
-
-        function toggleItem(index) {
-            shoppingList[index].checked = !shoppingList[index].checked;
-            renderShoppingList();
-        }
-
-        function deleteItem(index) {
-            shoppingList.splice(index, 1);
-            renderShoppingList();
-        }
+        document.getElementById('item-input').addEventListener('keypress', function(e) { if (e.key === 'Enter') addItem(); });
+        function toggleItem(index) { shoppingList[index].checked = !shoppingList[index].checked; renderShoppingList(); }
+        function deleteItem(index) { shoppingList.splice(index, 1); renderShoppingList(); }
 
         renderShoppingList();
-        runPrepDiagnostics();
+        routeSmartDinners();
     </script>
 </body>
 </html>
