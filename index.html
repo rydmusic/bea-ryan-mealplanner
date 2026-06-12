@@ -319,9 +319,8 @@
 </head>
 <body>
 
-    <!-- Header Bar -->
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v1.5_LIVE_DATES</div>
+        <div class="nav-logo">💾 FOOD_OS // v1.6_FIXED</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -329,7 +328,6 @@
         </div>
     </nav>
 
-    <!-- TOP WINDOW: 2-Week Live Schedule for Ryan & Bea -->
     <section class="retro-window">
         <div class="window-header yellow-variant">
             <span>System_Schedule: Rolling_2_Weeks.exe</span>
@@ -337,26 +335,21 @@
         </div>
         <div class="window-body calendar-container">
             <div class="calendar-grid" id="calendar-grid">
-                <!-- Days mapped automatically by live JS date calculations -->
-            </div>
+                </div>
         </div>
     </section>
 
-    <!-- Lower Split Workspace Grid -->
     <main class="desktop-layout">
         
-        <!-- Left Window: Meal Planner -->
         <section class="retro-window">
             <div class="window-header">
                 <span>Group Chat: What's Cooking This Week?</span>
                 <span>✖</span>
             </div>
             <div class="window-body chat-layout" id="meal-chat-container">
-                <!-- Mon-Sun meal logging inputs -->
-            </div>
+                </div>
         </section>
 
-        <!-- Right Window: Grocery Checklist -->
         <section class="retro-window">
             <div class="window-header blue-variant">
                 <span>System Error: Missing Ingredients</span>
@@ -369,8 +362,7 @@
                     <button onclick="addItem()" class="retro-btn">Enter...</button>
                 </div>
                 <ul class="shopping-list" id="shopping-list">
-                    <!-- Checkable items listed here -->
-                </ul>
+                    </ul>
             </div>
         </section>
 
@@ -392,7 +384,6 @@
         function getCurrentWeekMonday() {
             const today = new Date();
             const day = today.getDay();
-            // Adjust so Monday is index 0, Sunday is index 6
             const diff = today.getDate() - day + (day === 0 ? -6 : 1); 
             const monday = new Date(today.setDate(diff));
             monday.setHours(0,0,0,0);
@@ -405,16 +396,14 @@
         const calendarGrid = document.getElementById('calendar-grid');
         
         for (let i = 0; i < 14; i++) {
-            // Calculate sequential dates starting from current Monday
             const targetDate = new Date(currentMonday);
             targetDate.setDate(currentMonday.getDate() + i);
 
             const dayName = dayNames[targetDate.getDay() === 0 ? 6 : targetDate.getDay() - 1];
             const dateString = `${targetDate.getDate().toString().padStart(2, '0')}/${(targetDate.getMonth() + 1).toString().padStart(2, '0')}`;
-            
-            // Create a unique key using the exact date (e.g., "2026-06-15") so your plans stick to the right days when weeks roll over
             const dateStorageKey = targetDate.toISOString().split('T')[0];
 
+            // CRITICAL FIX: Ensure the object skeleton exists in state immediately on load
             if (!calendarPlan[dateStorageKey]) {
                 calendarPlan[dateStorageKey] = { ryan: '', bea: '' };
             }
@@ -428,20 +417,23 @@
                 </div>
                 <div class="cal-input-group">
                     <div class="cal-row-label">Ryan</div>
-                    <input type="text" class="cal-input ryan" value="${calendarPlan[dateStorageKey].ryan}" placeholder="..." oninput="updateCalendar('${dateStorageKey}', 'ryan', this.value)">
+                    <input type="text" class="cal-input ryan" value="${calendarPlan[dateStorageKey].ryan || ''}" placeholder="..." oninput="updateCalendar('${dateStorageKey}', 'ryan', this.value)">
                     <div class="cal-row-label">Bea</div>
-                    <input type="text" class="cal-input bea" value="${calendarPlan[dateStorageKey].bea}" placeholder="..." oninput="updateCalendar('${dateStorageKey}', 'bea', this.value)">
+                    <input type="text" class="cal-input bea" value="${calendarPlan[dateStorageKey].bea || ''}" placeholder="..." oninput="updateCalendar('${dateStorageKey}', 'bea', this.value)">
                 </div>
             `;
             calendarGrid.appendChild(dayCol);
         }
+
+        // Save the calendar state immediately to confirm structure persistence
+        localStorage.setItem('retro_calendarPlan', JSON.stringify(calendarPlan));
 
         function updateCalendar(dateKey, person, value) {
             calendarPlan[dateKey][person] = value;
             localStorage.setItem('retro_calendarPlan', JSON.stringify(calendarPlan));
         }
 
-        // 2. GENERATE THE MEAL PLANNER (Standard Weekly Log)
+        // 2. GENERATE THE MEAL PLANNER
         const chatContainer = document.getElementById('meal-chat-container');
         fullDayNames.forEach(day => {
             if (!mealPlan[day]) mealPlan[day] = { lunch: '', dinner: '' };
@@ -451,14 +443,16 @@
             daySection.innerHTML = `
                 <div class="day-tag">● User_${day}</div>
                 <div class="lunch-box">
-                    <input type="text" class="chat-bubble-input" value="${mealPlan[day].lunch}" placeholder="Lunch plan..." oninput="updateMeal('${day}', 'lunch', this.value)">
+                    <input type="text" class="chat-bubble-input" value="${mealPlan[day].lunch || ''}" placeholder="Lunch plan..." oninput="updateMeal('${day}', 'lunch', this.value)">
                 </div>
                 <div class="dinner-box">
-                    <input type="text" class="chat-bubble-input" value="${mealPlan[day].dinner}" placeholder="Dinner plan..." oninput="updateMeal('${day}', 'dinner', this.value)">
+                    <input type="text" class="chat-bubble-input" value="${mealPlan[day].dinner || ''}" placeholder="Dinner plan..." oninput="updateMeal('${day}', 'dinner', this.value)">
                 </div>
             `;
             chatContainer.appendChild(daySection);
         });
+
+        localStorage.setItem('retro_mealPlan', JSON.stringify(mealPlan));
 
         function updateMeal(day, mealType, value) {
             mealPlan[day][mealType] = value;
