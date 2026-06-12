@@ -205,7 +205,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v7.5_PROXY_SECURE</div>
+        <div class="nav-logo">💾 FOOD_OS // v7.0_STABLE_ROUTER</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -275,24 +275,22 @@
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        // Final Fresh Storage Schemas (Updated version layout profiles to guarantee saves)
-        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v8_final')) || [
+        // Final Storage Keys
+        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v9')) || [
             { name: 'Oat Milk', checked: false }
         ];
-        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v8_final')) || {};
+        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v9')) || {};
 
+        // ROBUST FEED ROUTER
         async function routeSmartDinners() {
-            const ryanJsonFeed = "https://open-web-calendar.hosted.quelltext.eu/events.json?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE";
-            const beaJsonFeed = "https://open-web-calendar.hosted.quelltext.eu/events.json?url=https%3A%2F%2Fp138-caldav.icloud.com%2Fpublished%2F2%2FMTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
-
-            // Enclosing the raw endpoint links with a CORS worker bypass prevents cross-origin handshake lockouts
-            const proxyRyan = `https://corsproxy.io/?${encodeURIComponent(ryanJsonFeed)}&_ts=${new Date().getTime()}`;
-            const proxyBea = `https://corsproxy.io/?${encodeURIComponent(beaJsonFeed)}&_ts=${new Date().getTime()}`;
+            // Using Open Web Calendar's native JSON endpoint prevents cross-origin proxy lockouts entirely
+            const ryanJsonFeed = "https://open-web-calendar.hosted.quelltext.eu/calendar.json?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE";
+            const beaJsonFeed = "https://open-web-calendar.hosted.quelltext.eu/calendar.json?url=https%3A%2F%2Fp138-caldav.icloud.com%2Fpublished%2F2%2FMTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
 
             try {
                 const [resRyan, resBea] = await Promise.all([
-                    fetch(proxyRyan).then(res => res.json()),
-                    fetch(proxyBea).then(res => res.json())
+                    fetch(ryanJsonFeed).then(res => res.json()),
+                    fetch(beaJsonFeed).then(res => res.json())
                 ]);
 
                 const today = new Date();
@@ -301,19 +299,20 @@
                 const ryanBookedDates = new Set();
                 const beaBookedDates = new Set();
 
-                if(Array.isArray(resRyan)) {
-                    resRyan.forEach(ev => {
-                        if(ev.start) {
-                            const dateStr = ev.start.split('T')[0].replace(/-/g, '');
+                // Safe extraction array maps directly to native JSON object arrays
+                if (resRyan && resRyan.events) {
+                    resRyan.events.forEach(ev => {
+                        if (ev.start) {
+                            const dateStr = ev.start.split(' ')[0].replace(/-/g, '');
                             ryanBookedDates.add(dateStr);
                         }
                     });
                 }
 
-                if(Array.isArray(resBea)) {
-                    resBea.forEach(ev => {
-                        if(ev.start) {
-                            const dateStr = ev.start.split('T')[0].replace(/-/g, '');
+                if (resBea && resBea.events) {
+                    resBea.events.forEach(ev => {
+                        if (ev.start) {
+                            const dateStr = ev.start.split(' ')[0].replace(/-/g, '');
                             beaBookedDates.add(dateStr);
                         }
                     });
@@ -340,13 +339,13 @@
                     let columnTarget = null;
 
                     if (ryanHasPlan && !beaHasPlan) {
-                        columnTarget = "bea";    
+                        columnTarget = "bea";    // Ryan has plans, Bea doesn't -> Bea Nights In
                     } else if (beaHasPlan && !ryanHasPlan) {
-                        columnTarget = "ryan";   
+                        columnTarget = "ryan";   // Bea has plans, Ryan doesn't -> Ryan Nights In
                     } else if (!ryanHasPlan && !beaHasPlan) {
-                        columnTarget = "both";   
+                        columnTarget = "both";   // No plans anywhere -> Nights In Together
                     } else {
-                        columnTarget = null;     
+                        columnTarget = null;     // Both busy -> Skip!
                     }
 
                     if (columnTarget) {
@@ -355,7 +354,7 @@
                         block.className = 'smart-day-block';
                         block.innerHTML = `
                             <div class="smart-day-title"><span>● ${displayLabel}</span></div>
-                            <input type="text" class="smart-day-input" value="${dynamicDinners[dateKey] || ''}" placeholder="Plan dinner..." oninput="saveSmartDinner('${dateKey}', this.value)">
+                            <input type="text" class="smart-day-input" data-date="${dateKey}" value="${dynamicDinners[dateKey] || ''}" placeholder="Plan dinner..." oninput="saveSmartDinner('${dateKey}', this.value)">
                         `;
                         document.getElementById(`container-${columnTarget}`).appendChild(block);
                     }
@@ -367,15 +366,15 @@
 
             } catch (err) {
                 console.error(err);
-                document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Feed sync error.</p>";
-                document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Feed sync error.</p>";
-                document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Feed sync error.</p>";
+                document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Sync error.</p>";
+                document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Sync error.</p>";
+                document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;color:red;text-align:center;'>Sync error.</p>";
             }
         }
 
         function saveSmartDinner(dateKey, value) {
             dynamicDinners[dateKey] = value;
-            localStorage.setItem('food_os_dinners_v8_final', JSON.stringify(dynamicDinners));
+            localStorage.setItem('food_os_dinners_v9', JSON.stringify(dynamicDinners));
         }
 
         function renderShoppingList() {
@@ -391,7 +390,7 @@
                 `;
                 listEl.appendChild(li);
             });
-            localStorage.setItem('food_os_shop_v8_final', JSON.stringify(shoppingList));
+            localStorage.setItem('food_os_shop_v9', JSON.stringify(shoppingList));
         }
 
         function addItem() {
