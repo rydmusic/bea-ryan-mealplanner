@@ -98,10 +98,10 @@
 
         .window-body { padding: 20px; }
 
-        /* Workspace Formats */
+        /* Workspace Grid Matrix */
         .desktop-layout {
             display: grid;
-            grid-template-columns: 1.2fr 1fr;
+            grid-template-columns: 1.3fr 1fr;
             gap: 30px;
             max-width: 1400px;
             margin: 0 auto;
@@ -109,12 +109,12 @@
 
         .full-width { grid-column: span 2; }
 
-        @media (max-width: 900px) {
+        @media (max-width: 950px) {
             .desktop-layout { grid-template-columns: 1fr; }
             .full-width { grid-column: span 1; }
         }
 
-        /* Fixed Smart Dinner Multi-Column Layout */
+        /* Smart Multi-Column Configuration */
         .smart-dinner-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -178,15 +178,7 @@
         }
         .smart-day-input:focus { background-color: #fffdf0; border-color: #000; }
 
-        /* Meal Planner Layout */
-        .chat-layout { display: flex; flex-direction: column; gap: 15px; }
-        .day-bubble-row { display: flex; flex-direction: column; gap: 6px; }
-        .day-tag { font-size: 0.85rem; font-weight: bold; text-transform: uppercase; font-family: 'Courier Prime', monospace; display: inline-block; }
-        .chat-bubble-input { width: 100%; border: 2px solid var(--border-clr); border-radius: 12px; padding: 10px 15px; background-color: white; font-family: inherit; font-size: 0.95rem; outline: none; }
-        .chat-bubble-input:focus { background-color: #fffdf0; }
-        .lunch-box input { background-color: #fff2ed; }
-
-        /* Grocery Elements */
+        /* Grocery Checklist Tracker Layout Elements */
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; }
         .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 20px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; }
@@ -213,7 +205,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v4.5_STREAM_ROUTING</div>
+        <div class="nav-logo">💾 FOOD_OS // v5.0_PROD_CLEAN</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -237,7 +229,7 @@
             </div>
         </section>
 
-        <section class="retro-window full-width">
+        <section class="retro-window">
             <div class="window-header orange-variant">
                 <span>Intelligent_Router: Dinner_Router.exe</span>
                 <span>✖</span>
@@ -261,15 +253,6 @@
 
             </div>
         </section>
-        
-        <section class="retro-window">
-            <div class="window-header">
-                <span>Group Chat: What's Cooking This Week?</span>
-                <span>✖</span>
-            </div>
-            <div class="window-body chat-layout" id="meal-chat-container">
-                </div>
-        </section>
 
         <section class="retro-window">
             <div class="window-header blue-variant">
@@ -290,39 +273,15 @@
     </main>
 
     <script>
-        const fullDayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        let mealPlan = JSON.parse(localStorage.getItem('food_os_meals_v4')) || {};
+        // Strict storage structures initialization
         let shoppingList = JSON.parse(localStorage.getItem('food_os_shopping_v4')) || [
             { name: 'Oat Milk', checked: false }
         ];
         let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dynamic_dinners_v4')) || {};
 
-        // RENDER MEAL PLANNER LOG
-        const chatContainer = document.getElementById('meal-chat-container');
-        fullDayNames.forEach(day => {
-            if (!mealPlan[day]) mealPlan[day] = { lunch: '', dinner: '' };
-            const daySection = document.createElement('div');
-            daySection.className = 'day-bubble-row';
-            daySection.innerHTML = `
-                <div class="day-tag">● User_${day}</div>
-                <div class="lunch-box">
-                    <input type="text" class="chat-bubble-input" value="${mealPlan[day].lunch || ''}" placeholder="Lunch plan..." oninput="updateMeal('${day}', 'lunch', this.value)">
-                </div>
-                <div class="dinner-box">
-                    <input type="text" class="chat-bubble-input" value="${mealPlan[day].dinner || ''}" placeholder="Dinner plan..." oninput="updateMeal('${day}', 'dinner', this.value)">
-                </div>
-            `;
-            chatContainer.appendChild(daySection);
-        });
-
-        function updateMeal(day, mealType, value) {
-            mealPlan[day][mealType] = value;
-            localStorage.setItem('food_os_meals_v4', JSON.stringify(mealPlan));
-        }
-
-        // UPGRADED LINK-BASED ORIGIN TRACKER ROUTER
+        // MAIN TRACKING ROUTER LOOPS
         async function routeSmartDinners() {
             const ryanUrl = "https://p71-caldav.icloud.com/published/2/NDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE";
             const beaUrl = "https://p138-caldav.icloud.com/published/2/MTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
@@ -333,7 +292,7 @@
 
             try {
                 const [resRyan, resBea] = await Promise.all([fetch(proxyRyan), fetch(proxyBea)]);
-                if (!resRyan.ok || !resBea.ok) throw new Error("Stream connection failed.");
+                if (!resRyan.ok || !resBea.ok) throw new Error("Connection failed.");
 
                 const txtRyan = await resRyan.text();
                 const txtBea = await resBea.text();
@@ -341,7 +300,6 @@
                 const today = new Date();
                 today.setHours(0,0,0,0);
 
-                // Initialize maps to see WHO has an event on a specific date string
                 const ryanBookedDates = new Set();
                 const beaBookedDates = new Set();
 
@@ -378,19 +336,17 @@
 
                     const displayLabel = `${shortDayNames[checkDay.getDay()]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
 
-                    // Look up origin footprints by checking calendar sets directly
                     const ryanIsOut = ryanBookedDates.has(iCalKey);
                     const beaIsOut = beaBookedDates.has(iCalKey);
 
                     let columnTarget = "both";
 
-                    // DYNAMIC ASSIGNMENT ENGINE MATCHING DOT COLOR CHANNELS
                     if (ryanIsOut && !beaIsOut) {
-                        columnTarget = "bea";   // Ryan has plans out -> Bea is home on her own!
+                        columnTarget = "bea"; 
                     } else if (beaIsOut && !ryanIsOut) {
-                        columnTarget = "ryan";  // Bea has plans out -> Ryan is home on his own!
+                        columnTarget = "ryan";
                     } else {
-                        columnTarget = "both";  // Both are free OR both are out -> Night in together fallback box
+                        columnTarget = "both";
                     }
 
                     counters[columnTarget]++;
@@ -422,7 +378,7 @@
             localStorage.setItem('food_os_dynamic_dinners_v4', JSON.stringify(dynamicDinners));
         }
 
-        // GROCERY CHECKLIST LOGIC
+        // GROCERY CHECKLIST INTERACTIVE MATRIX
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
             listEl.innerHTML = '';
