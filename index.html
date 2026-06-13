@@ -242,7 +242,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v66.0_RECIPE_ENGINE</div>
+        <div class="nav-logo">💾 FOOD_OS // v66.2_METRIC_COOKBOOK</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -263,24 +263,6 @@
                     <button id="tab-lunches" class="tab-switch-btn" onclick="switchAppMode('lunches')">[ Lunches (Mon-Fri) ]</button>
                 </div>
                 <div class="calendar-days-grid" id="calendar-days-injector"></div>
-            </div>
-        </section>
-
-        <!-- BRAND NEW WINDOW: SAVED RECIPES SYSTEM VIEW -->
-        <section class="retro-window full-width">
-            <div class="window-header orange-variant">
-                <span>Database_Explorer: Saved_Recipes.db</span>
-                <span>✖</span>
-            </div>
-            <div class="window-body">
-                <div class="recipe-browser-deck">
-                    <ul class="recipe-sidebar-list" id="recipe-list-tabs-anchor">
-                        <!-- Navigation hooks target text keys here -->
-                    </ul>
-                    <div class="recipe-viewer-panel" id="recipe-content-panel">
-                        <p style="opacity:0.5; font-style:italic;">Select a profile catalog from the registry tree matrix...</p>
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -320,6 +302,21 @@
             </div>
         </section>
 
+        <section class="retro-window full-width">
+            <div class="window-header orange-variant">
+                <span>Database_Explorer: Saved_Recipes.db</span>
+                <span>✖</span>
+            </div>
+            <div class="window-body">
+                <div class="recipe-browser-deck">
+                    <ul class="recipe-sidebar-list" id="recipe-list-tabs-anchor"></ul>
+                    <div class="recipe-viewer-panel" id="recipe-content-panel">
+                        <p style="opacity:0.5; font-style:italic;">Select a profile catalog from the registry tree matrix...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <script>
@@ -328,7 +325,7 @@
 
         const cloudStorageUrl = "https://script.google.com/macros/s/AKfycbxzTv-Qrjsi0Fgd1S5DdBn8J0swaqIPNDOaJZXeKQ_EdsTtpS3w5MBlWAdpNhEf_82M/exec";
 
-        // Integrated Local Cookbook Data Store
+        // Local Cookbook Store - Converted cleanly to Metric Units
         const savedRecipesDatabase = [
             {
                 id: "chickpea-curry",
@@ -343,15 +340,15 @@
                     "1 onion",
                     "4 garlic cloves crushed/paste",
                     "1 tablespoon ginger crushed/paste",
-                    "13 ounces tomatoes crushed or blended",
+                    "370 g tomatoes, crushed or blended",
                     "2 tablespoons tomato paste",
                     "1 tablespoon garam masala",
                     "1 teaspoon curry powder",
                     "1 teaspoon ground coriander",
                     "½ teaspoon cayenne pepper (optional)",
                     "1 teaspoon salt (adjust to taste)",
-                    "13.5 ounces coconut milk full-fat",
-                    "15.5 ounces canned chickpeas drained, rinsed",
+                    "400 ml coconut milk, full-fat",
+                    "440 g canned chickpeas, drained and rinsed",
                     "1 tablespoon butter"
                 ],
                 instructions: [
@@ -398,7 +395,7 @@
                     }
                 }
             } catch (err) {
-                console.warn("Handshake latency. Standard memory active.");
+                console.warn("Handshake latency. Using local active cache.");
             }
             switchAppMode(currentMode);
             renderShoppingList();
@@ -418,7 +415,6 @@
             }
         }
 
-        // BUILD AND POPULATE RECIPE ENGINE VISUAL MODULE
         function buildRecipeRegistryDeck() {
             const listAnchor = document.getElementById('recipe-list-tabs-anchor');
             listAnchor.innerHTML = '';
@@ -442,7 +438,6 @@
 
         function displayRecipeProfile(recipe) {
             const panel = document.getElementById('recipe-content-panel');
-            
             let ingHtml = recipe.ingredients.map(i => `<li>${i}</li>`).join('');
             let instHtml = recipe.instructions.map(i => `<li>${i}</li>`).join('');
 
