@@ -97,11 +97,12 @@
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
         
         .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
-        .inline-selector-row { display: flex; gap: 6px; align-items: center; width: 100%; }
-        .food-select-dropdown { flex: 1; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; background: #fff; outline: none; min-width: 0; }
+        .inline-selector-row { display: flex; gap: 6px; align-items: center; width: 100%; min-width: 0; }
+        .food-select-dropdown { flex: 1; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; background: #fff; outline: none; min-width: 0; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
         .other-text-box { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; outline: none; background: #fffdf2; }
         
-        .dice-random-btn { background-color: #fff; border: 2px solid #000; border-radius: 4px; padding: 4px 8px; font-family: 'Courier Prime', monospace; font-size: 0.85rem; font-weight: bold; cursor: pointer; box-shadow: 2px 2px 0px #000; white-space: nowrap; height: 30px; display: flex; align-items: center; justify-content: center; }
+        /* Mobile Fixed & Clean Dice Action Buttons */
+        .dice-random-btn { background-color: #fff; border: 2px solid #000; border-radius: 4px; padding: 0; font-family: 'Courier Prime', monospace; font-size: 1rem; font-weight: bold; cursor: pointer; box-shadow: 2px 2px 0px #000; white-space: nowrap; height: 32px; width: 34px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
         .dice-random-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
 
         /* Mobile-Friendly Saved Recipes Layout Matrix */
@@ -158,7 +159,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v70.1_CLEAN_DICE</div>
+        <div class="nav-logo">💾 FOOD_OS // v70.2_MOBILE_DICE_FIX</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
