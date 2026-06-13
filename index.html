@@ -97,17 +97,12 @@
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
         
         .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
-        
-        /* Clean Side-By-Side Row Layout Fitted for Mobile Screens */
         .inline-selector-row { display: flex; gap: 5px; align-items: center; width: 100%; min-width: 0; }
-        
-        /* Smaller Mobile Font Size with Automatic Safety Text Ellipsis Truncation */
         .food-select-dropdown { flex: 1; border: 2px solid #000; border-radius: 4px; padding: 5px 3px; font-family: inherit; font-size: 0.75rem; background: #fff; outline: none; min-width: 0; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
         @media (min-width: 600px) { .food-select-dropdown { font-size: 0.8rem; padding: 5px; } }
         
         .other-text-box { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; outline: none; background: #fffdf2; }
         
-        /* Compact Side-by-Side Square Mini Dice Buttons */
         .dice-random-btn { background-color: #fff; border: 2px solid #000; border-radius: 4px; padding: 0; font-size: 0.85rem; cursor: pointer; box-shadow: 2px 2px 0px #000; height: 28px; width: 30px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
         .dice-random-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
 
@@ -139,14 +134,17 @@
         .recipe-ingredients-list, .recipe-instructions-list { padding-left: 18px; font-size: 0.88rem; word-break: break-word; }
         .recipe-ingredients-list li, .recipe-instructions-list li { margin-bottom: 6px; }
 
-        /* Interactive Freezer Stylings */
-        .freezer-chassis { display: flex; flex-direction: column; background: #c2e2ec; border: 4px solid #000; border-radius: 8px; padding: 12px; gap: 12px; box-shadow: 4px 4px 0px #000; max-width: 600px; margin: 0 auto; }
-        .freezer-drawer { background: var(--window-bg); border: 2px solid #000; border-radius: 6px; padding: 12px; display: flex; flex-direction: column; gap: 8px; box-shadow: 2px 2px 0px rgba(0,0,0,0.15); position: relative; }
+        /* Interactive Freezer Chassis & Frost Overlays */
+        .freezer-chassis { display: flex; flex-direction: column; background: #c2e2ec; border: 4px solid #000; border-radius: 8px; padding: 12px; gap: 12px; box-shadow: 4px 4px 0px #000; max-width: 600px; margin: 0 auto; position: relative; }
+        .freezer-drawer { background: var(--window-bg); border: 2px solid #000; border-radius: 6px; padding: 12px; display: flex; flex-direction: column; gap: 8px; box-shadow: 2px 2px 0px rgba(0,0,0,0.15); position: relative; overflow: hidden; }
         .freezer-handle { height: 10px; width: 80px; background: #000; margin: 0 auto; border-radius: 2px; opacity: 0.8; }
         .drawer-lbl { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; color: #4f8294; text-transform: uppercase; display: flex; justify-content: space-between; }
-        .freezer-textarea { width: 100%; height: 60px; border: 2px solid #000; border-radius: 4px; padding: 6px; font-family: inherit; font-size: 0.85rem; outline: none; resize: none; background: #fdfdfd; }
-        .freezer-save-btn { font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.7rem; text-transform: uppercase; padding: 3px 10px; border: 2px solid #000; background: var(--freezer-blue); cursor: pointer; border-radius: 4px; box-shadow: 2px 2px 0 #000; align-self: flex-end; }
-        .freezer-save-btn:active { transform: translate(1px, 1px); box-shadow: 0px 0px 0 #000; }
+        .freezer-textarea { width: 100%; height: 60px; border: 2px solid #000; border-radius: 4px; padding: 6px; font-family: inherit; font-size: 0.85rem; outline: none; resize: none; background: #fdfdfd; z-index: 1; }
+        .freezer-save-btn { font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.7rem; text-transform: uppercase; padding: 3px 10px; border: 2px solid #000; background: var(--freezer-blue); cursor: pointer; border-radius: 4px; box-shadow: 2px 2px 0 #000; align-self: flex-end; z-index: 1; }
+        
+        /* Interactive Scratch-Off Condensation Canvas Wrapper */
+        .condensation-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; pointer-events: auto; cursor: cell; mix-blend-mode: normal; transition: opacity 2s ease; opacity: 1; }
+        .freezer-drawer:hover .condensation-canvas, .freezer-drawer:focus-within .condensation-canvas { opacity: 0.05; } /* Desktop instant wipe override */
 
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
@@ -165,7 +163,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v70.4_SIDE_BY_SIDE_DICE</div>
+        <div class="nav-logo">💾 FOOD_OS // v71.0_FROST_GLASS_MATRIX</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -251,7 +249,7 @@
             </div>
         </section>
 
-        <!-- WHAT'S IN THE FREEZER MODULE -->
+        <!-- WHAT'S IN THE FREEZER MODULE WITH INTERACTIVE FOG CANVAS ELEMENTS -->
         <section class="retro-window full-width">
             <div class="window-header freezer-variant">
                 <span>Subzero_Storage: Whats_In_The_Freezer.exe</span>
@@ -259,29 +257,34 @@
             </div>
             <div class="window-body">
                 <div class="freezer-chassis">
+                    
                     <!-- Drawer 1 (Top Slot) -->
-                    <div class="freezer-drawer">
+                    <div class="freezer-drawer" id="drawer-wrapper-1">
+                        <canvas class="condensation-canvas" id="fog-canvas-1"></canvas>
                         <div class="drawer-lbl"><span>❄️ Drawer 1 (Top)</span><span id="d1-sync-status" style="font-size:0.65rem; opacity:0.6;"></span></div>
-                        <textarea class="freezer-textarea" id="freezer-d1-input" placeholder="Type items in Drawer 1... (e.g., Ice cream, frozen fruit)"></textarea>
+                        <textarea class="freezer-textarea" id="freezer-d1-input" placeholder="Type items in Drawer 1..."></textarea>
                         <div class="freezer-handle"></div>
                         <button class="freezer-save-btn" onclick="saveFreezerDrawer(1)">💾 Save Drawer</button>
                     </div>
 
                     <!-- Drawer 2 (Middle Slot) -->
-                    <div class="freezer-drawer">
+                    <div class="freezer-drawer" id="drawer-wrapper-2">
+                        <canvas class="condensation-canvas" id="fog-canvas-2"></canvas>
                         <div class="drawer-lbl"><span>❄️ Drawer 2 (Middle)</span><span id="d2-sync-status" style="font-size:0.65rem; opacity:0.6;"></span></div>
-                        <textarea class="freezer-textarea" id="freezer-d2-input" placeholder="Type items in Drawer 2... (e.g., Prepared meals, leftovers)"></textarea>
+                        <textarea class="freezer-textarea" id="freezer-d2-input" placeholder="Type items in Drawer 2..."></textarea>
                         <div class="freezer-handle"></div>
                         <button class="freezer-save-btn" onclick="saveFreezerDrawer(2)">💾 Save Drawer</button>
                     </div>
 
                     <!-- Drawer 3 (Bottom Slot) -->
-                    <div class="freezer-drawer">
+                    <div class="freezer-drawer" id="drawer-wrapper-3">
+                        <canvas class="condensation-canvas" id="fog-canvas-3"></canvas>
                         <div class="drawer-lbl"><span>❄️ Drawer 3 (Bottom)</span><span id="d3-sync-status" style="font-size:0.65rem; opacity:0.6;"></span></div>
-                        <textarea class="freezer-textarea" id="freezer-d3-input" placeholder="Type items in Drawer 3... (e.g., Meat, bulk veggies, fries)"></textarea>
+                        <textarea class="freezer-textarea" id="freezer-d3-input" placeholder="Type items in Drawer 3..."></textarea>
                         <div class="freezer-handle"></div>
                         <button class="freezer-save-btn" onclick="saveFreezerDrawer(3)">💾 Save Drawer</button>
                     </div>
+                    
                 </div>
             </div>
         </section>
@@ -410,6 +413,9 @@
             document.getElementById('freezer-d1-input').value = appState.freezerDrawer1 || "";
             document.getElementById('freezer-d2-input').value = appState.freezerDrawer2 || "";
             document.getElementById('freezer-d3-input').value = appState.freezerDrawer3 || "";
+            
+            // Initialization point for our new condensation layers
+            setupCondensationMatrices();
         }
 
         async function saveCloudState() {
@@ -422,6 +428,87 @@
                 });
             } catch (e) {
                 console.error("Transmission fault.", e);
+            }
+        }
+
+        // CONDENSATION CONDENSATION SCRATCH-OFF LOGIC ENGINE
+        function setupCondensationMatrices() {
+            for (let id = 1; id <= 3; id++) {
+                const canvas = document.getElementById(`fog-canvas-${id}`);
+                const wrapper = document.getElementById(`drawer-wrapper-${id}`);
+                if (!canvas) continue;
+                
+                const ctx = canvas.getContext('2d');
+                
+                // Track mouse/touch interactive drawing inputs
+                let isWiping = false;
+
+                function resizeCanvas() {
+                    canvas.width = wrapper.clientWidth;
+                    canvas.height = wrapper.clientHeight;
+                    generateIceFrostLayer(ctx, canvas.width, canvas.height);
+                }
+                
+                resizeCanvas();
+                window.addEventListener('resize', resizeCanvas);
+
+                // Clear paths using destination-out overlay mode to simulate "rubbing out"
+                function rubOutFrost(x, y) {
+                    ctx.globalCompositeOperation = 'destination-out';
+                    ctx.beginPath();
+                    ctx.arc(x, y, 22, 0, Math.PI * 2); // Brush radius thickness
+                    ctx.fill();
+                }
+
+                // Desktop Mouse Hook Maps
+                canvas.addEventListener('mousedown', (e) => { isWiping = true; rubOutFrost(e.offsetX, e.topX || e.offsetY); });
+                canvas.addEventListener('mousemove', (e) => { if (isWiping) rubOutFrost(e.offsetX, e.offsetY); });
+                window.addEventListener('mouseup', () => isWiping = false);
+
+                // Mobile Touch Screen Hook Maps
+                canvas.addEventListener('touchstart', (e) => {
+                    isWiping = true;
+                    const b = canvas.getBoundingClientRect();
+                    rubOutFrost(e.touches[0].clientX - b.left, e.touches[0].clientY - b.top);
+                });
+                canvas.addEventListener('touchmove', (e) => {
+                    if (!isWiping) return;
+                    e.preventDefault(); // Stop window jumping while wiping frost
+                    const b = canvas.getBoundingClientRect();
+                    rubOutFrost(e.touches[0].clientX - b.left, e.touches[0].clientY - b.top);
+                });
+                window.addEventListener('touchend', () => isWiping = false);
+
+                // Auto-Refreeze Loop: Slowly clouds back over when the mouse leaves the box area
+                let refreezeTimer = null;
+                wrapper.addEventListener('mouseleave', () => {
+                    refreezeTimer = setTimeout(() => {
+                        ctx.globalCompositeOperation = 'source-over';
+                        let opacityCount = 0;
+                        let refreezeInterval = setInterval(() => {
+                            if (opacityCount >= 10) { clearInterval(refreezeInterval); return; }
+                            ctx.fillStyle = 'rgba(235, 247, 250, 0.08)'; // Fine mist layer stacking
+                            ctx.fillRect(0, 0, canvas.width, canvas.height);
+                            opacityCount++;
+                        }, 120);
+                    }, 4000); // Wait 4 seconds before starting frost cycle
+                });
+                wrapper.addEventListener('mouseenter', () => { if (refreezeTimer) clearTimeout(refreezeTimer); });
+            }
+        }
+
+        // Draw structural retro condensation glass layer style onto canvas grid
+        function generateIceFrostLayer(ctx, w, height) {
+            ctx.fillStyle = 'rgba(220, 242, 247, 0.92)'; // Core cold mist body tint
+            ctx.fillRect(0, 0, w, height);
+            
+            // Generate minor frosted noise vectors for texture realism
+            for (let i = 0; i < 450; i++) {
+                let rx = Math.random() * w;
+                let ry = Math.random() * height;
+                let size = Math.random() * 3 + 1;
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+                ctx.fillRect(rx, ry, size, size);
             }
         }
 
@@ -603,24 +690,6 @@
             calculateRouterEngine();
         }
 
-        async function saveCellPlan(dateKey) {
-            const rVal = document.getElementById(`input-r-${dateKey}`).value.trim();
-            const bVal = document.getElementById(`input-b-${dateKey}`).value.trim();
-            const bitVal = document.getElementById(`check-both-${dateKey}`).checked;
-
-            if (currentMode === 'dinners') {
-                appState.ryanDinners[dateKey] = rVal;
-                appState.beaDinners[dateKey] = bVal;
-                appState.bothInDinners[dateKey] = bitVal;
-            } else {
-                appState.ryanLunches[dateKey] = rVal;
-                appState.beaLunches[dateKey] = bVal;
-                appState.bothInLunches[dateKey] = bitVal;
-            }
-            renderActiveMatrix();
-            await saveCloudState();
-        }
-
         function calculateRouterEngine() {
             document.getElementById('container-ryan').innerHTML = '';
             document.getElementById('container-bea').innerHTML = '';
@@ -699,8 +768,6 @@
             block.innerHTML = `
                 <div class="smart-day-title"><span>● ${label}</span></div>
                 <div class="dropdown-stack-group">
-                    
-                    <!-- Clean Row 1 Layout: Category Dropdown + Horizontal Dice Alignment -->
                     <div class="inline-selector-row">
                         <select class="food-select-dropdown" onchange="handleHeaderChange('${dateKey}', this.value)">
                             ${headerOptionsHtml}
@@ -708,7 +775,6 @@
                         <button class="dice-random-btn" onclick="rollRandomCategory('${dateKey}')" title="Randomize Category">🎲</button>
                     </div>
                     
-                    <!-- Clean Row 2 Layout: Dishes Dropdown + Horizontal Dice Alignment -->
                     <div class="inline-selector-row" id="dish-row-box-${dateKey}" style="display: ${showOtherBox ? 'none' : 'flex'};">
                         <select class="food-select-dropdown" id="dish-drop-${dateKey}" onchange="handleDishChange('${dateKey}', this.value)">
                             ${dishOptionsHtml}
@@ -720,43 +786,6 @@
                 </div>
             `;
             container.appendChild(block);
-        }
-
-        async function rollRandomCategory(dateKey) {
-            const categories = Object.keys(foodMenuDatabase).filter(cat => cat !== 'OTHER');
-            if (categories.length === 0) return;
-            const randomCat = categories[Math.floor(Math.random() * categories.length)];
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            selections[dateKey] = { category: randomCat, dish: "" };
-            renderActiveMatrix();
-            await saveCloudState();
-        }
-
-        async function rollRandomDish(dateKey) {
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            const currentCat = selections[dateKey] ? selections[dateKey].category : "";
-            if (!currentCat || currentCat === 'OTHER' || !foodMenuDatabase[currentCat] || foodMenuDatabase[currentCat].length === 0) {
-                alert("Please select a category row block first before rolling an option!");
-                return;
-            }
-            const optionsList = foodMenuDatabase[currentCat];
-            const randomDish = optionsList[Math.floor(Math.random() * optionsList.length)];
-            selections[dateKey].dish = randomDish;
-            renderActiveMatrix();
-            await saveCloudState();
-        }
-
-        async function handleHeaderChange(dateKey, category) {
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            selections[dateKey] = { category: category, dish: "" };
-            renderActiveMatrix();
-            await saveCloudState();
-        }
-
-        async function handleDishChange(dateKey, dishName) {
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            if (selections[dateKey]) { selections[dateKey].dish = dishName; }
-            await saveCloudState();
         }
 
         function checkEmptyStates(counters) {
