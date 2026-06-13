@@ -20,174 +20,44 @@
             --together-purple: #e2dbfc;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Space Grotesk', sans-serif; background-color: var(--bg-color); color: var(--border-clr); padding: 30px; min-height: 100vh; }
 
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--border-clr);
-            padding: 30px;
-            min-height: 100vh;
-        }
-
-        .top-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 2px solid var(--border-clr);
-            background-color: var(--window-bg);
-            padding: 8px 20px;
-            box-shadow: 4px 4px 0px var(--border-clr);
-            margin-bottom: 30px;
-            border-radius: 4px;
-        }
-
-        .nav-logo {
-            font-family: 'Courier Prime', monospace;
-            font-weight: 700;
-            font-size: 1.4rem;
-            text-transform: uppercase;
-        }
-
+        .top-nav { display: flex; justify-content: space-between; align-items: center; border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 8px 20px; box-shadow: 4px 4px 0px var(--border-clr); margin-bottom: 30px; border-radius: 4px; }
+        .nav-logo { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 1.4rem; text-transform: uppercase; }
         .window-controls-dummy { display: flex; gap: 8px; }
         .dot-control { width: 12px; height: 12px; border: 2px solid var(--border-clr); border-radius: 50%; background: white; }
 
-        .retro-window {
-            background-color: var(--window-bg);
-            border: 2px solid var(--border-clr);
-            border-radius: 8px;
-            box-shadow: 6px 6px 0px var(--border-clr);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            margin-bottom: 30px;
-        }
-
-        .window-header {
-            background-color: var(--accent-pink);
-            border-bottom: 2px solid var(--border-clr);
-            padding: 10px 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: 'Courier Prime', monospace;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
+        .retro-window { background-color: var(--window-bg); border: 2px solid var(--border-clr); border-radius: 8px; box-shadow: 6px 6px 0px var(--border-clr); display: flex; flex-direction: column; overflow: hidden; margin-bottom: 30px; }
+        .window-header { background-color: var(--accent-pink); border-bottom: 2px solid var(--border-clr); padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; font-family: 'Courier Prime', monospace; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
         .window-header.blue-variant { background-color: var(--accent-blue); color: white; }
         .window-header.orange-variant { background-color: var(--accent-orange); color: white; }
         .window-header.yellow-variant { background-color: var(--folder-yellow); }
-
         .window-body { padding: 20px; }
 
         .app-tab-container { display: flex; gap: 10px; margin-bottom: 15px; }
+        .tab-switch-btn { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.9rem; padding: 6px 16px; border: 2px solid #000; background: #fff; cursor: pointer; border-radius: 4px; box-shadow: 3px 3px 0px #000; text-transform: uppercase; }
+        .tab-switch-btn.active-tab { background-color: var(--accent-blue); color: #fff; transform: translate(2px, 2px); box-shadow: 1px 1px 0px #000; }
 
-        .tab-switch-btn {
-            font-family: 'Courier Prime', monospace;
-            font-weight: 700;
-            font-size: 0.9rem;
-            padding: 6px 16px;
-            border: 2px solid #000;
-            background: #fff;
-            cursor: pointer;
-            border-radius: 4px;
-            box-shadow: 3px 3px 0px #000;
-            text-transform: uppercase;
-        }
-        .tab-switch-btn.active-tab {
-            background-color: var(--accent-blue);
-            color: #fff;
-            transform: translate(2px, 2px);
-            box-shadow: 1px 1px 0px #000;
-        }
-
-        .calendar-dashboard-container { display: flex; flex-direction: column; gap: 15px; }
-
-        .calendar-days-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            border-left: 1px solid #000;
-            border-top: 1px solid #000;
-            background: #fff;
-        }
+        .calendar-days-grid { display: grid; grid-template-columns: repeat(7, 1fr); border-left: 1px solid #000; border-top: 1px solid #000; background: #fff; }
         .calendar-days-grid.lunch-mode-grid { grid-template-columns: repeat(5, 1fr); }
 
-        @media (max-width: 950px) {
-            .calendar-days-grid, .calendar-days-grid.lunch-mode-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 500px) {
-            .calendar-days-grid, .calendar-days-grid.lunch-mode-grid { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 950px) { .calendar-days-grid, .calendar-days-grid.lunch-mode-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 500px) { .calendar-days-grid, .calendar-days-grid.lunch-mode-grid { grid-template-columns: 1fr; } }
 
-        .calendar-day-cell {
-            border-right: 1px solid #000;
-            border-bottom: 1px solid #000;
-            min-height: 125px;
-            padding: 8px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            background-color: var(--window-bg);
-        }
+        .calendar-day-cell { border-right: 1px solid #000; border-bottom: 1px solid #000; min-height: 125px; padding: 8px; position: relative; display: flex; flex-direction: column; gap: 5px; background-color: var(--window-bg); }
+        .cell-date-num { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.85rem; display: flex; justify-content: space-between; border-bottom: 1px dashed #ccc; padding-bottom: 3px; }
 
-        .cell-date-num {
-            font-family: 'Courier Prime', monospace;
-            font-weight: 700;
-            font-size: 0.85rem;
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px dashed #ccc;
-            padding-bottom: 3px;
-        }
-
-        .cell-event-pill {
-            font-size: 0.72rem;
-            padding: 1px 4px;
-            border-radius: 3px;
-            border: 1px solid #000;
-            font-weight: bold;
-            overflow: hidden;
-            text-overflow: ellipsis; white-space: nowrap;
-        }
+        .cell-event-pill { font-size: 0.72rem; padding: 1px 4px; border-radius: 3px; border: 1px solid #000; font-weight: bold; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .pill-ryan { background-color: var(--ryan-blue); }
         .pill-bea { background-color: var(--bea-pink); }
         .pill-both-in { background-color: var(--together-purple); border-style: dashed; }
 
-        .cell-hover-overlay {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(255, 252, 247, 0.98);
-            border: 2px solid #000;
-            border-radius: 4px;
-            z-index: 10;
-            padding: 8px;
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            box-shadow: 4px 4px 0 #000;
-        }
-
-        .calendar-day-cell:hover .cell-hover-overlay,
-        .calendar-day-cell:focus-within .cell-hover-overlay { display: flex; }
+        .cell-hover-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255, 252, 247, 0.98); border: 2px solid #000; border-radius: 4px; z-index: 10; padding: 8px; display: none; flex-direction: column; gap: 5px; box-shadow: 4px 4px 0 #000; }
+        .calendar-day-cell:hover .cell-hover-overlay, .calendar-day-cell:focus-within .cell-hover-overlay { display: flex; }
 
         .overlay-input-item { width: 100%; border: 1px solid #000; border-radius: 4px; padding: 3px 5px; font-size: 0.75rem; font-family: inherit; outline: none; }
-        
-        .both-in-checkbox-row {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-family: 'Courier Prime', monospace;
-            font-size: 0.75rem;
-            font-weight: bold;
-            margin-top: 2px;
-        }
+        .both-in-checkbox-row { display: flex; align-items: center; gap: 6px; font-family: 'Courier Prime', monospace; font-size: 0.75rem; font-weight: bold; margin-top: 2px; }
         .both-in-checkbox-row input { width: 14px; height: 14px; cursor: pointer; }
 
         .overlay-action-btn { width: 100%; font-family: 'Courier Prime', monospace; font-size: 0.7rem; font-weight: bold; border: 2px solid #000; background: #fff; padding: 3px 0; cursor: pointer; border-radius: 4px; box-shadow: 2px 2px 0px #000; margin-top: auto; }
@@ -199,32 +69,34 @@
         @media (max-width: 850px) { .smart-dinner-grid { grid-template-columns: 1fr; } }
 
         .smart-column { background: rgba(0, 0, 0, 0.02); border: 2px dashed var(--border-clr); border-radius: 6px; padding: 15px; min-height: 150px; }
-
         .column-header-tag { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.9rem; text-align: center; padding: 6px; border: 2px solid #000; border-radius: 4px; margin-bottom: 15px; text-transform: uppercase; box-shadow: 2px 2px 0px #000; }
         .tag-ryan { background-color: var(--ryan-blue); }
         .tag-bea { background-color: var(--bea-pink); }
         .tag-both { background-color: var(--together-purple); }
 
         .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px var(--border-clr); }
-        .smart-day-block select.food-select-dropdown { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; background: #fff; outline: none; margin-bottom: 6px; }
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
-
         .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
         .food-select-dropdown { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; background: #fff; outline: none; }
         .other-text-box { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; outline: none; background: #fffdf2; }
 
-        /* Saved Recipes Dashboard Elements */
-        .recipe-browser-deck { display: grid; grid-template-columns: 220px 1fr; border: 2px solid #000; background: #fff; height: 380px; border-radius: 4px; overflow: hidden; }
+        /* Categorized Saved Recipes Layout Styles */
+        .recipe-category-tabs { display: flex; gap: 8px; margin-bottom: 15px; background: rgba(0, 0, 0, 0.04); padding: 6px; border: 2px solid #000; border-radius: 4px; }
+        .recipe-cat-btn { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; border: 1px solid #000; background: #fff; padding: 6px 14px; cursor: pointer; border-radius: 3px; box-shadow: 2px 2px 0px #000; }
+        .recipe-cat-btn.active-cat-tab { background: var(--accent-blue); color: #fff; transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
+        
+        .recipe-browser-deck { display: grid; grid-template-columns: 250px 1fr; border: 2px solid #000; background: #fff; height: 480px; border-radius: 4px; overflow: hidden; }
         .recipe-sidebar-list { border-right: 2px solid #000; background: rgba(0,0,0,0.02); overflow-y: auto; list-style: none; }
-        .recipe-tab-item { padding: 12px 15px; border-bottom: 1px solid #000; font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.85rem; cursor: pointer; text-transform: uppercase; }
+        .recipe-tab-item { padding: 12px 15px; border-bottom: 1px solid #000; font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.82rem; cursor: pointer; text-transform: uppercase; line-height: 1.3; }
         .recipe-tab-item:hover { background: rgba(0,0,0,0.05); }
         .recipe-tab-item.active-recipe-tab { background-color: var(--accent-orange); color: white; }
-        .recipe-viewer-panel { padding: 20px; overflow-y: auto; line-height: 1.6; }
-        .recipe-meta-row { display: flex; gap: 15px; margin: 8px 0 15px 0; font-family: 'Courier Prime', monospace; font-size: 0.8rem; font-weight: bold; }
-        .recipe-meta-tag { background: #eee; border: 1px solid #000; padding: 2px 6px; border-radius: 3px; }
-        .recipe-section-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 1rem; text-transform: uppercase; border-bottom: 2px dashed #000; margin: 15px 0 8px 0; padding-bottom: 2px; }
+        
+        .recipe-viewer-panel { padding: 25px; overflow-y: auto; line-height: 1.6; }
+        .recipe-meta-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0 15px 0; font-family: 'Courier Prime', monospace; font-size: 0.8rem; font-weight: bold; }
+        .recipe-meta-tag { background: #eee; border: 1px solid #000; padding: 2px 8px; border-radius: 3px; }
+        .recipe-section-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 1rem; text-transform: uppercase; border-bottom: 2px dashed #000; margin: 18px 0 8px 0; padding-bottom: 2px; color: #000; }
         .recipe-ingredients-list, .recipe-instructions-list { padding-left: 20px; font-size: 0.9rem; }
-        .recipe-ingredients-list li, .recipe-instructions-list li { margin-bottom: 5px; }
+        .recipe-ingredients-list li, .recipe-instructions-list li { margin-bottom: 6px; }
 
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; }
@@ -243,7 +115,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v66.3_RECIPE_EXPANSION</div>
+        <div class="nav-logo">💾 FOOD_OS // v67.0_CATEGORIZED_COOKBOOK</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -253,6 +125,7 @@
 
     <main class="desktop-layout">
 
+        <!-- WEEK TIMELINE BOARD -->
         <section class="retro-window full-width">
             <div class="window-header yellow-variant">
                 <span>User_Schedule: Rolling_Timeline_Matrix.exe</span>
@@ -267,6 +140,7 @@
             </div>
         </section>
 
+        <!-- AUTOMATED ROUTER COLUMNS -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span id="router-header-title">Intelligent_Router: Dinner_Router.exe</span>
@@ -288,6 +162,7 @@
             </div>
         </section>
 
+        <!-- GROCERY TRACKER -->
         <section class="retro-window full-width">
             <div class="window-header blue-variant">
                 <span>System Error: Missing Ingredients</span>
@@ -303,16 +178,25 @@
             </div>
         </section>
 
+        <!-- CATEGORIZED SAVED RECIPES WINDOW -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span>Database_Explorer: Saved_Recipes.db</span>
                 <span>✖</span>
             </div>
             <div class="window-body">
+                <!-- Category Tab Switcher Row -->
+                <div class="recipe-category-tabs">
+                    <button id="cat-tab-all" class="recipe-cat-btn active-cat-tab" onclick="filterRecipeCategory('all')">ALL RECIPES</button>
+                    <button id="cat-tab-dinners" class="recipe-cat-btn" onclick="filterRecipeCategory('dinners')">DINNERS</button>
+                    <button id="cat-tab-breakfast" class="recipe-cat-btn" onclick="filterRecipeCategory('breakfast')">BREAKFAST</button>
+                    <button id="cat-tab-bakes" class="recipe-cat-btn" onclick="filterRecipeCategory('bakes')">BAKES</button>
+                </div>
+
                 <div class="recipe-browser-deck">
                     <ul class="recipe-sidebar-list" id="recipe-list-tabs-anchor"></ul>
                     <div class="recipe-viewer-panel" id="recipe-content-panel">
-                        <p style="opacity:0.5; font-style:italic;">Select a profile catalog from the registry tree matrix...</p>
+                        <p style="opacity:0.5; font-style:italic;">Select a recipe item from the system catalog list...</p>
                     </div>
                 </div>
             </div>
@@ -323,41 +207,205 @@
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         let currentMode = 'dinners';
+        let currentRecipeCategory = 'all';
 
         const cloudStorageUrl = "https://script.google.com/macros/s/AKfycbxzTv-Qrjsi0Fgd1S5DdBn8J0swaqIPNDOaJZXeKQ_EdsTtpS3w5MBlWAdpNhEf_82M/exec";
 
-        // Cookbook Data Store with metrics applied
+        // Cookbook Data Store with full metrics applied
         const savedRecipesDatabase = [
             {
-                id: "chickpea-curry",
-                title: "Butter Chickpea Curry",
-                author: "Aly Michell",
-                prep: "5 mins",
-                cook: "23 mins",
+                id: "vodka-pasta",
+                category: "dinners",
+                title: "Penne with Vodka & Tomato Sauce",
+                author: "Pasta alla vodka",
+                prep: "15 mins",
+                cook: "45 mins",
                 servings: "4",
                 ingredients: [
-                    "3 tablespoons vegan butter",
-                    "1 tablespoon cumin seeds",
-                    "1 onion",
-                    "4 garlic cloves crushed/paste",
-                    "1 tablespoon ginger crushed/paste",
-                    "370 g tomatoes, crushed or blended",
-                    "2 tablespoons tomato paste",
-                    "1 tablespoon garam masala",
-                    "1 teaspoon curry powder",
-                    "1 teaspoon ground coriander",
-                    "½ teaspoon cayenne pepper (optional)",
-                    "1 teaspoon salt (adjust to taste)",
-                    "400 ml coconut milk, full-fat",
-                    "440 g canned chickpeas, drained and rinsed",
-                    "1 tablespoon butter"
+                    "2 x 400g tins of plum tomatoes",
+                    "1 large onion, finely diced",
+                    "Extra virgin olive oil",
+                    "Flaky sea salt",
+                    "1 clove of garlic, finely chopped",
+                    "1/2 tsp chilli flakes",
+                    "1 tsp dried oregano",
+                    "200ml vodka",
+                    "320g dried penne lisce (or penne rigate)",
+                    "4 tbsp double cream",
+                    "2 tsp caster sugar",
+                    "100g grated Parmesan"
                 ],
                 instructions: [
-                    "In a deep pot or dutch oven over medium-high heat, add the butter.",
-                    "Once the butter has melted, add cumin seeds. Once the cumin starts to crackle, add the onion. Cook until the onion is tender. Then, add the garlic, ginger, tomatoes, and tomato paste. Cook and combine for 1 minute.",
-                    "Add the garam masala, curry powder, coriander, cayenne pepper, and salt. Stir together and warm spices for 1 minute.",
-                    "Add coconut milk and chickpeas. Lower heat and simmer without a lid for 10-15 minutes, or until thick and creamy.",
-                    "Stir in one more tablespoon of butter. Serve with cilantro and rice, or garlic naan."
+                    "Drain the tomatoes, reserving the juice for another purpose.",
+                    "Place a large, ovenproof saucepan over low to medium heat and gently sauté the onion with a pinch of salt for 12-15 minutes until glossy and translucent.",
+                    "Add garlic, chilli flakes, and oregano. Combine and stir for a few minutes. Pour in the vodka, bring to a gentle bubble, and cook until the liquid has reduced by a third.",
+                    "Preheat oven to 140°C.",
+                    "Add drained tomatoes to the saucepan, bring to a gentle boil for 1-2 minutes, then bake uncovered in the oven for 30-40 minutes until sauce reduces and colors.",
+                    "Cook penne in salted boiling water. Drain.",
+                    "Remove tomatoes from oven, add double cream, sugar, and half the Parmesan. Blend with a stick blender into a smooth sauce.",
+                    "Add penne, stir completely, adjust seasoning, and serve topped with the remaining Parmesan."
+                ]
+            },
+            {
+                id: "black-bean-nasi",
+                category: "dinners",
+                title: "Black Bean Nasi Goreng",
+                author: "David & Naomi",
+                prep: "10 mins",
+                cook: "20 mins",
+                servings: "4",
+                ingredients: [
+                    "250g cooked brown basmati rice",
+                    "4 shallots, peeled and finely chopped",
+                    "2 sticks of celery, finely chopped",
+                    "3 tbsp groundnut oil",
+                    "5 cloves of garlic, peeled and finely chopped",
+                    "2 red chillies, 1 finely chopped, 1 sliced",
+                    "30g bunch of coriander (stalks and leaves separated and chopped)",
+                    "2 small cucumbers (or 1/2 large), thickly sliced",
+                    "2 tbsp rice wine vinegar",
+                    "1/2 tsp runny honey or sugar",
+                    "2 tbsp toasted sesame oil",
+                    "2 tbsp plus 1 tsp soy sauce",
+                    "2 tbsp tomato purée",
+                    "1 tbsp miso paste (red or brown)",
+                    "3 tbsp kecap manis",
+                    "1 x 400g tin black beans, drained",
+                    "4 free-range or organic eggs",
+                    "Bunch of spring onions, trimmed and finely sliced",
+                    "2 unwaxed limes to serve"
+                ],
+                instructions: [
+                    "Sauté chopped shallots and celery in a tablespoon of groundnut oil for 10 minutes. Add garlic, finely chopped red chilli, and coriander stalks; fry for a few more minutes.",
+                    "Make pickle: Mix sliced cucumber, sliced red chilli, rice wine vinegar, honey/sugar, and a pinch of salt. Set aside.",
+                    "Mix flavorings: Whisk toasted sesame oil, 1 tsp soy sauce, tomato purée, miso paste, kecap manis, and 2 tbsp soy sauce.",
+                    "Pour flavorings over the cooked veg, add drained black beans, and cook for a few minutes. Tip into a bowl.",
+                    "Wipe the pan, add remaining groundnut oil, add cooked rice and stir-fry over high heat until crisp. Return bean mixture to pan, stir well and cook for a couple of minutes.",
+                    "Fry eggs in a separate pan until white is set but yolk is soft. Stir spring onions and coriander leaves into rice.",
+                    "Serve nasi goreng piled into bowls topped with a fried egg, cucumber pickle, and lime wedges."
+                ]
+            },
+            {
+                id: "butter-chicken",
+                category: "dinners",
+                title: "Butter Chicken Curry",
+                author: "Text Recipe",
+                prep: "15 mins",
+                cook: "20 mins",
+                servings: "4",
+                ingredients: [
+                    "750g cubed Chicken thigh",
+                    "1/2 cup yogurt",
+                    "1 tbsp lemon juice",
+                    "1 tsp Turmeric",
+                    "2 tsp garam masala",
+                    "1/2 tsp chilli powder or cayenne",
+                    "1 tsp cumin",
+                    "1 tbsp ginger",
+                    "2 cloves garlic",
+                    "2 tbsp butter",
+                    "1 cup Passata",
+                    "1 cup heavy cream",
+                    "1 tbsp sugar",
+                    "1 1/4 tsp salt"
+                ],
+                instructions: [
+                    "Marinate chicken in yogurt, lemon juice, turmeric, garam masala, chilli powder, cumin, ginger, and garlic.",
+                    "Melt 2 tbsp butter in a pan over medium heat.",
+                    "Add Passata, heavy cream, sugar, and salt. Bring to a simmer.",
+                    "Add marinated chicken to the sauce and simmer until cooked through and sauce is thickened."
+                ]
+            },
+            {
+                id: "shawarma-pie",
+                category: "dinners",
+                title: "Chicken Shawarma Pie",
+                author: "Meat Section",
+                prep: "30 mins",
+                cook: "1 hour",
+                servings: "6",
+                ingredients: [
+                    "750g chicken thighs, skinless and boneless",
+                    "4 garlic cloves, crushed",
+                    "2cm piece of ginger, finely grated (15g)",
+                    "2 tsp ground cumin",
+                    "2 tsp ground coriander",
+                    "3/4 tsp smoked paprika",
+                    "1/2 tsp ground turmeric",
+                    "3/4 tsp ground cinnamon",
+                    "1/8 tsp ground cloves",
+                    "90ml olive oil (plus extra for greasing)",
+                    "2 tbsp cider vinegar",
+                    "2 baking potatoes (450g), cut into 0.5cm rounds",
+                    "45g unsalted butter",
+                    "1 onion, thinly sliced (150g)",
+                    "200ml chicken stock",
+                    "5g parsley leaves, chopped",
+                    "5g coriander leaves, chopped",
+                    "8 sheets of filo pastry (170g)",
+                    "1 tsp nigella seeds",
+                    "3/4 tsp Aleppo chilli flakes",
+                    "50g tahini, 80g Greek-style yoghurt, 2 crushed garlic cloves, 1 tbsp lemon juice (for sauce)"
+                ],
+                instructions: [
+                    "Marinate chicken with garlic, ginger, ground spices, 1 tbsp oil, vinegar, 1 tsp salt, and black pepper for at least 30 mins.",
+                    "Preheat oven to 180°C fan. Toss potatoes with 1.5 tbsp oil, 3/4 tsp salt, and pepper. Bake on parchment paper for 20 mins, flip and bake at 220°C for 10 mins until golden.",
+                    "Reduce oven to 180°C fan. Melt 15g butter and 1.5 tbsp oil in a pan. Sauté onion for 5 mins. Add chicken and cook for 10 mins until browned.",
+                    "Add chicken stock, 1/4 tsp salt, and pepper. Boil, lower heat, and simmer for 25 mins. Increase heat to reduce liquid to 4 tbsp. Cool, shred chicken into chunks, and mix with herbs.",
+                    "Whisk tahini sauce ingredients with 2 tbsp water until smooth.",
+                    "Assemble pie: Layer potato slices at the base of a greased dish, add chicken mixture, pour over tahini sauce, top with butter-brushed filo sheets, sprinkle nigella seeds and chilli flakes, and bake until crisp."
+                ]
+            },
+            {
+                id: "pancakes",
+                category: "breakfast",
+                title: "Classic Griddle Pancakes",
+                author: "Breads/Grains Box",
+                prep: "5 mins",
+                cook: "10 mins",
+                servings: "3",
+                ingredients: [
+                    "1 egg",
+                    "130g all-purpose flour",
+                    "180ml milk",
+                    "1 tbsp sugar",
+                    "2 tbsp shortening (melted) or vegetable oil",
+                    "3 tsp baking powder",
+                    "1/2 tsp salt"
+                ],
+                instructions: [
+                    "Beat egg with a hand beater until fluffy.",
+                    "Beat in remaining ingredients just until smooth. (For thinner pancakes, stir in an extra 60ml milk).",
+                    "Pour about 3 tablespoons of batter onto a greased, heated griddle.",
+                    "Cook until puffed and dry around the edges. Turn and cook other side until golden brown."
+                ]
+            },
+            {
+                id: "banana-bread",
+                category: "bakes",
+                title: "Classic Banana Bread",
+                author: "Vintage Book",
+                prep: "10 mins",
+                cook: "1 hour",
+                servings: "12",
+                ingredients: [
+                    "200g sugar",
+                    "75g butter or margarine, softened",
+                    "2 eggs",
+                    "1.5 cups mashed ripe bananas (3 to 4 medium)",
+                    "80ml water",
+                    "220g all-purpose flour",
+                    "1 tsp baking soda",
+                    "1/2 tsp salt",
+                    "1/4 tsp baking powder",
+                    "1/2 cup chopped nuts"
+                ],
+                instructions: [
+                    "Heat oven to 175°C. Grease bottom only of a loaf pan.",
+                    "Mix sugar and butter in a large bowl. Stir in eggs until blended.",
+                    "Add bananas and water; beat 30 seconds.",
+                    "Stir in remaining ingredients except nuts just until moistened; stir in nuts. Pour into pan.",
+                    "Bake 55 to 60 minutes or until wooden pick inserted in center comes out clean. Cool 5 mins before removing from pan."
                 ]
             }
         ];
@@ -388,7 +436,6 @@
                 const response = await fetch(cloudStorageUrl);
                 if (response.ok) {
                     const payload = await response.json();
-                    
                     if (payload.menuDatabase && Object.keys(payload.menuDatabase).length > 1) {
                         foodMenuDatabase = payload.menuDatabase;
                     }
@@ -397,7 +444,7 @@
                     }
                 }
             } catch (err) {
-                console.warn("Handshake latency. Using local active cache.");
+                console.warn("Handshake latency. Using active device cache.");
             }
             switchAppMode(currentMode);
             renderShoppingList();
@@ -417,11 +464,22 @@
             }
         }
 
+        function filterRecipeCategory(category) {
+            currentRecipeCategory = category;
+            document.querySelectorAll('.recipe-cat-btn').forEach(btn => btn.classList.remove('active-cat-tab'));
+            document.getElementById(`cat-tab-${category}`).classList.add('active-cat-tab');
+            buildRecipeRegistryDeck();
+        }
+
         function buildRecipeRegistryDeck() {
             const listAnchor = document.getElementById('recipe-list-tabs-anchor');
             listAnchor.innerHTML = '';
 
-            savedRecipesDatabase.forEach((recipe, index) => {
+            const filteredRecipes = savedRecipesDatabase.filter(recipe => {
+                return currentRecipeCategory === 'all' || recipe.category === currentRecipeCategory;
+            });
+
+            filteredRecipes.forEach((recipe, index) => {
                 const li = document.createElement('li');
                 li.className = `recipe-tab-item ${index === 0 ? 'active-recipe-tab' : ''}`;
                 li.innerText = recipe.title;
@@ -433,8 +491,10 @@
                 listAnchor.appendChild(li);
             });
 
-            if (savedRecipesDatabase.length > 0) {
-                displayRecipeProfile(savedRecipesDatabase[0]);
+            if (filteredRecipes.length > 0) {
+                displayRecipeProfile(filteredRecipes[0]);
+            } else {
+                document.getElementById('recipe-content-panel').innerHTML = `<p style="opacity:0.5; font-style:italic;">No recipes logged under this directory category yet...</p>`;
             }
         }
 
@@ -445,7 +505,7 @@
 
             panel.innerHTML = `
                 <h3 style="font-size: 1.3rem; font-weight: bold; text-transform: uppercase;">${recipe.title}</h3>
-                <p style="font-size: 0.85rem; opacity: 0.7;">By ${recipe.author}</p>
+                <p style="font-size: 0.85rem; opacity: 0.7;">Category: ${recipe.category.toUpperCase()} | By ${recipe.author}</p>
                 
                 <div class="recipe-meta-row">
                     <div class="recipe-meta-tag">⏱️ Prep: ${recipe.prep}</div>
@@ -634,14 +694,10 @@
 
         function buildSmartCardBlock(column, dateKey, label, selections) {
             const container = document.getElementById(`container-${column}`);
-            
-            if (!selections[dateKey]) {
-                selections[dateKey] = { category: "", dish: "" };
-            }
+            if (!selections[dateKey]) { selections[dateKey] = { category: "", dish: "" }; }
 
             const currentCat = selections[dateKey].category;
             const currentDish = selections[dateKey].dish;
-
             const block = document.createElement('div');
             block.className = 'smart-day-block';
             
@@ -652,7 +708,6 @@
 
             let dishOptionsHtml = `<option value="">-- Choose Option --</option>`;
             let showOtherBox = currentCat === 'OTHER';
-            
             if (currentCat && currentCat !== 'OTHER' && foodMenuDatabase[currentCat]) {
                 foodMenuDatabase[currentCat].forEach(dish => {
                     dishOptionsHtml += `<option value="${dish}" ${currentDish === dish ? 'selected' : ''}>${dish}</option>`;
@@ -683,9 +738,7 @@
 
         async function handleDishChange(dateKey, dishName) {
             let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            if (selections[dateKey]) {
-                selections[dateKey].dish = dishName;
-            }
+            if (selections[dateKey]) { selections[dateKey].dish = dishName; }
             await saveCloudState();
         }
 
@@ -702,11 +755,7 @@
             appState.shoppingList.forEach((item, index) => {
                 const li = document.createElement('li');
                 li.className = `grocery-item ${item.checked ? 'checked' : ''}`;
-                li.innerHTML = `
-                    <div class="retro-checkbox" onclick="toggleItem(${index})"></div>
-                    <span class="item-text" onclick="toggleItem(${index})">${item.name}</span>
-                    <button class="delete-btn" onclick="deleteItem(${index})">⌫</button>
-                `;
+                li.innerHTML = `<div class="retro-checkbox" onclick="toggleItem(${index})"></div><span class="item-text" onclick="toggleItem(${index})">${item.name}</span><button class="delete-btn" onclick="deleteItem(${index})">⌫</button>`;
                 listEl.appendChild(li);
             });
         }
@@ -714,12 +763,7 @@
         async function addItem() {
             const input = document.getElementById('item-input');
             const val = input.value.trim();
-            if (val !== '') {
-                appState.shoppingList.push({ name: val, checked: false });
-                input.value = '';
-                renderShoppingList();
-                await saveCloudState();
-            }
+            if (val !== '') { appState.shoppingList.push({ name: val, checked: false }); input.value = ''; renderShoppingList(); await saveCloudState(); }
         }
 
         document.getElementById('item-input').addEventListener('keypress', function(e) { if (e.key === 'Enter') addItem(); });
