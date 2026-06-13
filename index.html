@@ -34,7 +34,6 @@
             min-height: 100vh;
         }
 
-        /* Top Menu bar */
         .top-nav {
             display: flex;
             justify-content: space-between;
@@ -54,20 +53,9 @@
             text-transform: uppercase;
         }
 
-        .window-controls-dummy {
-            display: flex;
-            gap: 8px;
-        }
+        .window-controls-dummy { display: flex; gap: 8px; }
+        .dot-control { width: 12px; height: 12px; border: 2px solid var(--border-clr); border-radius: 50%; background: white; }
 
-        .dot-control {
-            width: 12px;
-            height: 12px;
-            border: 2px solid var(--border-clr);
-            border-radius: 50%;
-            background: white;
-        }
-
-        /* Reusable Retro UI Window Wrapper */
         .retro-window {
             background-color: var(--window-bg);
             border: 2px solid var(--border-clr);
@@ -98,12 +86,7 @@
 
         .window-body { padding: 20px; }
 
-        /* Retro App Tab Switcher Bar */
-        .app-tab-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
+        .app-tab-container { display: flex; gap: 10px; margin-bottom: 15px; }
 
         .tab-switch-btn {
             font-family: 'Courier Prime', monospace;
@@ -124,12 +107,8 @@
             box-shadow: 1px 1px 0px #000;
         }
 
-        /* Two-Week Grid Architecture */
-        .calendar-dashboard-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+        .calendar-dashboard-container { display: flex; flex-direction: column; gap: 15px; }
+        .calendar-month-title { font-family: 'Courier Prime', monospace; font-size: 1.1rem; font-weight: 700; text-transform: uppercase; text-align: center; padding: 6px; background: rgba(0, 0, 0, 0.05); border: 2px solid #000; border-radius: 4px; }
 
         .calendar-days-grid {
             display: grid;
@@ -138,9 +117,7 @@
             border-top: 1px solid #000;
             background: #fff;
         }
-        .calendar-days-grid.lunch-mode-grid {
-            grid-template-columns: repeat(5, 1fr);
-        }
+        .calendar-days-grid.lunch-mode-grid { grid-template-columns: repeat(5, 1fr); }
 
         @media (max-width: 950px) {
             .calendar-days-grid, .calendar-days-grid.lunch-mode-grid { grid-template-columns: repeat(2, 1fr); }
@@ -152,7 +129,7 @@
         .calendar-day-cell {
             border-right: 1px solid #000;
             border-bottom: 1px solid #000;
-            min-height: 115px;
+            min-height: 125px;
             padding: 8px;
             position: relative;
             display: flex;
@@ -172,20 +149,18 @@
         }
 
         .cell-event-pill {
-            font-size: 0.75rem;
-            padding: 2px 5px;
-            border-radius: 4px;
+            font-size: 0.72rem;
+            padding: 1px 4px;
+            border-radius: 3px;
             border: 1px solid #000;
             font-weight: bold;
             overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            box-shadow: 1px 1px 0px rgba(0,0,0,0.15);
+            text-overflow: ellipsis; white-space: nowrap;
         }
         .pill-ryan { background-color: var(--ryan-blue); }
         .pill-bea { background-color: var(--bea-pink); }
+        .pill-both-in { background-color: var(--together-purple); border-style: dashed; }
 
-        /* Floating Control Popover on Hover */
         .cell-hover-overlay {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -201,107 +176,51 @@
         }
 
         .calendar-day-cell:hover .cell-hover-overlay,
-        .calendar-day-cell:focus-within .cell-hover-overlay {
+        .calendar-day-cell:focus-within .cell-hover-overlay { display: flex; }
+
+        .overlay-input-item { width: 100%; border: 1px solid #000; border-radius: 4px; padding: 3px 5px; font-size: 0.75rem; font-family: inherit; outline: none; }
+        
+        .both-in-checkbox-row {
             display: flex;
-        }
-
-        .overlay-input-item {
-            width: 100%;
-            border: 1px solid #000;
-            border-radius: 4px;
-            padding: 3px 5px;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Courier Prime', monospace;
             font-size: 0.75rem;
-            font-family: inherit;
-            outline: none;
-        }
-
-        .overlay-action-btn {
-            width: 100%;
-            font-family: 'Courier Prime', monospace;
-            font-size: 0.7rem;
             font-weight: bold;
-            border: 2px solid #000;
-            background: #fff;
-            padding: 3px 0;
-            cursor: pointer;
-            border-radius: 4px;
-            box-shadow: 2px 2px 0px #000;
+            margin-top: 2px;
         }
-        .overlay-action-btn:active {
-            transform: translate(1px, 1px);
-            box-shadow: 1px 1px 0px #000;
-        }
+        .both-in-checkbox-row input { width: 14px; height: 14px; cursor: pointer; }
 
-        /* Smart Multi-Column Configuration */
-        .smart-dinner-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
+        .overlay-action-btn { width: 100%; font-family: 'Courier Prime', monospace; font-size: 0.7rem; font-weight: bold; border: 2px solid #000; background: #fff; padding: 3px 0; cursor: pointer; border-radius: 4px; box-shadow: 2px 2px 0px #000; margin-top: auto; }
+        .overlay-action-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
 
-        @media (max-width: 850px) {
-            .smart-dinner-grid { grid-template-columns: 1fr; }
-        }
+        /* Multi-Column Configuration */
+        .desktop-layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 30px; max-width: 1400px; margin: 0 auto; }
+        .full-width { grid-column: span 2; }
+        .smart-dinner-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        @media (max-width: 850px) { .smart-dinner-grid { grid-template-columns: 1fr; } }
 
-        .smart-column {
-            background: rgba(0, 0, 0, 0.02);
-            border: 2px dashed var(--border-clr);
-            border-radius: 6px;
-            padding: 15px;
-            min-height: 150px;
-        }
+        .smart-column { background: rgba(0, 0, 0, 0.02); border: 2px dashed var(--border-clr); border-radius: 6px; padding: 15px; min-height: 150px; }
 
-        .column-header-tag {
-            font-family: 'Courier Prime', monospace;
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-align: center;
-            padding: 6px;
-            border: 2px solid #000;
-            border-radius: 4px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            box-shadow: 2px 2px 0px #000;
-        }
+        .column-header-tag { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.9rem; text-align: center; padding: 6px; border: 2px solid #000; border-radius: 4px; margin-bottom: 15px; text-transform: uppercase; box-shadow: 2px 2px 0px #000; }
         .tag-ryan { background-color: var(--ryan-blue); }
         .tag-bea { background-color: var(--bea-pink); }
         .tag-both { background-color: var(--together-purple); }
 
-        .smart-day-block {
-            background: #ffffff;
-            border: 2px solid var(--border-clr);
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 12px;
-            box-shadow: 3px 3px 0px var(--border-clr);
-        }
+        .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px var(--border-clr); }
+        .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
 
-        .smart-day-title {
-            font-family: 'Courier Prime', monospace;
-            font-weight: 700;
-            font-size: 0.8rem;
-            margin-bottom: 6px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        /* Integrated Selection Dropdowns Styling */
+        .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+        .food-select-dropdown { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; background: #fff; outline: none; }
+        .other-text-box { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; outline: none; background: #fffdf2; }
 
-        .smart-day-input {
-            width: 100%;
-            border: 1px solid #777;
-            border-radius: 4px;
-            padding: 6px;
-            font-family: inherit;
-            font-size: 0.85rem;
-            outline: none;
-        }
-        .smart-day-input:focus { background-color: #fffdf0; border-color: #000; }
+        .prep-log { font-family: 'Courier Prime', monospace; background: #222; color: #1aff1a; padding: 15px; border-radius: 6px; font-size: 0.9rem; line-height: 1.5; max-height: 180px; overflow-y: auto; border: 2px solid var(--border-clr); }
+        .prep-item { margin-bottom: 5px; }
 
-        /* Grocery Checklist Tracker Layout Elements */
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; }
         .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 20px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; }
-        .retro-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0px var(--border-clr); }
         .shopping-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
         .grocery-item { display: flex; align-items: center; border: 2px solid var(--border-clr); background: white; padding: 10px 15px; border-radius: 6px; box-shadow: 2px 2px 0px var(--border-clr); cursor: pointer; }
         .grocery-item.checked { background-color: #f0ede6; opacity: 0.7; }
@@ -310,21 +229,13 @@
         .grocery-item.checked .retro-checkbox::after { content: ""; width: 8px; height: 8px; background: var(--accent-orange); }
         .item-text { flex: 1; font-weight: 700; font-size: 1rem; }
         .delete-btn { background: none; border: none; font-family: monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; }
-
-        .checker-banner {
-            height: 16px;
-            background-image: linear-gradient(45deg, #000 25%, transparent 25%), linear-gradient(-45deg, #000 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #000 75%), linear-gradient(-45deg, transparent 75%, #000 75%);
-            background-size: 16px 16px;
-            background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
-            background-color: var(--accent-blue);
-            border-bottom: 2px solid var(--border-clr);
-        }
+        .checker-banner { height: 16px; background-image: linear-gradient(45deg, #000 25%, transparent 25%), linear-gradient(-45deg, #000 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #000 75%), linear-gradient(-45deg, transparent 75%, #000 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; background-color: var(--accent-blue); border-bottom: 2px solid var(--border-clr); }
     </style>
 </head>
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v46.5_DUAL_TAB_ROUTER</div>
+        <div class="nav-logo">💾 FOOD_OS // v50.0_SHEET_INTEGRATED</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -334,40 +245,30 @@
 
     <main class="desktop-layout">
 
-        <!-- NATIVE TWO-WEEK CALENDAR INTERFACE WINDOW -->
         <section class="retro-window full-width">
             <div class="window-header yellow-variant">
                 <span>User_Schedule: Rolling_Timeline_Matrix.exe</span>
                 <span>✖</span>
             </div>
             <div class="window-body calendar-dashboard-container">
-                
-                <!-- System Mode Selector Navigation Tabs -->
                 <div class="app-tab-container">
                     <button id="tab-dinners" class="tab-switch-btn active-tab" onclick="switchAppMode('dinners')">[ Dinners (Full Week) ]</button>
                     <button id="tab-lunches" class="tab-switch-btn" onclick="switchAppMode('lunches')">[ Lunches (Mon-Fri) ]</button>
                 </div>
-
-                <div class="calendar-days-grid" id="calendar-days-injector">
-                    <!-- Configured matrix cells injection node -->
-                </div>
+                <div class="calendar-days-grid" id="calendar-days-injector"></div>
             </div>
         </section>
 
-        <!-- SYSTEM WINDOW: PREP DIAGNOSTICS LOG TERMINAL -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span id="terminal-header-title">Diagnostics_Log: Dinner_Prep_Scanner.exe</span>
                 <span>✖</span>
             </div>
             <div class="window-body">
-                <div class="prep-log" id="prep-alert-terminal">
-                    Monitoring matrix channels... System ready.
-                </div>
+                <div class="prep-log" id="prep-alert-terminal">Initializing routing lines...</div>
             </div>
         </section>
 
-        <!-- DINNER PLANNER AUTOMATED COLUMNS FRAME -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span id="router-header-title">Intelligent_Router: Dinner_Router.exe</span>
@@ -389,7 +290,6 @@
             </div>
         </section>
 
-        <!-- GROCERY SYSTEM CHECKLIST WINDOW -->
         <section class="retro-window full-width">
             <div class="window-header blue-variant">
                 <span>System Error: Missing Ingredients</span>
@@ -409,31 +309,39 @@
 
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        let currentMode = 'dinners'; // Global pointer: 'dinners' or 'lunches'
+        let currentMode = 'dinners';
 
-        // Core Global Registries 
-        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v46')) || [{ name: 'Oat Milk', checked: false }];
+        // Direct database extraction from image_ed8c3e.png
+        const foodMenuDatabase = {
+            "PASTA": ["Bolognese", "Carbonara", "Sausage ragú", "Mac & cheese", "Tomato sauce of something", "Vegetable pasta (corgettes/tomato)", "Vodka", "Gnocchi bake", "Lasagne"],
+            "INT.": ["stir fry", "Chicken and rice", "Fajitas", "Curry (katsu/chickpea/lentil)", "Enchiladas"],
+            "MEAT": ["chicken shawarma", "Schnitzel", "Roast dinner", "Sausage and mash", "Chicken and chorizo stew", "Cod with breadcrumbs", "Pesto chicken", "Pork belly", "Steak"],
+            "VEGGIE": ["caesar salad", "Pasta Salad", "Halloumi something", "Chilli with beans", "Baked potato", "Mushroom risotto", "Spanakopita", "Noodle soup", "Beans"],
+            "GUILTY": ["Fish and chips", "Takeaway", "Burger", "Hot dogs", "Frozen pizza", "Freezer food picky bits"],
+            "OTHER": []
+        };
+
+        // Cache Registry channels
+        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v50')) || [{ name: 'Oat Milk', checked: false }];
         
         let ryanDinners = JSON.parse(localStorage.getItem('food_os_ryan_grid_v45')) || {};
         let beaDinners = JSON.parse(localStorage.getItem('food_os_bea_grid_v45')) || {};
-        let dinnerPlans = JSON.parse(localStorage.getItem('food_os_dinners_v45')) || {};
+        let bothInDinners = JSON.parse(localStorage.getItem('food_os_both_in_din_v50')) || {};
+        let dinnerSelections = JSON.parse(localStorage.getItem('food_os_din_select_v50')) || {};
 
         let ryanLunches = JSON.parse(localStorage.getItem('food_os_ryan_lunch_v46')) || {};
         let beaLunches = JSON.parse(localStorage.getItem('food_os_bea_lunch_v46')) || {};
-        let lunchPlans = JSON.parse(localStorage.getItem('food_os_lunch_plans_v46')) || {};
+        let bothInLunches = JSON.parse(localStorage.getItem('food_os_both_in_lun_v50')) || {};
+        let lunchSelections = JSON.parse(localStorage.getItem('food_os_lun_select_v50')) || {};
 
         function switchAppMode(targetMode) {
             currentMode = targetMode;
-            
-            // Toggle active classes on tab layouts
             document.getElementById('tab-dinners').classList.toggle('active-tab', targetMode === 'dinners');
             document.getElementById('tab-lunches').classList.toggle('active-tab', targetMode === 'lunches');
             
-            // Dynamically adjust grid style layout properties based on cell quantities
             const gridEl = document.getElementById('calendar-days-injector');
             gridEl.classList.toggle('lunch-mode-grid', targetMode === 'lunches');
 
-            // Adjust layout text node configurations based on active channels
             if (targetMode === 'dinners') {
                 document.getElementById('terminal-header-title').innerText = "Diagnostics_Log: Dinner_Prep_Scanner.exe";
                 document.getElementById('router-header-title').innerText = "Intelligent_Router: Dinner_Router.exe";
@@ -447,7 +355,6 @@
                 document.getElementById('header-col-b').innerText = "Bea In Office (Ryan Preps)";
                 document.getElementById('header-col-both').innerText = "Both Home/WFH Lunches";
             }
-
             renderActiveMatrix();
         }
 
@@ -458,95 +365,103 @@
             const today = new Date();
             today.setHours(0,0,0,0);
 
-            // Establish active pointer parameters
-            let activeRyanSource = currentMode === 'dinners' ? ryanDinners : ryanLunches;
-            let activeBeaSource = currentMode === 'dinners' ? beaDinners : ryanLunches; // Point cleanly to target sets
-            if (currentMode === 'lunches') activeBeaSource = beaLunches;
+            let activeRyan = currentMode === 'dinners' ? ryanDinners : ryanLunches;
+            let activeBea = currentMode === 'dinners' ? beaDinners : beaLunches;
+            let activeBothIn = currentMode === 'dinners' ? bothInDinners : bothInLunches;
+            let selections = currentMode === 'dinners' ? dinnerSelections : lunchSelections;
 
-            let loops = currentMode === 'dinners' ? 14 : 20; // Look slightly further ahead for lunches to get 14 weekdays cleanly
-
+            let loops = currentMode === 'dinners' ? 14 : 20;
             let renderedCount = 0;
+
             for (let i = 0; i < loops; i++) {
                 if (currentMode === 'dinners' && renderedCount >= 14) break;
-                if (currentMode === 'lunches' && renderedCount >= 10) break; // Limit lunch tab to exactly 2 weeks of weekdays
+                if (currentMode === 'lunches' && renderedCount >= 10) break;
 
                 const targetDay = new Date(today);
                 targetDay.setDate(today.getDate() + i);
-
                 const dayOfWeek = targetDay.getDay();
                 
-                // If Lunch mode is active, completely pass over weekends
                 if (currentMode === 'lunches' && (dayOfWeek === 0 || dayOfWeek === 6)) continue;
-
                 renderedCount++;
 
                 const dateKey = targetDay.toISOString().split('T')[0];
                 const dayNum = targetDay.getDate();
                 const dayName = shortDayNames[dayOfWeek];
                 const monthNum = targetDay.getMonth() + 1;
-                const dateLabel = `${dayName} ${dayNum.toString().padStart(2, '0')}/${monthNum.toString().padStart(2, '0')}`;
 
-                if (!activeRyanSource[dateKey]) activeRyanSource[dateKey] = "";
-                if (!activeBeaSource[dateKey]) activeBeaSource[dateKey] = "";
+                if (!activeRyan[dateKey]) activeRyan[dateKey] = "";
+                if (!activeBea[dateKey]) activeBea[dateKey] = "";
+                if (activeBothIn[dateKey] === undefined) activeBothIn[dateKey] = false;
 
                 const cell = document.createElement('div');
                 cell.className = 'calendar-day-cell';
                 
-                let ryanText = activeRyanSource[dateKey].trim();
-                let beaText = activeBeaSource[dateKey].trim();
+                let rText = activeRyan[dateKey].trim();
+                let bText = activeBea[dateKey].trim();
+                let isBothIn = activeBothIn[dateKey];
 
-                let prefixR = currentMode === 'dinners' ? 'R Out' : 'R Office';
-                let prefixB = currentMode === 'dinners' ? 'B Out' : 'B Office';
+                let pillsHtml = "";
+                if (isBothIn) {
+                    pillsHtml += `<div class="cell-event-pill pill-both-in">🔒 BOTH IN / HOME</div>`;
+                } else {
+                    let prefixR = currentMode === 'dinners' ? 'R Out' : 'R Office';
+                    let prefixB = currentMode === 'dinners' ? 'B Out' : 'B Office';
+                    if (rText) pillsHtml += `<div class="cell-event-pill pill-ryan">${prefixR}: ${rText}</div>`;
+                    if (bText) pillsHtml += `<div class="cell-event-pill pill-bea">${prefixB}: ${bText}</div>`;
+                }
 
-                let ryanPill = ryanText ? `<div class="cell-event-pill pill-ryan">${prefixR}: ${ryanText}</div>` : '';
-                let beaPill = beaText ? `<div class="cell-event-pill pill-bea">${prefixB}: ${beaText}</div>` : '';
+                // Append selection summary labels to calendar view
+                if (selections[dateKey] && selections[dateKey].dish) {
+                    pillsHtml += `<div class="cell-event-pill" style="background:#eefcfd;border-color:var(--accent-blue);">🍽️ ${selections[dateKey].dish}</div>`;
+                }
 
                 cell.innerHTML = `
-                    <div class="cell-date-num">
-                        <span>● ${dayName}</span>
-                        <span>${dayNum}/${monthNum}</span>
-                    </div>
-                    ${ryanPill}
-                    ${beaPill}
+                    <div class="cell-date-num"><span>● ${dayName}</span><span>${dayNum}/${monthNum}</span></div>
+                    ${pillsHtml}
                     
-                    <!-- Control Overlay Card Form -->
                     <div class="cell-hover-overlay">
-                        <div style="font-size:0.75rem; font-weight:bold; margin-bottom:2px; text-transform:uppercase;">Edit [${dateLabel}]:</div>
-                        <input type="text" class="overlay-input-item" id="input-r-${dateKey}" value="${ryanText}" placeholder="${currentMode==='dinners'?'Ryan Out plans...':'Ryan Office notes...'}">
-                        <input type="text" class="overlay-input-item" id="input-b-${dateKey}" value="${beaText}" placeholder="${currentMode==='dinners'?'Bea Out plans...':'Bea Office notes...'}">
-                        <div class="overlay-type-selector">
-                            <button class="overlay-action-btn" onclick="saveCellPlan('${dateKey}')">Save Info</button>
+                        <div style="font-size:0.72rem; font-weight:bold; text-transform:uppercase;">Edit [${dayName} ${dayNum}/${monthNum}]:</div>
+                        <input type="text" class="overlay-input-item" id="input-r-${dateKey}" value="${rText}" placeholder="${currentMode==='dinners'?'Ryan Out notes...':'Ryan Office notes...'}">
+                        <input type="text" class="overlay-input-item" id="input-b-${dateKey}" value="${bText}" placeholder="${currentMode==='dinners'?'Bea Out notes...':'Bea Office notes...'}">
+                        
+                        <div class="both-in-checkbox-row">
+                            <input type="checkbox" id="check-both-${dateKey}" ${isBothIn ? 'checked' : ''}>
+                            <label for="check-both-${dateKey}">Mark "Both In / Home"</label>
                         </div>
+                        
+                        <button class="overlay-action-btn" onclick="saveCellPlan('${dateKey}')">Save Parameters</button>
                     </div>
                 `;
                 gridAnchor.appendChild(cell);
             }
-
-            calculateAutomatedRouterColumns();
+            calculateRouterEngine();
         }
 
         function saveCellPlan(dateKey) {
             const rVal = document.getElementById(`input-r-${dateKey}`).value.trim();
             const bVal = document.getElementById(`input-b-${dateKey}`).value.trim();
+            const bitVal = document.getElementById(`check-both-${dateKey}`).checked;
 
             if (currentMode === 'dinners') {
                 ryanDinners[dateKey] = rVal;
                 beaDinners[dateKey] = bVal;
+                bothInDinners[dateKey] = bitVal;
                 localStorage.setItem('food_os_ryan_grid_v45', JSON.stringify(ryanDinners));
                 localStorage.setItem('food_os_bea_grid_v45', JSON.stringify(beaDinners));
+                localStorage.setItem('food_os_both_in_din_v50', JSON.stringify(bothInDinners));
             } else {
                 ryanLunches[dateKey] = rVal;
                 beaLunches[dateKey] = bVal;
+                bothInLunches[dateKey] = bitVal;
                 localStorage.setItem('food_os_ryan_lunch_v46', JSON.stringify(ryanLunches));
                 localStorage.setItem('food_os_bea_lunch_v46', JSON.stringify(beaLunches));
+                localStorage.setItem('food_os_both_in_lun_v50', JSON.stringify(bothInLunches));
             }
-
             renderActiveMatrix();
         }
 
-        function calculateAutomatedRouterColumns() {
+        function calculateRouterEngine() {
             const logTerminal = document.getElementById('prep-alert-terminal');
-            
             document.getElementById('container-ryan').innerHTML = '';
             document.getElementById('container-bea').innerHTML = '';
             document.getElementById('container-both').innerHTML = '';
@@ -557,9 +472,10 @@
             
             let counters = { ryan: 0, bea: 0, both: 0 };
 
-            let activeRyanSource = currentMode === 'dinners' ? ryanDinners : ryanLunches;
-            let activeBeaSource = currentMode === 'dinners' ? beaDinners : beaLunches;
-            let activeMealsSource = currentMode === 'dinners' ? dinnerPlans : lunchPlans;
+            let activeRyan = currentMode === 'dinners' ? ryanDinners : ryanLunches;
+            let activeBea = currentMode === 'dinners' ? beaDinners : beaLunches;
+            let activeBothIn = currentMode === 'dinners' ? bothInDinners : bothInLunches;
+            let selections = currentMode === 'dinners' ? dinnerSelections : lunchSelections;
 
             let renderedCount = 0;
             for (let i = 0; i < 20; i++) {
@@ -568,57 +484,48 @@
 
                 const checkDay = new Date(today);
                 checkDay.setDate(today.getDate() + i);
-                
                 const dayOfWeek = checkDay.getDay();
                 if (currentMode === 'lunches' && (dayOfWeek === 0 || dayOfWeek === 6)) continue;
 
                 renderedCount++;
-
                 const dateKey = checkDay.toISOString().split('T')[0];
                 const displayLabel = `${shortDayNames[dayOfWeek]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
 
-                const ryanStateMarker = (activeRyanSource[dateKey] || "").trim() !== "";
-                const beaStateMarker = (activeBeaSource[dateKey] || "").trim() !== "";
+                const rFilled = (activeRyan[dateKey] || "").trim() !== "";
+                const bFilled = (activeBea[dateKey] || "").trim() !== "";
+                const explicitlyBothIn = activeBothIn[dateKey] || false;
 
                 let columnTarget = null;
                 let logText = "";
 
-                if (currentMode === 'dinners') {
-                    // DINNER MODE MATCH LOGIC:
-                    if (ryanStateMarker && !beaStateMarker) {
+                if (explicitlyBothIn) {
+                    columnTarget = "both";
+                    logText = currentMode === 'dinners' ? 
+                        `🔒 FORCED TOGETHER: [${displayLabel}] Checked as Both In. Plan a grand shared meal!` :
+                        `🏠 HOME WORKSPACE: [${displayLabel}] Both WFH / Days off. Lunches needed at home grid!`;
+                } else if (currentMode === 'dinners') {
+                    // DINNER FILTER CONDITION: Only route to R/B columns if text is explicitly provided
+                    if (rFilled && !bFilled) {
                         columnTarget = "bea";
-                        logText = `⚠️ WARNING: [${displayLabel}] Ryan out: "${activeRyanSource[dateKey]}". Bea needs dinner!`;
-                    } else if (beaStateMarker && !ryanStateMarker) {
+                        logText = `⚠️ WARNING: [${displayLabel}] Ryan out: "${activeRyan[dateKey]}". Bea needs dinner!`;
+                    } else if (bFilled && !rFilled) {
                         columnTarget = "ryan";
-                        logText = `⚠️ WARNING: [${displayLabel}] Bea out: "${activeBeaSource[dateKey]}". Ryan needs dinner!`;
-                    } else if (!ryanStateMarker && !beaStateMarker) {
-                        columnTarget = "both";
-                        logText = `⚠️ CRITICAL: [${displayLabel}] Both free. Plan a meal together!`;
+                        logText = `⚠️ WARNING: [${displayLabel}] Bea out: "${activeBea[dateKey]}". Ryan needs dinner!`;
                     }
                 } else {
-                    // LUNCH MODE MATCH LOGIC (Office status tracking checks out inverse preps):
-                    if (ryanStateMarker && !beaStateMarker) {
-                        columnTarget = "ryan"; // Ryan in office -> Needs a lunch packed for him!
-                        logText = `💼 OFFICE: [${displayLabel}] Ryan working on-site ("${activeRyanSource[dateKey]}"). Pack him a lunch!`;
-                    } else if (beaStateMarker && !ryanStateMarker) {
-                        columnTarget = "bea"; // Bea in office -> Needs a lunch packed for her!
-                        logText = `💼 OFFICE: [${displayLabel}] Bea working on-site ("${activeBeaSource[dateKey]}"). Pack her a lunch!`;
-                    } else if (!ryanStateMarker && !beaStateMarker) {
-                        columnTarget = "both"; // Both home -> Normal home prep lunches
-                        logText = `🏠 HOME: [${displayLabel}] Both WFH / Day off. Lunches needed at home!`;
+                    // LUNCH FILTER CONDITION: Only route to individual columns if text is explicitly provided
+                    if (rFilled && !bFilled) {
+                        columnTarget = "ryan";
+                        logText = `💼 OFFICE: [${displayLabel}] Ryan in office ("${activeRyan[dateKey]}"). Pack him a lunch!`;
+                    } else if (bFilled && !rFilled) {
+                        columnTarget = "bea";
+                        logText = `💼 OFFICE: [${displayLabel}] Bea in office ("${activeBea[dateKey]}"). Pack her a lunch!`;
                     }
                 }
 
                 if (columnTarget) {
                     counters[columnTarget]++;
-                    
-                    const block = document.createElement('div');
-                    block.className = 'smart-day-block';
-                    block.innerHTML = `
-                        <div class="smart-day-title"><span>● ${displayLabel}</span></div>
-                        <input type="text" class="smart-day-input" value="${activeMealsSource[dateKey] || ''}" placeholder="Plan meal note..." oninput="saveSmartMealInput('${dateKey}', this.value)">
-                    `;
-                    document.getElementById(`container-${columnTarget}`).appendChild(block);
+                    buildSmartCardBlock(columnTarget, dateKey, displayLabel, selections);
 
                     const alertRow = document.createElement('div');
                     alertRow.className = 'prep-item';
@@ -628,27 +535,86 @@
                     logTerminal.appendChild(alertRow);
                 }
             }
-            checkColumnPlaceholders(counters);
+            checkEmptyStates(counters);
         }
 
-        function saveSmartMealInput(dateKey, value) {
-            if (currentMode === 'dinners') {
-                dinnerPlans[dateKey] = value;
-                localStorage.setItem('food_os_dinners_v45', JSON.stringify(dinnerPlans));
-            } else {
-                lunchPlans[dateKey] = value;
-                localStorage.setItem('food_os_lunch_plans_v46', JSON.stringify(lunchPlans));
+        // Dropdown Menu Tree Node Matrix Assembler
+        function buildSmartCardBlock(column, dateKey, label, selections) {
+            const container = document.getElementById(`container-${column}`);
+            
+            if (!selections[dateKey]) {
+                selections[dateKey] = { category: "", dish: "" };
             }
+
+            const currentCat = selections[dateKey].category;
+            const currentDish = selections[dateKey].dish;
+
+            const block = document.createElement('div');
+            block.className = 'smart-day-block';
+            
+            // 1. Generate Header Selector
+            let headerOptionsHtml = `<option value="">-- Choose Category --</option>`;
+            Object.keys(foodMenuDatabase).forEach(cat => {
+                headerOptionsHtml += `<option value="${cat}" ${currentCat === cat ? 'selected' : ''}>${cat}</option>`;
+            });
+
+            // 2. Generate Options Sub Selector
+            let dishOptionsHtml = `<option value="">-- Choose Option --</option>`;
+            let showOtherBox = currentCat === 'OTHER';
+            
+            if (currentCat && currentCat !== 'OTHER') {
+                foodMenuDatabase[currentCat].forEach(dish => {
+                    dishOptionsHtml += `<option value="${dish}" ${currentDish === dish ? 'selected' : ''}>${dish}</option>`;
+                });
+            }
+
+            block.innerHTML = `
+                <div class="smart-day-title">● ${label}</div>
+                <div class="dropdown-stack-group">
+                    <select class="food-select-dropdown" onchange="handleHeaderChange('${dateKey}', this.value)">
+                        ${headerOptionsHtml}
+                    </select>
+                    <select class="food-select-dropdown" id="dish-drop-${dateKey}" style="display: ${showOtherBox ? 'none' : 'block'};" onchange="handleDishChange('${dateKey}', this.value)">
+                        ${dishOptionsHtml}
+                    </select>
+                    <input type="text" class="other-text-box" id="other-input-${dateKey}" style="display: ${showOtherBox ? 'block' : 'none'};" value="${showOtherBox ? currentDish : ''}" placeholder="Type alternative option..." oninput="handleDishChange('${dateKey}', this.value)">
+                </div>
+            `;
+            container.appendChild(block);
         }
 
-        function checkColumnPlaceholders(counters) {
-            let label = currentMode === 'dinners' ? 'nights sorted!' : 'days sorted!';
-            if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${label}</p>`;
-            if(counters.bea === 0) document.getElementById('container-bea').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${label}</p>`;
-            if(counters.both === 0) document.getElementById('container-both').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${label}</p>`;
+        function handleHeaderChange(dateKey, category) {
+            let selections = currentMode === 'dinners' ? dinnerSelections : lunchSelections;
+            selections[dateKey] = { category: category, dish: "" };
+            
+            saveSelectionRegistry();
+            renderActiveMatrix();
         }
 
-        // GROCERY CHECKLIST ENGINE
+        function handleDishChange(dateKey, dishName) {
+            let selections = currentMode === 'dinners' ? dinnerSelections : lunchSelections;
+            if (selections[dateKey]) {
+                selections[dateKey].dish = dishName;
+            }
+            saveSelectionRegistry();
+            
+            // Update the display without rebuilding inputs to preserve active text box focus states
+            localStorage.setItem(currentMode === 'dinners' ? 'food_os_din_select_v50' : 'food_os_lun_select_v50', JSON.stringify(selections));
+        }
+
+        function saveSelectionRegistry() {
+            localStorage.setItem('food_os_din_select_v50', JSON.stringify(dinnerSelections));
+            localStorage.setItem('food_os_lun_select_v50', JSON.stringify(lunchSelections));
+        }
+
+        function checkEmptyStates(counters) {
+            let tag = currentMode === 'dinners' ? 'nights sorted!' : 'days sorted!';
+            if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
+            if(counters.bea === 0) document.getElementById('container-bea').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
+            if(counters.both === 0) document.getElementById('container-both').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
+        }
+
+        // GROCERY CHECKLIST REPOSITORY ENGINE
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
             listEl.innerHTML = '';
@@ -662,7 +628,7 @@
                 `;
                 listEl.appendChild(li);
             });
-            localStorage.setItem('food_os_shop_v46', JSON.stringify(shoppingList));
+            localStorage.setItem('food_os_shop_v50', JSON.stringify(shoppingList));
         }
 
         function addItem() {
