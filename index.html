@@ -107,7 +107,7 @@
         .dice-random-btn { background-color: #fff; border: 2px solid #000; border-radius: 4px; padding: 0; font-size: 0.85rem; cursor: pointer; box-shadow: 2px 2px 0px #000; height: 28px; width: 30px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
         .dice-random-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
 
-        /* Saved Recipes Layout System */
+        /* Saved Recipes Window Matrix Layout */
         .recipe-category-tabs { display: flex; gap: 6px; margin-bottom: 15px; background: rgba(0, 0, 0, 0.04); padding: 6px; border: 2px solid #000; border-radius: 4px; flex-wrap: wrap; }
         .recipe-cat-btn { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.75rem; border: 1px solid #000; background: #fff; padding: 6px 12px; cursor: pointer; border-radius: 3px; box-shadow: 2px 2px 0px #000; }
         .recipe-cat-btn.active-cat-tab { background: var(--accent-blue); color: #fff; transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
@@ -135,7 +135,7 @@
         .recipe-ingredients-list, .recipe-instructions-list { padding-left: 18px; font-size: 0.88rem; word-break: break-word; }
         .recipe-ingredients-list li, .recipe-instructions-list li { margin-bottom: 6px; }
 
-        /* GROCERY SYSTEM DISPLAY STYLING */
+        /* SHOPPING SYSTEM VISUAL DESIGN SKELETONS */
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
         .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 15px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; white-space: nowrap; }
@@ -149,7 +149,7 @@
         .delete-btn { background: none; border: none; font-family: monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; padding: 0 5px; }
         .checker-banner { height: 16px; background-image: linear-gradient(45deg, #000 25%, transparent 25%), linear-gradient(-45deg, #000 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #000 75%), linear-gradient(-45deg, transparent 75%, #000 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; background-color: var(--accent-blue); border-bottom: 2px solid var(--border-clr); }
 
-        /* IMAGE_B3D845.JPG APPLIANCE ENCLOSURE STYLINGS */
+        /* IMAGE_B3D845.JPG APPLIANCE CABINET STYLINGS */
         .fridge-hardware-container { width: 100%; max-width: 440px; margin: 50px auto; perspective: 1500px; padding: 10px; }
         .fridge-top-prop-shelf { width: 100%; display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 4px; position: relative; z-index: 5; margin-bottom: -5px; padding-left: 30px; padding-right: 30px; }
         .prop-bottle { width: 32px; height: 75px; background: #4a533c; border: 3px solid #000; border-radius: 6px 6px 2px 2px; position: relative; }
@@ -201,7 +201,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v74.2_STABLE_SCANNER</div>
+        <div class="nav-logo">💾 FOOD_OS // v74.2_STABLE_STREAM</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -211,7 +211,6 @@
 
     <main class="desktop-layout">
 
-        <!-- WEEK TIMELINE BOARD -->
         <section class="retro-window full-width">
             <div class="window-header yellow-variant">
                 <span>User_Schedule: Rolling_Timeline_Matrix.exe</span>
@@ -226,7 +225,6 @@
             </div>
         </section>
 
-        <!-- AUTOMATED ROUTER COLUMNS -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span>Intelligent_Router: Dinner_Router.exe</span>
@@ -248,7 +246,6 @@
             </div>
         </section>
 
-        <!-- GROCERY TRACKER -->
         <section class="retro-window full-width">
             <div class="window-header blue-variant">
                 <span>System Error: Missing Ingredients</span>
@@ -264,10 +261,9 @@
             </div>
         </section>
 
-        <!-- SAVED RECIPES WINDOW (LIVE RE-ENGINEERED SCROLLING PARSER) -->
         <section class="retro-window full-width" id="recipe-module-window">
             <div class="window-header orange-variant">
-                <span>Database_Explorer: Numbered_List_Stream.db</span>
+                <span>Database_Explorer: Unified_Tab_Stream.db</span>
                 <span>✖</span>
             </div>
             <div class="window-body">
@@ -283,13 +279,12 @@
                         <li style="padding: 15px; opacity: 0.5; font-style: italic;">Parsing text rows...</li>
                     </ul>
                     <div class="recipe-viewer-panel" id="recipe-content-panel">
-                        <p style="opacity:0.5; font-style:italic;">Initializing single-page lookup engine...</p>
+                        <p style="opacity:0.5; font-style:italic;">Initializing lookup engine...</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- FREEZER INVENTORY MODULE -->
         <div class="fridge-hardware-container full-width">
             <div class="fridge-top-prop-shelf">
                 <div class="prop-bottle" title="Wine bottle"></div>
@@ -307,21 +302,18 @@
 
             <div class="fridge-cabinet">
                 <div class="fridge-freezer-zone">
-                    <!-- Drawer 1 -->
                     <div class="freezer-drawer">
                         <div class="drawer-lbl"><span>❄️ Drawer 1 (Top)</span><span id="d1-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
                         <textarea class="freezer-textarea" id="freezer-d1-input" placeholder="Drawer 1 items..."></textarea>
                         <div class="freezer-drawer-pullhandle"></div>
                         <button class="freezer-save-btn" onclick="saveFreezerDrawer(1)">💾 Save</button>
                     </div>
-                    <!-- Drawer 2 -->
                     <div class="freezer-drawer">
                         <div class="drawer-lbl"><span>❄️ Drawer 2 (Middle)</span><span id="d2-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
                         <textarea class="freezer-textarea" id="freezer-d2-input" placeholder="Drawer 2 items..."></textarea>
                         <div class="freezer-drawer-pullhandle"></div>
                         <button class="freezer-save-btn" onclick="saveFreezerDrawer(2)">💾 Save</button>
                     </div>
-                    <!-- Drawer 3 -->
                     <div class="freezer-drawer">
                         <div class="drawer-lbl"><span>❄️ Drawer 3 (Bottom)</span><span id="d3-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
                         <textarea class="freezer-textarea" id="freezer-d3-input" placeholder="Drawer 3 items..."></textarea>
@@ -376,7 +368,6 @@
             "https://drive.google.com/thumbnail?sz=w1000&id=1yTdpRQnqZ-Y2XsQo-P_scHKmTmoHoXgL"
         ];
 
-        const googleDocId = "1ajnr03aRd2Cf5dER6lsdg46qInLviQDKWMse4TNfoMA";
         let liveRecipesDatabase = [];
 
         function shuffleFridgePolaroidMemory() {
@@ -388,35 +379,19 @@
             }
         }
 
-        async function fetchGoogleDocRecipes() {
-            try {
-                const targetUrl = `https://docs.google.com/document/d/${googleDocId}/export?format=txt`;
-                const response = await fetch(targetUrl);
-                if (!response.ok) throw new Error("Document link stream timeout.");
-                
-                const rawText = await response.text();
-                parseSinglePageDocumentText(rawText);
-            } catch (err) {
-                console.error("Docs sync breakdown:", err);
-                document.getElementById('recipe-content-panel').innerHTML = `
-                    <p style="color: var(--accent-orange); font-weight: bold;">⚠️ Sync Error</p>
-                    <p style="font-size: 0.85rem; margin-top: 4px;">Verify the Google Doc's share settings are set to <b>"Anyone with the link can view"</b>.</p>
-                `;
-            }
-        }
-
-        // COZY RE-ENGINEERED SCROLLING TEXT LINE MATCH MATRIX (image_a87b1f.png style)
+        // PARSER CORE ENGINE: Processes text variables streamed safely from the script
         function parseSinglePageDocumentText(text) {
             liveRecipesDatabase = [];
-            const lines = text.split('\n').map(l => l.replace('\r', '').trim());
+            if (!text || text.trim() === "") return;
             
+            const lines = text.split('\n').map(l => l.replace('\r', '').trim());
             let currentRecipe = null;
             let currentSection = null;
 
             lines.forEach(line => {
                 if (!line) return;
 
-                // Match numbered headings starting with integers exactly as shown in image_a87b1f.png
+                // Watch for numbered headings (like 1. or 2.) as shown in image_a87b1f.png
                 if (/^\d+[\.\)]/.test(line)) {
                     if (currentRecipe) liveRecipesDatabase.push(currentRecipe);
                     
@@ -437,7 +412,6 @@
 
                 if (!currentRecipe) return;
 
-                // Category line router
                 if (line.toLowerCase().startsWith('category:')) {
                     const catValue = line.split(':')[1].toLowerCase().trim();
                     if (catValue.includes('breakfast')) {
@@ -499,11 +473,18 @@
                 const response = await fetch(cloudStorageUrl);
                 if (response.ok) {
                     const payload = await response.json();
+                    
+                    // Hydrate dropdown databases from the spreadsheet dynamically
                     if (payload.menuDatabase && Object.keys(payload.menuDatabase).length > 1) {
                         foodMenuDatabase = payload.menuDatabase;
                     }
+                    // Hydrate the interactive timeline states safely
                     if (payload.calendarState && payload.calendarState.shoppingList) {
                         appState = payload.calendarState;
+                    }
+                    // Hydrate the live recipe book directly from the server stream
+                    if (payload.recipeDocumentText) {
+                        parseSinglePageDocumentText(payload.recipeDocumentText);
                     }
                 }
             } catch (err) {
@@ -511,7 +492,6 @@
             }
             switchAppMode(currentMode);
             renderShoppingList();
-            await fetchGoogleDocRecipes();
             
             document.getElementById('freezer-d1-input').value = appState.freezerDrawer1 || "";
             document.getElementById('freezer-d2-input').value = appState.freezerDrawer2 || "";
@@ -589,7 +569,7 @@
             if (filteredRecipes.length > 0) {
                 displayRecipeProfile(filteredRecipes[0]);
             } else {
-                document.getElementById('recipe-content-panel').innerHTML = `<p style="opacity:0.5; font-style:italic;">No live document lines match this specific category yet...</p>`;
+                document.getElementById('recipe-content-panel').innerHTML = `<p style="opacity:0.5; font-style:italic;">No recipes synced under this category yet.</p>`;
             }
         }
 
@@ -640,6 +620,7 @@
 
         function renderActiveMatrix() {
             const gridAnchor = document.getElementById('calendar-days-injector');
+            if (!gridAnchor) return;
             gridAnchor.innerHTML = '';
 
             const today = new Date();
@@ -726,6 +707,8 @@
         }
 
         function calculateRouterEngine() {
+            if(!document.getElementById('container-ryan')) return;
+            
             document.getElementById('container-ryan').innerHTML = '';
             document.getElementById('container-bea').innerHTML = '';
             document.getElementById('container-both').innerHTML = '';
@@ -832,6 +815,7 @@
 
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
+            if(!listEl) return;
             listEl.innerHTML = '';
             appState.shoppingList.forEach((item, index) => {
                 const li = document.createElement('li');
