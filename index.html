@@ -53,7 +53,7 @@
         .calendar-days-grid { display: grid; grid-template-columns: repeat(2, 1fr); border-left: 1px solid #000; border-top: 1px solid #000; background: #fff; }
         .calendar-days-grid.lunch-mode-grid { grid-template-columns: repeat(2, 1fr); }
 
-        @media (min-width: 750px) {
+        @media (min-width: 700px) {
             .calendar-days-grid { grid-template-columns: repeat(4, 1fr); }
             .calendar-days-grid.lunch-mode-grid { grid-template-columns: repeat(5, 1fr); }
         }
@@ -98,7 +98,9 @@
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
         
         .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+        
         .inline-selector-row { display: flex; gap: 5px; align-items: center; width: 100%; min-width: 0; }
+        
         .food-select-dropdown { flex: 1; border: 2px solid #000; border-radius: 4px; padding: 5px 3px; font-family: inherit; font-size: 0.75rem; background: #fff; outline: none; min-width: 0; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
         @media (min-width: 600px) { .food-select-dropdown { font-size: 0.8rem; padding: 5px; } }
         
@@ -107,6 +109,7 @@
         .dice-random-btn { background-color: #fff; border: 2px solid #000; border-radius: 4px; padding: 0; font-size: 0.85rem; cursor: pointer; box-shadow: 2px 2px 0px #000; height: 28px; width: 30px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
         .dice-random-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
 
+        /* Mobile-Friendly Saved Recipes Layout Matrix */
         .recipe-category-tabs { display: flex; gap: 6px; margin-bottom: 15px; background: rgba(0, 0, 0, 0.04); padding: 6px; border: 2px solid #000; border-radius: 4px; flex-wrap: wrap; }
         .recipe-cat-btn { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.75rem; border: 1px solid #000; background: #fff; padding: 6px 12px; cursor: pointer; border-radius: 3px; box-shadow: 2px 2px 0px #000; }
         .recipe-cat-btn.active-cat-tab { background: var(--accent-blue); color: #fff; transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
@@ -134,6 +137,7 @@
         .recipe-ingredients-list, .recipe-instructions-list { padding-left: 18px; font-size: 0.88rem; word-break: break-word; }
         .recipe-ingredients-list li, .recipe-instructions-list li { margin-bottom: 6px; }
 
+        /* RESTORED DESIGN PIPELINE FOR THE GROCERY SYSTEM DISPLAY */
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
         .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 15px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; white-space: nowrap; }
@@ -147,6 +151,7 @@
         .delete-btn { background: none; border: none; font-family: monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; padding: 0 5px; }
         .checker-banner { height: 16px; background-image: linear-gradient(45deg, #000 25%, transparent 25%), linear-gradient(-45deg, #000 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #000 75%), linear-gradient(-45deg, transparent 75%, #000 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; background-color: var(--accent-blue); border-bottom: 2px solid var(--border-clr); }
 
+        /* IMAGE_B3D845.JPG STANDALONE RECTANGULAR REFRIGERATOR ENCLOSURE */
         .fridge-hardware-container { width: 100%; max-width: 440px; margin: 50px auto; perspective: 1500px; padding: 10px; }
         .fridge-top-prop-shelf { width: 100%; display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 4px; position: relative; z-index: 5; margin-bottom: -5px; padding-left: 30px; padding-right: 30px; }
         .prop-bottle { width: 32px; height: 75px; background: #4a533c; border: 3px solid #000; border-radius: 6px 6px 2px 2px; position: relative; }
@@ -198,7 +203,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v74.5_STABLE_CALENDAR_INTACT</div>
+        <div class="nav-logo">💾 FOOD_OS // v74.0_GOOGLE_DOCS_RECIPES</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -226,7 +231,7 @@
         <!-- AUTOMATED ROUTER COLUMNS -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
-                <span>Intelligent_Router: Dinner_Router.exe</span>
+                <span id="router-header-title">Intelligent_Router: Dinner_Router.exe</span>
                 <span>✖</span>
             </div>
             <div class="window-body smart-dinner-grid">
@@ -261,10 +266,10 @@
             </div>
         </section>
 
-        <!-- SAVED RECIPES WINDOW -->
+        <!-- SAVED RECIPES WINDOW (LIVE GOOGLE DOC STREAM LAYER) -->
         <section class="retro-window full-width" id="recipe-module-window">
             <div class="window-header orange-variant">
-                <span>Database_Explorer: Integrated_Recipes.db</span>
+                <span>Database_Explorer: Live_Google_Doc_Stream.db</span>
                 <span>✖</span>
             </div>
             <div class="window-body">
@@ -276,16 +281,19 @@
                 </div>
 
                 <div class="recipe-browser-deck">
-                    <ul class="recipe-sidebar-list" id="recipe-list-tabs-anchor"></ul>
+                    <ul class="recipe-sidebar-list" id="recipe-list-tabs-anchor">
+                        <li style="padding: 15px; opacity: 0.5; font-style: italic;">Syncing...</li>
+                    </ul>
                     <div class="recipe-viewer-panel" id="recipe-content-panel">
-                        <p style="opacity:0.5; font-style:italic;">Select a recipe item from the system catalog list...</p>
+                        <p style="opacity:0.5; font-style:italic;">Initializing core stream parser matrices...</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- FREEZER INVENTORY MODULE -->
+        <!-- FREEZER INVENTORY MODULE - STANDALONE TALL RECTANGULAR APPLIANCE HULL -->
         <div class="fridge-hardware-container full-width">
+            
             <div class="fridge-top-prop-shelf">
                 <div class="prop-bottle" title="Wine bottle"></div>
                 <div class="prop-candle-holder">
@@ -301,19 +309,25 @@
             </div>
 
             <div class="fridge-cabinet">
+                
                 <div class="fridge-freezer-zone">
+                    <!-- Drawer 1 -->
                     <div class="freezer-drawer">
                         <div class="drawer-lbl"><span>❄️ Drawer 1 (Top)</span><span id="d1-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
                         <textarea class="freezer-textarea" id="freezer-d1-input" placeholder="Drawer 1 items..."></textarea>
                         <div class="freezer-drawer-pullhandle"></div>
                         <button class="freezer-save-btn" onclick="saveFreezerDrawer(1)">💾 Save</button>
                     </div>
+
+                    <!-- Drawer 2 -->
                     <div class="freezer-drawer">
                         <div class="drawer-lbl"><span>❄️ Drawer 2 (Middle)</span><span id="d2-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
                         <textarea class="freezer-textarea" id="freezer-d2-input" placeholder="Drawer 2 items..."></textarea>
                         <div class="freezer-drawer-pullhandle"></div>
                         <button class="freezer-save-btn" onclick="saveFreezerDrawer(2)">💾 Save</button>
                     </div>
+
+                    <!-- Drawer 3 -->
                     <div class="freezer-drawer">
                         <div class="drawer-lbl"><span>❄️ Drawer 3 (Bottom)</span><span id="d3-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
                         <textarea class="freezer-textarea" id="freezer-d3-input" placeholder="Drawer 3 items..."></textarea>
@@ -327,14 +341,17 @@
                     <div class="fridge-door-horizontal-handle"></div>
                     
                     <div class="magnet-item mag-lemon"></div>
+                    
                     <div class="magnet-item mag-polaroid">
                         <div class="polaroid-photo-frame"></div>
                     </div>
+                    
                     <div class="magnet-item mag-croissant-note">⚡</div>
                     <div class="magnet-item mag-chili-paper">---<br>---</div>
                     <div class="magnet-item mag-pink-sticky">➔</div>
                     <div class="magnet-item mag-bottom-doc">Menu:<br>• Peas<br>• Ice<br>• Pizza</div>
                 </div>
+
             </div>
         </div>
 
@@ -347,6 +364,7 @@
 
         const cloudStorageUrl = "https://script.google.com/macros/s/AKfycbxzTv-Qrjsi0Fgd1S5DdBn8J0swaqIPNDOaJZXeKQ_EdsTtpS3w5MBlWAdpNhEf_82M/exec";
 
+        // THE 18 DIRECT B&R MEMORY DRIVE FILE PIPELINES
         const ryanAndBeaPhotos = [
             "https://drive.google.com/thumbnail?sz=w1000&id=1z6xx50Jr2jO-84vxG46b8bly2nBlKOrO",
             "https://drive.google.com/thumbnail?sz=w1000&id=1OOg8k7bjhJTIWSaJC5Hk-pE9YCtT6b99",
@@ -368,56 +386,98 @@
             "https://drive.google.com/thumbnail?sz=w1000&id=1yTdpRQnqZ-Y2XsQo-P_scHKmTmoHoXgL"
         ];
 
-        const staticRecipeDatabase = [
-            {
-                id: "vodka-pasta",
-                category: "dinners",
-                title: "Penne with Vodka & Tomato Sauce",
-                prep: "15 mins", cook: "45 mins", servings: "4",
-                ingredients: ["2 x 400g tins of plum tomatoes", "1 large onion, finely diced", "Extra virgin olive oil", "Flaky sea salt", "1 clove of garlic, finely chopped", "1/2 tsp chilli flakes", "1 tsp dried oregano", "200ml vodka", "320g dried penne lisce (or penne rigate)", "4 tbsp double cream", "2 tsp caster sugar", "100g grated Parmesan"],
-                instructions: ["Drain the tomatoes, reserving the juice for another purpose.", "Place a large, ovenproof saucepan over low to medium heat and gently sauté the onion with a pinch of salt for 12-15 minutes until glossy and translucent.", "Add garlic, chilli flakes, and oregano. Combine and stir for a few minutes. Pour in the vodka, bring to a gentle bubble, and cook until the liquid has reduced by a third. Preheat oven to 140°C.", "Add drained tomatoes to the saucepan, bring to a gentle boil for 1-2 minutes, then bake uncovered in the oven for 30-40 minutes until sauce reduces and colors.", "Meanwhile, cook the penne in plenty of salted boiling water. Drain.", "Remove tomatoes from oven, add double cream, sugar, and half the Parmesan. Blend with a stick blender into a smooth sauce.", "Immediately add the cooked penne and stir until fully combined. Adjust seasoning and serve with remaining Parmesan."]
-            },
-            {
-                id: "black-bean-nasi",
-                category: "dinners",
-                title: "Black Bean Nasi Goreng",
-                prep: "10 mins", cook: "20 mins", servings: "4",
-                ingredients: ["250g cooked brown basmati rice", "4 shallots, peeled and finely chopped", "2 sticks of celery, finely chopped", "3 tbsp groundnut oil", "5 cloves of garlic, peeled and finely chopped", "2 red chillies, 1 finely chopped, 1 sliced", "30g bunch of coriander (stalks and leaves separated)", "2 small cucumbers (or 1/2 large), thickly sliced", "2 tbsp rice wine vinegar", "1/2 tsp runny honey or sugar", "2 tbsp toasted sesame oil", "2 tbsp plus 1 tsp soy sauce", "2 tbsp tomato purée", "1 tbsp miso paste (red or brown)", "3 tbsp kecap manis", "1 x 400g tin black beans, drained", "4 free-range or organic eggs", "Bunch of spring onions, trimmed and finely sliced", "2 unwaxed limes to serve"],
-                instructions: ["Sauté chopped shallots and celery in a tablespoon of groundnut oil for 10 minutes until soft. Add 5 cloves of chopped garlic, 1 finely chopped red chilli, and coriander stalks; fry for a couple more minutes.", "Make pickle: Mix sliced cucumber, sliced red chilli, rice wine vinegar, honey/sugar, and a pinch of salt. Set aside.", "Whisk toasted sesame oil, 1 tsp soy sauce, tomato purée, miso paste, kecap manis, and 2 tbsp soy sauce.", "Pour flavorings over the cooked veg, add drained black beans, and cook for a few minutes. Tip into a bowl.", "Put pan back over heat, add remaining groundnut oil, add cooked brown basmati rice and stir-fry for a few minutes until beginning to crisp. Tip in the black bean mixture, stir well and cook for another couple of minutes.", "Fry eggs in a separate large frying pan with a little oil. Stir sliced spring onions and coriander leaves into rice.", "Serve nasi goreng piled into bowls topped with a fried egg, cucumber pickle, and lime wedges."]
-            },
-            {
-                id: "butter-chicken",
-                category: "dinners",
-                title: "Butter Chicken Curry",
-                prep: "15 mins", cook: "20 mins", servings: "4",
-                ingredients: ["750g cubed Chicken thigh", "1/2 cup yogurt", "1 tbsp lemon juice", "1 tsp Turmeric", "2 tsp garam masala", "1/2 tsp chilli powder or cayenne", "1 tsp cumin", "1 tbsp ginger", "2 cloves garlic", "2 tbsp butter", "1 cup Passata", "1 cup heavy cream", "1 tbsp sugar", "1 1/4 tsp salt"],
-                instructions: ["Marinate chicken in yogurt, lemon juice, turmeric, garam masala, chilli powder, cumin, ginger, and garlic.", "Melt 2 tbsp butter in a pan over medium heat.", "Add Passata, heavy cream, sugar, and salt. Bring to a simmer.", "Add marinated chicken to the sauce and simmer until cooked through and sauce is thickened."]
-            },
-            {
-                id: "shawarma-pie",
-                category: "dinners",
-                title: "Chicken Shawarma Pie",
-                prep: "30 mins", cook: "1 hour", servings: "6",
-                ingredients: ["750g chicken thighs, skinless and boneless", "4 garlic cloves, crushed", "2cm piece of ginger, finely grated (15g)", "2 tsp ground cumin", "2 tsp ground coriander", "3/4 tsp smoked paprika", "1/2 tsp ground turmeric", "3/4 tsp ground cinnamon", "1/8 tsp ground cloves", "90ml olive oil (plus extra for greasing)", "2 tbsp cider vinegar", "2 baking potatoes (450g), cut into 0.5cm rounds", "45g unsalted butter", "1 onion, thinly sliced (150g)", "200ml chicken stock", "5g parsley leaves, chopped", "5g coriander leaves, chopped", "8 sheets of filo pastry (170g)", "1 tsp nigella seeds", "3/4 tsp Aleppo chilli flakes", "50g tahini, 80g Greek yoghurt, 2 crushed garlic cloves, 1 tbsp lemon juice (for sauce)"],
-                instructions: ["Marinate chicken with garlic, ginger, ground spices, 1 tbsp oil, vinegar, 1 tsp salt, and black pepper for at least 30 mins.", "Preheat oven to 180°C fan. Toss potatoes with 1.5 tbsp oil, 3/4 tsp salt, and pepper. Bake on parchment paper for 20 mins, flip and bake at 220°C for 10 mins until golden.", "Reduce oven to 180°C fan. Melt 15g butter and 1.5 tbsp oil in a pan. Sauté onion for 5 mins. Add chicken and cook for 10 mins until browned.", "Add chicken stock, 1/4 tsp salt, and pepper. Boil, lower heat, and simmer for 25 mins. Increase heat to reduce liquid to 4 tbsp. Cool, shred chicken into chunks, and mix with herbs.", "Whisk tahini sauce ingredients with 2 tbsp water until smooth.", "Assemble pie: Layer potato slices at the base of a greased dish, add chicken mixture, pour over tahini sauce, top with butter-brushed filo sheets, sprinkle nigella seeds and chilli flakes, and bake until crisp."]
-            },
-            {
-                id: "pancakes",
-                category: "breakfast",
-                title: "Classic Griddle Pancakes",
-                prep: "5 mins", cook: "10 mins", servings: "3",
-                ingredients: ["1 egg", "130g all-purpose flour", "180ml milk", "1 tbsp sugar", "2 tbsp shortening (melted) or vegetable oil", "3 tsp baking powder", "1/2 tsp salt"],
-                instructions: ["Beat egg with hand beater until fluffy.", "Beat in remaining ingredients just until smooth. (For thinner pancakes, stir in additional 1/4 cup milk).", "Pour about 3 tablespoons batter onto hot, greased griddle.", "Cook pancakes until puffed and dry around edges. Turn and cook other sides until golden brown."]
-            },
-            {
-                id: "banana-bread",
-                category: "bakes",
-                title: "Classic Banana Bread",
-                prep: "10 mins", cook: "1 hour", servings: "12",
-                ingredients: ["200g sugar", "75g butter or margarine, softened", "2 eggs", "1.5 cups mashed ripe bananas (3 to 4 medium)", "80ml water", "220g all-purpose flour", "1 tsp baking soda", "1/2 tsp salt", "1/4 tsp baking powder", "1/2 cup chopped nuts"],
-                instructions: ["Heat oven to 175°C. Grease bottom only of loaf pan.", "Mix sugar and margarine/butter in a large bowl. Stir in eggs until blended.", "Add bananas and water; beat 30 seconds. Stir in remaining ingredients except nuts just until moistened; stir in nuts.", "Pour into pan. Bake until wooden pick inserted in center comes out clean (approx 55 to 60 minutes). Cool 5 mins before slicing."]
+        // TARGET ENDPOINT ACCESS TO YOUR PUBLIC USER GOOGLE DOC PLANNERS LINK
+        const googleDocId = "1ajnr03aRd2Cf5dER6lsdg46qInLviQDKWMse4TNfoMA";
+        let liveRecipesDatabase = [];
+
+        function shuffleFridgePolaroidMemory() {
+            if (ryanAndBeaPhotos.length === 0) return;
+            const randomIndex = Math.floor(Math.random() * ryanAndBeaPhotos.length);
+            const targetElement = document.querySelector('.polaroid-photo-frame');
+            if (targetElement) {
+                targetElement.style.backgroundImage = `url('${ryanAndBeaPhotos[randomIndex]}')`;
             }
-        ];
+        }
+
+        // PARSER MATRIX ENGINE: Converts plaintext structure headings into clear dataset variables
+        async function fetchGoogleDocRecipes() {
+            try {
+                const targetUrl = `https://docs.google.com/document/d/${googleDocId}/export?format=txt`;
+                const response = await fetch(targetUrl);
+                if (!response.ok) throw new Error("Doc access structural mismatch.");
+                
+                const rawText = await response.text();
+                parsePlaintextRecipes(rawText);
+            } catch (err) {
+                console.error("Docs pipeline error:", err);
+                document.getElementById('recipe-content-panel').innerHTML = `
+                    <p style="color: var(--accent-orange); font-weight: bold;">⚠️ Sync Error</p>
+                    <p style="font-size: 0.85rem; margin-top: 4px;">Make sure your Google Doc share settings are flipped to <b>"Anyone with the link can view"</b> so the site can read it!</p>
+                `;
+            }
+        }
+
+        function parsePlaintextRecipes(text) {
+            liveRecipesDatabase = [];
+            
+            // Clean lines array conversion
+            const lines = text.split('\n').map(l => l.replace('\r', '').trim());
+            let currentRecipe = null;
+            let currentSection = null;
+
+            lines.forEach(line => {
+                if (!line) return;
+
+                // Match recipe titles using common numbering syntax formats (e.g., "1. Penne with Vodka")
+                if (/^\d+\./.test(line) || line.startsWith('##')) {
+                    if (currentRecipe) liveRecipesDatabase.push(currentRecipe);
+                    
+                    const cleanTitle = line.replace(/^\d+\.\s*/, '').replace(/^##\s*/, '').trim();
+                    currentRecipe = {
+                        id: cleanTitle.toLowerCase().replace(/[^a-z0-9]/g, '-'),
+                        title: cleanTitle,
+                        category: "dinners", // Default assignment category track
+                        prep: "Checked in Doc",
+                        cook: "Checked in Doc",
+                        servings: "-",
+                        ingredients: [],
+                        instructions: []
+                    };
+                    currentSection = null;
+                    return;
+                }
+
+                if (!currentRecipe) return;
+
+                // Track categorization meta directives
+                if (line.toLowerCase().includes('category:')) {
+                    const catVal = line.split(':')[1].toLowerCase().trim();
+                    if (catVal.includes('breakfast')) currentRecipe.category = 'breakfast';
+                    else if (catVal.includes('bake')) currentRecipe.category = 'bakes';
+                    else currentRecipe.category = 'dinners';
+                    return;
+                }
+                if (line.toLowerCase().includes('prep:')) { currentRecipe.prep = line.split(':')[1].trim(); return; }
+                if (line.toLowerCase().includes('cook:')) { currentRecipe.cook = line.split(':')[1].trim(); return; }
+                if (line.toLowerCase().includes('serves:')) { currentRecipe.servings = line.split(':')[1].trim(); return; }
+
+                // Check active list anchors
+                if (line.toLowerCase() === 'ingredients') { currentSection = 'ingredients'; return; }
+                if (line.toLowerCase() === 'instructions') { currentSection = 'instructions'; return; }
+
+                // Collect list entries based on current section
+                if (currentSection === 'ingredients') {
+                    const cleanIng = line.replace(/^[\*\-•]\s*/, '').trim();
+                    currentRecipe.ingredients.push(cleanIng);
+                } else if (currentSection === 'instructions') {
+                    const cleanInst = line.replace(/^\d+[\.\)]\s*/, '').replace(/^[\*\-•]\s*/, '').trim();
+                    currentRecipe.instructions.push(cleanInst);
+                }
+            });
+
+            if (currentRecipe) liveRecipesDatabase.push(currentRecipe);
+            buildRecipeRegistryDeck();
+        }
 
         let foodMenuDatabase = {
             "PASTA": ["Bolognese", "Carbonara", "Sausage ragú", "Mac & cheese", "Tomato sauce of something", "Vegetable pasta (corgettes/tomato)", "Vodka", "Gnocchi bake", "Lasagne"],
@@ -460,7 +520,7 @@
             }
             switchAppMode(currentMode);
             renderShoppingList();
-            buildRecipeRegistryDeck();
+            await fetchGoogleDocRecipes(); // Triggers the custom streaming process initialization loop
             
             document.getElementById('freezer-d1-input').value = appState.freezerDrawer1 || "";
             document.getElementById('freezer-d2-input').value = appState.freezerDrawer2 || "";
@@ -484,7 +544,7 @@
 
         function toggleFreezerDoor() {
             const door = document.getElementById("fridge-top-door-panel");
-            if(door) door.classList.toggle("door-swung-open");
+            door.classList.toggle("door-swung-open");
         }
 
         async function saveFreezerDrawer(drawerNum) {
@@ -513,10 +573,9 @@
 
         function buildRecipeRegistryDeck() {
             const listAnchor = document.getElementById('recipe-list-tabs-anchor');
-            if(!listAnchor) return;
             listAnchor.innerHTML = '';
 
-            const filteredRecipes = staticRecipeDatabase.filter(recipe => {
+            const filteredRecipes = liveRecipesDatabase.filter(recipe => {
                 return currentRecipeCategory === 'all' || recipe.category === currentRecipeCategory;
             });
 
@@ -539,13 +598,12 @@
             if (filteredRecipes.length > 0) {
                 displayRecipeProfile(filteredRecipes[0]);
             } else {
-                document.getElementById('recipe-content-panel').innerHTML = `<p style="opacity:0.5; font-style:italic;">No recipes matched.</p>`;
+                document.getElementById('recipe-content-panel').innerHTML = `<p style="opacity:0.5; font-style:italic;">No live entries match this tag track yet...</p>`;
             }
         }
 
         function displayRecipeProfile(recipe) {
             const panel = document.getElementById('recipe-content-panel');
-            if(!panel) return;
             let ingHtml = recipe.ingredients.map(i => `<li>${i}</li>`).join('');
             let instHtml = recipe.instructions.map(i => `<li>${i}</li>`).join('');
 
@@ -573,7 +631,7 @@
             document.getElementById('tab-lunches').classList.toggle('active-tab', targetMode === 'lunches');
             
             const gridEl = document.getElementById('calendar-days-injector');
-            if(gridEl) gridEl.classList.toggle('lunch-mode-grid', targetMode === 'lunches');
+            gridEl.classList.toggle('lunch-mode-grid', targetMode === 'lunches');
 
             if (targetMode === 'dinners') {
                 document.getElementById('router-header-title').innerText = "Intelligent_Router: Dinner_Router.exe";
@@ -591,7 +649,6 @@
 
         function renderActiveMatrix() {
             const gridAnchor = document.getElementById('calendar-days-injector');
-            if(!gridAnchor) return;
             gridAnchor.innerHTML = '';
 
             const today = new Date();
@@ -664,7 +721,6 @@
             calculateRouterEngine();
         }
 
-        // RESTORED STABLE CELL SAVE PIPELINE OVER WATCH ROUTERS
         async function saveCellPlan(dateKey) {
             let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches;
             let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches;
@@ -679,9 +735,7 @@
         }
 
         function calculateRouterEngine() {
-            const cr = document.getElementById('container-ryan');
-            if(!cr) return;
-            cr.innerHTML = '';
+            document.getElementById('container-ryan').innerHTML = '';
             document.getElementById('container-bea').innerHTML = '';
             document.getElementById('container-both').innerHTML = '';
 
@@ -778,44 +832,6 @@
             container.appendChild(block);
         }
 
-        // RESTORED DROPDOWN TRACKING MACROS
-        async function handleHeaderChange(dateKey, category) {
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            selections[dateKey] = { category: category, dish: "" };
-            renderActiveMatrix();
-            await saveCloudState();
-        }
-
-        async function handleDishChange(dateKey, dishName) {
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            if (selections[dateKey]) { selections[dateKey].dish = dishName; }
-            await saveCloudState();
-        }
-
-        async function rollRandomCategory(dateKey) {
-            const categories = Object.keys(foodMenuDatabase).filter(cat => cat !== 'OTHER');
-            if (categories.length === 0) return;
-            const randomCat = categories[Math.floor(Math.random() * categories.length)];
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            selections[dateKey] = { category: randomCat, dish: "" };
-            renderActiveMatrix();
-            await saveCloudState();
-        }
-
-        async function rollRandomDish(dateKey) {
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            const currentCat = selections[dateKey] ? selections[dateKey].category : "";
-            if (!currentCat || currentCat === 'OTHER' || !foodMenuDatabase[currentCat] || foodMenuDatabase[currentCat].length === 0) {
-                alert("Please select a category block first before rolling an option!");
-                return;
-            }
-            const optionsList = foodMenuDatabase[currentCat];
-            const randomDish = optionsList[Math.floor(Math.random() * optionsList.length)];
-            selections[dateKey].dish = randomDish;
-            renderActiveMatrix();
-            await saveCloudState();
-        }
-
         function checkEmptyStates(counters) {
             let tag = currentMode === 'dinners' ? 'nights sorted!' : 'days sorted!';
             if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
@@ -825,7 +841,6 @@
 
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
-            if(!listEl) return;
             listEl.innerHTML = '';
             appState.shoppingList.forEach((item, index) => {
                 const li = document.createElement('li');
