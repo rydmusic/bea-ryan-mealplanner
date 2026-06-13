@@ -141,7 +141,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v68.0_RESPONSIVE_COOKBOOK</div>
+        <div class="nav-logo">💾 FOOD_OS // v68.1_LIVE_SHEETS_SYNC</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -234,8 +234,10 @@
         let currentMode = 'dinners';
         let currentRecipeCategory = 'all';
 
+        // WIRED: Your live macro transmission link
         const cloudStorageUrl = "https://script.google.com/macros/s/AKfycbxzTv-Qrjsi0Fgd1S5DdBn8J0swaqIPNDOaJZXeKQ_EdsTtpS3w5MBlWAdpNhEf_82M/exec";
 
+        // Hardcoded cookbook store for absolute stable reading
         const savedRecipesDatabase = [
             {
                 id: "vodka-pasta",
@@ -432,6 +434,7 @@
             }
         ];
 
+        // Core backup dictionary—overwritten natively once the Google handshake resolves!
         let foodMenuDatabase = {
             "PASTA": ["Bolognese", "Carbonara", "Sausage ragú", "Mac & cheese", "Tomato sauce of something", "Vegetable pasta (corgettes/tomato)", "Vodka", "Gnocchi bake", "Lasagne"],
             "INT.": ["stir fry", "Chicken and rice", "Fajitas", "Curry (katsu/chickpea/lentil)", "Enchiladas"],
@@ -458,6 +461,8 @@
                 const response = await fetch(cloudStorageUrl);
                 if (response.ok) {
                     const payload = await response.json();
+                    
+                    // Force parsing layout columns map from sheet arrays cleanly
                     if (payload.menuDatabase && Object.keys(payload.menuDatabase).length > 1) {
                         foodMenuDatabase = payload.menuDatabase;
                     }
@@ -510,7 +515,6 @@
                     li.classList.add('active-recipe-tab');
                     displayRecipeProfile(recipe);
                     
-                    // Smooth scroll jump on mobile views down to content view block
                     if (window.innerWidth < 750) {
                         document.getElementById('recipe-content-panel').scrollIntoView({ behavior: 'smooth' });
                     }
@@ -769,6 +773,7 @@
             await saveCloudState();
         }
 
+        // Handle text replacements inside empty tracking slots safely
         function checkEmptyStates(counters) {
             let tag = currentMode === 'dinners' ? 'nights sorted!' : 'days sorted!';
             if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
