@@ -18,7 +18,7 @@
             --ryan-blue: #d2e4f1;
             --bea-pink: #fcdbdc;
             --together-purple: #e2dbfc;
-            --fridge-blue: #5baed1;
+            --smeg-orange: #d85a2b;
             --freezer-blue: #d4f1f9;
         }
 
@@ -41,7 +41,7 @@
         .window-header.blue-variant { background-color: var(--accent-blue); color: white; }
         .window-header.orange-variant { background-color: var(--accent-orange); color: white; }
         .window-header.yellow-variant { background-color: var(--folder-yellow); }
-        .window-header.freezer-variant { background-color: var(--fridge-blue); color: white; }
+        .window-header.freezer-variant { background-color: var(--smeg-orange); color: white; }
         
         .window-body { padding: 15px; }
         @media (min-width: 600px) { .window-body { padding: 20px; } }
@@ -135,35 +135,32 @@
         .recipe-ingredients-list, .recipe-instructions-list { padding-left: 18px; font-size: 0.88rem; word-break: break-word; }
         .recipe-ingredients-list li, .recipe-instructions-list li { margin-bottom: 6px; }
 
-        /* REALISTIC RETRO REFRIGERATOR MODEL STYLINGS */
-        .fridge-hardware-container { width: 100%; max-width: 420px; margin: 20px auto; perspective: 1500px; }
-        .fridge-cabinet { display: flex; flex-direction: column; background: #4ba0c4; border: 5px solid #000; border-radius: 24px; padding: 10px; gap: 10px; box-shadow: 6px 6px 0px #000; width: 100%; position: relative; min-height: 520px; background-image: linear-gradient(180deg, #5baed1 0%, #3d92b8 100%); }
+        /* REALISTIC SINGLE-DOOR SMEG APPLIANCE CORE STYLINGS */
+        .fridge-hardware-container { width: 100%; max-width: 380px; margin: 20px auto; perspective: 1500px; }
+        .fridge-cabinet { display: flex; flex-direction: column; background: #b84323; border: 5px solid #000; border-radius: 40px 40px 12px 12px; padding: 16px; gap: 14px; box-shadow: 6px 6px 0px #000; width: 100%; position: relative; min-height: 480px; background-image: linear-gradient(180deg, var(--smeg-orange) 0%, #b84323 100%); }
         
-        /* Two Main Storage Compartments Inside */
-        .fridge-freezer-zone { height: 200px; background: #eef9fc; border: 3px solid #000; border-radius: 12px; padding: 10px; display: flex; flex-direction: column; gap: 8px; position: relative; overflow-y: auto; }
-        .fridge-fresh-zone { flex: 1; min-height: 260px; background: #fffcf5; border: 3px solid #000; border-radius: 12px; padding: 15px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Courier Prime', monospace; font-weight: bold; color: #8fa6ad; text-align: center; font-size: 0.9rem; border-top-width: 4px; }
+        /* Inner Chamber Holding Exactly the 3 Inventory Drawers */
+        .fridge-freezer-zone { flex: 1; background: #eef9fc; border: 3px solid #000; border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; justify-content: center; }
         
-        /* Individual Drawer Elements */
-        .freezer-drawer { background: var(--window-bg); border: 2px solid #000; border-radius: 4px; padding: 6px; display: flex; flex-direction: column; gap: 4px; box-shadow: 1px 1px 0px rgba(0,0,0,0.15); }
-        .freezer-drawer-pullhandle { height: 6px; width: 50px; background: #000; margin: 0 auto 4px auto; border-radius: 1px; opacity: 0.6; }
-        .drawer-lbl { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.7rem; color: #4f8294; text-transform: uppercase; display: flex; justify-content: space-between; }
-        .freezer-textarea { width: 100%; height: 42px; border: 1px solid #000; border-radius: 3px; padding: 4px; font-family: inherit; font-size: 0.78rem; outline: none; resize: none; background: #fdfdfd; }
-        .freezer-save-btn { font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.65rem; text-transform: uppercase; padding: 2px 6px; border: 1px solid #000; background: var(--freezer-blue); cursor: pointer; border-radius: 3px; align-self: flex-end; }
+        .freezer-drawer { background: var(--window-bg); border: 2px solid #000; border-radius: 6px; padding: 10px; display: flex; flex-direction: column; gap: 6px; box-shadow: 2px 2px 0px rgba(0,0,0,0.1); }
+        .freezer-drawer-pullhandle { height: 8px; width: 64px; background: #000; margin: 0 auto 2px auto; border-radius: 2px; opacity: 0.7; }
+        .drawer-lbl { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.72rem; color: #4f8294; text-transform: uppercase; display: flex; justify-content: space-between; }
+        .freezer-textarea { width: 100%; height: 50px; border: 1px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; outline: none; resize: none; background: #fdfdfd; }
+        .freezer-save-btn { font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.68rem; text-transform: uppercase; padding: 2px 8px; border: 1px solid #000; background: var(--freezer-blue); cursor: pointer; border-radius: 4px; align-self: flex-end; }
 
-        /* 3D SWING CABINET DOOR PANEL (FREEZER TOP) */
-        .fridge-door-wing { position: absolute; top: 8px; left: 8px; width: calc(100% - 16px); height: 204px; background: var(--fridge-blue); border: 4px solid #000; border-radius: 14px; z-index: 100; transform-origin: left center; transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); cursor: pointer; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: inset -4px -4px 0px rgba(0,0,0,0.1); }
-        .fridge-door-wing.door-swung-open { transform: rotateY(-130deg); z-index: 110; box-shadow: -10px 10px 20px rgba(0,0,0,0.2); }
+        /* SINGLE RETRO ROUNDED CABINET SWING DOOR COVERING ALL DRAWERS */
+        .fridge-door-wing { position: absolute; top: 8px; left: 8px; width: calc(100% - 16px); height: calc(100% - 16px); background: var(--smeg-orange); border: 4px solid #000; border-radius: 32px 30px 10px 10px; z-index: 100; transform-origin: left center; transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; overflow: hidden; box-shadow: inset -5px -5px 0px rgba(0,0,0,0.12); padding-top: 30px; }
+        .fridge-door-wing.door-swung-open { transform: rotateY(-135deg); z-index: 110; box-shadow: -12px 12px 25px rgba(0,0,0,0.25); }
         
-        /* Safe Scratch Layer Attached Over Door Surface */
+        /* Raised Structural Chrome Brand Logo text font styles */
+        .smeg-brand-badge { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 1.8rem; letter-spacing: 8px; color: #f5f5f5; text-shadow: 2px 2px 0px #000, -1px -1px 0px #bcbcbc; padding-left: 8px; margin-bottom: 10px; user-select: none; pointer-events: none; z-index: 103; }
+        
+        /* Safe scratch canvas mapped tightly across full inner door window track */
         .condensation-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 102; touch-action: none; transition: opacity 0.6s ease; }
         
-        /* Rounded Retro Silver Vertical Handle (styled after image_b43d7f.png) */
-        .fridge-door-vertical-handle { position: absolute; right: 14px; top: 30%; width: 14px; height: 80px; background: #e8e8e8; border: 3px solid #000; border-radius: 8px; box-shadow: 2px 2px 0px rgba(0,0,0,0.2); z-index: 105; cursor: pointer; }
-        .fridge-door-vertical-handle::after { content: ''; position: absolute; top: 10%; left: 3px; width: 2px; height: 80%; background: #fff; opacity: 0.7; border-radius: 1px; }
-
-        /* Bottom Decorative Fresh Door (pure aesthetic visual layout balancing) */
-        .fridge-bottom-static-door { position: absolute; bottom: 8px; left: 8px; width: calc(100% - 16px); height: 284px; background: var(--fridge-blue); border: 4px solid #000; border-radius: 14px; z-index: 90; box-shadow: inset -4px -4px 0px rgba(0,0,0,0.1); }
-        .fridge-bottom-static-door .fridge-door-vertical-handle { top: 20%; height: 110px; }
+        /* Classic 50s Horizontal Chrome Silver Handle (styled after image_b4325c.jpg) */
+        .fridge-door-horizontal-handle { position: absolute; left: 20px; top: 40%; width: 90px; height: 16px; background: #e0e0e0; border: 3px solid #000; border-radius: 4px; box-shadow: 2px 3px 0px rgba(0,0,0,0.25); z-index: 105; cursor: pointer; }
+        .fridge-door-horizontal-handle::after { content: ''; position: absolute; top: 2px; left: 5%; width: 90%; height: 2px; background: #fff; opacity: 0.8; }
 
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
@@ -182,7 +179,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v71.3_RETRO_FRIDGE_SYNC</div>
+        <div class="nav-logo">💾 FOOD_OS // v71.4_SMEG_SINGLE_DOOR_SYNC</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -268,17 +265,17 @@
             </div>
         </section>
 
-        <!-- WHAT'S IN THE FREEZER MODULE RE-STYLED AS AN ACTUAL DOUBLE DOOR REFRIGERATOR -->
+        <!-- FREEZER INVENTORY MODULE DESIGNED AS A SINGLE RE-ENGINEERED ORANGE SMEG APPLIANCE -->
         <section class="retro-window full-width">
             <div class="window-header freezer-variant">
-                <span>Subzero_Storage: Retro_Refrigerator.exe</span>
+                <span>Subzero_Storage: Retro_SMEG_Freezer.exe</span>
                 <span>✖</span>
             </div>
             <div class="window-body">
                 <div class="fridge-hardware-container">
                     <div class="fridge-cabinet">
                         
-                        <!-- TOP HALF: WORKING FREEZER ZONE -->
+                        <!-- INSIDE BODY HOUSING THE 3 DRAWERS -->
                         <div class="fridge-freezer-zone">
                             <!-- Drawer 1 -->
                             <div class="freezer-drawer">
@@ -305,21 +302,11 @@
                             </div>
                         </div>
 
-                        <!-- INTERACTIVE TOP SWING DOOR WITH CONDENSATION GLASS EFFECT -->
+                        <!-- THE INTERACTIVE SINGLE INTEGRATED SWING MAIN CABINET DOOR LAYER -->
                         <div class="fridge-door-wing" id="fridge-top-door-panel" onclick="toggleFreezerDoor(event)">
                             <canvas class="condensation-canvas" id="fridge-frost-canvas"></canvas>
-                            <div class="fridge-door-vertical-handle"></div>
-                        </div>
-
-                        <!-- BOTTOM HALF: STATIC FRESH FOOD COMPARTMENT (VISUAL FILLER COMPARTMENT) -->
-                        <div class="fridge-fresh-zone">
-                            <p style="margin-bottom: 8px;">🥦 FRESH COMPARTMENT 🍉</p>
-                            <p style="font-size:0.75rem; font-weight:normal; opacity:0.6; padding:0 20px;">Main fridge suggestions are pulled directly from your active Google Sheet categories above!</p>
-                        </div>
-                        
-                        <!-- STATIC DECORATIVE LOWER COMPARTMENT DOOR -->
-                        <div class="fridge-bottom-static-door" onclick="alert('This compartment is static! Your active drawers are in the top Freezer compartment.')">
-                            <div class="fridge-door-vertical-handle"></div>
+                            <div class="smeg-brand-badge">SMEG</div>
+                            <div class="fridge-door-horizontal-handle"></div>
                         </div>
 
                     </div>
@@ -468,7 +455,7 @@
             }
         }
 
-        // FULL PIXEL SCRATCH-OFF RESOLUTION ENGINE FOR RE-ENGINEERED OVERLAY CANVAS
+        // FULL PIXEL SCRATCH-OFF LOGIC PIPELINE
         function setupFreezerDoorCondensationEngine() {
             const canvas = document.getElementById("fridge-frost-canvas");
             const doorPanel = document.getElementById("fridge-top-door-panel");
@@ -542,8 +529,8 @@
             ctx.fillStyle = 'rgba(79, 130, 148, 0.7)';
             ctx.font = 'bold 12px Courier Prime, monospace';
             ctx.textAlign = 'center';
-            ctx.fillText('👋 WIPING WINDOW REVEALS INSIDE', w / 2, height / 2 - 6);
-            ctx.fillText('CLICK DOOR TO OPEN/CLOSE', w / 2, height / 2 + 10);
+            ctx.fillText('👋 SCRATCH THE GLASS WINDOW', w / 2, height / 2 - 6);
+            ctx.fillText('CLICK DOOR OR HANDLE TO OPEN', w / 2, height / 2 + 10);
 
             for (let i = 0; i < 300; i++) {
                 let rx = Math.random() * w;
@@ -554,9 +541,8 @@
             }
         }
 
-        // 3D MECHANICAL DOOR ACTUATION ENGAGED ON HANDLE CLICK OR SURFACE CLICK
+        // 3D MECHANICAL DOOR OPEN TOGGLE ACTION
         function toggleFreezerDoor(event) {
-            // If dragging scratch brush on canvas surface layer, don't open until finger lift releases!
             if (document.getElementById('fridge-frost-canvas') && event.target.id === 'fridge-frost-canvas') {
                 return;
             }
