@@ -95,6 +95,7 @@
         .tag-both { background-color: var(--together-purple); }
 
         .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px var(--border-clr); }
+        .smart-day-block select { margin-bottom: 4px; }
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
         
         .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
@@ -137,7 +138,7 @@
         .recipe-ingredients-list, .recipe-instructions-list { padding-left: 18px; font-size: 0.88rem; word-break: break-word; }
         .recipe-ingredients-list li, .recipe-instructions-list li { margin-bottom: 6px; }
 
-        /* RESTORED DESIGN PIPELINE FOR THE GROCERY SYSTEM DISPLAY */
+        /* GROCERY SYSTEM VISUAL COMPONENTS */
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
         .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 15px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; white-space: nowrap; }
@@ -203,7 +204,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v74.0_GOOGLE_DOCS_RECIPES</div>
+        <div class="nav-logo">💾 FOOD_OS // v74.1_TAB_CATEGORY_FIX</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -231,7 +232,7 @@
         <!-- AUTOMATED ROUTER COLUMNS -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
-                <span id="router-header-title">Intelligent_Router: Dinner_Router.exe</span>
+                <span>Intelligent_Router: Dinner_Router.exe</span>
                 <span>✖</span>
             </div>
             <div class="window-body smart-dinner-grid">
@@ -266,10 +267,10 @@
             </div>
         </section>
 
-        <!-- SAVED RECIPES WINDOW (LIVE GOOGLE DOC STREAM LAYER) -->
+        <!-- SAVED RECIPES WINDOW (LIVE GOOGLE DOC TAB FILTER SYSTEM) -->
         <section class="retro-window full-width" id="recipe-module-window">
             <div class="window-header orange-variant">
-                <span>Database_Explorer: Live_Google_Doc_Stream.db</span>
+                <span>Database_Explorer: Tab_Category_Router.db</span>
                 <span>✖</span>
             </div>
             <div class="window-body">
@@ -282,10 +283,10 @@
 
                 <div class="recipe-browser-deck">
                     <ul class="recipe-sidebar-list" id="recipe-list-tabs-anchor">
-                        <li style="padding: 15px; opacity: 0.5; font-style: italic;">Syncing...</li>
+                        <li style="padding: 15px; opacity: 0.5; font-style: italic;">Parsing Google Tabs...</li>
                     </ul>
                     <div class="recipe-viewer-panel" id="recipe-content-panel">
-                        <p style="opacity:0.5; font-style:italic;">Initializing core stream parser matrices...</p>
+                        <p style="opacity:0.5; font-style:italic;">Initializing tab scanning algorithms...</p>
                     </div>
                 </div>
             </div>
@@ -364,7 +365,6 @@
 
         const cloudStorageUrl = "https://script.google.com/macros/s/AKfycbxzTv-Qrjsi0Fgd1S5DdBn8J0swaqIPNDOaJZXeKQ_EdsTtpS3w5MBlWAdpNhEf_82M/exec";
 
-        // THE 18 DIRECT B&R MEMORY DRIVE FILE PIPELINES
         const ryanAndBeaPhotos = [
             "https://drive.google.com/thumbnail?sz=w1000&id=1z6xx50Jr2jO-84vxG46b8bly2nBlKOrO",
             "https://drive.google.com/thumbnail?sz=w1000&id=1OOg8k7bjhJTIWSaJC5Hk-pE9YCtT6b99",
@@ -386,7 +386,6 @@
             "https://drive.google.com/thumbnail?sz=w1000&id=1yTdpRQnqZ-Y2XsQo-P_scHKmTmoHoXgL"
         ];
 
-        // TARGET ENDPOINT ACCESS TO YOUR PUBLIC USER GOOGLE DOC PLANNERS LINK
         const googleDocId = "1ajnr03aRd2Cf5dER6lsdg46qInLviQDKWMse4TNfoMA";
         let liveRecipesDatabase = [];
 
@@ -399,79 +398,89 @@
             }
         }
 
-        // PARSER MATRIX ENGINE: Converts plaintext structure headings into clear dataset variables
+        // UPGRADED STABLE SEPARATE DOCUMENT TAB SCANNER LOGIC
         async function fetchGoogleDocRecipes() {
             try {
                 const targetUrl = `https://docs.google.com/document/d/${googleDocId}/export?format=txt`;
                 const response = await fetch(targetUrl);
-                if (!response.ok) throw new Error("Doc access structural mismatch.");
+                if (!response.ok) throw new Error("Document link stream timeout.");
                 
                 const rawText = await response.text();
-                parsePlaintextRecipes(rawText);
+                parseTabbedDocumentText(rawText);
             } catch (err) {
-                console.error("Docs pipeline error:", err);
+                console.error("Docs sync breakdown:", err);
                 document.getElementById('recipe-content-panel').innerHTML = `
                     <p style="color: var(--accent-orange); font-weight: bold;">⚠️ Sync Error</p>
-                    <p style="font-size: 0.85rem; margin-top: 4px;">Make sure your Google Doc share settings are flipped to <b>"Anyone with the link can view"</b> so the site can read it!</p>
+                    <p style="font-size: 0.85rem; margin-top: 4px;">Verify the Google Doc's share settings are set to <b>"Anyone with the link can view"</b> so it bypasses firewall controls!</p>
                 `;
             }
         }
 
-        function parsePlaintextRecipes(text) {
+        function parseTabbedDocumentText(text) {
             liveRecipesDatabase = [];
-            
-            // Clean lines array conversion
             const lines = text.split('\n').map(l => l.replace('\r', '').trim());
+            
             let currentRecipe = null;
             let currentSection = null;
 
             lines.forEach(line => {
                 if (!line) return;
 
-                // Match recipe titles using common numbering syntax formats (e.g., "1. Penne with Vodka")
-                if (/^\d+\./.test(line) || line.startsWith('##')) {
-                    if (currentRecipe) liveRecipesDatabase.push(currentRecipe);
-                    
-                    const cleanTitle = line.replace(/^\d+\.\s*/, '').replace(/^##\s*/, '').trim();
-                    currentRecipe = {
-                        id: cleanTitle.toLowerCase().replace(/[^a-z0-9]/g, '-'),
-                        title: cleanTitle,
-                        category: "dinners", // Default assignment category track
-                        prep: "Checked in Doc",
-                        cook: "Checked in Doc",
-                        servings: "-",
-                        ingredients: [],
-                        instructions: []
-                    };
-                    currentSection = null;
-                    return;
+                // Tab detection trigger points: Any prominent header title line captures a separate tab start
+                if (line.endsWith('Tomatoes') || line.endsWith('Goreng') || line.endsWith('Curry') || line.endsWith('Pie') || line.endsWith('Pancakes') || line.endsWith('Bread') || line.startsWith('##') || /^[A-Z][a-z]+(\s[A-Z][a-z]+){2,5}$/.test(line)) {
+                    // Check if line looks like an ingredient or instruction label instead of a clean title header
+                    if (line.toLowerCase() === 'ingredients' || line.toLowerCase() === 'instructions' || line.toLowerCase().includes('category:')) {
+                        // Skip flag trigger override
+                    } else {
+                        if (currentRecipe) liveRecipesDatabase.push(currentRecipe);
+                        
+                        const cleanTitle = line.replace(/^##\s*/, '').trim();
+                        currentRecipe = {
+                            id: cleanTitle.toLowerCase().replace(/[^a-z0-9]/g, '-'),
+                            title: cleanTitle,
+                            category: "dinners", // Default safety fallback category
+                            prep: "Checked in Doc",
+                            cook: "Checked in Doc",
+                            servings: "-",
+                            ingredients: [],
+                            instructions: []
+                        };
+                        currentSection = null;
+                        return;
+                    }
                 }
 
                 if (!currentRecipe) return;
 
-                // Track categorization meta directives
-                if (line.toLowerCase().includes('category:')) {
-                    const catVal = line.split(':')[1].toLowerCase().trim();
-                    if (catVal.includes('breakfast')) currentRecipe.category = 'breakfast';
-                    else if (catVal.includes('bake')) currentRecipe.category = 'bakes';
-                    else currentRecipe.category = 'dinners';
+                // Explicit strict matching for "Category:" lines as requested verbatim
+                if (line.toLowerCase().startsWith('category:')) {
+                    const catValue = line.split(':')[1].toLowerCase().trim();
+                    if (catValue.includes('breakfast')) {
+                        currentRecipe.category = 'breakfast';
+                    } else if (catValue.includes('bake')) {
+                        currentRecipe.category = 'bakes';
+                    } else {
+                        currentRecipe.category = 'dinners';
+                    }
                     return;
                 }
-                if (line.toLowerCase().includes('prep:')) { currentRecipe.prep = line.split(':')[1].trim(); return; }
-                if (line.toLowerCase().includes('cook:')) { currentRecipe.cook = line.split(':')[1].trim(); return; }
-                if (line.toLowerCase().includes('serves:')) { currentRecipe.servings = line.split(':')[1].trim(); return; }
 
-                // Check active list anchors
+                // Metadata parser checks
+                if (line.toLowerCase().startsWith('prep time:')) { currentRecipe.prep = line.split(':')[1].trim(); return; }
+                if (line.toLowerCase().startsWith('cook time:')) { currentRecipe.cook = line.split(':')[1].trim(); return; }
+                if (line.toLowerCase().startsWith('servings:')) { currentRecipe.servings = line.split(':')[1].trim(); return; }
+
+                // Structural switch checks
                 if (line.toLowerCase() === 'ingredients') { currentSection = 'ingredients'; return; }
                 if (line.toLowerCase() === 'instructions') { currentSection = 'instructions'; return; }
 
-                // Collect list entries based on current section
+                // Collect elements
                 if (currentSection === 'ingredients') {
-                    const cleanIng = line.replace(/^[\*\-•]\s*/, '').trim();
-                    currentRecipe.ingredients.push(cleanIng);
+                    const parsedIng = line.replace(/^[\*\-•]\s*/, '').trim();
+                    currentRecipe.ingredients.push(parsedIng);
                 } else if (currentSection === 'instructions') {
-                    const cleanInst = line.replace(/^\d+[\.\)]\s*/, '').replace(/^[\*\-•]\s*/, '').trim();
-                    currentRecipe.instructions.push(cleanInst);
+                    const parsedInst = line.replace(/^\d+[\.\)]\s*/, '').replace(/^[\*\-•]\s*/, '').trim();
+                    currentRecipe.instructions.push(parsedInst);
                 }
             });
 
@@ -520,7 +529,7 @@
             }
             switchAppMode(currentMode);
             renderShoppingList();
-            await fetchGoogleDocRecipes(); // Triggers the custom streaming process initialization loop
+            await fetchGoogleDocRecipes();
             
             document.getElementById('freezer-d1-input').value = appState.freezerDrawer1 || "";
             document.getElementById('freezer-d2-input').value = appState.freezerDrawer2 || "";
@@ -598,7 +607,7 @@
             if (filteredRecipes.length > 0) {
                 displayRecipeProfile(filteredRecipes[0]);
             } else {
-                document.getElementById('recipe-content-panel').innerHTML = `<p style="opacity:0.5; font-style:italic;">No live entries match this tag track yet...</p>`;
+                document.getElementById('recipe-content-panel').innerHTML = `<p style="opacity:0.5; font-style:italic;">No live document tab data matches this category tag tracking node yet...</p>`;
             }
         }
 
