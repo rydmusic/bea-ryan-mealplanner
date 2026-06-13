@@ -135,12 +135,12 @@
         .recipe-ingredients-list, .recipe-instructions-list { padding-left: 18px; font-size: 0.88rem; word-break: break-word; }
         .recipe-ingredients-list li, .recipe-instructions-list li { margin-bottom: 6px; }
 
-        /* IMAGE_B3D845.JPG ILLUSTRATION ENGINE FRAMEWORK */
-        .fridge-hardware-container { width: 100%; max-width: 440px; margin: 40px auto 10px auto; perspective: 1500px; }
+        /* IMAGE_B3D845.JPG STANDALONE RECTANGULAR REFRIGERATOR ENCLOSURE */
+        .fridge-hardware-container { width: 100%; max-width: 440px; margin: 50px auto; perspective: 1500px; padding: 10px; }
         
         /* Decorative Top Shelf Items matching image_b3d845.jpg verbatim */
-        .fridge-top-prop-shelf { width: 100%; display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 4px; position: relative; z-index: 5; margin-bottom: -5px; padding-left: 20px; padding-right: 20px; }
-        .prop-bottle { width: 32px; height: 75px; background: #4a533c; border: 3px solid #000; border-radius: 6px 6px 2px 2px; position: relative; box-shadow: inset 5px 0 0 rgba(255,255,255,0.2); }
+        .fridge-top-prop-shelf { width: 100%; display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 4px; position: relative; z-index: 5; margin-bottom: -5px; padding-left: 30px; padding-right: 30px; }
+        .prop-bottle { width: 32px; height: 75px; background: #4a533c; border: 3px solid #000; border-radius: 6px 6px 2px 2px; position: relative; }
         .prop-bottle::before { content: ''; position: absolute; top: -10px; left: 9px; width: 8px; height: 10px; background: #c69c6d; border: 2px solid #000; border-radius: 2px; }
         .prop-bottle::after { content: ''; position: absolute; bottom: 10px; left: 4px; width: 18px; height: 25px; background: #fffdee; border: 2px solid #000; }
         
@@ -154,45 +154,47 @@
         .prop-leaves-cluster { position: absolute; top: -25px; width: 65px; height: 28px; background: #5a8f54; border: 3px solid #000; border-radius: 50% 50% 40% 40%; }
         .prop-book-ottolenghi { width: 75px; height: 22px; background: #fae13c; border: 3px solid #000; font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.58rem; display: flex; align-items: center; justify-content: center; letter-spacing: 0.5px; box-shadow: 2px 2px 0 rgba(0,0,0,0.15); }
 
-        /* SMEG Cabinet Main Hull Shell */
-        .fridge-cabinet { display: flex; flex-direction: column; background: #be552a; border: 5px solid #000; border-radius: 45px 45px 16px 16px; padding: 16px; gap: 14px; box-shadow: 6px 6px 0px #000; width: 100%; position: relative; min-height: 490px; background-image: linear-gradient(135deg, var(--smeg-orange) 0%, #b84323 100%); }
+        /* SMEG Cabinet Main Hull Shell - Stretched into a Tall Rectangular Profile */
+        .fridge-cabinet { display: flex; flex-direction: column; background: #be552a; border: 5px solid #000; border-radius: 45px 45px 16px 16px; padding: 18px; gap: 14px; box-shadow: 8px 8px 0px #000; width: 100%; position: relative; min-height: 640px; background-image: linear-gradient(135deg, var(--smeg-orange) 0%, #b84323 100%); }
         
         /* Internal Chamber holding the 3 text box drawers safely */
-        .fridge-freezer-zone { flex: 1; background: #edf7fa; border: 3px solid #000; border-radius: 18px; padding: 12px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; justify-content: center; }
+        .fridge-freezer-zone { flex: 1; background: #edf7fa; border: 3px solid #000; border-radius: 18px; padding: 15px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; justify-content: center; }
         
         .freezer-drawer { background: var(--window-bg); border: 2px solid #000; border-radius: 6px; padding: 10px; display: flex; flex-direction: column; gap: 6px; box-shadow: 2px 2px 0px rgba(0,0,0,0.1); }
         .freezer-drawer-pullhandle { height: 8px; width: 64px; background: #000; margin: 0 auto 2px auto; border-radius: 2px; opacity: 0.7; }
         .drawer-lbl { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.72rem; color: #4f8294; text-transform: uppercase; display: flex; justify-content: space-between; }
-        .freezer-textarea { width: 100%; height: 50px; border: 1px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; outline: none; resize: none; background: #fdfdfd; }
-        .freezer-save-btn { font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.68rem; text-transform: uppercase; padding: 2px 8px; border: 1px solid #000; background: var(--freezer-blue); cursor: pointer; border-radius: 4px; align-self: flex-end; }
+        .freezer-textarea { width: 100%; height: 65px; border: 2px solid #000; border-radius: 4px; padding: 6px; font-family: inherit; font-size: 0.85rem; outline: none; resize: none; background: #fdfdfd; }
+        .freezer-save-btn { font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.68rem; text-transform: uppercase; padding: 3px 10px; border: 2px solid #000; background: var(--freezer-blue); cursor: pointer; border-radius: 4px; align-self: flex-end; box-shadow: 1px 1px 0 #000; }
 
-        /* SINGLE RETRO ILLUSTRATED CABINET DOOR PANEL COVERING INNER SPACE */
-        .fridge-door-wing { position: absolute; top: 8px; left: 8px; width: calc(100% - 16px); height: calc(100% - 16px); background: var(--smeg-orange); border: 4px solid #000; border-radius: 38px 36px 12px 12px; z-index: 100; transform-origin: left center; transition: transform 1.2s cubic-bezier(0.15, 1, 0.25, 1); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; overflow: hidden; box-shadow: inset -6px -6px 0px rgba(0,0,0,0.12); padding-top: 35px; }
+        /* SINGLE RETRO ILLUSTRATED CABINET DOOR PANEL */
+        .fridge-door-wing { position: absolute; top: 8px; left: 8px; width: calc(100% - 16px); height: calc(100% - 16px); background: var(--smeg-orange); border: 4px solid #000; border-radius: 38px 36px 12px 12px; z-index: 100; transform-origin: left center; transition: transform 1.2s cubic-bezier(0.15, 1, 0.25, 1); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; overflow: hidden; box-shadow: inset -6px -6px 0px rgba(0,0,0,0.12); padding-top: 45px; }
         .fridge-door-wing.door-swung-open { transform: rotateY(-135deg); z-index: 110; box-shadow: -15px 15px 30px rgba(0,0,0,0.3); }
         
-        .smeg-brand-badge { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 1.7rem; letter-spacing: 10px; color: #fdfdfd; text-shadow: 2px 2px 0px #000, -1px -1px 0px #c5c5c5; padding-left: 10px; margin-bottom: 25px; user-select: none; pointer-events: none; }
+        .smeg-brand-badge { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 1.9rem; letter-spacing: 12px; color: #fdfdfd; text-shadow: 2px 2px 0px #000, -1px -1px 0px #c5c5c5; padding-left: 12px; margin-bottom: 35px; user-select: none; pointer-events: none; }
         
         /* Horizontal SMEG Latch Handle matching image_b3d845.jpg verbatim */
-        .fridge-door-horizontal-handle { position: absolute; left: 15px; top: 52%; width: 95px; height: 15px; background: #bfbfbe; border: 3px solid #000; border-radius: 3px; box-shadow: 2px 3px 0px rgba(0,0,0,0.25); z-index: 105; cursor: pointer; }
+        .fridge-door-horizontal-handle { position: absolute; left: 15px; top: 48%; width: 95px; height: 15px; background: #bfbfbe; border: 3px solid #000; border-radius: 3px; box-shadow: 2px 3px 0px rgba(0,0,0,0.25); z-index: 105; cursor: pointer; }
         .fridge-door-horizontal-handle::after { content: ''; position: absolute; top: 1px; left: 4%; width: 92%; height: 2px; background: #fff; opacity: 0.8; }
 
         /* HAND-DRAWN ARTWORK COMPARTMENT MAGNETS (image_b3d845.jpg styling) */
         .magnet-item { position: absolute; border: 2px solid #000; box-shadow: 2px 2px 0px rgba(0,0,0,0.15); user-select: none; pointer-events: none; display: flex; align-items: center; justify-content: center; font-weight: bold; }
         
-        .mag-lemon { top: 160px; right: 45px; width: 34px; height: 34px; background: #fff13a; border-radius: 50% 60% 50% 60%; transform: rotate(-15deg); font-size: 1.1rem; }
-        .mag-polaroid { top: 140px; right: 25px; width: 28px; height: 34px; background: #fffdf5; border-radius: 2px; transform: rotate(10deg); box-shadow: 1px 1px 0 #000; }
-        .mag-polaroid::after { content: ''; width: 20px; height: 20px; background: #6b5c58; border: 1.5px solid #000; margin-top: -6px; }
+        .mag-lemon { top: 220px; right: 45px; width: 34px; height: 34px; background: #fff13a; border-radius: 50% 60% 50% 60%; transform: rotate(-15deg); font-size: 1.1rem; }
         
-        .mag-croissant-note { top: 160px; left: 45px; width: 42px; height: 48px; background: #fffdec; transform: rotate(-5deg); padding: 4px; display: flex; flex-direction: column; justify-content: space-between; }
-        .mag-croissant-note::before { content: '🥐'; font-size: 0.9rem; position: absolute; top: -14px; left: 8px; }
-        .mag-croissant-note::after { content: '⚡'; font-size: 0.8rem; color: #000; text-align: center; width: 100%; display: block; margin-top: 6px; }
+        /* Upgraded Polaroid Container mapping user image_b3be95.jpg directly inside */
+        .mag-polaroid { top: 180px; right: 25px; width: 68px; height: 82px; background: #fffdf5; border-radius: 2px; transform: rotate(10deg); box-shadow: 2px 2px 0 #000; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 5px 5px 0 5px; }
+        .polaroid-photo-frame { width: 54px; height: 54px; border: 2px solid #000; background-image: url('image_b3be95.jpg'); background-size: cover; background-position: center; background-color: #6b5c58; }
+        
+        .mag-croissant-note { top: 210px; left: 45px; width: 45px; height: 52px; background: #fffdec; transform: rotate(-5deg); padding: 4px; display: flex; flex-direction: column; justify-content: space-between; }
+        .mag-croissant-note::before { content: '🥐'; font-size: 0.9rem; position: absolute; top: -14px; left: 10px; }
+        .mag-croissant-note::after { content: '⚡'; font-size: 0.8rem; color: #000; text-align: center; width: 100%; display: block; margin-top: 10px; }
 
-        .mag-chili-paper { bottom: 120px; left: 25px; width: 50px; height: 38px; background: #ffffff; transform: rotate(15deg); font-family: monospace; font-size: 0.45rem; line-height: 1.2; padding: 4px; letter-spacing: -0.5px; }
+        .mag-chili-paper { bottom: 180px; left: 25px; width: 50px; height: 38px; background: #ffffff; transform: rotate(15deg); font-family: monospace; font-size: 0.45rem; line-height: 1.2; padding: 4px; letter-spacing: -0.5px; }
         .mag-chili-paper::before { content: '🌶️'; font-size: 1.1rem; position: absolute; bottom: -8px; left: -16px; transform: rotate(-25deg); }
 
-        .mag-pink-sticky { bottom: 130px; right: 40px; width: 44px; height: 42px; background: #ff9ec4; transform: rotate(-8deg); font-size: 0.5rem; padding: 4px; font-family: monospace; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .mag-pink-sticky { bottom: 195px; right: 40px; width: 44px; height: 42px; background: #ff9ec4; transform: rotate(-8deg); font-size: 0.5rem; padding: 4px; font-family: monospace; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 
-        .mag-bottom-doc { bottom: 40px; left: calc(50% - 35px); width: 70px; height: 80px; background: #ebdcb5; border-radius: 2px; transform: rotate(4deg); padding: 6px; font-family: monospace; font-size: 0.45rem; line-height: 1.4; letter-spacing: -0.5px; }
+        .mag-bottom-doc { bottom: 60px; left: calc(50% - 35px); width: 75px; height: 85px; background: #ebdcb5; border-radius: 2px; transform: rotate(4deg); padding: 6px; font-family: monospace; font-size: 0.45rem; line-height: 1.4; letter-spacing: -0.5px; }
         .mag-bottom-doc::before { content: ''; position: absolute; top: -10px; left: calc(50% - 10px); width: 20px; height: 20px; background: #4a8cb2; border: 2px solid #000; border-radius: 50%; }
 
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
@@ -212,7 +214,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v71.5_OTTOLENGHI_EDITION</div>
+        <div class="nav-logo">💾 FOOD_OS // v71.6_STANDALONE_SMEG</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -298,78 +300,75 @@
             </div>
         </section>
 
-        <!-- FREEZER INVENTORY MODULE STYLED EXCLUSIVELY AFTER IMAGE_B3D845.JPG -->
-        <section class="retro-window full-width">
-            <div class="window-header freezer-variant">
-                <span>Subzero_Storage: Retro_SMEG_Freezer.exe</span>
-                <span>✖</span>
-            </div>
-            <div class="window-body">
-                <div class="fridge-hardware-container">
-                    
-                    <!-- Decorative Top Shelf matching layout vector verbatim -->
-                    <div class="fridge-top-prop-shelf">
-                        <div class="prop-bottle" title="Wine bottle"></div>
-                        <div class="prop-candle-holder">
-                            <div class="prop-candle-stick"></div>
-                            <div class="prop-base-cup"></div>
-                        </div>
-                        <div class="prop-book-plant-stack">
-                            <div class="prop-plant-pot">
-                                <div class="prop-leaves-cluster"></div>
-                            </div>
-                            <div class="prop-book-ottolenghi">OTTOLENGHI</div>
-                        </div>
+        <!-- FREEZER INVENTORY COMPARTMENT - COMPLETELY STANDALONE TALL RECTANGULAR APPLIANCE HULL -->
+        <div class="fridge-hardware-container full-width">
+            
+            <!-- Decorative Top Shelf Propping Vectors matching image_b3d845.jpg -->
+            <div class="fridge-top-prop-shelf">
+                <div class="prop-bottle" title="Wine bottle"></div>
+                <div class="prop-candle-holder">
+                    <div class="prop-candle-stick"></div>
+                    <div class="prop-base-cup"></div>
+                </div>
+                <div class="prop-book-plant-stack">
+                    <div class="prop-plant-pot">
+                        <div class="prop-leaves-cluster"></div>
                     </div>
-
-                    <!-- Main Chassis Body -->
-                    <div class="fridge-cabinet">
-                        
-                        <!-- INSIDE BODY HOUSING THE 3 INVENTORY SLOTS -->
-                        <div class="fridge-freezer-zone">
-                            <!-- Drawer 1 -->
-                            <div class="freezer-drawer">
-                                <div class="drawer-lbl"><span>❄️ Drawer 1 (Top)</span><span id="d1-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
-                                <textarea class="freezer-textarea" id="freezer-d1-input" placeholder="Drawer 1 items..."></textarea>
-                                <div class="freezer-drawer-pullhandle"></div>
-                                <button class="freezer-save-btn" onclick="saveFreezerDrawer(1)">💾 Save</button>
-                            </div>
-
-                            <!-- Drawer 2 -->
-                            <div class="freezer-drawer">
-                                <div class="drawer-lbl"><span>❄️ Drawer 2 (Middle)</span><span id="d2-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
-                                <textarea class="freezer-textarea" id="freezer-d2-input" placeholder="Drawer 2 items..."></textarea>
-                                <div class="freezer-drawer-pullhandle"></div>
-                                <button class="freezer-save-btn" onclick="saveFreezerDrawer(2)">💾 Save</button>
-                            </div>
-
-                            <!-- Drawer 3 -->
-                            <div class="freezer-drawer">
-                                <div class="drawer-lbl"><span>❄️ Drawer 3 (Bottom)</span><span id="d3-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
-                                <textarea class="freezer-textarea" id="freezer-d3-input" placeholder="Drawer 3 items..."></textarea>
-                                <div class="freezer-drawer-pullhandle"></div>
-                                <button class="freezer-save-btn" onclick="saveFreezerDrawer(3)">💾 Save</button>
-                            </div>
-                        </div>
-
-                        <!-- DYNAMIC 3D ANIMATED MAIN REFRIGERATOR CABINET DOOR LAYER WITH FLAT GRAPHIC MAGNETS -->
-                        <div class="fridge-door-wing" id="fridge-top-door-panel" onclick="toggleFreezerDoor()">
-                            <div class="smeg-brand-badge">SMEG</div>
-                            <div class="fridge-door-horizontal-handle"></div>
-                            
-                            <!-- Flat Illustrated Canvas Magnets Layout -->
-                            <div class="magnet-item mag-lemon"></div>
-                            <div class="magnet-item mag-polaroid"></div>
-                            <div class="magnet-item mag-croissant-note">⚡</div>
-                            <div class="magnet-item mag-chili-paper">---<br>---</div>
-                            <div class="magnet-item mag-pink-sticky">➔</div>
-                            <div class="magnet-item mag-bottom-doc">Menu:<br>• Peas<br>• Ice<br>• Pizza</div>
-                        </div>
-
-                    </div>
+                    <div class="prop-book-ottolenghi">OTTOLENGHI</div>
                 </div>
             </div>
-        </section>
+
+            <!-- Tall, Elongated Rectangular Appliance Base Cabinet Frame -->
+            <div class="fridge-cabinet">
+                
+                <!-- INNER DRAWER CONTAINER MATRIX -->
+                <div class="fridge-freezer-zone">
+                    <!-- Drawer 1 -->
+                    <div class="freezer-drawer">
+                        <div class="drawer-lbl"><span>❄️ Drawer 1 (Top)</span><span id="d1-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
+                        <textarea class="freezer-textarea" id="freezer-d1-input" placeholder="Drawer 1 items..."></textarea>
+                        <div class="freezer-drawer-pullhandle"></div>
+                        <button class="freezer-save-btn" onclick="saveFreezerDrawer(1)">💾 Save</button>
+                    </div>
+
+                    <!-- Drawer 2 -->
+                    <div class="freezer-drawer">
+                        <div class="drawer-lbl"><span>❄️ Drawer 2 (Middle)</span><span id="d2-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
+                        <textarea class="freezer-textarea" id="freezer-d2-input" placeholder="Drawer 2 items..."></textarea>
+                        <div class="freezer-drawer-pullhandle"></div>
+                        <button class="freezer-save-btn" onclick="saveFreezerDrawer(2)">💾 Save</button>
+                    </div>
+
+                    <!-- Drawer 3 -->
+                    <div class="freezer-drawer">
+                        <div class="drawer-lbl"><span>❄️ Drawer 3 (Bottom)</span><span id="d3-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
+                        <textarea class="freezer-textarea" id="freezer-d3-input" placeholder="Drawer 3 items..."></textarea>
+                        <div class="freezer-drawer-pullhandle"></div>
+                        <button class="freezer-save-btn" onclick="saveFreezerDrawer(3)">💾 Save</button>
+                    </div>
+                </div>
+
+                <!-- 3D ROTATABLE SMEG DOOR WING PANEL SURFACE LAYER WITH CUSTOM INTEGRATED USER BEACH POLAROID PHOTO -->
+                <div class="fridge-door-wing" id="fridge-top-door-panel" onclick="toggleFreezerDoor()">
+                    <div class="smeg-brand-badge">SMEG</div>
+                    <div class="fridge-door-horizontal-handle"></div>
+                    
+                    <!-- Illustrated Refrigerator Magnets Array -->
+                    <div class="magnet-item mag-lemon"></div>
+                    
+                    <!-- Upgraded Polaroid Element: Displays your custom photo asset image_b3be95.jpg -->
+                    <div class="magnet-item mag-polaroid">
+                        <div class="polaroid-photo-frame"></div>
+                    </div>
+                    
+                    <div class="magnet-item mag-croissant-note">⚡</div>
+                    <div class="magnet-item mag-chili-paper">---<br>---</div>
+                    <div class="magnet-item mag-pink-sticky">➔</div>
+                    <div class="magnet-item mag-bottom-doc">Menu:<br>• Peas<br>• Ice<br>• Pizza</div>
+                </div>
+
+            </div>
+        </div>
 
     </main>
 
@@ -510,7 +509,6 @@
             }
         }
 
-        // SWING OPEN DOOR TRANSITION ACTIONS
         function toggleFreezerDoor() {
             const door = document.getElementById("fridge-top-door-panel");
             door.classList.toggle("door-swung-open");
