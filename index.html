@@ -96,7 +96,7 @@
         .food-select-dropdown { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; background: #fff; outline: none; }
         .other-text-box { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; outline: none; background: #fffdf2; }
 
-        /* mobile saved recipes configuration layout styles */
+        /* Mobile-Friendly Saved Recipes Layout Matrix */
         .recipe-category-tabs { display: flex; gap: 6px; margin-bottom: 15px; background: rgba(0, 0, 0, 0.04); padding: 6px; border: 2px solid #000; border-radius: 4px; flex-wrap: wrap; }
         .recipe-cat-btn { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.75rem; border: 1px solid #000; background: #fff; padding: 6px 12px; cursor: pointer; border-radius: 3px; box-shadow: 2px 2px 0px #000; }
         .recipe-cat-btn.active-cat-tab { background: var(--accent-blue); color: #fff; transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
@@ -141,7 +141,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v69.1_STABLE_SYNC</div>
+        <div class="nav-logo">💾 FOOD_OS // v69.2_STABLE_FALLBACK</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -432,8 +432,15 @@
             }
         ];
 
-        // 100% dynamic container channel loop
-        let foodMenuDatabase = { "OTHER": [] };
+        // SAFE ACTIVE AUTOMATIC FALLBACK BUILT IN TO PREVENT EMPTY DROPDOWNS
+        let foodMenuDatabase = {
+            "PASTA": ["Bolognese", "Carbonara", "Sausage ragú", "Mac & cheese", "Tomato sauce of something", "Vegetable pasta (corgettes/tomato)", "Vodka", "Gnocchi bake", "Lasagne"],
+            "INT.": ["stir fry", "Chicken and rice", "Fajitas", "Curry (katsu/chickpea/lentil)", "Enchiladas"],
+            "MEAT": ["chicken shawarma", "Schnitzel", "Roast dinner", "Sausage and mash", "Chicken and chorizo stew", "Cod with breadcrumbs", "Pesto chicken", "Pork belly", "Steak"],
+            "VEGGIE": ["caesar salad", "Pasta Salad", "Halloumi something", "Chilli with beans", "Baked potato", "Mushroom risotto", "Spanakopita", "Noodle soup", "Beans"],
+            "GUILTY": ["Fish and chips", "Takeaway", "Burger", "Hot dogs", "Frozen pizza", "Freezer food picky bits"],
+            "OTHER": []
+        };
 
         let appState = {
             shoppingList: [{ name: 'Oat Milk', checked: false }],
@@ -452,6 +459,8 @@
                 const response = await fetch(cloudStorageUrl);
                 if (response.ok) {
                     const payload = await response.json();
+                    
+                    // Seamless load: overwrite local storage parameters if Google provides data arrays!
                     if (payload.menuDatabase && Object.keys(payload.menuDatabase).length > 1) {
                         foodMenuDatabase = payload.menuDatabase;
                     }
@@ -626,7 +635,7 @@
                     <div class="cell-hover-overlay">
                         <div style="font-size:0.72rem; font-weight:bold; text-transform:uppercase;">Edit [${dayName} ${dayNum}/${monthNum}]:</div>
                         <input type="text" class="overlay-input-item" id="input-r-${dateKey}" value="${rText}" placeholder="Ryan notes...">
-                        <input type="text" class="overlay-input-item" id="input-b-${dateKey}" value="${bVal = bText}" placeholder="Bea notes...">
+                        <input type="text" class="overlay-input-item" id="input-b-${dateKey}" value="${bText}" placeholder="Bea notes...">
                         
                         <div class="both-in-checkbox-row">
                             <input type="checkbox" id="check-both-${dateKey}" ${isBothIn ? 'checked' : ''}>
