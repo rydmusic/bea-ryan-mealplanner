@@ -212,8 +212,18 @@
         .food-select-dropdown { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; background: #fff; outline: none; }
         .other-text-box { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; outline: none; background: #fffdf2; }
 
-        .prep-log { font-family: 'Courier Prime', monospace; background: #222; color: #1aff1a; padding: 15px; border-radius: 6px; font-size: 0.9rem; line-height: 1.5; max-height: 180px; overflow-y: auto; border: 2px solid var(--border-clr); }
-        .prep-item { margin-bottom: 5px; }
+        /* Saved Recipes Dashboard Elements */
+        .recipe-browser-deck { display: grid; grid-template-columns: 220px 1fr; border: 2px solid #000; background: #fff; height: 380px; border-radius: 4px; overflow: hidden; }
+        .recipe-sidebar-list { border-right: 2px solid #000; background: rgba(0,0,0,0.02); overflow-y: auto; list-style: none; }
+        .recipe-tab-item { padding: 12px 15px; border-bottom: 1px solid #000; font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.85rem; cursor: pointer; text-transform: uppercase; }
+        .recipe-tab-item:hover { background: rgba(0,0,0,0.05); }
+        .recipe-tab-item.active-recipe-tab { background-color: var(--accent-orange); color: white; }
+        .recipe-viewer-panel { padding: 20px; overflow-y: auto; line-height: 1.6; }
+        .recipe-meta-row { display: flex; gap: 15px; margin: 8px 0 15px 0; font-family: 'Courier Prime', monospace; font-size: 0.8rem; font-weight: bold; }
+        .recipe-meta-tag { background: #eee; border: 1px solid #000; padding: 2px 6px; border-radius: 3px; }
+        .recipe-section-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 1rem; text-transform: uppercase; border-bottom: 2px dashed #000; margin: 15px 0 8px 0; padding-bottom: 2px; }
+        .recipe-ingredients-list, .recipe-instructions-list { padding-left: 20px; font-size: 0.9rem; }
+        .recipe-ingredients-list li, .recipe-instructions-list li { margin-bottom: 5px; }
 
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; }
@@ -232,7 +242,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v66.0_STABLE_DYNAMIC_FALLBACK</div>
+        <div class="nav-logo">💾 FOOD_OS // v66.0_RECIPE_ENGINE</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -256,13 +266,21 @@
             </div>
         </section>
 
+        <!-- BRAND NEW WINDOW: SAVED RECIPES SYSTEM VIEW -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
-                <span id="terminal-header-title">Diagnostics_Log: Dinner_Prep_Scanner.exe</span>
+                <span>Database_Explorer: Saved_Recipes.db</span>
                 <span>✖</span>
             </div>
             <div class="window-body">
-                <div class="prep-log" id="prep-alert-terminal">Syncing cloud systems...</div>
+                <div class="recipe-browser-deck">
+                    <ul class="recipe-sidebar-list" id="recipe-list-tabs-anchor">
+                        <!-- Navigation hooks target text keys here -->
+                    </ul>
+                    <div class="recipe-viewer-panel" id="recipe-content-panel">
+                        <p style="opacity:0.5; font-style:italic;">Select a profile catalog from the registry tree matrix...</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -310,7 +328,42 @@
 
         const cloudStorageUrl = "https://script.google.com/macros/s/AKfycbxzTv-Qrjsi0Fgd1S5DdBn8J0swaqIPNDOaJZXeKQ_EdsTtpS3w5MBlWAdpNhEf_82M/exec";
 
-        // Bulletproof dynamic database with explicit fallback arrays from image_ed8c3e.png
+        // Integrated Local Cookbook Data Store
+        const savedRecipesDatabase = [
+            {
+                id: "chickpea-curry",
+                title: "Butter Chickpea Curry with Coconut Milk",
+                author: "Aly Michell",
+                prep: "5 mins",
+                cook: "23 mins",
+                servings: "4",
+                ingredients: [
+                    "3 tablespoons vegan butter",
+                    "1 tablespoon cumin seeds",
+                    "1 onion",
+                    "4 garlic cloves crushed/paste",
+                    "1 tablespoon ginger crushed/paste",
+                    "13 ounces tomatoes crushed or blended",
+                    "2 tablespoons tomato paste",
+                    "1 tablespoon garam masala",
+                    "1 teaspoon curry powder",
+                    "1 teaspoon ground coriander",
+                    "½ teaspoon cayenne pepper (optional)",
+                    "1 teaspoon salt (adjust to taste)",
+                    "13.5 ounces coconut milk full-fat",
+                    "15.5 ounces canned chickpeas drained, rinsed",
+                    "1 tablespoon butter"
+                ],
+                instructions: [
+                    "In a deep pot or dutch oven over medium-high heat, add the butter.",
+                    "Once the butter has melted, add cumin seeds. Once the cumin starts to crackle, add the onion. Cook until the onion is tender. Then, add the garlic, ginger, tomatoes, and tomato paste. Cook and combine for 1 minute.",
+                    "Add the garam masala, curry powder, coriander, cayenne pepper, and salt. Stir together and warm spices for 1 minute.",
+                    "Add coconut milk and chickpeas. Lower heat and simmer without a lid for 10-15 minutes, or until thick and creamy.",
+                    "Stir in one more tablespoon of butter. Serve with cilantro and rice, or garlic naan."
+                ]
+            }
+        ];
+
         let foodMenuDatabase = {
             "PASTA": ["Bolognese", "Carbonara", "Sausage ragú", "Mac & cheese", "Tomato sauce of something", "Vegetable pasta (corgettes/tomato)", "Vodka", "Gnocchi bake", "Lasagne"],
             "INT.": ["stir fry", "Chicken and rice", "Fajitas", "Curry (katsu/chickpea/lentil)", "Enchiladas"],
@@ -337,21 +390,19 @@
                 const response = await fetch(cloudStorageUrl);
                 if (response.ok) {
                     const payload = await response.json();
-                    
-                    // Only overwrite if Google successfully found valid categories (more than just OTHER)
                     if (payload.menuDatabase && Object.keys(payload.menuDatabase).length > 1) {
                         foodMenuDatabase = payload.menuDatabase;
                     }
-                    
                     if (payload.calendarState && payload.calendarState.shoppingList) {
                         appState = payload.calendarState;
                     }
                 }
             } catch (err) {
-                console.warn("Handshake delay. Using local active cache.");
+                console.warn("Handshake latency. Standard memory active.");
             }
             switchAppMode(currentMode);
             renderShoppingList();
+            buildRecipeRegistryDeck();
         }
 
         async function saveCloudState() {
@@ -367,6 +418,52 @@
             }
         }
 
+        // BUILD AND POPULATE RECIPE ENGINE VISUAL MODULE
+        function buildRecipeRegistryDeck() {
+            const listAnchor = document.getElementById('recipe-list-tabs-anchor');
+            listAnchor.innerHTML = '';
+
+            savedRecipesDatabase.forEach((recipe, index) => {
+                const li = document.createElement('li');
+                li.className = `recipe-tab-item ${index === 0 ? 'active-recipe-tab' : ''}`;
+                li.innerText = recipe.title;
+                li.onclick = function() {
+                    document.querySelectorAll('.recipe-tab-item').forEach(el => el.classList.remove('active-recipe-tab'));
+                    li.classList.add('active-recipe-tab');
+                    displayRecipeProfile(recipe);
+                };
+                listAnchor.appendChild(li);
+            });
+
+            if (savedRecipesDatabase.length > 0) {
+                displayRecipeProfile(savedRecipesDatabase[0]);
+            }
+        }
+
+        function displayRecipeProfile(recipe) {
+            const panel = document.getElementById('recipe-content-panel');
+            
+            let ingHtml = recipe.ingredients.map(i => `<li>${i}</li>`).join('');
+            let instHtml = recipe.instructions.map(i => `<li>${i}</li>`).join('');
+
+            panel.innerHTML = `
+                <h3 style="font-size: 1.3rem; font-weight: bold; text-transform: uppercase;">${recipe.title}</h3>
+                <p style="font-size: 0.85rem; opacity: 0.7;">By ${recipe.author}</p>
+                
+                <div class="recipe-meta-row">
+                    <div class="recipe-meta-tag">⏱️ Prep: ${recipe.prep}</div>
+                    <div class="recipe-meta-tag">🍳 Cook: ${recipe.cook}</div>
+                    <div class="recipe-meta-tag">👥 Serves: ${recipe.servings}</div>
+                </div>
+
+                <div class="recipe-section-title">Ingredients</div>
+                <ul class="recipe-ingredients-list">${ingHtml}</ul>
+
+                <div class="recipe-section-title">Instructions</div>
+                <ol class="recipe-instructions-list">${instHtml}</ol>
+            `;
+        }
+
         function switchAppMode(targetMode) {
             currentMode = targetMode;
             document.getElementById('tab-dinners').classList.toggle('active-tab', targetMode === 'dinners');
@@ -376,13 +473,11 @@
             gridEl.classList.toggle('lunch-mode-grid', targetMode === 'lunches');
 
             if (targetMode === 'dinners') {
-                document.getElementById('terminal-header-title').innerText = "Diagnostics_Log: Dinner_Prep_Scanner.exe";
                 document.getElementById('router-header-title').innerText = "Intelligent_Router: Dinner_Router.exe";
                 document.getElementById('header-col-r').innerText = "Ryan Nights In (Bea Cooks)";
                 document.getElementById('header-col-b').innerText = "Bea Nights In (Ryan Cooks)";
                 document.getElementById('header-col-both').innerText = "Nights In Together";
             } else {
-                document.getElementById('terminal-header-title').innerText = "Diagnostics_Log: Office_Lunch_Scanner.exe";
                 document.getElementById('router-header-title').innerText = "Intelligent_Router: Lunch_Router.exe";
                 document.getElementById('header-col-r').innerText = "Ryan In Office (Bea Preps)";
                 document.getElementById('header-col-b').innerText = "Bea In Office (Ryan Preps)";
@@ -488,12 +583,9 @@
         }
 
         function calculateRouterEngine() {
-            const logTerminal = document.getElementById('prep-alert-terminal');
-            
             document.getElementById('container-ryan').innerHTML = '';
             document.getElementById('container-bea').innerHTML = '';
             document.getElementById('container-both').innerHTML = '';
-            logTerminal.innerHTML = '';
 
             const today = new Date();
             today.setHours(0,0,0,0);
@@ -524,41 +616,20 @@
                 const explicitlyBothIn = activeBothIn[dateKey] || false;
 
                 let columnTarget = null;
-                let logText = "";
 
                 if (explicitlyBothIn) {
                     columnTarget = "both";
-                    logText = currentMode === 'dinners' ? 
-                        `🔒 FORCED TOGETHER: [${displayLabel}] Checked as Both In. Shared dinner required!` :
-                        `🏠 HOME WORKSPACE: [${displayLabel}] Both WFH / Days off. Home lunch prep required!`;
                 } else if (currentMode === 'dinners') {
-                    if (rFilled && !bFilled) {
-                        columnTarget = "bea";
-                        logText = `⚠️ WARNING: [${displayLabel}] Ryan out: "${activeRyan[dateKey]}". Bea needs dinner!`;
-                    } else if (bFilled && !rFilled) {
-                        columnTarget = "ryan";
-                        logText = `⚠️ WARNING: [${displayLabel}] Bea out: "${activeBea[dateKey]}". Ryan needs dinner!`;
-                    }
+                    if (rFilled && !bFilled) columnTarget = "bea";
+                    else if (bFilled && !rFilled) columnTarget = "ryan";
                 } else {
-                    if (rFilled && !bFilled) {
-                        columnTarget = "ryan";
-                        logText = `💼 OFFICE: [${displayLabel}] Ryan in office ("${activeRyan[dateKey]}"). Pack him a lunch!`;
-                    } else if (bFilled && !rFilled) {
-                        columnTarget = "bea";
-                        logText = `💼 OFFICE: [${displayLabel}] Bea in office ("${activeBea[dateKey]}"). Pack her a lunch!`;
-                    }
+                    if (rFilled && !bFilled) columnTarget = "ryan";
+                    else if (bFilled && !rFilled) columnTarget = "bea";
                 }
 
                 if (columnTarget) {
                     counters[columnTarget]++;
                     buildSmartCardBlock(columnTarget, dateKey, displayLabel, selections);
-
-                    const alertRow = document.createElement('div');
-                    alertRow.className = 'prep-item';
-                    alertRow.style.color = columnTarget === 'both' ? '#ff4d4d' : '#ff9f43';
-                    if (currentMode === 'lunches' && columnTarget !== 'both') alertRow.style.color = 'var(--accent-blue)';
-                    alertRow.innerHTML = logText;
-                    logTerminal.appendChild(alertRow);
                 }
             }
             checkEmptyStates(counters);
