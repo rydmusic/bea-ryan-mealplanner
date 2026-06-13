@@ -198,7 +198,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v74.4_STABLE_CORS_FIX</div>
+        <div class="nav-logo">💾 FOOD_OS // v74.5_STABLE_CALENDAR_INTACT</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -302,21 +302,18 @@
 
             <div class="fridge-cabinet">
                 <div class="fridge-freezer-zone">
-                    <!-- Drawer 1 -->
                     <div class="freezer-drawer">
                         <div class="drawer-lbl"><span>❄️ Drawer 1 (Top)</span><span id="d1-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
                         <textarea class="freezer-textarea" id="freezer-d1-input" placeholder="Drawer 1 items..."></textarea>
                         <div class="freezer-drawer-pullhandle"></div>
                         <button class="freezer-save-btn" onclick="saveFreezerDrawer(1)">💾 Save</button>
                     </div>
-                    <!-- Drawer 2 -->
                     <div class="freezer-drawer">
                         <div class="drawer-lbl"><span>❄️ Drawer 2 (Middle)</span><span id="d2-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
                         <textarea class="freezer-textarea" id="freezer-d2-input" placeholder="Drawer 2 items..."></textarea>
                         <div class="freezer-drawer-pullhandle"></div>
                         <button class="freezer-save-btn" onclick="saveFreezerDrawer(2)">💾 Save</button>
                     </div>
-                    <!-- Drawer 3 -->
                     <div class="freezer-drawer">
                         <div class="drawer-lbl"><span>❄️ Drawer 3 (Bottom)</span><span id="d3-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
                         <textarea class="freezer-textarea" id="freezer-d3-input" placeholder="Drawer 3 items..."></textarea>
@@ -422,26 +419,12 @@
             }
         ];
 
-        function shuffleFridgePolaroidMemory() {
-            if (ryanAndBeaPhotos.length === 0) return;
-            const randomIndex = Math.floor(Math.random() * ryanAndBeaPhotos.length);
-            const targetElement = document.querySelector('.polaroid-photo-frame');
-            if (targetElement) {
-                targetElement.style.backgroundImage = `url('${ryanAndBeaPhotos[randomIndex]}')`;
-            }
-        }
-
-        // REDESIGNED DROPDOWN DICTIONARY CONTAINER STRIPPED OF BROKEN TRACKS
         let foodMenuDatabase = {
+            "PASTA": ["Bolognese", "Carbonara", "Sausage ragú", "Mac & cheese", "Tomato sauce of something", "Vegetable pasta (corgettes/tomato)", "Vodka", "Gnocchi bake", "Lasagne"],
+            "INT.": ["stir fry", "Chicken and rice", "Fajitas", "Curry (katsu/chickpea/lentil)", "Enchiladas"],
+            "MEAT": ["chicken shawarma", "Schnitzel", "Roast dinner", "Sausage and mash", "Chicken and chorizo stew", "Cod with breadcrumbs", "Pesto chicken", "Pork belly", "Steak"],
+            "VEGGIE": ["caesar salad", "Pasta Salad", "Halloumi something", "Chilli with beans", "Baked potato", "Mushroom risotto", "Spanakopita", "Noodle soup", "Beans"],
             "GUILTY": ["Fish and chips", "Takeaway", "Burger", "Hot dogs", "Frozen pizza", "Freezer food picky bits"],
-            "COMFORT FOODS": ["Sausage and mash", "Steak", "Mac & cheese", "Chilli kidney beans", "Baked potato", "Risotto / orzo", "Korean fried chiclen (seema)", "chicken leek pie"],
-            "LEFTOVERS": ["Pasta Salad", "cavolo nero pasta", "Tomato sauce of any kind (+meaty balls)", "Gnocchi bake", "Mac & cheese", "Chilli kidney beans", "Risotto / orzo", "curry", "chicken leek pie"],
-            "DINNER PARTY": ["Pasta Salad", "cavolo nero pasta", "chicken shawarma", "Schnitzel", "Risotto / orzo", "chicken leek pie"],
-            "R&B FAVES": ["Sausage ragú", "Carbonara", "chicken shawarma", "Tomato sauce of any kind (+meaty balls)", "Vodka pasta", "Gnocchi bake", "Schnitzel", "Spanakopita", "curry", "Chicken and rice", "chicken leek pie"],
-            "LIGHT & HEALTHY": ["cavolo nero pasta", "traybake", "Vegetable pasta (corgettes/tomatos/lemons/peas/norma)", "Schnitzel", "Cod and new potato", "Pesto chicken", "caesar salad", "Baked potato", "butter bean stew", "black bean fajitas", "Chicken and rice", "sweet potato something", "tofu stirfry", "turkey meatballs or chilli", "kale and chicken salad", "murhsroom orzo", "butter bean and leak"],
-            "LOW EFFORT": ["Chicken and rice", "Chicken and chorizo tray bake", "Tomato sauce of any kind (+meaty balls)", "Vegetable pasta (corgettes/tomatos/lemons/peas/norma)", "Vodka pasta", "Sausage and mash", "Pesto chicken", "caesar salad", "Baked potato", "butter bean stew", "black bean fajitas"],
-            "HIGH EFFORT": ["chicken shawarma", "Bolognese/lasagne", "Schnitzel", "Roast dinner", "Steak", "Chilli kidney beans", "Risotto / orzo", "Spanakopita", "turkey meatballs", "chicken leek pie"],
-            "WANT TO TRY": ["Pork belly", "pork tenderloin and salsa verde", "malaysian basa curry", "Seema 15 min laksa", "Enchiladas"],
             "OTHER": []
         };
 
@@ -465,8 +448,6 @@
                 const response = await fetch(cloudStorageUrl);
                 if (response.ok) {
                     const payload = await response.json();
-                    
-                    // Maps straight into your active 'Food options' spreadsheet configuration layout
                     if (payload.menuDatabase && Object.keys(payload.menuDatabase).length > 1) {
                         foodMenuDatabase = payload.menuDatabase;
                     }
@@ -503,7 +484,7 @@
 
         function toggleFreezerDoor() {
             const door = document.getElementById("fridge-top-door-panel");
-            door.classList.toggle("door-swung-open");
+            if(door) door.classList.toggle("door-swung-open");
         }
 
         async function saveFreezerDrawer(drawerNum) {
@@ -532,6 +513,7 @@
 
         function buildRecipeRegistryDeck() {
             const listAnchor = document.getElementById('recipe-list-tabs-anchor');
+            if(!listAnchor) return;
             listAnchor.innerHTML = '';
 
             const filteredRecipes = staticRecipeDatabase.filter(recipe => {
@@ -563,6 +545,7 @@
 
         function displayRecipeProfile(recipe) {
             const panel = document.getElementById('recipe-content-panel');
+            if(!panel) return;
             let ingHtml = recipe.ingredients.map(i => `<li>${i}</li>`).join('');
             let instHtml = recipe.instructions.map(i => `<li>${i}</li>`).join('');
 
@@ -590,7 +573,7 @@
             document.getElementById('tab-lunches').classList.toggle('active-tab', targetMode === 'lunches');
             
             const gridEl = document.getElementById('calendar-days-injector');
-            gridEl.classList.toggle('lunch-mode-grid', targetMode === 'lunches');
+            if(gridEl) gridEl.classList.toggle('lunch-mode-grid', targetMode === 'lunches');
 
             if (targetMode === 'dinners') {
                 document.getElementById('router-header-title').innerText = "Intelligent_Router: Dinner_Router.exe";
@@ -608,6 +591,7 @@
 
         function renderActiveMatrix() {
             const gridAnchor = document.getElementById('calendar-days-injector');
+            if(!gridAnchor) return;
             gridAnchor.innerHTML = '';
 
             const today = new Date();
@@ -680,6 +664,7 @@
             calculateRouterEngine();
         }
 
+        // RESTORED STABLE CELL SAVE PIPELINE OVER WATCH ROUTERS
         async function saveCellPlan(dateKey) {
             let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches;
             let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches;
@@ -694,7 +679,9 @@
         }
 
         function calculateRouterEngine() {
-            document.getElementById('container-ryan').innerHTML = '';
+            const cr = document.getElementById('container-ryan');
+            if(!cr) return;
+            cr.innerHTML = '';
             document.getElementById('container-bea').innerHTML = '';
             document.getElementById('container-both').innerHTML = '';
 
@@ -791,6 +778,7 @@
             container.appendChild(block);
         }
 
+        // RESTORED DROPDOWN TRACKING MACROS
         async function handleHeaderChange(dateKey, category) {
             let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
             selections[dateKey] = { category: category, dish: "" };
@@ -837,6 +825,7 @@
 
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
+            if(!listEl) return;
             listEl.innerHTML = '';
             appState.shoppingList.forEach((item, index) => {
                 const li = document.createElement('li');
