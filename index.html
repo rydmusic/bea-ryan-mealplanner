@@ -3,242 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cozy Watercolor Kitchen Planner</title>
+    <title>Retro OS Meal Planner</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;700&display=swap');
 
         :root {
-            --bg-watercolor: #fdfaf2;
-            --ink-black: #1a1a1a;
-            --smeg-orange: #df6d2d;
-            --corkboard-brown: #d1b48c;
-            --paper-white: #fffdf5;
+            --bg-color: #ebdccb;
+            --window-bg: #fffcf7;
+            --border-clr: #000000;
+            --accent-orange: #e15c32;
+            --accent-pink: #f2a6b4;
             --accent-blue: #3283c4;
-            --postit-yellow: #fef0a5;
+            --folder-yellow: #f5cd79;
+            --ryan-blue: #d2e4f1;
+            --bea-pink: #fcdbdc;
+            --together-purple: #e2dbfc;
+            --smeg-orange: #df6d2d;
             --freezer-blue: #d4f1f9;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Space Grotesk', sans-serif; background-color: #f4edd2; color: var(--ink-black); padding: 10px; min-height: 100vh; overflow-x: hidden; }
-
-        /* THE UNIFIED SCENERIC KITCHEN BACKGROUND (Inspired by image_b360a4.jpg) */
-        .kitchen-scene-container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: var(--bg-watercolor);
-            border: 4px solid var(--ink-black);
-            border-radius: 12px;
-            position: relative;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-            box-shadow: 8px 8px 0px rgba(0,0,0,0.15);
-            background-image: radial-gradient(rgba(0,0,0,0.02) 1px, transparent 0);
-            background-size: 16px 16px;
-        }
+        body { font-family: 'Space Grotesk', sans-serif; background-color: var(--bg-color); color: var(--border-clr); padding: 15px; min-height: 100vh; }
         
+        @media (min-width: 600px) {
+            body { padding: 30px; }
+        }
+
+        .top-nav { display: flex; justify-content: space-between; align-items: center; border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 8px 20px; box-shadow: 4px 4px 0px var(--border-clr); margin-bottom: 30px; border-radius: 4px; }
+        .nav-logo { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; }
+        @media (min-width: 600px) { .nav-logo { font-size: 1.4rem; } }
+        
+        .window-controls-dummy { display: flex; gap: 8px; }
+        .dot-control { width: 12px; height: 12px; border: 2px solid var(--border-clr); border-radius: 50%; background: white; }
+
+        .retro-window { background-color: var(--window-bg); border: 2px solid var(--border-clr); border-radius: 8px; box-shadow: 6px 6px 0px var(--border-clr); display: flex; flex-direction: column; overflow: hidden; margin-bottom: 30px; position: relative; }
+        .window-header { background-color: var(--accent-pink); border-bottom: 2px solid var(--border-clr); padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; font-family: 'Courier Prime', monospace; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
+        .window-header.blue-variant { background-color: var(--accent-blue); color: white; }
+        .window-header.orange-variant { background-color: var(--accent-orange); color: white; }
+        .window-header.yellow-variant { background-color: var(--folder-yellow); }
+        .window-header.freezer-variant { background-color: var(--smeg-orange); color: white; }
+        
+        .window-body { padding: 15px; }
+        @media (min-width: 600px) { .window-body { padding: 20px; } }
+
+        .app-tab-container { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+        .tab-switch-btn { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.85rem; padding: 6px 14px; border: 2px solid #000; background: #fff; cursor: pointer; border-radius: 4px; box-shadow: 3px 3px 0px #000; text-transform: uppercase; }
+        .tab-switch-btn.active-tab { background-color: var(--accent-blue); color: #fff; transform: translate(2px, 2px); box-shadow: 1px 1px 0px #000; }
+
+        .calendar-days-grid { display: grid; grid-template-columns: repeat(2, 1fr); border-left: 1px solid #000; border-top: 1px solid #000; background: #fff; }
+        .calendar-days-grid.lunch-mode-grid { grid-template-columns: repeat(2, 1fr); }
+
+        @media (min-width: 700px) {
+            .calendar-days-grid { grid-template-columns: repeat(4, 1fr); }
+            .calendar-days-grid.lunch-mode-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+        @media (min-width: 1000px) {
+            .calendar-days-grid { grid-template-columns: repeat(7, 1fr); }
+        }
+
+        .calendar-day-cell { border-right: 1px solid #000; border-bottom: 1px solid #000; min-height: 125px; padding: 8px; position: relative; display: flex; flex-direction: column; gap: 5px; background-color: var(--window-bg); }
+        .cell-date-num { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.85rem; display: flex; justify-content: space-between; border-bottom: 1px dashed #ccc; padding-bottom: 3px; }
+
+        .cell-event-pill { font-size: 0.72rem; padding: 1px 4px; border-radius: 3px; border: 1px solid #000; font-weight: bold; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .pill-ryan { background-color: var(--ryan-blue); }
+        .pill-bea { background-color: var(--bea-pink); }
+        .pill-both-in { background-color: var(--together-purple); border-style: dashed; }
+
+        .cell-hover-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255, 252, 247, 0.98); border: 2px solid #000; border-radius: 4px; z-index: 10; padding: 8px; display: none; flex-direction: column; gap: 5px; box-shadow: 4px 4px 0 #000; }
+        .calendar-day-cell:hover .cell-hover-overlay, .calendar-day-cell:focus-within .cell-hover-overlay { display: flex; }
+
+        .overlay-input-item { width: 100%; border: 1px solid #000; border-radius: 4px; padding: 3px 5px; font-size: 0.75rem; font-family: inherit; outline: none; }
+        .both-in-checkbox-row { display: flex; align-items: center; gap: 6px; font-family: 'Courier Prime', monospace; font-size: 0.75rem; font-weight: bold; margin-top: 2px; }
+        .both-in-checkbox-row input { width: 14px; height: 14px; cursor: pointer; }
+
+        .overlay-action-btn { width: 100%; font-family: 'Courier Prime', monospace; font-size: 0.70rem; font-weight: bold; border: 2px solid #000; background: #fff; padding: 3px 0; cursor: pointer; border-radius: 4px; box-shadow: 2px 2px 0px #000; margin-top: auto; }
+        .overlay-action-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
+
+        .desktop-layout { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 1400px; margin: 0 auto; }
         @media (min-width: 950px) {
-            .kitchen-scene-container {
-                grid-template-columns: 1.2fr 1fr;
-                padding: 40px;
-            }
+            .desktop-layout { grid-template-columns: 1.3fr 1fr; gap: 30px; }
+            .full-width { grid-column: span 2; }
         }
-
-        /* SCENIC WALL PROPS SECTION */
-        .kitchen-wall-left { display: flex; flex-direction: column; gap: 30px; justify-content: flex-start; }
-        .kitchen-wall-right { display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
-
-        /* INTERACTIVE CORKBOARD PROPS */
-        .corkboard-surface {
-            background-color: #e5c298;
-            border: 6px solid #5a3d28;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.2), 4px 4px 0px rgba(0,0,0,0.1);
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            position: relative;
-        }
-        @media (min-width: 600px) { .corkboard-surface { grid-template-columns: 1fr 1.1fr; } }
-
-        .corkboard-header { grid-column: span 1; font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.85rem; border-bottom: 2px dashed #5a3d28; padding-bottom: 4px; text-transform: uppercase; }
-        @media (min-width: 600px) { .corkboard-header { grid-column: span 2; } }
-
-        /* Pinned Paper Shopping List Note */
-        .pinned-shopping-paper {
-            background: var(--paper-white);
-            border: 2px solid var(--ink-black);
-            box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
-            padding: 15px;
-            transform: rotate(-1.5deg);
-            position: relative;
-        }
-        .pinned-shopping-paper::before {
-            content: '📌';
-            position: absolute;
-            top: -12px;
-            left: calc(50% - 10px);
-            font-size: 1.1rem;
-            z-index: 10;
-        }
-
-        .search-bar-container { display: flex; gap: 6px; margin-bottom: 12px; }
-        .kitchen-input { flex: 1; border: 2px solid var(--ink-black); border-radius: 4px; padding: 6px; font-family: 'Courier Prime', monospace; font-size: 0.85rem; background: #fff; outline: none; min-width: 0; }
-        .kitchen-btn { border: 2px solid var(--ink-black); background: #fff; padding: 0 10px; font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; cursor: pointer; border-radius: 4px; box-shadow: 2px 2px 0 var(--ink-black); }
-        .kitchen-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--ink-black); }
-
-        .shopping-list { list-style: none; display: flex; flex-direction: column; gap: 6px; max-height: 180px; overflow-y: auto; padding-right: 4px; }
-        .grocery-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: bold; background: rgba(0,0,0,0.02); padding: 4px; border-radius: 4px; }
-        .grocery-item.checked { opacity: 0.5; text-decoration: line-through; }
-        .grocery-item input { width: 14px; height: 14px; cursor: pointer; }
-        .delete-btn { margin-left: auto; background: none; border: none; font-size: 0.9rem; cursor: pointer; }
-
-        /* Dynamic Post-It Router Column */
-        .pinned-router-postit {
-            background: var(--postit-yellow);
-            border: 2px solid var(--ink-black);
-            box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
-            padding: 15px;
-            transform: rotate(2deg);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .pinned-router-postit::before {
-            content: '📌';
-            position: absolute;
-            top: -12px;
-            left: 20px;
-            font-size: 1.1rem;
-            z-index: 10;
-        }
-
-        .postit-column-segment { border-bottom: 1px dashed rgba(0,0,0,0.15); padding-bottom: 6px; }
-        .postit-column-segment:last-child { border-bottom: none; }
-        .postit-title { font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.78rem; text-transform: uppercase; color: #555; margin-bottom: 4px; display: flex; justify-content: space-between; }
-        .postit-content-box { font-size: 0.8rem; font-weight: bold; max-height: 100px; overflow-y: auto; line-height: 1.3; }
-
-        /* THE WATERCOLOR HANGING CALENDAR FRAME TILE */
-        .hanging-calendar-tile {
-            background: #fffdf5;
-            border: 5px solid var(--ink-black);
-            border-radius: 4px;
-            box-shadow: 5px 5px 0px rgba(0,0,0,0.1);
-            padding: 12px;
-            text-align: center;
-            cursor: pointer;
-            position: relative;
-            transition: transform 0.2s;
-        }
-        .hanging-calendar-tile:hover { transform: scale(1.02); }
-        .calendar-string-loop { width: 40px; height: 20px; border: 3px solid var(--ink-black); border-bottom: none; border-radius: 40px 40px 0 0; margin: -28px auto 8px auto; background: transparent; }
         
-        .mini-grid-preview { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; background: #000; padding: 2px; border-radius: 2px; margin-top: 8px; }
-        .mini-dot-cell { background: #fff; height: 12px; border-radius: 1px; }
+        .smart-dinner-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media (min-width: 750px) { .smart-dinner-grid { grid-template-columns: repeat(3, 1fr); } }
 
-        /* STANDALONE RECTANGULAR SMEG APPLIANCE LAYOUT */
-        .fridge-hardware-container { width: 100%; max-width: 360px; perspective: 1500px; padding: 10px; margin-top: 40px; }
-        .fridge-top-prop-shelf { width: 100%; display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 4px; position: relative; z-index: 5; margin-bottom: -5px; padding-left: 20px; padding-right: 20px; }
+        .smart-column { background: rgba(0, 0, 0, 0.02); border: 2px dashed var(--border-clr); border-radius: 6px; padding: 15px; min-height: 120px; }
+        .column-header-tag { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.9rem; text-align: center; padding: 6px; border: 2px solid #000; border-radius: 4px; margin-bottom: 15px; text-transform: uppercase; box-shadow: 2px 2px 0px #000; }
+        .tag-ryan { background-color: var(--ryan-blue); }
+        .tag-bea { background-color: var(--bea-pink); }
+        .tag-both { background-color: var(--together-purple); }
+
+        .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px var(--border-clr); }
+        .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
         
-        /* The Recipe Book Spine matching requests verbatim */
-        .prop-recipe-book {
-            width: 34px;
-            height: 72px;
-            background: #c24636;
-            border: 3px solid #000;
-            border-radius: 4px 2px 2px 4px;
-            cursor: pointer;
-            position: relative;
-            box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s;
+        .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+        
+        .inline-selector-row { display: flex; gap: 5px; align-items: center; width: 100%; min-width: 0; }
+        
+        .food-select-dropdown { flex: 1; border: 2px solid #000; border-radius: 4px; padding: 5px 3px; font-family: inherit; font-size: 0.75rem; background: #fff; outline: none; min-width: 0; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+        @media (min-width: 600px) { .food-select-dropdown { font-size: 0.8rem; padding: 5px; } }
+        
+        .other-text-box { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; outline: none; background: #fffdf2; }
+        
+        .dice-random-btn { background-color: #fff; border: 2px solid #000; border-radius: 4px; padding: 0; font-size: 0.85rem; cursor: pointer; box-shadow: 2px 2px 0px #000; height: 28px; width: 30px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+        .dice-random-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
+
+        /* Mobile-Friendly Saved Recipes Layout Matrix */
+        .recipe-category-tabs { display: flex; gap: 6px; margin-bottom: 15px; background: rgba(0, 0, 0, 0.04); padding: 6px; border: 2px solid #000; border-radius: 4px; flex-wrap: wrap; }
+        .recipe-cat-btn { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.75rem; border: 1px solid #000; background: #fff; padding: 6px 12px; cursor: pointer; border-radius: 3px; box-shadow: 2px 2px 0px #000; }
+        .recipe-cat-btn.active-cat-tab { background: var(--accent-blue); color: #fff; transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
+        
+        .recipe-browser-deck { display: grid; grid-template-columns: 1fr; border: 2px solid #000; background: #fff; border-radius: 4px; overflow: hidden; height: auto; }
+        @media (min-width: 750px) {
+            .recipe-browser-deck { grid-template-columns: 240px 1fr; height: 500px; }
         }
-        .prop-recipe-book:hover { transform: translateY(-3px); }
-        .book-spine-text { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.52rem; color: #fff; transform: rotate(-90deg); white-space: nowrap; letter-spacing: 0.5px; }
-
-        .prop-plant-pot { width: 40px; height: 32px; background: #1f3d4d; border: 3px solid #000; border-radius: 4px 4px 12px 12px; position: relative; z-index: 3; margin-bottom: -2px; display: flex; justify-content: center; }
-        .prop-leaves-cluster { position: absolute; top: -22px; width: 60px; height: 26px; background: #5a8f54; border: 3px solid #000; border-radius: 50% 50% 40% 40%; }
-        .prop-book-ottolenghi { width: 75px; height: 22px; background: #fae13c; border: 3px solid #000; font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.54rem; display: flex; align-items: center; justify-content: center; letter-spacing: 0.5px; }
-
-        .fridge-cabinet { display: flex; flex-direction: column; background: #be552a; border: 5px solid #000; border-radius: 45px 45px 16px 16px; padding: 16px; gap: 12px; box-shadow: 6px 6px 0px #000; width: 100%; position: relative; min-height: 560px; background-image: linear-gradient(135deg, var(--smeg-orange) 0%, #b84323 100%); }
-        .fridge-freezer-zone { flex: 1; background: #edf7fa; border: 3px solid #000; border-radius: 18px; padding: 12px; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; justify-content: center; }
         
-        .freezer-drawer { background: var(--window-bg); border: 2px solid #000; border-radius: 6px; padding: 8px; display: flex; flex-direction: column; gap: 4px; box-shadow: 1px 1px 0px rgba(0,0,0,0.1); }
-        .freezer-drawer-pullhandle { height: 6px; width: 50px; background: #000; margin: 0 auto 2px auto; border-radius: 1px; opacity: 0.6; }
-        .drawer-lbl { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.68rem; color: #4f8294; text-transform: uppercase; display: flex; justify-content: space-between; }
-        .freezer-textarea { width: 100%; height: 50px; border: 1px solid #000; border-radius: 4px; padding: 4px; font-family: inherit; font-size: 0.8rem; outline: none; resize: none; background: #fdfdfd; }
-        .freezer-save-btn { font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.65rem; text-transform: uppercase; padding: 2px 6px; border: 1px solid #000; background: var(--freezer-blue); cursor: pointer; border-radius: 4px; align-self: flex-end; }
+        .recipe-sidebar-list { border-bottom: 2px solid #000; background: rgba(0,0,0,0.02); overflow-y: auto; list-style: none; max-height: 180px; }
+        @media (min-width: 750px) {
+            .recipe-sidebar-list { border-bottom: none; border-right: 2px solid #000; max-height: none; }
+        }
+        
+        .recipe-tab-item { padding: 10px 15px; border-bottom: 1px solid #000; font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.82rem; cursor: pointer; text-transform: uppercase; line-height: 1.3; }
+        .recipe-tab-item:hover { background: rgba(0,0,0,0.05); }
+        .recipe-tab-item.active-recipe-tab { background-color: var(--accent-orange); color: white; }
+        
+        .recipe-viewer-panel { padding: 15px; overflow-y: auto; line-height: 1.6; background: #fff; }
+        @media (min-width: 750px) { .recipe-viewer-panel { padding: 25px; } }
+        
+        .recipe-meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 15px 0; font-family: 'Courier Prime', monospace; font-size: 0.75rem; font-weight: bold; }
+        .recipe-meta-tag { background: #eee; border: 1px solid #000; padding: 2px 6px; border-radius: 3px; }
+        .recipe-section-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 1rem; text-transform: uppercase; border-bottom: 2px dashed #000; margin: 18px 0 8px 0; padding-bottom: 2px; color: #000; }
+        .recipe-ingredients-list, .recipe-instructions-list { padding-left: 18px; font-size: 0.88rem; word-break: break-word; }
+        .recipe-ingredients-list li, .recipe-instructions-list li { margin-bottom: 6px; }
 
-        /* THE SINGLE DOOR SWING MECHANICS */
+        /* STANDALONE RECTANGULAR REFRIGERATOR ENCLOSURE (image_b3d845.jpg setup) */
+        .fridge-hardware-container { width: 100%; max-width: 440px; margin: 50px auto; perspective: 1500px; padding: 10px; }
+        
+        .fridge-top-prop-shelf { width: 100%; display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 4px; position: relative; z-index: 5; margin-bottom: -5px; padding-left: 30px; padding-right: 30px; }
+        .prop-bottle { width: 32px; height: 75px; background: #4a533c; border: 3px solid #000; border-radius: 6px 6px 2px 2px; position: relative; }
+        .prop-bottle::before { content: ''; position: absolute; top: -10px; left: 9px; width: 8px; height: 10px; background: #c69c6d; border: 2px solid #000; border-radius: 2px; }
+        .prop-bottle::after { content: ''; position: absolute; bottom: 10px; left: 4px; width: 18px; height: 25px; background: #fffdee; border: 2px solid #000; }
+        
+        .prop-candle-holder { display: flex; flex-direction: column; align-items: center; margin-bottom: -2px; }
+        .prop-candle-stick { width: 8px; height: 45px; background: #fffcf0; border: 2px solid #000; position: relative; }
+        .prop-candle-stick::before { content: '🔥'; position: absolute; top: -18px; left: -5px; font-size: 0.65rem; }
+        .prop-base-cup { width: 26px; height: 12px; background: #df317e; border: 2px solid #000; border-radius: 0 0 10px 10px; }
+
+        .prop-book-plant-stack { display: flex; flex-direction: column; align-items: center; }
+        .prop-plant-pot { width: 44px; height: 34px; background: #1f3d4d; border: 3px solid #000; border-radius: 4px 4px 12px 12px; position: relative; z-index: 3; margin-bottom: -2px; display: flex; justify-content: center; }
+        .prop-leaves-cluster { position: absolute; top: -25px; width: 65px; height: 28px; background: #5a8f54; border: 3px solid #000; border-radius: 50% 50% 40% 40%; }
+        .prop-book-ottolenghi { width: 75px; height: 22px; background: #fae13c; border: 3px solid #000; font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.58rem; display: flex; align-items: center; justify-content: center; letter-spacing: 0.5px; box-shadow: 2px 2px 0 rgba(0,0,0,0.15); }
+
+        .fridge-cabinet { display: flex; flex-direction: column; background: #be552a; border: 5px solid #000; border-radius: 45px 45px 16px 16px; padding: 18px; gap: 14px; box-shadow: 8px 8px 0px #000; width: 100%; position: relative; min-height: 640px; background-color: var(--smeg-orange); }
+        .fridge-freezer-zone { flex: 1; background: #edf7fa; border: 3px solid #000; border-radius: 18px; padding: 15px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; justify-content: center; }
+        
+        .freezer-drawer { background: var(--window-bg); border: 2px solid #000; border-radius: 6px; padding: 10px; display: flex; flex-direction: column; gap: 6px; box-shadow: 2px 2px 0px rgba(0,0,0,0.1); }
+        .freezer-drawer-pullhandle { height: 8px; width: 64px; background: #000; margin: 0 auto 2px auto; border-radius: 2px; opacity: 0.7; }
+        .drawer-lbl { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.72rem; color: #4f8294; text-transform: uppercase; display: flex; justify-content: space-between; }
+        .freezer-textarea { width: 100%; height: 65px; border: 2px solid #000; border-radius: 4px; padding: 6px; font-family: inherit; font-size: 0.85rem; outline: none; resize: none; background: #fdfdfd; }
+        .freezer-save-btn { font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.68rem; text-transform: uppercase; padding: 3px 10px; border: 2px solid #000; background: var(--freezer-blue); cursor: pointer; border-radius: 4px; align-self: flex-end; box-shadow: 1px 1px 0 #000; }
+
         .fridge-door-wing { position: absolute; top: 8px; left: 8px; width: calc(100% - 16px); height: calc(100% - 16px); background: var(--smeg-orange); border: 4px solid #000; border-radius: 38px 36px 12px 12px; z-index: 100; transform-origin: left center; transition: transform 1.2s cubic-bezier(0.15, 1, 0.25, 1); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; overflow: hidden; box-shadow: inset -6px -6px 0px rgba(0,0,0,0.12); padding-top: 45px; }
         .fridge-door-wing.door-swung-open { transform: rotateY(-135deg); z-index: 110; box-shadow: -15px 15px 30px rgba(0,0,0,0.3); }
+        
         .smeg-brand-badge { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 1.9rem; letter-spacing: 12px; color: #fdfdfd; text-shadow: 2px 2px 0px #000, -1px -1px 0px #c5c5c5; padding-left: 12px; margin-bottom: 35px; user-select: none; pointer-events: none; }
         .fridge-door-horizontal-handle { position: absolute; left: 15px; top: 48%; width: 95px; height: 15px; background: #bfbfbe; border: 3px solid #000; border-radius: 3px; box-shadow: 2px 3px 0px rgba(0,0,0,0.25); z-index: 105; cursor: pointer; }
+        .fridge-door-horizontal-handle::after { content: ''; position: absolute; top: 1px; left: 4%; width: 92%; height: 2px; background: #fff; opacity: 0.8; }
 
-        /* FLAT FLAT ILLUSTRATED CABINET MAGNETS */
         .magnet-item { position: absolute; border: 2px solid #000; box-shadow: 2px 2px 0px rgba(0,0,0,0.15); user-select: none; pointer-events: none; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-        .mag-lemon { top: 200px; right: 35px; width: 32px; height: 32px; background: #fff13a; border-radius: 50% 60% 50% 60%; transform: rotate(-15deg); font-size: 1rem; }
-        .mag-polaroid { top: 160px; right: 15px; width: 64px; height: 78px; background: #fffdf5; border-radius: 2px; transform: rotate(10deg); box-shadow: 2px 2px 0 #000; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 5px 5px 0 5px; }
-        .polaroid-photo-frame { width: 52px; height: 52px; border: 2px solid #000; background-image: url('image_b3be95.jpg'); background-size: cover; background-position: center; background-color: #6b5c58; }
-        .mag-croissant-note { top: 190px; left: 35px; width: 42px; height: 48px; background: #fffdec; transform: rotate(-5deg); padding: 4px; display: flex; flex-direction: column; justify-content: space-between; }
-        .mag-croissant-note::before { content: '🥐'; font-size: 0.85rem; position: absolute; top: -12px; left: 10px; }
-        .mag-croissant-note::after { content: '⚡'; font-size: 0.75rem; text-align: center; width: 100%; display: block; }
-        .mag-chili-paper { bottom: 150px; left: 20px; width: 48px; height: 36px; background: #ffffff; transform: rotate(15deg); font-family: monospace; font-size: 0.45rem; line-height: 1.2; padding: 4px; }
-        .mag-chili-paper::before { content: '🌶️'; font-size: 1rem; position: absolute; bottom: -8px; left: -14px; transform: rotate(-25deg); }
-        .mag-pink-sticky { bottom: 165px; right: 30px; width: 42px; height: 40px; background: #ff9ec4; transform: rotate(-8deg); }
-
-        /* MODAL OVERLAY ARCHITECTURES (ZOOM INTERACTIVE SYSTEM INTERFACES) */
-        .watercolor-modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(30, 25, 20, 0.75);
-            z-index: 1000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            backdrop-filter: blur(4px);
-        }
-        .modal-canvas-card {
-            background-color: var(--window-bg);
-            border: 4px solid var(--border-clr);
-            border-radius: 12px;
-            box-shadow: 8px 8px 0px var(--border-clr);
-            width: 100%;
-            max-width: 950px;
-            max-height: 90vh;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-        }
-        .modal-inner-body { padding: 15px; }
-        @media (min-width: 600px) { .modal-inner-body { padding: 25px; } }
-
-        /* RE-STYLED DYNAMIC GRID AND RECIPE CARDS INSIDE OVERLAYS */
-        .food-select-dropdown { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 4px; font-family: inherit; font-size: 0.75rem; background: #fff; outline: none; }
+        .mag-lemon { top: 220px; right: 45px; width: 34px; height: 34px; background: #fff13a; border-radius: 50% 60% 50% 60%; transform: rotate(-15deg); font-size: 1.1rem; }
         
-        .recipe-browser-deck { display: grid; grid-template-columns: 1fr; border: 2px solid #000; background: #fff; border-radius: 4px; overflow: hidden; }
-        @media (min-width: 650px) { .recipe-browser-deck { grid-template-columns: 200px 1fr; height: 450px; } }
-        .recipe-sidebar-list { background: rgba(0,0,0,0.02); overflow-y: auto; list-style: none; border-bottom: 2px solid #000; max-height: 150px; }
-        @media (min-width: 650px) { .recipe-sidebar-list { border-bottom: none; border-right: 2px solid #000; max-height: none; } }
-        .recipe-tab-item { padding: 10px; border-bottom: 1px solid #000; font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.8rem; cursor: pointer; text-transform: uppercase; }
-        .recipe-tab-item.active-recipe-tab { background-color: var(--accent-orange); color: white; }
-        .recipe-viewer-panel { padding: 15px; overflow-y: auto; line-height: 1.5; background: #fff; font-size: 0.85rem; }
-        .recipe-section-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.95rem; text-transform: uppercase; border-bottom: 2px dashed #000; margin: 15px 0 6px 0; }
-
-        .close-modal-trigger { background: var(--accent-orange); color: white; border: 2px solid #000; padding: 6px 14px; font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.85rem; cursor: pointer; border-radius: 4px; align-self: flex-end; margin-top: 15px; box-shadow: 2px 2px 0 #000; }
+        /* The Polaroid Magnet Framework Wrapper Container */
+        .mag-polaroid { top: 180px; right: 25px; width: 68px; height: 82px; background: #fffdf5; border-radius: 2px; transform: rotate(10deg); box-shadow: 2px 2px 0 #000; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 5px 5px 0 5px; }
+        .polaroid-photo-frame { width: 54px; height: 54px; border: 2px solid #000; background-size: cover; background-position: center; background-color: #6b5c58; transition: background-image 0.4s ease; }
+        
+        .mag-croissant-note { top: 210px; left: 45px; width: 45px; height: 52px; background: #fffdec; transform: rotate(-5deg); padding: 4px; display: flex; flex-direction: column; justify-content: space-between; }
+        .mag-croissant-note::before { content: '🥐'; font-size: 0.9rem; position: absolute; top: -14px; left: 10px; }
+        .mag-croissant-note::after { content: '⚡'; font-size: 0.8rem; color: #000; text-align: center; width: 100%; display: block; margin-top: 10px; }
+        .mag-chili-paper { bottom: 180px; left: 25px; width: 50px; height: 38px; background: #ffffff; transform: rotate(15deg); font-family: monospace; font-size: 0.45rem; line-height: 1.2; padding: 4px; letter-spacing: -0.5px; }
+        .mag-chili-paper::before { content: '🌶️'; font-size: 1.1rem; position: absolute; bottom: -8px; left: -16px; transform: rotate(-25deg); }
+        .mag-pink-sticky { bottom: 195px; right: 40px; width: 44px; height: 42px; background: #ff9ec4; transform: rotate(-8deg); font-size: 0.5rem; padding: 4px; font-family: monospace; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .mag-bottom-doc { bottom: 60px; left: calc(50% - 35px); width: 75px; height: 85px; background: #ebdcb5; border-radius: 2px; transform: rotate(4deg); padding: 6px; font-family: monospace; font-size: 0.45rem; line-height: 1.4; letter-spacing: -0.5px; }
+        .mag-bottom-doc::before { content: ''; position: absolute; top: -10px; left: calc(50% - 10px); width: 20px; height: 20px; background: #4a8cb2; border: 2px solid #000; border-radius: 50%; }
     </style>
 </head>
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">🎨 WATERCOLOR_KITCHEN_ROOM // v72.0_PRODUCTION</div>
+        <div class="nav-logo">💾 FOOD_OS // v73.0_POLAROID_SHUFFLER</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -246,168 +199,150 @@
         </div>
     </nav>
 
-    <!-- MAIN ILLUSTRATION CANVAS CONTAINER -->
-    <main class="kitchen-scene-container">
-        
-        <!-- LEFT WALL REGION: HANGING WATERCOLOR TILES & THE ORGANIZER CORKBOARD -->
-        <section class="kitchen-wall-left">
-            
-            <!-- Hanging Painting Frame acting as the Calendar Switch Link -->
-            <div class="hanging-calendar-tile" onclick="openSystemModal('calendar-overlay')">
-                <div class="calendar-string-loop"></div>
-                <h3 style="font-family: 'Courier Prime', monospace; font-size: 0.95rem; text-transform: uppercase;">📅 MEAL PLANNER CALENDAR</h3>
-                <p style="font-size: 0.72rem; opacity: 0.6; margin-top: 2px;">Click painting frame to view plans & add items</p>
-                <div class="mini-grid-preview">
-                    <div class="mini-dot-cell"></div><div class="mini-dot-cell"></div><div class="mini-dot-cell"></div><div class="mini-dot-cell"></div><div class="mini-dot-cell"></div><div class="mini-dot-cell"></div><div class="mini-dot-cell"></div>
-                </div>
-            </div>
+    <main class="desktop-layout">
 
-            <!-- Central Splashback Corkboard Layout -->
-            <div class="corkboard-surface">
-                <div class="corkboard-header">📌 Kitchen_Wall_Corkboard.lnk</div>
-                
-                <!-- Note Block 1: Live Interactive Grocery Sheet -->
-                <div class="pinned-shopping-paper">
-                    <h4 style="font-family: 'Courier Prime', monospace; font-size: 0.85rem; margin-bottom: 8px; border-bottom: 1px solid #000;">🛒 GROCERY LIST</h4>
-                    <div class="search-bar-container">
-                        <input type="text" id="item-input" class="kitchen-input" placeholder="Add item...">
-                        <button onclick="addItem()" class="kitchen-btn">➕</button>
-                    </div>
-                    <ul class="shopping-list" id="shopping-list"></ul>
-                </div>
-
-                <!-- Note Block 2: Intelligent Columns Router Output Post-It -->
-                <div class="pinned-router-postit">
-                    <h4 style="font-family: 'Courier Prime', monospace; font-size: 0.8rem; border-bottom: 1px dashed rgba(0,0,0,0.2); padding-bottom: 2px;">📋 NIGHTS IN STATUS</h4>
-                    
-                    <div class="postit-column-segment">
-                        <div class="postit-title"><span>👤 RYAN NIGHTS IN</span></div>
-                        <div class="postit-content-box" id="board-box-ryan">None mapped</div>
-                    </div>
-                    <div class="postit-column-segment">
-                        <div class="postit-title"><span>👤 BEA NIGHTS IN</span></div>
-                        <div class="postit-content-box" id="board-box-bea">None mapped</div>
-                    </div>
-                    <div class="postit-column-segment">
-                        <div class="postit-title"><span>👥 TOGETHER IN</span></div>
-                        <div class="postit-content-box" id="board-box-both">None mapped</div>
-                    </div>
-                </div>
-            </div>
-
-        </section>
-
-        <!-- RIGHT WALL REGION: FREESTANDING RECTANGULAR SMEG FRIDGE COMPLEX -->
-        <section class="kitchen-wall-right">
-            <div class="fridge-hardware-container">
-                
-                <!-- Top Prop Shelf featuring the Clickable Recipe Book -->
-                <div class="fridge-top-prop-shelf">
-                    <!-- Clicking this chunky book triggers the Save Recipes Database Modal Overlay -->
-                    <div class="prop-recipe-book" onclick="openSystemModal('recipes-overlay')" title="Open Recipes Catalog">
-                        <div class="book-spine-text">📖 RECIPES</div>
-                    </div>
-                    <div class="prop-book-plant-stack">
-                        <div class="prop-plant-pot"><div class="prop-leaves-cluster"></div></div>
-                        <div class="prop-book-ottolenghi">OTTOLENGHI</div>
-                    </div>
-                </div>
-
-                <!-- Tall Orange SMEG Refrigerator Body Shell -->
-                <div class="fridge-cabinet">
-                    <div class="fridge-freezer-zone">
-                        <!-- Drawer 1 -->
-                        <div class="freezer-drawer">
-                            <div class="drawer-lbl"><span>❄️ Drawer 1 (Top)</span><span id="d1-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
-                            <textarea class="freezer-textarea" id="freezer-d1-input" placeholder="Empty..."></textarea>
-                            <div class="freezer-drawer-pullhandle"></div>
-                            <button class="freezer-save-btn" onclick="saveFreezerDrawer(1)">💾 Save</button>
-                        </div>
-                        <!-- Drawer 2 -->
-                        <div class="freezer-drawer">
-                            <div class="drawer-lbl"><span>❄️ Drawer 2 (Middle)</span><span id="d2-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
-                            <textarea class="freezer-textarea" id="freezer-d2-input" placeholder="Empty..."></textarea>
-                            <div class="freezer-drawer-pullhandle"></div>
-                            <button class="freezer-save-btn" onclick="saveFreezerDrawer(2)">💾 Save</button>
-                        </div>
-                        <!-- Drawer 3 -->
-                        <div class="freezer-drawer">
-                            <div class="drawer-lbl"><span>❄️ Drawer 3 (Bottom)</span><span id="d3-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
-                            <textarea class="freezer-textarea" id="freezer-d3-input" placeholder="Empty..."></textarea>
-                            <div class="freezer-drawer-pullhandle"></div>
-                            <button class="freezer-save-btn" onclick="saveFreezerDrawer(3)">💾 Save</button>
-                        </div>
-                    </div>
-
-                    <!-- Single Main Door Overlay Wing with Custom Beach Polaroid Frame -->
-                    <div class="fridge-door-wing" id="fridge-main-door-wing" onclick="toggleFreezerDoor()">
-                        <div class="smeg-brand-badge">SMEG</div>
-                        <div class="fridge-door-horizontal-handle"></div>
-                        
-                        <!-- Pinned Magnetic Artwork Props -->
-                        <div class="magnet-item mag-lemon"></div>
-                        <div class="magnet-item mag-polaroid">
-                            <div class="polaroid-photo-frame"></div>
-                        </div>
-                        <div class="magnet-item mag-croissant-note">⚡</div>
-                        <div class="magnet-item mag-chili-paper">---<br>---</div>
-                        <div class="magnet-item mag-pink-sticky">➔</div>
-                        <div class="magnet-item mag-bottom-doc">Menu:<br>• Pies<br>• Ice</div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-    </main>
-
-    <!-- OVERLAY MODAL 1: SYSTEM ZOOM CALENDAR GRID PLANNER -->
-    <div class="watercolor-modal-overlay" id="calendar-overlay">
-        <div class="modal-canvas-card">
+        <!-- WEEK TIMELINE BOARD -->
+        <section class="retro-window full-width">
             <div class="window-header yellow-variant">
-                <span>Zoom_Matrix: Timeline_Grid_Schedules.exe</span>
-                <span onclick="closeSystemModal('calendar-overlay')" style="cursor:pointer;">✖</span>
+                <span>User_Schedule: Rolling_Timeline_Matrix.exe</span>
+                <span>✖</span>
             </div>
-            <div class="window-body modal-inner-body">
+            <div class="window-body calendar-dashboard-container">
                 <div class="app-tab-container">
                     <button id="tab-dinners" class="tab-switch-btn active-tab" onclick="switchAppMode('dinners')">[ Dinners (Full Week) ]</button>
                     <button id="tab-lunches" class="tab-switch-btn" onclick="switchAppMode('lunches')">[ Lunches (Mon-Fri) ]</button>
                 </div>
-                
-                <div class="calendar-days-grid" id="calendar-days-injector" style="margin-bottom:20px;"></div>
-                
-                <!-- Smart Cards Selector Insertion Target Inside Calendar Modal -->
-                <h3 style="font-family:'Courier Prime',monospace; font-size:0.95rem; margin-bottom:10px; border-top:2px solid #000; padding-top:15px;" id="router-header-title">Intelligent Router Dropdowns</h3>
-                <div class="smart-dinner-grid" id="modal-router-dropdowns-injector"></div>
-
-                <button class="close-modal-trigger" onclick="closeSystemModal('calendar-overlay')">Return To Kitchen Room</button>
+                <div class="calendar-days-grid" id="calendar-days-injector"></div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- OVERLAY MODAL 2: DATABASE EXPLORER RECIPES RECISTRY -->
-    <div class="watercolor-modal-overlay" id="recipes-overlay">
-        <div class="modal-canvas-card">
+        <!-- AUTOMATED ROUTER COLUMNS -->
+        <section class="retro-window full-width">
+            <div class="window-header orange-variant">
+                <span id="router-header-title">Intelligent_Router: Dinner_Router.exe</span>
+                <span>✖</span>
+            </div>
+            <div class="window-body smart-dinner-grid">
+                <div class="smart-column" id="col-ryan">
+                    <div class="column-header-tag tag-ryan" id="header-col-r">Ryan Nights In</div>
+                    <div id="container-ryan"></div>
+                </div>
+                <div class="smart-column" id="col-bea">
+                    <div class="column-header-tag tag-bea" id="header-col-b">Bea Nights In</div>
+                    <div id="container-bea"></div>
+                </div>
+                <div class="smart-column" id="col-both">
+                    <div class="column-header-tag tag-both" id="header-col-both">Nights In Together</div>
+                    <div id="container-both"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GROCERY TRACKER -->
+        <section class="retro-window full-width">
+            <div class="window-header blue-variant">
+                <span>System Error: Missing Ingredients</span>
+                <span>✖</span>
+            </div>
+            <div class="checker-banner"></div>
+            <div class="window-body">
+                <div class="search-bar-container">
+                    <input type="text" id="item-input" class="retro-input" placeholder="Search / Add item...">
+                    <button onclick="addItem()" class="retro-btn">Enter...</button>
+                </div>
+                <ul class="shopping-list" id="shopping-list"></ul>
+            </div>
+        </section>
+
+        <!-- SAVED RECIPES WINDOW -->
+        <section class="retro-window full-width" id="recipe-module-window">
             <div class="window-header orange-variant">
                 <span>Database_Explorer: Saved_Recipes.db</span>
-                <span onclick="closeSystemModal('recipes-overlay')" style="cursor:pointer;">✖</span>
+                <span>✖</span>
             </div>
-            <div class="window-body modal-inner-body">
-                <div class="recipe-category-tabs" style="display:flex; gap:6px; margin-bottom:15px; flex-wrap:wrap;">
-                    <button id="cat-tab-all" class="kitchen-btn" style="padding:6px 12px;" onclick="filterRecipeCategory('all')">ALL RECIPES</button>
-                    <button id="cat-tab-dinners" class="kitchen-btn" style="padding:6px 12px;" onclick="filterRecipeCategory('dinners')">DINNERS</button>
-                    <button id="cat-tab-breakfast" class="kitchen-btn" style="padding:6px 12px;" onclick="filterRecipeCategory('breakfast')">BREAKFAST</button>
-                    <button id="cat-tab-bakes" class="kitchen-btn" style="padding:6px 12px;" onclick="filterRecipeCategory('bakes')">BAKES</button>
+            <div class="window-body">
+                <div class="recipe-category-tabs">
+                    <button id="cat-tab-all" class="recipe-cat-btn active-cat-tab" onclick="filterRecipeCategory('all')">ALL RECIPES</button>
+                    <button id="cat-tab-dinners" class="recipe-cat-btn" onclick="filterRecipeCategory('dinners')">DINNERS</button>
+                    <button id="cat-tab-breakfast" class="recipe-cat-btn" onclick="filterRecipeCategory('breakfast')">BREAKFAST</button>
+                    <button id="cat-tab-bakes" class="recipe-cat-btn" onclick="filterRecipeCategory('bakes')">BAKES</button>
                 </div>
 
                 <div class="recipe-browser-deck">
                     <ul class="recipe-sidebar-list" id="recipe-list-tabs-anchor"></ul>
-                    <div class="recipe-viewer-panel" id="recipe-content-panel"></div>
+                    <div class="recipe-viewer-panel" id="recipe-content-panel">
+                        <p style="opacity:0.5; font-style:italic;">Select a recipe item from the system catalog list...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FREEZER INVENTORY MODULE - STANDALONE TALL RECTANGULAR APPLIANCE HULL -->
+        <div class="fridge-hardware-container full-width">
+            
+            <div class="fridge-top-prop-shelf">
+                <div class="prop-bottle" title="Wine bottle"></div>
+                <div class="prop-candle-holder">
+                    <div class="prop-candle-stick"></div>
+                    <div class="prop-base-cup"></div>
+                </div>
+                <div class="prop-book-plant-stack">
+                    <div class="prop-plant-pot">
+                        <div class="prop-leaves-cluster"></div>
+                    </div>
+                    <div class="prop-book-ottolenghi">OTTOLENGHI</div>
+                </div>
+            </div>
+
+            <div class="fridge-cabinet">
+                
+                <div class="fridge-freezer-zone">
+                    <!-- Drawer 1 -->
+                    <div class="freezer-drawer">
+                        <div class="drawer-lbl"><span>❄️ Drawer 1 (Top)</span><span id="d1-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
+                        <textarea class="freezer-textarea" id="freezer-d1-input" placeholder="Drawer 1 items..."></textarea>
+                        <div class="freezer-drawer-pullhandle"></div>
+                        <button class="freezer-save-btn" onclick="saveFreezerDrawer(1)">💾 Save</button>
+                    </div>
+
+                    <!-- Drawer 2 -->
+                    <div class="freezer-drawer">
+                        <div class="drawer-lbl"><span>❄️ Drawer 2 (Middle)</span><span id="d2-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
+                        <textarea class="freezer-textarea" id="freezer-d2-input" placeholder="Drawer 2 items..."></textarea>
+                        <div class="freezer-drawer-pullhandle"></div>
+                        <button class="freezer-save-btn" onclick="saveFreezerDrawer(2)">💾 Save</button>
+                    </div>
+
+                    <!-- Drawer 3 -->
+                    <div class="freezer-drawer">
+                        <div class="drawer-lbl"><span>❄️ Drawer 3 (Bottom)</span><span id="d3-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
+                        <textarea class="freezer-textarea" id="freezer-d3-input" placeholder="Drawer 3 items..."></textarea>
+                        <div class="freezer-drawer-pullhandle"></div>
+                        <button class="freezer-save-btn" onclick="saveFreezerDrawer(3)">💾 Save</button>
+                    </div>
                 </div>
 
-                <button class="close-modal-trigger" onclick="closeSystemModal('recipes-overlay')">Close Recipe Book</button>
+                <div class="fridge-door-wing" id="fridge-top-door-panel" onclick="toggleFreezerDoor()">
+                    <div class="smeg-brand-badge">SMEG</div>
+                    <div class="fridge-door-horizontal-handle"></div>
+                    
+                    <div class="magnet-item mag-lemon"></div>
+                    
+                    <!-- Polaroid Element: Displays your newly randomized Google Drive Photo Content live! -->
+                    <div class="magnet-item mag-polaroid">
+                        <div class="polaroid-photo-frame"></div>
+                    </div>
+                    
+                    <div class="magnet-item mag-croissant-note">⚡</div>
+                    <div class="magnet-item mag-chili-paper">---<br>---</div>
+                    <div class="magnet-item mag-pink-sticky">➔</div>
+                    <div class="magnet-item mag-bottom-doc">Menu:<br>• Peas<br>• Ice<br>• Pizza</div>
+                </div>
+
             </div>
         </div>
-    </div>
+
+    </main>
 
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -415,6 +350,38 @@
         let currentRecipeCategory = 'all';
 
         const cloudStorageUrl = "https://script.google.com/macros/s/AKfycbxzTv-Qrjsi0Fgd1S5DdBn8J0swaqIPNDOaJZXeKQ_EdsTtpS3w5MBlWAdpNhEf_82M/exec";
+
+        // THE 18 DIRECT B&R MEMORY DRIVE FILE PIPELINES
+        const ryanAndBeaPhotos = [
+            "https://drive.google.com/uc?export=view&id=1z6xx50Jr2jO-84vxG46b8bly2nBlKOrO",
+            "https://drive.google.com/uc?export=view&id=1OOg8k7bjhJTIWSaJC5Hk-pE9YCtT6b99",
+            "https://drive.google.com/uc?export=view&id=1MXFS7y0RH2AZ4OZ9xXAU6seeHlPKzf7p",
+            "https://drive.google.com/uc?export=view&id=1pqsvqO-Y2WU8hKyw6vmB6hdz5Xvbzhsg",
+            "https://drive.google.com/uc?export=view&id=1vJ717MI0I-cxGna4GQYCA8RHKMDDPRF6",
+            "https://drive.google.com/uc?export=view&id=1DSh7mVadokMnxdxqQ4yvlEL49Mrc3PR0",
+            "https://drive.google.com/uc?export=view&id=17VPsm-E9Ui9qS2ryjta89v3utOz-wb8C",
+            "https://drive.google.com/uc?export=view&id=1Owuuf9v2F0gi8_QfkctJcHYuViF3Lbzr",
+            "https://drive.google.com/uc?export=view&id=1rDg37ImkueQ8NfeLKCm1jidfgtU6odkN",
+            "https://drive.google.com/uc?export=view&id=1T9MCM6hjE8I5HCR9GHsCyJcTdv-syf-f",
+            "https://drive.google.com/uc?export=view&id=1OXs3CW-_Q3kFPQYtRjrksFswVZy_Dbb8",
+            "https://drive.google.com/uc?export=view&id=1QGkOHNV0aZdcINDrzLCiy-Sv_YKGOgAI",
+            "https://drive.google.com/uc?export=view&id=10Wrqv2gn6CsWvvHhugzud9bRWYm4uOWb",
+            "https://drive.google.com/uc?export=view&id=1xykk-5jSDg3O8NpI4DVE_5pGa9Cm3Mkh",
+            "https://drive.google.com/uc?export=view&id=1IzYFUYYEmdct69DFIUXkSNL7u7OgWxFG",
+            "https://drive.google.com/uc?export=view&id=1RhxxbCaDfRga0hvpNM6CgqM7Oycub5mh",
+            "https://drive.google.com/uc?export=view&id=1BLUrxOxFCujMq93_k16ZJEyk0TMviEM3",
+            "https://drive.google.com/uc?export=view&id=1yTdpRQnqZ-Y2XsQo-P_scHKmTmoHoXgL"
+        ];
+
+        // UNIFIED AUTOMATIC SHUFFLER CORE HOOK
+        function shuffleFridgePolaroidMemory() {
+            if (ryanAndBeaPhotos.length === 0) return;
+            const randomIndex = Math.floor(Math.random() * ryanAndBeaPhotos.length);
+            const targetElement = document.querySelector('.polaroid-photo-frame');
+            if (targetElement) {
+                targetElement.style.backgroundImage = `url('${ryanAndBeaPhotos[randomIndex]}')`;
+            }
+        }
 
         const savedRecipesDatabase = [
             {
@@ -437,7 +404,7 @@
                 cook: "20 mins",
                 servings: "4",
                 ingredients: ["250g cooked brown basmati rice", "4 shallots, peeled and finely chopped", "2 sticks of celery, finely chopped", "3 tbsp groundnut oil", "5 cloves of garlic, peeled and finely chopped", "2 red chillies, 1 finely chopped, 1 sliced", "30g bunch of coriander (stalks and leaves separated)", "2 small cucumbers (or 1/2 large), thickly sliced", "2 tbsp rice wine vinegar", "1/2 tsp runny honey or sugar", "2 tbsp toasted sesame oil", "2 tbsp plus 1 tsp soy sauce", "2 tbsp tomato purée", "1 tbsp miso paste (red or brown)", "3 tbsp kecap manis", "1 x 400g tin black beans, drained", "4 free-range or organic eggs", "Bunch of spring onions, trimmed and finely sliced", "2 unwaxed limes to serve"],
-                instructions: ["Sauté chopped shallots and celery in a tablespoon of groundnut oil for 10 minutes until soft. Add 5 cloves of chopped garlic, 1 finely chopped red chilli, and coriander stalks; fry for a couple more minutes.", "Make pickle: Mix sliced cucumber, sliced red chilli, rice wine vinegar, honey/sugar, and a pinch of salt. Set aside.", "Mix flavorings: Whisk toasted sesame oil, 1 tsp soy sauce, tomato purée, miso paste, kecap manis, and 2 tbsp soy sauce.", "Pour flavorings over the cooked veg, add drained black beans, and cook for a few minutes. Tip into a bowl.", "Put pan back over heat, add remaining groundnut oil, add cooked brown basmati rice and stir-fry for a few minutes until beginning to crisp. Tip in the black bean mixture, stir well and cook for another couple of minutes.", "Fry eggs in a separate large frying pan with a little oil. Stir sliced spring onions and coriander leaves into rice.", "Serve nasi goreng piled into bowls topped with a fried egg, cucumber pickle, and lime wedges."]
+                instructions: ["Sauté chopped shallots and celery in a tablespoon of groundnut oil for 10 minutes until soft. Add 5 cloves of chopped garlic, 1 finely chopped red chilli, and coriander stalks; fry for a couple more minutes.", "Make pickle: Mix sliced cucumber, sliced red chilli, rice wine vinegar, honey/sugar, and a pinch of salt. Set aside.", "Micro flavorings: Whisk toasted sesame oil, 1 tsp soy sauce, tomato purée, miso paste, kecap manis, and 2 tbsp soy sauce.", "Pour flavorings over the cooked veg, add drained black beans, and cook for a few minutes. Tip into a bowl.", "Put pan back over heat, add remaining groundnut oil, add cooked brown basmati rice and stir-fry for a few minutes until beginning to crisp. Tip in the black bean mixture, stir well and cook for another couple of minutes.", "Fry eggs in a separate large frying pan with a little oil. Stir sliced spring onions and coriander leaves into rice.", "Serve nasi goreng piled into bowls topped with a fried egg, cucumber pickle, and lime wedges."]
             },
             {
                 id: "butter-chicken",
@@ -480,7 +447,7 @@
                 prep: "10 mins",
                 cook: "1 hour",
                 servings: "12",
-                ingredients: ["200g sugar", "75g butter or margarine, softened", "2 eggs", "1.5 cups mashed ripe bananas (3 to 4 medium)", "80ml water", "220g all-purpose flour", "1 tsp baking soda", "1/2 tsp salt", "1/4 font-weight: powder", "1/2 cup chopped nuts"],
+                ingredients: ["200g sugar", "75g butter or margarine, softened", "2 eggs", "1.5 cups mashed ripe bananas (3 to 4 medium)", "80ml water", "220g all-purpose flour", "1 tsp baking soda", "1/2 tsp salt", "1/4 tsp baking powder", "1/2 cup chopped nuts"],
                 instructions: ["Heat oven to 175°C. Grease bottom only of loaf pan.", "Mix sugar and margarine/butter in a large bowl. Stir in eggs until blended.", "Add bananas and water; beat 30 seconds. Stir in remaining ingredients except nuts just until moistened; stir in nuts.", "Pour into pan. Bake until wooden pick inserted in center comes out clean (approx 55 to 60 minutes). Cool 5 mins before slicing."]
             }
         ];
@@ -509,17 +476,6 @@
             freezerDrawer3: ""
         };
 
-        // MODAL TOGGLER CONTEXT CONTROL
-        function openSystemModal(modalId) {
-            document.getElementById(modalId).style.display = "flex";
-            if (modalId === 'calendar-overlay') {
-                renderActiveMatrix();
-            }
-        }
-        function closeSystemModal(modalId) {
-            document.getElementById(modalId).style.display = "none";
-        }
-
         async function loadCloudState() {
             try {
                 const response = await fetch(cloudStorageUrl);
@@ -533,15 +489,17 @@
                     }
                 }
             } catch (err) {
-                console.warn("Handshake delay.");
+                console.warn("Handshake latency.");
             }
+            switchAppMode(currentMode);
             renderShoppingList();
             buildRecipeRegistryDeck();
-            calculateRouterEngine(); // Hydrates the corkboard sticky notes on load!
             
             document.getElementById('freezer-d1-input').value = appState.freezerDrawer1 || "";
             document.getElementById('freezer-d2-input').value = appState.freezerDrawer2 || "";
             document.getElementById('freezer-d3-input').value = appState.freezerDrawer3 || "";
+
+            shuffleFridgePolaroidMemory(); // Fires the Google Drive direct image shuffler loop!
         }
 
         async function saveCloudState() {
@@ -558,15 +516,86 @@
         }
 
         function toggleFreezerDoor() {
-            document.getElementById("fridge-main-door-wing").classList.toggle("door-swung-open");
+            const door = document.getElementById("fridge-top-door-panel");
+            door.classList.toggle("door-swung-open");
         }
 
         async function saveFreezerDrawer(drawerNum) {
             const statusIndicator = document.getElementById(`d${drawerNum}-sync-status`);
             statusIndicator.innerText = "⏳ Saving...";
-            appState[`freezerDrawer${drawerNum}`] = document.getElementById(`freezer-d${drawerNum}-input`).value;
+            const txtVal = document.getElementById(`freezer-d${drawerNum}-input`).value;
+            
+            if (drawerNum === 1) appState.freezerDrawer1 = txtVal;
+            if (drawerNum === 2) appState.freezerDrawer2 = txtVal;
+            if (drawerNum === 3) appState.freezerDrawer3 = txtVal;
+            
             await saveCloudState();
-            setTimeout(() => { statusIndicator.innerText = "✅ Saved!"; setTimeout(() => statusIndicator.innerText="", 2000); }, 600);
+            
+            setTimeout(() => {
+                statusIndicator.innerText = "✅ Saved!";
+                setTimeout(() => { statusIndicator.innerText = ""; }, 2000);
+            }, 800);
+        }
+
+        function filterRecipeCategory(category) {
+            currentRecipeCategory = category;
+            document.querySelectorAll('.recipe-cat-btn').forEach(btn => btn.classList.remove('active-cat-tab'));
+            document.getElementById(`cat-tab-${category}`).classList.add('active-cat-tab');
+            buildRecipeRegistryDeck();
+        }
+
+        function buildRecipeRegistryDeck() {
+            const listAnchor = document.getElementById('recipe-list-tabs-anchor');
+            listAnchor.innerHTML = '';
+
+            const filteredRecipes = savedRecipesDatabase.filter(recipe => {
+                return currentRecipeCategory === 'all' || recipe.category === currentRecipeCategory;
+            });
+
+            filteredRecipes.forEach((recipe, index) => {
+                const li = document.createElement('li');
+                li.className = `recipe-tab-item ${index === 0 ? 'active-recipe-tab' : ''}`;
+                li.innerText = recipe.title;
+                li.onclick = function() {
+                    document.querySelectorAll('.recipe-tab-item').forEach(el => el.classList.remove('active-recipe-tab'));
+                    li.classList.add('active-recipe-tab');
+                    displayRecipeProfile(recipe);
+                    
+                    if (window.innerWidth < 750) {
+                        document.getElementById('recipe-content-panel').scrollIntoView({ behavior: 'smooth' });
+                    }
+                };
+                listAnchor.appendChild(li);
+            });
+
+            if (filteredRecipes.length > 0) {
+                displayRecipeProfile(filteredRecipes[0]);
+            } else {
+                document.getElementById('recipe-content-panel').innerHTML = `<p style="opacity:0.5; font-style:italic;">No entries logged here yet...</p>`;
+            }
+        }
+
+        function displayRecipeProfile(recipe) {
+            const panel = document.getElementById('recipe-content-panel');
+            let ingHtml = recipe.ingredients.map(i => `<li>${i}</li>`).join('');
+            let instHtml = recipe.instructions.map(i => `<li>${i}</li>`).join('');
+
+            panel.innerHTML = `
+                <h3 style="font-size: 1.2rem; font-weight: bold; text-transform: uppercase;">${recipe.title}</h3>
+                <p style="font-size: 0.8rem; opacity: 0.7; margin-bottom: 4px;">Track: ${recipe.category.toUpperCase()}</p>
+                
+                <div class="recipe-meta-row">
+                    <div class="recipe-meta-tag">⏱️ Prep: ${recipe.prep}</div>
+                    <div class="recipe-meta-tag">🍳 Cook: ${recipe.cook}</div>
+                    <div class="recipe-meta-tag">👥 Serves: ${recipe.servings}</div>
+                </div>
+
+                <div class="recipe-section-title">Ingredients</div>
+                <ul class="recipe-ingredients-list">${ingHtml}</ul>
+
+                <div class="recipe-section-title">Instructions</div>
+                <ol class="recipe-instructions-list">${instHtml}</ol>
+            `;
         }
 
         function switchAppMode(targetMode) {
@@ -574,10 +603,19 @@
             document.getElementById('tab-dinners').classList.toggle('active-tab', targetMode === 'dinners');
             document.getElementById('tab-lunches').classList.toggle('active-tab', targetMode === 'lunches');
             
+            const gridEl = document.getElementById('calendar-days-injector');
+            gridEl.classList.toggle('lunch-mode-grid', targetMode === 'lunches');
+
             if (targetMode === 'dinners') {
                 document.getElementById('router-header-title').innerText = "Intelligent_Router: Dinner_Router.exe";
+                document.getElementById('header-col-r').innerText = "Ryan Nights In";
+                document.getElementById('header-col-b').innerText = "Bea Nights In";
+                document.getElementById('header-col-both').innerText = "Nights In Together";
             } else {
                 document.getElementById('router-header-title').innerText = "Intelligent_Router: Lunch_Router.exe";
+                document.getElementById('header-col-r').innerText = "Ryan In Office";
+                document.getElementById('header-col-b').innerText = "Bea In Office";
+                document.getElementById('header-col-both').innerText = "Both Home/WFH Lunches";
             }
             renderActiveMatrix();
         }
@@ -585,7 +623,9 @@
         function renderActiveMatrix() {
             const gridAnchor = document.getElementById('calendar-days-injector');
             gridAnchor.innerHTML = '';
-            const today = new Date(); today.setHours(0,0,0,0);
+
+            const today = new Date();
+            today.setHours(0,0,0,0);
 
             let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches;
             let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches;
@@ -599,11 +639,18 @@
                 if (currentMode === 'dinners' && renderedCount >= 14) break;
                 if (currentMode === 'lunches' && renderedCount >= 10) break;
 
-                const targetDay = new Date(today); targetDay.setDate(today.getDate() + i);
-                if (currentMode === 'lunches' && (targetDay.getDay() === 0 || targetDay.getDay() === 6)) continue;
+                const targetDay = new Date(today);
+                targetDay.setDate(today.getDate() + i);
+                const dayOfWeek = targetDay.getDay();
+                
+                if (currentMode === 'lunches' && (dayOfWeek === 0 || dayOfWeek === 6)) continue;
                 renderedCount++;
 
                 const dateKey = targetDay.toISOString().split('T')[0];
+                const dayNum = targetDay.getDate();
+                const dayName = shortDayNames[dayOfWeek];
+                const monthNum = targetDay.getMonth() + 1;
+
                 if (!activeRyan[dateKey]) activeRyan[dateKey] = "";
                 if (!activeBea[dateKey]) activeBea[dateKey] = "";
                 if (activeBothIn[dateKey] === undefined) activeBothIn[dateKey] = false;
@@ -611,25 +658,38 @@
                 const cell = document.createElement('div');
                 cell.className = 'calendar-day-cell';
                 
+                let rText = activeRyan[dateKey].trim();
+                let bText = activeBea[dateKey].trim();
+                let isBothIn = activeBothIn[dateKey];
+
                 let pillsHtml = "";
-                if (activeBothIn[dateKey]) pillsHtml += `<div class="cell-event-pill pill-both-in">🔒 BOTH IN</div>`;
-                else {
+                if (isBothIn) {
+                    pillsHtml += `<div class="cell-event-pill pill-both-in">🔒 BOTH IN</div>`;
+                } else {
                     let prefixR = currentMode === 'dinners' ? 'R Out' : 'R Office';
                     let prefixB = currentMode === 'dinners' ? 'B Out' : 'B Office';
-                    if (activeRyan[dateKey]) pillsHtml += `<div class="cell-event-pill pill-ryan">${prefixR}: ${activeRyan[dateKey]}</div>`;
-                    if (activeBea[dateKey]) pillsHtml += `<div class="cell-event-pill pill-bea">${prefixB}: ${activeBea[dateKey]}</div>`;
+                    if (rText) pillsHtml += `<div class="cell-event-pill pill-ryan">${prefixR}: ${rText}</div>`;
+                    if (bText) pillsHtml += `<div class="cell-event-pill pill-bea">${prefixB}: ${bText}</div>`;
                 }
+
                 if (selections[dateKey] && selections[dateKey].dish) {
                     pillsHtml += `<div class="cell-event-pill" style="background:#eefcfd;border-color:var(--accent-blue);">🍽️ ${selections[dateKey].dish}</div>`;
                 }
 
                 cell.innerHTML = `
-                    <div class="cell-date-num"><span>● ${shortDayNames[targetDay.getDay()]}</span><span>${targetDay.getDate()}/${targetDay.getMonth()+1}</span></div>
+                    <div class="cell-date-num"><span>● ${dayName}</span><span>${dayNum}/${monthNum}</span></div>
                     ${pillsHtml}
+                    
                     <div class="cell-hover-overlay">
-                        <input type="text" class="overlay-input-item" id="input-r-${dateKey}" value="${activeRyan[dateKey]}" placeholder="Ryan notes...">
-                        <input type="text" class="overlay-input-item" id="input-b-${dateKey}" value="${activeBea[dateKey]}" placeholder="Bea notes...">
-                        <div class="both-in-checkbox-row"><input type="checkbox" id="check-both-${dateKey}" ${activeBothIn[dateKey]?'checked':''}> <label>Both In</label></div>
+                        <div style="font-size:0.72rem; font-weight:bold; text-transform:uppercase;">Edit [${dayName} ${dayNum}/${monthNum}]:</div>
+                        <input type="text" class="overlay-input-item" id="input-r-${dateKey}" value="${rText}" placeholder="Ryan notes...">
+                        <input type="text" class="overlay-input-item" id="input-b-${dateKey}" value="${bText}" placeholder="Bea notes...">
+                        
+                        <div class="both-in-checkbox-row">
+                            <input type="checkbox" id="check-both-${dateKey}" ${isBothIn ? 'checked' : ''}>
+                            <label for="check-both-${dateKey}">Mark "Both In"</label>
+                        </div>
+                        
                         <button class="overlay-action-btn" onclick="saveCellPlan('${dateKey}')">Save Parameters</button>
                     </div>
                 `;
@@ -638,95 +698,69 @@
             calculateRouterEngine();
         }
 
-        async function saveCellPlan(dateKey) {
-            let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches;
-            let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches;
-            let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches;
-
-            activeRyan[dateKey] = document.getElementById(`input-r-${dateKey}`).value.trim();
-            activeBea[dateKey] = document.getElementById(`input-b-${dateKey}`).value.trim();
-            activeBothIn[dateKey] = document.getElementById(`check-both-${dateKey}`).checked;
-
-            renderActiveMatrix();
-            await saveCloudState();
-        }
-
-        // CORKBOARD SYNC ROUTER OVERRIDE HOOK
         function calculateRouterEngine() {
-            const rAnchor = document.getElementById('board-box-ryan'); rAnchor.innerHTML = '';
-            const bAnchor = document.getElementById('board-box-bea'); bAnchor.innerHTML = '';
-            const bothAnchor = document.getElementById('board-box-both'); bothAnchor.innerHTML = '';
-            
-            // Empty target holder row block inside calendar modal overlay
-            const dropInjector = document.getElementById('modal-router-dropdowns-injector');
-            dropInjector.innerHTML = '';
+            document.getElementById('container-ryan').innerHTML = '';
+            document.getElementById('container-bea').innerHTML = '';
+            document.getElementById('container-both').innerHTML = '';
 
-            const today = new Date(); today.setHours(0,0,0,0);
+            const today = new Date();
+            today.setHours(0,0,0,0);
+            
+            let counters = { ryan: 0, bea: 0, both: 0 };
+
             let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches;
             let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches;
             let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches;
             let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
 
-            let loopCount = currentMode === 'dinners' ? 14 : 20;
-            let rendered = 0;
+            let renderedCount = 0;
+            for (let i = 0; i < 20; i++) {
+                if (currentMode === 'dinners' && renderedCount >= 14) break;
+                if (currentMode === 'lunches' && renderedCount >= 10) break;
 
-            for (let i = 0; i < loopCount; i++) {
-                if (currentMode === 'dinners' && rendered >= 14) break;
-                if (currentMode === 'lunches' && rendered >= 10) break;
+                const checkDay = new Date(today);
+                checkDay.setDate(today.getDate() + i);
+                const dayOfWeek = checkDay.getDay();
+                if (currentMode === 'lunches' && (dayOfWeek === 0 || dayOfWeek === 6)) continue;
 
-                const checkDay = new Date(today); checkDay.setDate(today.getDate() + i);
-                if (currentMode === 'lunches' && (checkDay.getDay() === 0 || checkDay.getDay() === 6)) continue;
-                rendered++;
-
+                renderedCount++;
                 const dateKey = checkDay.toISOString().split('T')[0];
-                const label = `${shortDayNames[checkDay.getDay()]} ${checkDay.getDate()}/${checkDay.getMonth()+1}`;
+                const displayLabel = `${shortDayNames[checkDay.getDay()]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
 
                 const rFilled = (activeRyan[dateKey] || "").trim() !== "";
                 const bFilled = (activeBea[dateKey] || "").trim() !== "";
-                const isBoth = activeBothIn[dateKey] || false;
+                const explicitlyBothIn = activeBothIn[dateKey] || false;
 
-                let targetColumn = null;
-                if (isBoth) targetColumn = "both";
-                else if (currentMode === 'dinners') {
-                    if (rFilled && !bFilled) targetColumn = "bea"; else if (bFilled && !rFilled) targetColumn = "ryan";
+                let columnTarget = null;
+
+                if (explicitlyBothIn) {
+                    columnTarget = "both";
+                } else if (currentMode === 'dinners') {
+                    if (rFilled && !bFilled) columnTarget = "bea";
+                    else if (bFilled && !rFilled) columnTarget = "ryan";
                 } else {
-                    if (rFilled && !bFilled) targetColumn = "ryan"; else if (bFilled && !rFilled) targetColumn = "bea";
+                    if (rFilled && !bFilled) columnTarget = "ryan";
+                    else if (bFilled && !rFilled) columnTarget = "bea";
                 }
 
-                if (targetColumn) {
-                    // 1. Write small clean listings onto the corkboard yellow post-it
-                    const chosenDish = (selections[dateKey] && selections[dateKey].dish) ? `➔ ${selections[dateKey].dish}` : "⚡ Click Calendar";
-                    const p = document.createElement('div');
-                    p.style.marginBottom = "3px";
-                    p.innerHTML = `• <b>${label}</b>: <span style="font-size:0.75rem; color:var(--accent-orange);">${chosenDish}</span>`;
-                    
-                    if (targetColumn === 'ryan') rAnchor.appendChild(p);
-                    if (targetColumn === 'bea') bAnchor.appendChild(p);
-                    if (targetColumn === 'both') bothAnchor.appendChild(p);
-
-                    // 2. Build the control dropdown elements inside the zoomed modal view
-                    buildSmartCardBlock(targetColumn, dateKey, label, selections, dropInjector);
+                if (columnTarget) {
+                    counters[columnTarget]++;
+                    buildSmartCardBlock(columnTarget, dateKey, displayLabel, selections);
                 }
             }
-            if (!rAnchor.innerHTML) rAnchor.innerText = "All nights sorted!";
-            if (!bAnchor.innerHTML) bAnchor.innerText = "All nights sorted!";
-            if (!bothAnchor.innerHTML) bothAnchor.innerText = "All nights sorted!";
+            checkEmptyStates(counters);
         }
 
-        function buildSmartCardBlock(column, dateKey, label, selections, targetContainer) {
+        function buildSmartCardBlock(column, dateKey, label, selections) {
+            const container = document.getElementById(`container-${column}`);
             if (!selections[dateKey]) { selections[dateKey] = { category: "", dish: "" }; }
+
             const currentCat = selections[dateKey].category;
             const currentDish = selections[dateKey].dish;
-
             const block = document.createElement('div');
             block.className = 'smart-day-block';
-            block.style.border = "1px solid #ccc";
-            block.style.padding = "8px";
-            block.style.borderRadius = "6px";
-            block.style.marginBottom = "8px";
-            block.style.background = "#fff";
             
-            let headerOptionsHtml = `<option value="">-- Category [${column.toUpperCase()}] --</option>`;
+            let headerOptionsHtml = `<option value="">-- Category --</option>`;
             Object.keys(foodMenuDatabase).forEach(cat => {
                 headerOptionsHtml += `<option value="${cat}" ${currentCat === cat ? 'selected' : ''}>${cat}</option>`;
             });
@@ -740,97 +774,55 @@
             }
 
             block.innerHTML = `
-                <div style="font-size:0.75rem; font-weight:bold; margin-bottom:4px;">● ${label}</div>
+                <div class="smart-day-title"><span>● ${label}</span></div>
                 <div class="dropdown-stack-group">
                     <div class="inline-selector-row">
-                        <select class="food-select-dropdown" onchange="handleHeaderChange('${dateKey}', this.value)">${headerOptionsHtml}</select>
+                        <select class="food-select-dropdown" onchange="handleHeaderChange('${dateKey}', this.value)">
+                            ${headerOptionsHtml}
+                        </select>
                         <button class="dice-random-btn" onclick="rollRandomCategory('${dateKey}')">🎲</button>
                     </div>
-                    <div class="inline-selector-row" style="display: ${showOtherBox ? 'none' : 'flex'};">
-                        <select class="food-select-dropdown" id="dish-drop-${dateKey}" onchange="handleDishChange('${dateKey}', this.value)">${dishOptionsHtml}</select>
+                    
+                    <div class="inline-selector-row" id="dish-row-box-${dateKey}" style="display: ${showOtherBox ? 'none' : 'flex'};">
+                        <select class="food-select-dropdown" id="dish-drop-${dateKey}" onchange="handleDishChange('${dateKey}', this.value)">
+                            ${dishOptionsHtml}
+                        </select>
                         <button class="dice-random-btn" onclick="rollRandomDish('${dateKey}')">🎲</button>
                     </div>
+                    
+                    <input type="text" class="other-text-box" id="other-input-${dateKey}" style="display: ${showOtherBox ? 'block' : 'none'};" value="${showOtherBox ? currentDish : ''}" placeholder="Type alternative option..." oninput="handleDishChange('${dateKey}', this.value)">
                 </div>
             `;
-            targetContainer.appendChild(block);
+            container.appendChild(block);
         }
 
-        async function rollRandomCategory(dateKey) {
-            const categories = Object.keys(foodMenuDatabase).filter(cat => cat !== 'OTHER'); if (categories.length === 0) return;
-            const randomCat = categories[Math.floor(Math.random() * categories.length)];
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            selections[dateKey] = { category: randomCat, dish: "" };
-            renderActiveMatrix(); await saveCloudState();
-        }
-
-        async function rollRandomDish(dateKey) {
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            const currentCat = selections[dateKey] ? selections[dateKey].category : "";
-            if (!currentCat || currentCat === 'OTHER' || !foodMenuDatabase[currentCat] || foodMenuDatabase[currentCat].length === 0) return;
-            const randomDish = foodMenuDatabase[currentCat][Math.floor(Math.random() * foodMenuDatabase[currentCat].length)];
-            selections[dateKey].dish = randomDish;
-            renderActiveMatrix(); await saveCloudState();
-        }
-
-        async function handleHeaderChange(dateKey, category) {
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            selections[dateKey] = { category: category, dish: "" };
-            renderActiveMatrix(); await saveCloudState();
-        }
-
-        async function handleDishChange(dateKey, dishName) {
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            if (selections[dateKey]) selections[dateKey].dish = dishName;
-            calculateRouterEngine(); await saveCloudState();
+        function checkEmptyStates(counters) {
+            let tag = currentMode === 'dinners' ? 'nights sorted!' : 'days sorted!';
+            if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
+            if(counters.bea === 0) document.getElementById('container-bea').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
+            if(counters.both === 0) document.getElementById('container-both').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
         }
 
         function renderShoppingList() {
-            const listEl = document.getElementById('shopping-list'); listEl.innerHTML = '';
+            const listEl = document.getElementById('shopping-list');
+            listEl.innerHTML = '';
             appState.shoppingList.forEach((item, index) => {
                 const li = document.createElement('li');
                 li.className = `grocery-item ${item.checked ? 'checked' : ''}`;
-                li.innerHTML = `<input type="checkbox" ${item.checked?'checked':''} onclick="toggleItem(${index})"><span style="flex:1;">${item.name}</span><button class="delete-btn" onclick="deleteItem(${index})">⌫</button>`;
+                li.innerHTML = `<div class="retro-checkbox" onclick="toggleItem(${index})"></div><span class="item-text" onclick="toggleItem(${index})">${item.name}</span><button class="delete-btn" onclick="deleteItem(${index})">⌫</button>`;
                 listEl.appendChild(li);
             });
         }
 
         async function addItem() {
-            const input = document.getElementById('item-input'); const val = input.value.trim();
-            if (val) { appState.shoppingList.push({ name: val, checked: false }); input.value = ''; renderShoppingList(); await saveCloudState(); }
+            const input = document.getElementById('item-input');
+            const val = input.value.trim();
+            if (val !== '') { appState.shoppingList.push({ name: val, checked: false }); input.value = ''; renderShoppingList(); await saveCloudState(); }
         }
+
+        document.getElementById('item-input').addEventListener('keypress', function(e) { if (e.key === 'Enter') addItem(); });
         async function toggleItem(index) { appState.shoppingList[index].checked = !appState.shoppingList[index].checked; renderShoppingList(); await saveCloudState(); }
         async function deleteItem(index) { appState.shoppingList.splice(index, 1); renderShoppingList(); await saveCloudState(); }
-
-        function filterRecipeCategory(category) {
-            currentRecipeCategory = category; buildRecipeRegistryDeck();
-        }
-
-        function buildRecipeRegistryDeck() {
-            const listAnchor = document.getElementById('recipe-list-tabs-anchor'); listAnchor.innerHTML = '';
-            const filtered = savedRecipesDatabase.filter(r => currentRecipeCategory === 'all' || r.category === currentRecipeCategory);
-            filtered.forEach((recipe, index) => {
-                const li = document.createElement('li'); li.className = `recipe-tab-item ${index === 0 ? 'active-recipe-tab' : ''}`;
-                li.innerText = recipe.title;
-                li.onclick = function() {
-                    document.querySelectorAll('.recipe-tab-item').forEach(el => el.classList.remove('active-recipe-tab'));
-                    li.classList.add('active-recipe-tab');
-                    displayRecipeProfile(recipe);
-                };
-                listAnchor.appendChild(li);
-            });
-            if (filtered.length > 0) displayRecipeProfile(filtered[0]);
-        }
-
-        function displayRecipeProfile(recipe) {
-            const panel = document.getElementById('recipe-content-panel');
-            panel.innerHTML = `
-                <h4 style="font-weight:bold; font-size:1.1rem;">${recipe.title}</h4>
-                <div class="recipe-section-title">Ingredients</div>
-                <ul>${recipe.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
-                <div class="recipe-section-title">Instructions</div>
-                <ol>${recipe.instructions.map(i => `<li>${i}</li>`).join('')}</ol>
-            `;
-        }
 
         loadCloudState();
     </script>
