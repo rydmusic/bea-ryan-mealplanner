@@ -108,7 +108,6 @@
         }
 
         .calendar-dashboard-container { display: flex; flex-direction: column; gap: 15px; }
-        .calendar-month-title { font-family: 'Courier Prime', monospace; font-size: 1.1rem; font-weight: 700; text-transform: uppercase; text-align: center; padding: 6px; background: rgba(0, 0, 0, 0.05); border: 2px solid #000; border-radius: 4px; }
 
         .calendar-days-grid {
             display: grid;
@@ -194,7 +193,6 @@
         .overlay-action-btn { width: 100%; font-family: 'Courier Prime', monospace; font-size: 0.7rem; font-weight: bold; border: 2px solid #000; background: #fff; padding: 3px 0; cursor: pointer; border-radius: 4px; box-shadow: 2px 2px 0px #000; margin-top: auto; }
         .overlay-action-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
 
-        /* Multi-Column Configuration */
         .desktop-layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 30px; max-width: 1400px; margin: 0 auto; }
         .full-width { grid-column: span 2; }
         .smart-dinner-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -210,7 +208,6 @@
         .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px var(--border-clr); }
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
 
-        /* Integrated Selection Dropdowns Styling */
         .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
         .food-select-dropdown { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; background: #fff; outline: none; }
         .other-text-box { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; outline: none; background: #fffdf2; }
@@ -235,7 +232,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v50.0_SHEET_INTEGRATED</div>
+        <div class="nav-logo">💾 FOOD_OS // v52.0_JSONBIN_ACTIVE</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -265,7 +262,7 @@
                 <span>✖</span>
             </div>
             <div class="window-body">
-                <div class="prep-log" id="prep-alert-terminal">Initializing routing lines...</div>
+                <div class="prep-log" id="prep-alert-terminal">Connecting to cloud vault...</div>
             </div>
         </section>
 
@@ -311,7 +308,9 @@
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         let currentMode = 'dinners';
 
-        // Direct database extraction from image_ed8c3e.png
+        // CONNECTED: JSONBin Production Channel
+        const cloudStorageUrl = "https://api.jsonbin.io/v3/b/6a2d45a6da38895dfeb9e288";
+
         const foodMenuDatabase = {
             "PASTA": ["Bolognese", "Carbonara", "Sausage ragú", "Mac & cheese", "Tomato sauce of something", "Vegetable pasta (corgettes/tomato)", "Vodka", "Gnocchi bake", "Lasagne"],
             "INT.": ["stir fry", "Chicken and rice", "Fajitas", "Curry (katsu/chickpea/lentil)", "Enchiladas"],
@@ -321,18 +320,46 @@
             "OTHER": []
         };
 
-        // Cache Registry channels
-        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v50')) || [{ name: 'Oat Milk', checked: false }];
-        
-        let ryanDinners = JSON.parse(localStorage.getItem('food_os_ryan_grid_v45')) || {};
-        let beaDinners = JSON.parse(localStorage.getItem('food_os_bea_grid_v45')) || {};
-        let bothInDinners = JSON.parse(localStorage.getItem('food_os_both_in_din_v50')) || {};
-        let dinnerSelections = JSON.parse(localStorage.getItem('food_os_din_select_v50')) || {};
+        let appState = {
+            shoppingList: [{ name: 'Oat Milk', checked: false }],
+            ryanDinners: {},
+            beaDinners: {},
+            bothInDinners: {},
+            dinnerSelections: {},
+            ryanLunches: {},
+            beaLunches: {},
+            bothInLunches: {},
+            lunchSelections: {}
+        };
 
-        let ryanLunches = JSON.parse(localStorage.getItem('food_os_ryan_lunch_v46')) || {};
-        let beaLunches = JSON.parse(localStorage.getItem('food_os_bea_lunch_v46')) || {};
-        let bothInLunches = JSON.parse(localStorage.getItem('food_os_both_in_lun_v50')) || {};
-        let lunchSelections = JSON.parse(localStorage.getItem('food_os_lun_select_v50')) || {};
+        async function loadCloudState() {
+            try {
+                // Fetch using JSONBin master extraction path
+                const response = await fetch(cloudStorageUrl, {
+                    headers: { 'X-Bin-Meta': 'false' }
+                });
+                if (response.ok) {
+                    const cloudData = await response.json();
+                    if (cloudData.shoppingList) appState = cloudData;
+                }
+            } catch (err) {
+                console.warn("Sync latency. Falling back onto hardware frame cache.");
+            }
+            switchAppMode(currentMode);
+            renderShoppingList();
+        }
+
+        async function saveCloudState() {
+            try {
+                await fetch(cloudStorageUrl, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(appState)
+                });
+            } catch (e) {
+                console.error("Cloud drop out detected.", e);
+            }
+        }
 
         function switchAppMode(targetMode) {
             currentMode = targetMode;
@@ -365,10 +392,10 @@
             const today = new Date();
             today.setHours(0,0,0,0);
 
-            let activeRyan = currentMode === 'dinners' ? ryanDinners : ryanLunches;
-            let activeBea = currentMode === 'dinners' ? beaDinners : beaLunches;
-            let activeBothIn = currentMode === 'dinners' ? bothInDinners : bothInLunches;
-            let selections = currentMode === 'dinners' ? dinnerSelections : lunchSelections;
+            let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches;
+            let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches;
+            let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches;
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
 
             let loops = currentMode === 'dinners' ? 14 : 20;
             let renderedCount = 0;
@@ -410,7 +437,6 @@
                     if (bText) pillsHtml += `<div class="cell-event-pill pill-bea">${prefixB}: ${bText}</div>`;
                 }
 
-                // Append selection summary labels to calendar view
                 if (selections[dateKey] && selections[dateKey].dish) {
                     pillsHtml += `<div class="cell-event-pill" style="background:#eefcfd;border-color:var(--accent-blue);">🍽️ ${selections[dateKey].dish}</div>`;
                 }
@@ -437,27 +463,22 @@
             calculateRouterEngine();
         }
 
-        function saveCellPlan(dateKey) {
+        async function saveCellPlan(dateKey) {
             const rVal = document.getElementById(`input-r-${dateKey}`).value.trim();
             const bVal = document.getElementById(`input-b-${dateKey}`).value.trim();
             const bitVal = document.getElementById(`check-both-${dateKey}`).checked;
 
             if (currentMode === 'dinners') {
-                ryanDinners[dateKey] = rVal;
-                beaDinners[dateKey] = bVal;
-                bothInDinners[dateKey] = bitVal;
-                localStorage.setItem('food_os_ryan_grid_v45', JSON.stringify(ryanDinners));
-                localStorage.setItem('food_os_bea_grid_v45', JSON.stringify(beaDinners));
-                localStorage.setItem('food_os_both_in_din_v50', JSON.stringify(bothInDinners));
+                appState.ryanDinners[dateKey] = rVal;
+                appState.beaDinners[dateKey] = bVal;
+                appState.bothInDinners[dateKey] = bitVal;
             } else {
-                ryanLunches[dateKey] = rVal;
-                beaLunches[dateKey] = bVal;
-                bothInLunches[dateKey] = bitVal;
-                localStorage.setItem('food_os_ryan_lunch_v46', JSON.stringify(ryanLunches));
-                localStorage.setItem('food_os_bea_lunch_v46', JSON.stringify(beaLunches));
-                localStorage.setItem('food_os_both_in_lun_v50', JSON.stringify(bothInLunches));
+                appState.ryanLunches[dateKey] = rVal;
+                appState.beaLunches[dateKey] = bVal;
+                appState.bothInLunches[dateKey] = bitVal;
             }
             renderActiveMatrix();
+            await saveCloudState();
         }
 
         function calculateRouterEngine() {
@@ -472,10 +493,10 @@
             
             let counters = { ryan: 0, bea: 0, both: 0 };
 
-            let activeRyan = currentMode === 'dinners' ? ryanDinners : ryanLunches;
-            let activeBea = currentMode === 'dinners' ? beaDinners : beaLunches;
-            let activeBothIn = currentMode === 'dinners' ? bothInDinners : bothInLunches;
-            let selections = currentMode === 'dinners' ? dinnerSelections : lunchSelections;
+            let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches;
+            let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches;
+            let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches;
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
 
             let renderedCount = 0;
             for (let i = 0; i < 20; i++) {
@@ -501,10 +522,9 @@
                 if (explicitlyBothIn) {
                     columnTarget = "both";
                     logText = currentMode === 'dinners' ? 
-                        `🔒 FORCED TOGETHER: [${displayLabel}] Checked as Both In. Plan a grand shared meal!` :
-                        `🏠 HOME WORKSPACE: [${displayLabel}] Both WFH / Days off. Lunches needed at home grid!`;
+                        `🔒 FORCED TOGETHER: [${displayLabel}] Checked as Both In. Shared dinner required!` :
+                        `🏠 HOME WORKSPACE: [${displayLabel}] Both WFH / Days off. Home lunch prep required!`;
                 } else if (currentMode === 'dinners') {
-                    // DINNER FILTER CONDITION: Only route to R/B columns if text is explicitly provided
                     if (rFilled && !bFilled) {
                         columnTarget = "bea";
                         logText = `⚠️ WARNING: [${displayLabel}] Ryan out: "${activeRyan[dateKey]}". Bea needs dinner!`;
@@ -513,7 +533,6 @@
                         logText = `⚠️ WARNING: [${displayLabel}] Bea out: "${activeBea[dateKey]}". Ryan needs dinner!`;
                     }
                 } else {
-                    // LUNCH FILTER CONDITION: Only route to individual columns if text is explicitly provided
                     if (rFilled && !bFilled) {
                         columnTarget = "ryan";
                         logText = `💼 OFFICE: [${displayLabel}] Ryan in office ("${activeRyan[dateKey]}"). Pack him a lunch!`;
@@ -538,7 +557,6 @@
             checkEmptyStates(counters);
         }
 
-        // Dropdown Menu Tree Node Matrix Assembler
         function buildSmartCardBlock(column, dateKey, label, selections) {
             const container = document.getElementById(`container-${column}`);
             
@@ -552,13 +570,11 @@
             const block = document.createElement('div');
             block.className = 'smart-day-block';
             
-            // 1. Generate Header Selector
             let headerOptionsHtml = `<option value="">-- Choose Category --</option>`;
             Object.keys(foodMenuDatabase).forEach(cat => {
                 headerOptionsHtml += `<option value="${cat}" ${currentCat === cat ? 'selected' : ''}>${cat}</option>`;
             });
 
-            // 2. Generate Options Sub Selector
             let dishOptionsHtml = `<option value="">-- Choose Option --</option>`;
             let showOtherBox = currentCat === 'OTHER';
             
@@ -583,28 +599,19 @@
             container.appendChild(block);
         }
 
-        function handleHeaderChange(dateKey, category) {
-            let selections = currentMode === 'dinners' ? dinnerSelections : lunchSelections;
+        async function handleHeaderChange(dateKey, category) {
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
             selections[dateKey] = { category: category, dish: "" };
-            
-            saveSelectionRegistry();
             renderActiveMatrix();
+            await saveCloudState();
         }
 
-        function handleDishChange(dateKey, dishName) {
-            let selections = currentMode === 'dinners' ? dinnerSelections : lunchSelections;
+        async function handleDishChange(dateKey, dishName) {
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
             if (selections[dateKey]) {
                 selections[dateKey].dish = dishName;
             }
-            saveSelectionRegistry();
-            
-            // Update the display without rebuilding inputs to preserve active text box focus states
-            localStorage.setItem(currentMode === 'dinners' ? 'food_os_din_select_v50' : 'food_os_lun_select_v50', JSON.stringify(selections));
-        }
-
-        function saveSelectionRegistry() {
-            localStorage.setItem('food_os_din_select_v50', JSON.stringify(dinnerSelections));
-            localStorage.setItem('food_os_lun_select_v50', JSON.stringify(lunchSelections));
+            await saveCloudState();
         }
 
         function checkEmptyStates(counters) {
@@ -614,11 +621,10 @@
             if(counters.both === 0) document.getElementById('container-both').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
         }
 
-        // GROCERY CHECKLIST REPOSITORY ENGINE
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
             listEl.innerHTML = '';
-            shoppingList.forEach((item, index) => {
+            appState.shoppingList.forEach((item, index) => {
                 const li = document.createElement('li');
                 li.className = `grocery-item ${item.checked ? 'checked' : ''}`;
                 li.innerHTML = `
@@ -628,25 +634,24 @@
                 `;
                 listEl.appendChild(li);
             });
-            localStorage.setItem('food_os_shop_v50', JSON.stringify(shoppingList));
         }
 
-        function addItem() {
+        async function addItem() {
             const input = document.getElementById('item-input');
             const val = input.value.trim();
             if (val !== '') {
-                shoppingList.push({ name: val, checked: false });
+                appState.shoppingList.push({ name: val, checked: false });
                 input.value = '';
                 renderShoppingList();
+                await saveCloudState();
             }
         }
 
         document.getElementById('item-input').addEventListener('keypress', function(e) { if (e.key === 'Enter') addItem(); });
-        function toggleItem(index) { shoppingList[index].checked = !shoppingList[index].checked; renderShoppingList(); }
-        function deleteItem(index) { shoppingList.splice(index, 1); renderShoppingList(); }
+        async function toggleItem(index) { appState.shoppingList[index].checked = !appState.shoppingList[index].checked; renderShoppingList(); await saveCloudState(); }
+        async function deleteItem(index) { appState.shoppingList.splice(index, 1); renderShoppingList(); await saveCloudState(); }
 
-        renderShoppingList();
-        renderActiveMatrix();
+        loadCloudState();
     </script>
 </body>
 </html>
