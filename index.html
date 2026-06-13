@@ -98,7 +98,9 @@
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
         
         .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+        
         .inline-selector-row { display: flex; gap: 5px; align-items: center; width: 100%; min-width: 0; }
+        
         .food-select-dropdown { flex: 1; border: 2px solid #000; border-radius: 4px; padding: 5px 3px; font-family: inherit; font-size: 0.75rem; background: #fff; outline: none; min-width: 0; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
         @media (min-width: 600px) { .food-select-dropdown { font-size: 0.8rem; padding: 5px; } }
         
@@ -122,7 +124,7 @@
             .recipe-sidebar-list { border-bottom: none; border-right: 2px solid #000; max-height: none; }
         }
         
-        .recipe-tab-item { padding: 10px 15px; border-bottom: 1px solid #000; font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.82rem; cursor: pointer; text-transform: uppercase; line-height: 1.3; }
+        .recipe-tab-item { padding: 10px 15px; border-bottom: 1px solid #000; font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.82rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.3; }
         .recipe-tab-item:hover { background: rgba(0,0,0,0.05); }
         .recipe-tab-item.active-recipe-tab { background-color: var(--accent-orange); color: white; }
         
@@ -135,7 +137,7 @@
         .recipe-ingredients-list, .recipe-instructions-list { padding-left: 18px; font-size: 0.88rem; word-break: break-word; }
         .recipe-ingredients-list li, .recipe-instructions-list li { margin-bottom: 6px; }
 
-        /* RESTORED CLASSIC SHOPPING LIST INTERFACE SYSTEM STYLE SHEETS */
+        /* RESTORED DESIGN PIPELINE FOR THE GROCERY SYSTEM DISPLAY */
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
         .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 15px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; white-space: nowrap; }
@@ -185,7 +187,6 @@
         .magnet-item { position: absolute; border: 2px solid #000; box-shadow: 2px 2px 0px rgba(0,0,0,0.15); user-select: none; pointer-events: none; display: flex; align-items: center; justify-content: center; font-weight: bold; }
         .mag-lemon { top: 220px; right: 45px; width: 34px; height: 34px; background: #fff13a; border-radius: 50% 60% 50% 60%; transform: rotate(-15deg); font-size: 1.1rem; }
         
-        /* The Polaroid Magnet Framework Wrapper Container */
         .mag-polaroid { top: 180px; right: 25px; width: 68px; height: 82px; background: #fffdf5; border-radius: 2px; transform: rotate(10deg); box-shadow: 2px 2px 0 #000; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 5px 5px 0 5px; }
         .polaroid-photo-frame { width: 54px; height: 54px; border: 2px solid #000; background-size: cover; background-position: center; background-color: #6b5c58; transition: background-image 0.4s ease; }
         
@@ -202,7 +203,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v73.1_STABLE_SYNC</div>
+        <div class="nav-logo">💾 FOOD_OS // v74.0_GOOGLE_DOCS_RECIPES</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -249,7 +250,7 @@
             </div>
         </section>
 
-        <!-- RESTORED GROCERY TRACKER -->
+        <!-- GROCERY TRACKER -->
         <section class="retro-window full-width">
             <div class="window-header blue-variant">
                 <span>System Error: Missing Ingredients</span>
@@ -265,10 +266,10 @@
             </div>
         </section>
 
-        <!-- SAVED RECIPES WINDOW -->
+        <!-- SAVED RECIPES WINDOW (LIVE GOOGLE DOC STREAM LAYER) -->
         <section class="retro-window full-width" id="recipe-module-window">
             <div class="window-header orange-variant">
-                <span>Database_Explorer: Saved_Recipes.db</span>
+                <span>Database_Explorer: Live_Google_Doc_Stream.db</span>
                 <span>✖</span>
             </div>
             <div class="window-body">
@@ -280,9 +281,11 @@
                 </div>
 
                 <div class="recipe-browser-deck">
-                    <ul class="recipe-sidebar-list" id="recipe-list-tabs-anchor"></ul>
+                    <ul class="recipe-sidebar-list" id="recipe-list-tabs-anchor">
+                        <li style="padding: 15px; opacity: 0.5; font-style: italic;">Syncing...</li>
+                    </ul>
                     <div class="recipe-viewer-panel" id="recipe-content-panel">
-                        <p style="opacity:0.5; font-style:italic;">Select a recipe item from the system catalog list...</p>
+                        <p style="opacity:0.5; font-style:italic;">Initializing core stream parser matrices...</p>
                     </div>
                 </div>
             </div>
@@ -339,7 +342,6 @@
                     
                     <div class="magnet-item mag-lemon"></div>
                     
-                    <!-- Polaroid Element: Displays your newly randomized Google Drive Photo Content live! -->
                     <div class="magnet-item mag-polaroid">
                         <div class="polaroid-photo-frame"></div>
                     </div>
@@ -362,7 +364,7 @@
 
         const cloudStorageUrl = "https://script.google.com/macros/s/AKfycbxzTv-Qrjsi0Fgd1S5DdBn8J0swaqIPNDOaJZXeKQ_EdsTtpS3w5MBlWAdpNhEf_82M/exec";
 
-        // REDESIGNED STABLE HIGH-RES THUMBNAIL DIRECT-CONTENT PIPELINES
+        // THE 18 DIRECT B&R MEMORY DRIVE FILE PIPELINES
         const ryanAndBeaPhotos = [
             "https://drive.google.com/thumbnail?sz=w1000&id=1z6xx50Jr2jO-84vxG46b8bly2nBlKOrO",
             "https://drive.google.com/thumbnail?sz=w1000&id=1OOg8k7bjhJTIWSaJC5Hk-pE9YCtT6b99",
@@ -384,6 +386,10 @@
             "https://drive.google.com/thumbnail?sz=w1000&id=1yTdpRQnqZ-Y2XsQo-P_scHKmTmoHoXgL"
         ];
 
+        // TARGET ENDPOINT ACCESS TO YOUR PUBLIC USER GOOGLE DOC PLANNERS LINK
+        const googleDocId = "1ajnr03aRd2Cf5dER6lsdg46qInLviQDKWMse4TNfoMA";
+        let liveRecipesDatabase = [];
+
         function shuffleFridgePolaroidMemory() {
             if (ryanAndBeaPhotos.length === 0) return;
             const randomIndex = Math.floor(Math.random() * ryanAndBeaPhotos.length);
@@ -392,6 +398,110 @@
                 targetElement.style.backgroundImage = `url('${ryanAndBeaPhotos[randomIndex]}')`;
             }
         }
+
+        // PARSER MATRIX ENGINE: Converts plaintext structure headings into clear dataset variables
+        async function fetchGoogleDocRecipes() {
+            try {
+                const targetUrl = `https://docs.google.com/document/d/${googleDocId}/export?format=txt`;
+                const response = await fetch(targetUrl);
+                if (!response.ok) throw new Error("Doc access structural mismatch.");
+                
+                const rawText = await response.text();
+                parsePlaintextRecipes(rawText);
+            } catch (err) {
+                console.error("Docs pipeline error:", err);
+                document.getElementById('recipe-content-panel').innerHTML = `
+                    <p style="color: var(--accent-orange); font-weight: bold;">⚠️ Sync Error</p>
+                    <p style="font-size: 0.85rem; margin-top: 4px;">Make sure your Google Doc share settings are flipped to <b>"Anyone with the link can view"</b> so the site can read it!</p>
+                `;
+            }
+        }
+
+        function parsePlaintextRecipes(text) {
+            liveRecipesDatabase = [];
+            
+            // Clean lines array conversion
+            const lines = text.split('\n').map(l => l.replace('\r', '').trim());
+            let currentRecipe = null;
+            let currentSection = null;
+
+            lines.forEach(line => {
+                if (!line) return;
+
+                // Match recipe titles using common numbering syntax formats (e.g., "1. Penne with Vodka")
+                if (/^\d+\./.test(line) || line.startsWith('##')) {
+                    if (currentRecipe) liveRecipesDatabase.push(currentRecipe);
+                    
+                    const cleanTitle = line.replace(/^\d+\.\s*/, '').replace(/^##\s*/, '').trim();
+                    currentRecipe = {
+                        id: cleanTitle.toLowerCase().replace(/[^a-z0-9]/g, '-'),
+                        title: cleanTitle,
+                        category: "dinners", // Default assignment category track
+                        prep: "Checked in Doc",
+                        cook: "Checked in Doc",
+                        servings: "-",
+                        ingredients: [],
+                        instructions: []
+                    };
+                    currentSection = null;
+                    return;
+                }
+
+                if (!currentRecipe) return;
+
+                // Track categorization meta directives
+                if (line.toLowerCase().includes('category:')) {
+                    const catVal = line.split(':')[1].toLowerCase().trim();
+                    if (catVal.includes('breakfast')) currentRecipe.category = 'breakfast';
+                    else if (catVal.includes('bake')) currentRecipe.category = 'bakes';
+                    else currentRecipe.category = 'dinners';
+                    return;
+                }
+                if (line.toLowerCase().includes('prep:')) { currentRecipe.prep = line.split(':')[1].trim(); return; }
+                if (line.toLowerCase().includes('cook:')) { currentRecipe.cook = line.split(':')[1].trim(); return; }
+                if (line.toLowerCase().includes('serves:')) { currentRecipe.servings = line.split(':')[1].trim(); return; }
+
+                // Check active list anchors
+                if (line.toLowerCase() === 'ingredients') { currentSection = 'ingredients'; return; }
+                if (line.toLowerCase() === 'instructions') { currentSection = 'instructions'; return; }
+
+                // Collect list entries based on current section
+                if (currentSection === 'ingredients') {
+                    const cleanIng = line.replace(/^[\*\-•]\s*/, '').trim();
+                    currentRecipe.ingredients.push(cleanIng);
+                } else if (currentSection === 'instructions') {
+                    const cleanInst = line.replace(/^\d+[\.\)]\s*/, '').replace(/^[\*\-•]\s*/, '').trim();
+                    currentRecipe.instructions.push(cleanInst);
+                }
+            });
+
+            if (currentRecipe) liveRecipesDatabase.push(currentRecipe);
+            buildRecipeRegistryDeck();
+        }
+
+        let foodMenuDatabase = {
+            "PASTA": ["Bolognese", "Carbonara", "Sausage ragú", "Mac & cheese", "Tomato sauce of something", "Vegetable pasta (corgettes/tomato)", "Vodka", "Gnocchi bake", "Lasagne"],
+            "INT.": ["stir fry", "Chicken and rice", "Fajitas", "Curry (katsu/chickpea/lentil)", "Enchiladas"],
+            "MEAT": ["chicken shawarma", "Schnitzel", "Roast dinner", "Sausage and mash", "Chicken and chorizo stew", "Cod with breadcrumbs", "Pesto chicken", "Pork belly", "Steak"],
+            "VEGGIE": ["caesar salad", "Pasta Salad", "Halloumi something", "Chilli with beans", "Baked potato", "Mushroom risotto", "Spanakopita", "Noodle soup", "Beans"],
+            "GUILTY": ["Fish and chips", "Takeaway", "Burger", "Hot dogs", "Frozen pizza", "Freezer food picky bits"],
+            "OTHER": []
+        };
+
+        let appState = {
+            shoppingList: [{ name: 'Oat Milk', checked: false }],
+            ryanDinners: {},
+            beaDinners: {},
+            bothInDinners: {},
+            dinnerSelections: {},
+            ryanLunches: {},
+            beaLunches: {},
+            bothInLunches: {},
+            lunchSelections: {},
+            freezerDrawer1: "",
+            freezerDrawer2: "",
+            freezerDrawer3: ""
+        };
 
         async function loadCloudState() {
             try {
@@ -410,7 +520,7 @@
             }
             switchAppMode(currentMode);
             renderShoppingList();
-            buildRecipeRegistryDeck();
+            await fetchGoogleDocRecipes(); // Triggers the custom streaming process initialization loop
             
             document.getElementById('freezer-d1-input').value = appState.freezerDrawer1 || "";
             document.getElementById('freezer-d2-input').value = appState.freezerDrawer2 || "";
@@ -465,7 +575,7 @@
             const listAnchor = document.getElementById('recipe-list-tabs-anchor');
             listAnchor.innerHTML = '';
 
-            const filteredRecipes = savedRecipesDatabase.filter(recipe => {
+            const filteredRecipes = liveRecipesDatabase.filter(recipe => {
                 return currentRecipeCategory === 'all' || recipe.category === currentRecipeCategory;
             });
 
@@ -488,7 +598,7 @@
             if (filteredRecipes.length > 0) {
                 displayRecipeProfile(filteredRecipes[0]);
             } else {
-                document.getElementById('recipe-content-panel').innerHTML = `<p style="opacity:0.5; font-style:italic;">No entries logged here yet...</p>`;
+                document.getElementById('recipe-content-panel').innerHTML = `<p style="opacity:0.5; font-style:italic;">No live entries match this tag track yet...</p>`;
             }
         }
 
@@ -568,16 +678,12 @@
                 const dayName = shortDayNames[dayOfWeek];
                 const monthNum = targetDay.getMonth() + 1;
 
-                if (!activeRyan[dateKey]) activeRyan[dateKey] = "";
-                if (!activeBea[dateKey]) activeBea[dateKey] = "";
-                if (activeBothIn[dateKey] === undefined) activeBothIn[dateKey] = false;
-
                 const cell = document.createElement('div');
                 cell.className = 'calendar-day-cell';
                 
-                let rText = activeRyan[dateKey].trim();
-                let bText = activeBea[dateKey].trim();
-                let isBothIn = activeBothIn[dateKey];
+                let rText = (activeRyan[dateKey] || "").trim();
+                let bText = (activeBea[dateKey] || "").trim();
+                let isBothIn = activeBothIn[dateKey] || false;
 
                 let pillsHtml = "";
                 if (isBothIn) {
@@ -613,6 +719,19 @@
                 gridAnchor.appendChild(cell);
             }
             calculateRouterEngine();
+        }
+
+        async function saveCellPlan(dateKey) {
+            let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches;
+            let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches;
+            let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches;
+
+            activeRyan[dateKey] = document.getElementById(`input-r-${dateKey}`).value.trim();
+            activeBea[dateKey] = document.getElementById(`input-b-${dateKey}`).value.trim();
+            activeBothIn[dateKey] = document.getElementById(`check-both-${dateKey}`).checked;
+
+            renderActiveMatrix();
+            await saveCloudState();
         }
 
         function calculateRouterEngine() {
@@ -720,7 +839,6 @@
             if(counters.both === 0) document.getElementById('container-both').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
         }
 
-        // RESTORED DESIGN PIPELINE FOR THE GROCERY SYSTEM DISPLAY
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
             listEl.innerHTML = '';
