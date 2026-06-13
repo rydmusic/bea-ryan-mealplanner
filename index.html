@@ -92,9 +92,16 @@
 
         .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px var(--border-clr); }
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
+        
+        /* Layout Grid for Dropdowns + Dice Randomizer Buttons */
         .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
-        .food-select-dropdown { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; background: #fff; outline: none; }
+        .inline-selector-row { display: flex; gap: 6px; align-items: center; width: 100%; }
+        .food-select-dropdown { flex: 1; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; background: #fff; outline: none; min-width: 0; }
         .other-text-box { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; outline: none; background: #fffdf2; }
+        
+        /* Mini Dice Action Buttons */
+        .dice-random-btn { background-color: #fff; border: 2px solid #000; border-radius: 4px; padding: 4px 8px; font-family: 'Courier Prime', monospace; font-size: 0.72rem; font-weight: bold; cursor: pointer; box-shadow: 2px 2px 0px #000; white-space: nowrap; height: 30px; display: flex; align-items: center; justify-content: center; }
+        .dice-random-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
 
         /* Mobile-Friendly Saved Recipes Layout Matrix */
         .recipe-category-tabs { display: flex; gap: 6px; margin-bottom: 15px; background: rgba(0, 0, 0, 0.04); padding: 6px; border: 2px solid #000; border-radius: 4px; flex-wrap: wrap; }
@@ -141,7 +148,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v69.2_STABLE_FALLBACK</div>
+        <div class="nav-logo">💾 FOOD_OS // v69.3_RANDOMIZER_UPGRADE</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -166,7 +173,7 @@
             </div>
         </section>
 
-        <!-- AUTOMATED ROUTER COLUMNS -->
+        <!-- AUTOMATED ROUTER COLUMNS WITH ACTIVE RANDOMIZERS -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span id="router-header-title">Intelligent_Router: Dinner_Router.exe</span>
@@ -432,7 +439,7 @@
             }
         ];
 
-        // SAFE ACTIVE AUTOMATIC FALLBACK BUILT IN TO PREVENT EMPTY DROPDOWNS
+        // Active automatic memory fallback dictionary
         let foodMenuDatabase = {
             "PASTA": ["Bolognese", "Carbonara", "Sausage ragú", "Mac & cheese", "Tomato sauce of something", "Vegetable pasta (corgettes/tomato)", "Vodka", "Gnocchi bake", "Lasagne"],
             "INT.": ["stir fry", "Chicken and rice", "Fajitas", "Curry (katsu/chickpea/lentil)", "Enchiladas"],
@@ -459,8 +466,6 @@
                 const response = await fetch(cloudStorageUrl);
                 if (response.ok) {
                     const payload = await response.json();
-                    
-                    // Seamless load: overwrite local storage parameters if Google provides data arrays!
                     if (payload.menuDatabase && Object.keys(payload.menuDatabase).length > 1) {
                         foodMenuDatabase = payload.menuDatabase;
                     }
@@ -730,12 +735,12 @@
             const block = document.createElement('div');
             block.className = 'smart-day-block';
             
-            let headerOptionsHtml = `<option value="">-- Choose Category --</option>`;
+            let headerOptionsHtml = `<option value="">-- Category --</option>`;
             Object.keys(foodMenuDatabase).forEach(cat => {
                 headerOptionsHtml += `<option value="${cat}" ${currentCat === cat ? 'selected' : ''}>${cat}</option>`;
             });
 
-            let dishOptionsHtml = `<option value="">-- Choose Option --</option>`;
+            let dishOptionsHtml = `<option value="">-- Option --</option>`;
             let showOtherBox = currentCat === 'OTHER';
             if (currentCat && currentCat !== 'OTHER' && foodMenuDatabase[currentCat]) {
                 foodMenuDatabase[currentCat].forEach(dish => {
@@ -744,18 +749,63 @@
             }
 
             block.innerHTML = `
-                <div class="smart-day-title">● ${label}</div>
+                <div class="smart-day-title"><span>● ${label}</span></div>
                 <div class="dropdown-stack-group">
-                    <select class="food-select-dropdown" onchange="handleHeaderChange('${dateKey}', this.value)">
-                        ${headerOptionsHtml}
-                    </select>
-                    <select class="food-select-dropdown" id="dish-drop-${dateKey}" style="display: ${showOtherBox ? 'none' : 'block'};" onchange="handleDishChange('${dateKey}', this.value)">
-                        ${dishOptionsHtml}
-                    </select>
+                    
+                    <!-- Row 1: Category Dropdown + Dice Button -->
+                    <div class="inline-selector-row">
+                        <select class="food-select-dropdown" onchange="handleHeaderChange('${dateKey}', this.value)">
+                            ${headerOptionsHtml}
+                        </select>
+                        <button class="dice-random-btn" onclick="rollRandomCategory('${dateKey}')" title="Randomize Category">🎲 Cat</button>
+                    </div>
+                    
+                    <!-- Row 2: Options Dropdown + Dice Button -->
+                    <div class="inline-selector-row" id="dish-row-box-${dateKey}" style="display: ${showOtherBox ? 'none' : 'flex'};">
+                        <select class="food-select-dropdown" id="dish-drop-${dateKey}" onchange="handleDishChange('${dateKey}', this.value)">
+                            ${dishOptionsHtml}
+                        </select>
+                        <button class="dice-random-btn" onclick="rollRandomDish('${dateKey}')" title="Randomize Dish">🎲 Dish</button>
+                    </div>
+                    
                     <input type="text" class="other-text-box" id="other-input-${dateKey}" style="display: ${showOtherBox ? 'block' : 'none'};" value="${showOtherBox ? currentDish : ''}" placeholder="Type alternative option..." oninput="handleDishChange('${dateKey}', this.value)">
                 </div>
             `;
             container.appendChild(block);
+        }
+
+        // RANDOMIZER ENGINE FUNCTION 1: Picks a random column header from your Google Sheet
+        async function rollRandomCategory(dateKey) {
+            const categories = Object.keys(foodMenuDatabase).filter(cat => cat !== 'OTHER');
+            if (categories.length === 0) return;
+            
+            const randomCat = categories[Math.floor(Math.random() * categories.length)];
+            
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            selections[dateKey] = { category: randomCat, dish: "" };
+            
+            // Re-render display layout and transmit data straight to cell A2
+            renderActiveMatrix();
+            await saveCloudState();
+        }
+
+        // RANDOMIZER ENGINE FUNCTION 2: Rolls a random option inside the currently active category selection
+        async function rollRandomDish(dateKey) {
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            const currentCat = selections[dateKey] ? selections[dateKey].category : "";
+            
+            if (!currentCat || currentCat === 'OTHER' || !foodMenuDatabase[currentCat] || foodMenuDatabase[currentCat].length === 0) {
+                alert("Please select a valid category column first before rolling a dish!");
+                return;
+            }
+            
+            const optionsList = foodMenuDatabase[currentCat];
+            const randomDish = optionsList[Math.floor(Math.random() * optionsList.length)];
+            
+            selections[dateKey].dish = randomDish;
+            
+            renderActiveMatrix();
+            await saveCloudState();
         }
 
         async function handleHeaderChange(dateKey, category) {
