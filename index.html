@@ -95,13 +95,10 @@
         .tag-both { background-color: var(--together-purple); }
 
         .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px var(--border-clr); }
-        .smart-day-block select { margin-bottom: 4px; }
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
         
         .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
-        
         .inline-selector-row { display: flex; gap: 5px; align-items: center; width: 100%; min-width: 0; }
-        
         .food-select-dropdown { flex: 1; border: 2px solid #000; border-radius: 4px; padding: 5px 3px; font-family: inherit; font-size: 0.75rem; background: #fff; outline: none; min-width: 0; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
         @media (min-width: 600px) { .food-select-dropdown { font-size: 0.8rem; padding: 5px; } }
         
@@ -110,7 +107,7 @@
         .dice-random-btn { background-color: #fff; border: 2px solid #000; border-radius: 4px; padding: 0; font-size: 0.85rem; cursor: pointer; box-shadow: 2px 2px 0px #000; height: 28px; width: 30px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
         .dice-random-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
 
-        /* Mobile-Friendly Saved Recipes Layout Matrix */
+        /* Saved Recipes Layout System */
         .recipe-category-tabs { display: flex; gap: 6px; margin-bottom: 15px; background: rgba(0, 0, 0, 0.04); padding: 6px; border: 2px solid #000; border-radius: 4px; flex-wrap: wrap; }
         .recipe-cat-btn { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.75rem; border: 1px solid #000; background: #fff; padding: 6px 12px; cursor: pointer; border-radius: 3px; box-shadow: 2px 2px 0px #000; }
         .recipe-cat-btn.active-cat-tab { background: var(--accent-blue); color: #fff; transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
@@ -138,7 +135,7 @@
         .recipe-ingredients-list, .recipe-instructions-list { padding-left: 18px; font-size: 0.88rem; word-break: break-word; }
         .recipe-ingredients-list li, .recipe-instructions-list li { margin-bottom: 6px; }
 
-        /* GROCERY SYSTEM VISUAL COMPONENTS */
+        /* GROCERY SYSTEM DISPLAY STYLING */
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
         .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 15px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; white-space: nowrap; }
@@ -152,7 +149,7 @@
         .delete-btn { background: none; border: none; font-family: monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; padding: 0 5px; }
         .checker-banner { height: 16px; background-image: linear-gradient(45deg, #000 25%, transparent 25%), linear-gradient(-45deg, #000 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #000 75%), linear-gradient(-45deg, transparent 75%, #000 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; background-color: var(--accent-blue); border-bottom: 2px solid var(--border-clr); }
 
-        /* IMAGE_B3D845.JPG STANDALONE RECTANGULAR REFRIGERATOR ENCLOSURE */
+        /* IMAGE_B3D845.JPG APPLIANCE ENCLOSURE STYLINGS */
         .fridge-hardware-container { width: 100%; max-width: 440px; margin: 50px auto; perspective: 1500px; padding: 10px; }
         .fridge-top-prop-shelf { width: 100%; display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 4px; position: relative; z-index: 5; margin-bottom: -5px; padding-left: 30px; padding-right: 30px; }
         .prop-bottle { width: 32px; height: 75px; background: #4a533c; border: 3px solid #000; border-radius: 6px 6px 2px 2px; position: relative; }
@@ -204,7 +201,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v74.1_TAB_CATEGORY_FIX</div>
+        <div class="nav-logo">💾 FOOD_OS // v74.2_STABLE_SCANNER</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -267,10 +264,10 @@
             </div>
         </section>
 
-        <!-- SAVED RECIPES WINDOW (LIVE GOOGLE DOC TAB FILTER SYSTEM) -->
+        <!-- SAVED RECIPES WINDOW (LIVE RE-ENGINEERED SCROLLING PARSER) -->
         <section class="retro-window full-width" id="recipe-module-window">
             <div class="window-header orange-variant">
-                <span>Database_Explorer: Tab_Category_Router.db</span>
+                <span>Database_Explorer: Numbered_List_Stream.db</span>
                 <span>✖</span>
             </div>
             <div class="window-body">
@@ -283,18 +280,17 @@
 
                 <div class="recipe-browser-deck">
                     <ul class="recipe-sidebar-list" id="recipe-list-tabs-anchor">
-                        <li style="padding: 15px; opacity: 0.5; font-style: italic;">Parsing Google Tabs...</li>
+                        <li style="padding: 15px; opacity: 0.5; font-style: italic;">Parsing text rows...</li>
                     </ul>
                     <div class="recipe-viewer-panel" id="recipe-content-panel">
-                        <p style="opacity:0.5; font-style:italic;">Initializing tab scanning algorithms...</p>
+                        <p style="opacity:0.5; font-style:italic;">Initializing single-page lookup engine...</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- FREEZER INVENTORY MODULE - STANDALONE TALL RECTANGULAR APPLIANCE HULL -->
+        <!-- FREEZER INVENTORY MODULE -->
         <div class="fridge-hardware-container full-width">
-            
             <div class="fridge-top-prop-shelf">
                 <div class="prop-bottle" title="Wine bottle"></div>
                 <div class="prop-candle-holder">
@@ -310,7 +306,6 @@
             </div>
 
             <div class="fridge-cabinet">
-                
                 <div class="fridge-freezer-zone">
                     <!-- Drawer 1 -->
                     <div class="freezer-drawer">
@@ -319,7 +314,6 @@
                         <div class="freezer-drawer-pullhandle"></div>
                         <button class="freezer-save-btn" onclick="saveFreezerDrawer(1)">💾 Save</button>
                     </div>
-
                     <!-- Drawer 2 -->
                     <div class="freezer-drawer">
                         <div class="drawer-lbl"><span>❄️ Drawer 2 (Middle)</span><span id="d2-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
@@ -327,7 +321,6 @@
                         <div class="freezer-drawer-pullhandle"></div>
                         <button class="freezer-save-btn" onclick="saveFreezerDrawer(2)">💾 Save</button>
                     </div>
-
                     <!-- Drawer 3 -->
                     <div class="freezer-drawer">
                         <div class="drawer-lbl"><span>❄️ Drawer 3 (Bottom)</span><span id="d3-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
@@ -342,17 +335,14 @@
                     <div class="fridge-door-horizontal-handle"></div>
                     
                     <div class="magnet-item mag-lemon"></div>
-                    
                     <div class="magnet-item mag-polaroid">
                         <div class="polaroid-photo-frame"></div>
                     </div>
-                    
                     <div class="magnet-item mag-croissant-note">⚡</div>
                     <div class="magnet-item mag-chili-paper">---<br>---</div>
                     <div class="magnet-item mag-pink-sticky">➔</div>
                     <div class="magnet-item mag-bottom-doc">Menu:<br>• Peas<br>• Ice<br>• Pizza</div>
                 </div>
-
             </div>
         </div>
 
@@ -398,7 +388,6 @@
             }
         }
 
-        // UPGRADED STABLE SEPARATE DOCUMENT TAB SCANNER LOGIC
         async function fetchGoogleDocRecipes() {
             try {
                 const targetUrl = `https://docs.google.com/document/d/${googleDocId}/export?format=txt`;
@@ -406,17 +395,18 @@
                 if (!response.ok) throw new Error("Document link stream timeout.");
                 
                 const rawText = await response.text();
-                parseTabbedDocumentText(rawText);
+                parseSinglePageDocumentText(rawText);
             } catch (err) {
                 console.error("Docs sync breakdown:", err);
                 document.getElementById('recipe-content-panel').innerHTML = `
                     <p style="color: var(--accent-orange); font-weight: bold;">⚠️ Sync Error</p>
-                    <p style="font-size: 0.85rem; margin-top: 4px;">Verify the Google Doc's share settings are set to <b>"Anyone with the link can view"</b> so it bypasses firewall controls!</p>
+                    <p style="font-size: 0.85rem; margin-top: 4px;">Verify the Google Doc's share settings are set to <b>"Anyone with the link can view"</b>.</p>
                 `;
             }
         }
 
-        function parseTabbedDocumentText(text) {
+        // COZY RE-ENGINEERED SCROLLING TEXT LINE MATCH MATRIX (image_a87b1f.png style)
+        function parseSinglePageDocumentText(text) {
             liveRecipesDatabase = [];
             const lines = text.split('\n').map(l => l.replace('\r', '').trim());
             
@@ -426,33 +416,28 @@
             lines.forEach(line => {
                 if (!line) return;
 
-                // Tab detection trigger points: Any prominent header title line captures a separate tab start
-                if (line.endsWith('Tomatoes') || line.endsWith('Goreng') || line.endsWith('Curry') || line.endsWith('Pie') || line.endsWith('Pancakes') || line.endsWith('Bread') || line.startsWith('##') || /^[A-Z][a-z]+(\s[A-Z][a-z]+){2,5}$/.test(line)) {
-                    // Check if line looks like an ingredient or instruction label instead of a clean title header
-                    if (line.toLowerCase() === 'ingredients' || line.toLowerCase() === 'instructions' || line.toLowerCase().includes('category:')) {
-                        // Skip flag trigger override
-                    } else {
-                        if (currentRecipe) liveRecipesDatabase.push(currentRecipe);
-                        
-                        const cleanTitle = line.replace(/^##\s*/, '').trim();
-                        currentRecipe = {
-                            id: cleanTitle.toLowerCase().replace(/[^a-z0-9]/g, '-'),
-                            title: cleanTitle,
-                            category: "dinners", // Default safety fallback category
-                            prep: "Checked in Doc",
-                            cook: "Checked in Doc",
-                            servings: "-",
-                            ingredients: [],
-                            instructions: []
-                        };
-                        currentSection = null;
-                        return;
-                    }
+                // Match numbered headings starting with integers exactly as shown in image_a87b1f.png
+                if (/^\d+[\.\)]/.test(line)) {
+                    if (currentRecipe) liveRecipesDatabase.push(currentRecipe);
+                    
+                    const cleanTitle = line.replace(/^\d+[\.\)]\s*/, '').trim();
+                    currentRecipe = {
+                        id: cleanTitle.toLowerCase().replace(/[^a-z0-9]/g, '-'),
+                        title: cleanTitle,
+                        category: "dinners",
+                        prep: "Checked in Doc",
+                        cook: "Checked in Doc",
+                        servings: "-",
+                        ingredients: [],
+                        instructions: []
+                    };
+                    currentSection = null;
+                    return;
                 }
 
                 if (!currentRecipe) return;
 
-                // Explicit strict matching for "Category:" lines as requested verbatim
+                // Category line router
                 if (line.toLowerCase().startsWith('category:')) {
                     const catValue = line.split(':')[1].toLowerCase().trim();
                     if (catValue.includes('breakfast')) {
@@ -465,16 +450,13 @@
                     return;
                 }
 
-                // Metadata parser checks
                 if (line.toLowerCase().startsWith('prep time:')) { currentRecipe.prep = line.split(':')[1].trim(); return; }
                 if (line.toLowerCase().startsWith('cook time:')) { currentRecipe.cook = line.split(':')[1].trim(); return; }
                 if (line.toLowerCase().startsWith('servings:')) { currentRecipe.servings = line.split(':')[1].trim(); return; }
 
-                // Structural switch checks
                 if (line.toLowerCase() === 'ingredients') { currentSection = 'ingredients'; return; }
                 if (line.toLowerCase() === 'instructions') { currentSection = 'instructions'; return; }
 
-                // Collect elements
                 if (currentSection === 'ingredients') {
                     const parsedIng = line.replace(/^[\*\-•]\s*/, '').trim();
                     currentRecipe.ingredients.push(parsedIng);
@@ -607,7 +589,7 @@
             if (filteredRecipes.length > 0) {
                 displayRecipeProfile(filteredRecipes[0]);
             } else {
-                document.getElementById('recipe-content-panel').innerHTML = `<p style="opacity:0.5; font-style:italic;">No live document tab data matches this category tag tracking node yet...</p>`;
+                document.getElementById('recipe-content-panel').innerHTML = `<p style="opacity:0.5; font-style:italic;">No live document lines match this specific category yet...</p>`;
             }
         }
 
