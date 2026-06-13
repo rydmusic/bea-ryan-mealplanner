@@ -107,7 +107,6 @@
         .dice-random-btn { background-color: #fff; border: 2px solid #000; border-radius: 4px; padding: 0; font-size: 0.85rem; cursor: pointer; box-shadow: 2px 2px 0px #000; height: 28px; width: 30px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
         .dice-random-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
 
-        /* Mobile-Friendly Saved Recipes Layout Matrix */
         .recipe-category-tabs { display: flex; gap: 6px; margin-bottom: 15px; background: rgba(0, 0, 0, 0.04); padding: 6px; border: 2px solid #000; border-radius: 4px; flex-wrap: wrap; }
         .recipe-cat-btn { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.75rem; border: 1px solid #000; background: #fff; padding: 6px 12px; cursor: pointer; border-radius: 3px; box-shadow: 2px 2px 0px #000; }
         .recipe-cat-btn.active-cat-tab { background: var(--accent-blue); color: #fff; transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
@@ -135,7 +134,6 @@
         .recipe-ingredients-list, .recipe-instructions-list { padding-left: 18px; font-size: 0.88rem; word-break: break-word; }
         .recipe-ingredients-list li, .recipe-instructions-list li { margin-bottom: 6px; }
 
-        /* CLASSIC SHOPPING LIST INTERFACE SYSTEM STYLE SHEETS */
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
         .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 15px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; white-space: nowrap; }
@@ -149,7 +147,6 @@
         .delete-btn { background: none; border: none; font-family: monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; padding: 0 5px; }
         .checker-banner { height: 16px; background-image: linear-gradient(45deg, #000 25%, transparent 25%), linear-gradient(-45deg, #000 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #000 75%), linear-gradient(-45deg, transparent 75%, #000 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; background-color: var(--accent-blue); border-bottom: 2px solid var(--border-clr); }
 
-        /* IMAGE_B3D845.JPG APPLIANCE CABINET STYLINGS */
         .fridge-hardware-container { width: 100%; max-width: 440px; margin: 50px auto; perspective: 1500px; padding: 10px; }
         .fridge-top-prop-shelf { width: 100%; display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 4px; position: relative; z-index: 5; margin-bottom: -5px; padding-left: 30px; padding-right: 30px; }
         .prop-bottle { width: 32px; height: 75px; background: #4a533c; border: 3px solid #000; border-radius: 6px 6px 2px 2px; position: relative; }
@@ -201,7 +198,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v74.3_STABLE_RESTORED</div>
+        <div class="nav-logo">💾 FOOD_OS // v74.4_STABLE_CORS_FIX</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -211,6 +208,7 @@
 
     <main class="desktop-layout">
 
+        <!-- WEEK TIMELINE BOARD -->
         <section class="retro-window full-width">
             <div class="window-header yellow-variant">
                 <span>User_Schedule: Rolling_Timeline_Matrix.exe</span>
@@ -225,6 +223,7 @@
             </div>
         </section>
 
+        <!-- AUTOMATED ROUTER COLUMNS -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span>Intelligent_Router: Dinner_Router.exe</span>
@@ -246,6 +245,7 @@
             </div>
         </section>
 
+        <!-- GROCERY TRACKER -->
         <section class="retro-window full-width">
             <div class="window-header blue-variant">
                 <span>System Error: Missing Ingredients</span>
@@ -261,6 +261,7 @@
             </div>
         </section>
 
+        <!-- SAVED RECIPES WINDOW -->
         <section class="retro-window full-width" id="recipe-module-window">
             <div class="window-header orange-variant">
                 <span>Database_Explorer: Integrated_Recipes.db</span>
@@ -283,6 +284,7 @@
             </div>
         </section>
 
+        <!-- FREEZER INVENTORY MODULE -->
         <div class="fridge-hardware-container full-width">
             <div class="fridge-top-prop-shelf">
                 <div class="prop-bottle" title="Wine bottle"></div>
@@ -300,18 +302,21 @@
 
             <div class="fridge-cabinet">
                 <div class="fridge-freezer-zone">
+                    <!-- Drawer 1 -->
                     <div class="freezer-drawer">
                         <div class="drawer-lbl"><span>❄️ Drawer 1 (Top)</span><span id="d1-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
                         <textarea class="freezer-textarea" id="freezer-d1-input" placeholder="Drawer 1 items..."></textarea>
                         <div class="freezer-drawer-pullhandle"></div>
                         <button class="freezer-save-btn" onclick="saveFreezerDrawer(1)">💾 Save</button>
                     </div>
+                    <!-- Drawer 2 -->
                     <div class="freezer-drawer">
                         <div class="drawer-lbl"><span>❄️ Drawer 2 (Middle)</span><span id="d2-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
                         <textarea class="freezer-textarea" id="freezer-d2-input" placeholder="Drawer 2 items..."></textarea>
                         <div class="freezer-drawer-pullhandle"></div>
                         <button class="freezer-save-btn" onclick="saveFreezerDrawer(2)">💾 Save</button>
                     </div>
+                    <!-- Drawer 3 -->
                     <div class="freezer-drawer">
                         <div class="drawer-lbl"><span>❄️ Drawer 3 (Bottom)</span><span id="d3-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
                         <textarea class="freezer-textarea" id="freezer-d3-input" placeholder="Drawer 3 items..."></textarea>
@@ -426,12 +431,17 @@
             }
         }
 
+        // REDESIGNED DROPDOWN DICTIONARY CONTAINER STRIPPED OF BROKEN TRACKS
         let foodMenuDatabase = {
-            "PASTA": ["Bolognese", "Carbonara", "Sausage ragú", "Mac & cheese", "Tomato sauce of something", "Vegetable pasta (corgettes/tomato)", "Vodka", "Gnocchi bake", "Lasagne"],
-            "INT.": ["stir fry", "Chicken and rice", "Fajitas", "Curry (katsu/chickpea/lentil)", "Enchiladas"],
-            "MEAT": ["chicken shawarma", "Schnitzel", "Roast dinner", "Sausage and mash", "Chicken and chorizo stew", "Cod with breadcrumbs", "Pesto chicken", "Pork belly", "Steak"],
-            "VEGGIE": ["caesar salad", "Pasta Salad", "Halloumi something", "Chilli with beans", "Baked potato", "Mushroom risotto", "Spanakopita", "Noodle soup", "Beans"],
             "GUILTY": ["Fish and chips", "Takeaway", "Burger", "Hot dogs", "Frozen pizza", "Freezer food picky bits"],
+            "COMFORT FOODS": ["Sausage and mash", "Steak", "Mac & cheese", "Chilli kidney beans", "Baked potato", "Risotto / orzo", "Korean fried chiclen (seema)", "chicken leek pie"],
+            "LEFTOVERS": ["Pasta Salad", "cavolo nero pasta", "Tomato sauce of any kind (+meaty balls)", "Gnocchi bake", "Mac & cheese", "Chilli kidney beans", "Risotto / orzo", "curry", "chicken leek pie"],
+            "DINNER PARTY": ["Pasta Salad", "cavolo nero pasta", "chicken shawarma", "Schnitzel", "Risotto / orzo", "chicken leek pie"],
+            "R&B FAVES": ["Sausage ragú", "Carbonara", "chicken shawarma", "Tomato sauce of any kind (+meaty balls)", "Vodka pasta", "Gnocchi bake", "Schnitzel", "Spanakopita", "curry", "Chicken and rice", "chicken leek pie"],
+            "LIGHT & HEALTHY": ["cavolo nero pasta", "traybake", "Vegetable pasta (corgettes/tomatos/lemons/peas/norma)", "Schnitzel", "Cod and new potato", "Pesto chicken", "caesar salad", "Baked potato", "butter bean stew", "black bean fajitas", "Chicken and rice", "sweet potato something", "tofu stirfry", "turkey meatballs or chilli", "kale and chicken salad", "murhsroom orzo", "butter bean and leak"],
+            "LOW EFFORT": ["Chicken and rice", "Chicken and chorizo tray bake", "Tomato sauce of any kind (+meaty balls)", "Vegetable pasta (corgettes/tomatos/lemons/peas/norma)", "Vodka pasta", "Sausage and mash", "Pesto chicken", "caesar salad", "Baked potato", "butter bean stew", "black bean fajitas"],
+            "HIGH EFFORT": ["chicken shawarma", "Bolognese/lasagne", "Schnitzel", "Roast dinner", "Steak", "Chilli kidney beans", "Risotto / orzo", "Spanakopita", "turkey meatballs", "chicken leek pie"],
+            "WANT TO TRY": ["Pork belly", "pork tenderloin and salsa verde", "malaysian basa curry", "Seema 15 min laksa", "Enchiladas"],
             "OTHER": []
         };
 
@@ -455,6 +465,8 @@
                 const response = await fetch(cloudStorageUrl);
                 if (response.ok) {
                     const payload = await response.json();
+                    
+                    // Maps straight into your active 'Food options' spreadsheet configuration layout
                     if (payload.menuDatabase && Object.keys(payload.menuDatabase).length > 1) {
                         foodMenuDatabase = payload.menuDatabase;
                     }
@@ -777,6 +789,43 @@
                 </div>
             `;
             container.appendChild(block);
+        }
+
+        async function handleHeaderChange(dateKey, category) {
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            selections[dateKey] = { category: category, dish: "" };
+            renderActiveMatrix();
+            await saveCloudState();
+        }
+
+        async function handleDishChange(dateKey, dishName) {
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            if (selections[dateKey]) { selections[dateKey].dish = dishName; }
+            await saveCloudState();
+        }
+
+        async function rollRandomCategory(dateKey) {
+            const categories = Object.keys(foodMenuDatabase).filter(cat => cat !== 'OTHER');
+            if (categories.length === 0) return;
+            const randomCat = categories[Math.floor(Math.random() * categories.length)];
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            selections[dateKey] = { category: randomCat, dish: "" };
+            renderActiveMatrix();
+            await saveCloudState();
+        }
+
+        async function rollRandomDish(dateKey) {
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            const currentCat = selections[dateKey] ? selections[dateKey].category : "";
+            if (!currentCat || currentCat === 'OTHER' || !foodMenuDatabase[currentCat] || foodMenuDatabase[currentCat].length === 0) {
+                alert("Please select a category block first before rolling an option!");
+                return;
+            }
+            const optionsList = foodMenuDatabase[currentCat];
+            const randomDish = optionsList[Math.floor(Math.random() * optionsList.length)];
+            selections[dateKey].dish = randomDish;
+            renderActiveMatrix();
+            await saveCloudState();
         }
 
         function checkEmptyStates(counters) {
