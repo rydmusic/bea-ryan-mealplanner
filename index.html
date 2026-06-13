@@ -232,7 +232,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v52.0_JSONBIN_ACTIVE</div>
+        <div class="nav-logo">💾 FOOD_OS // v60.2_B+R_PLANNER_LIVE</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -262,7 +262,7 @@
                 <span>✖</span>
             </div>
             <div class="window-body">
-                <div class="prep-log" id="prep-alert-terminal">Connecting to cloud vault...</div>
+                <div class="prep-log" id="prep-alert-terminal">Connecting to Google Sheet data relay...</div>
             </div>
         </section>
 
@@ -308,8 +308,8 @@
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         let currentMode = 'dinners';
 
-        // CONNECTED: JSONBin Production Channel
-        const cloudStorageUrl = "https://api.jsonbin.io/v3/b/6a2d45a6da38895dfeb9e288";
+        // WIRED: Active Google Apps Script Production URL
+        const cloudStorageUrl = "https://script.google.com/macros/s/AKfycbxzTv-Qrjsi0Fgd1S5DdBn8J0swaqIPNDOaJZXeKQ_EdsTtpS3w5MBlWAdpNhEf_82M/exec";
 
         const foodMenuDatabase = {
             "PASTA": ["Bolognese", "Carbonara", "Sausage ragú", "Mac & cheese", "Tomato sauce of something", "Vegetable pasta (corgettes/tomato)", "Vodka", "Gnocchi bake", "Lasagne"],
@@ -334,16 +334,13 @@
 
         async function loadCloudState() {
             try {
-                // Fetch using JSONBin master extraction path
-                const response = await fetch(cloudStorageUrl, {
-                    headers: { 'X-Bin-Meta': 'false' }
-                });
+                const response = await fetch(cloudStorageUrl);
                 if (response.ok) {
                     const cloudData = await response.json();
                     if (cloudData.shoppingList) appState = cloudData;
                 }
             } catch (err) {
-                console.warn("Sync latency. Falling back onto hardware frame cache.");
+                console.warn("Sync delay. Default hardware memory framework operational.");
             }
             switchAppMode(currentMode);
             renderShoppingList();
@@ -352,12 +349,13 @@
         async function saveCloudState() {
             try {
                 await fetch(cloudStorageUrl, {
-                    method: 'PUT',
+                    method: 'POST',
+                    mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(appState)
                 });
             } catch (e) {
-                console.error("Cloud drop out detected.", e);
+                console.error("Transmission fault inside internal cloud logic.", e);
             }
         }
 
@@ -483,6 +481,7 @@
 
         function calculateRouterEngine() {
             const logTerminal = document.getElementById('prep-alert-terminal');
+            
             document.getElementById('container-ryan').innerHTML = '';
             document.getElementById('container-bea').innerHTML = '';
             document.getElementById('container-both').innerHTML = '';
