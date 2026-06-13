@@ -232,7 +232,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v60.2_B+R_PLANNER_LIVE</div>
+        <div class="nav-logo">💾 FOOD_OS // v65.0_DYNAMIC_SHEETS_LOAD</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -262,7 +262,7 @@
                 <span>✖</span>
             </div>
             <div class="window-body">
-                <div class="prep-log" id="prep-alert-terminal">Connecting to Google Sheet data relay...</div>
+                <div class="prep-log" id="prep-alert-terminal">Syncing dynamic structural cloud arrays...</div>
             </div>
         </section>
 
@@ -308,17 +308,11 @@
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         let currentMode = 'dinners';
 
-        // WIRED: Active Google Apps Script Production URL
+        // Connected Live Macro URL Node Link
         const cloudStorageUrl = "https://script.google.com/macros/s/AKfycbxzTv-Qrjsi0Fgd1S5DdBn8J0swaqIPNDOaJZXeKQ_EdsTtpS3w5MBlWAdpNhEf_82M/exec";
 
-        const foodMenuDatabase = {
-            "PASTA": ["Bolognese", "Carbonara", "Sausage ragú", "Mac & cheese", "Tomato sauce of something", "Vegetable pasta (corgettes/tomato)", "Vodka", "Gnocchi bake", "Lasagne"],
-            "INT.": ["stir fry", "Chicken and rice", "Fajitas", "Curry (katsu/chickpea/lentil)", "Enchiladas"],
-            "MEAT": ["chicken shawarma", "Schnitzel", "Roast dinner", "Sausage and mash", "Chicken and chorizo stew", "Cod with breadcrumbs", "Pesto chicken", "Pork belly", "Steak"],
-            "VEGGIE": ["caesar salad", "Pasta Salad", "Halloumi something", "Chilli with beans", "Baked potato", "Mushroom risotto", "Spanakopita", "Noodle soup", "Beans"],
-            "GUILTY": ["Fish and chips", "Takeaway", "Burger", "Hot dogs", "Frozen pizza", "Freezer food picky bits"],
-            "OTHER": []
-        };
+        // This object starts empty and builds dynamically straight from your Sheet headers!
+        let foodMenuDatabase = { "OTHER": [] };
 
         let appState = {
             shoppingList: [{ name: 'Oat Milk', checked: false }],
@@ -336,11 +330,20 @@
             try {
                 const response = await fetch(cloudStorageUrl);
                 if (response.ok) {
-                    const cloudData = await response.json();
-                    if (cloudData.shoppingList) appState = cloudData;
+                    const payload = await response.json();
+                    
+                    // 1. Process and load dynamic columns map from sheet array
+                    if (payload.menuDatabase) {
+                        foodMenuDatabase = payload.menuDatabase;
+                    }
+                    
+                    // 2. Load saved tracking variables
+                    if (payload.calendarState && payload.calendarState.shoppingList) {
+                        appState = payload.calendarState;
+                    }
                 }
             } catch (err) {
-                console.warn("Sync delay. Default hardware memory framework operational.");
+                console.warn("Handshake delay.");
             }
             switchAppMode(currentMode);
             renderShoppingList();
@@ -355,7 +358,7 @@
                     body: JSON.stringify(appState)
                 });
             } catch (e) {
-                console.error("Transmission fault inside internal cloud logic.", e);
+                console.error("Transmission glitch.", e);
             }
         }
 
@@ -577,7 +580,7 @@
             let dishOptionsHtml = `<option value="">-- Choose Option --</option>`;
             let showOtherBox = currentCat === 'OTHER';
             
-            if (currentCat && currentCat !== 'OTHER') {
+            if (currentCat && currentCat !== 'OTHER' && foodMenuDatabase[currentCat]) {
                 foodMenuDatabase[currentCat].forEach(dish => {
                     dishOptionsHtml += `<option value="${dish}" ${currentDish === dish ? 'selected' : ''}>${dish}</option>`;
                 });
