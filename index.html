@@ -98,7 +98,9 @@
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
         
         .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+        
         .inline-selector-row { display: flex; gap: 5px; align-items: center; width: 100%; min-width: 0; }
+        
         .food-select-dropdown { flex: 1; border: 2px solid #000; border-radius: 4px; padding: 5px 3px; font-family: inherit; font-size: 0.75rem; background: #fff; outline: none; min-width: 0; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
         @media (min-width: 600px) { .food-select-dropdown { font-size: 0.8rem; padding: 5px; } }
         
@@ -135,22 +137,9 @@
         .recipe-ingredients-list, .recipe-instructions-list { padding-left: 18px; font-size: 0.88rem; word-break: break-word; }
         .recipe-ingredients-list li, .recipe-instructions-list li { margin-bottom: 6px; }
 
-        /* RESTORED CLASSIC SHOPPING LIST INTERFACE SYSTEM STYLE SHEETS */
-        .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
-        .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
-        .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 15px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; white-space: nowrap; }
-        .shopping-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-        .grocery-item { display: flex; align-items: center; border: 2px solid var(--border-clr); background: white; padding: 10px 15px; border-radius: 6px; box-shadow: 2px 2px 0px var(--border-clr); cursor: pointer; }
-        .grocery-item.checked { background-color: #f0ede6; opacity: 0.7; }
-        .grocery-item.checked .item-text { text-decoration: line-through; }
-        .retro-checkbox { width: 18px; height: 18px; border: 2px solid var(--border-clr); background: white; margin-right: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .grocery-item.checked .retro-checkbox::after { content: ""; width: 8px; height: 8px; background: var(--accent-orange); }
-        .item-text { flex: 1; font-weight: 700; font-size: 1rem; min-width: 0; word-break: break-word; }
-        .delete-btn { background: none; border: none; font-family: monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; padding: 0 5px; }
-        .checker-banner { height: 16px; background-image: linear-gradient(45deg, #000 25%, transparent 25%), linear-gradient(-45deg, #000 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #000 75%), linear-gradient(-45deg, transparent 75%, #000 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; background-color: var(--accent-blue); border-bottom: 2px solid var(--border-clr); }
-
-        /* IMAGE_B3D845.JPG STANDALONE RECTANGULAR REFRIGERATOR ENCLOSURE */
+        /* STANDALONE RECTANGULAR REFRIGERATOR ENCLOSURE (image_b3d845.jpg setup) */
         .fridge-hardware-container { width: 100%; max-width: 440px; margin: 50px auto; perspective: 1500px; padding: 10px; }
+        
         .fridge-top-prop-shelf { width: 100%; display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 4px; position: relative; z-index: 5; margin-bottom: -5px; padding-left: 30px; padding-right: 30px; }
         .prop-bottle { width: 32px; height: 75px; background: #4a533c; border: 3px solid #000; border-radius: 6px 6px 2px 2px; position: relative; }
         .prop-bottle::before { content: ''; position: absolute; top: -10px; left: 9px; width: 8px; height: 10px; background: #c69c6d; border: 2px solid #000; border-radius: 2px; }
@@ -202,7 +191,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v73.1_STABLE_SYNC</div>
+        <div class="nav-logo">💾 FOOD_OS // v73.0_POLAROID_SHUFFLER</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -249,7 +238,7 @@
             </div>
         </section>
 
-        <!-- RESTORED GROCERY TRACKER -->
+        <!-- GROCERY TRACKER -->
         <section class="retro-window full-width">
             <div class="window-header blue-variant">
                 <span>System Error: Missing Ingredients</span>
@@ -362,28 +351,29 @@
 
         const cloudStorageUrl = "https://script.google.com/macros/s/AKfycbxzTv-Qrjsi0Fgd1S5DdBn8J0swaqIPNDOaJZXeKQ_EdsTtpS3w5MBlWAdpNhEf_82M/exec";
 
-        // REDESIGNED STABLE HIGH-RES THUMBNAIL DIRECT-CONTENT PIPELINES
+        // THE 18 DIRECT B&R MEMORY DRIVE FILE PIPELINES
         const ryanAndBeaPhotos = [
-            "https://drive.google.com/thumbnail?sz=w1000&id=1z6xx50Jr2jO-84vxG46b8bly2nBlKOrO",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1OOg8k7bjhJTIWSaJC5Hk-pE9YCtT6b99",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1MXFS7y0RH2AZ4OZ9xXAU6seeHlPKzf7p",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1pqsvqO-Y2WU8hKyw6vmB6hdz5Xvbzhsg",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1vJ717MI0I-cxGna4GQYCA8RHKMDDPRF6",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1DSh7mVadokMnxdxqQ4yvlEL49Mrc3PR0",
-            "https://drive.google.com/thumbnail?sz=w1000&id=17VPsm-E9Ui9qS2ryjta89v3utOz-wb8C",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1Owuuf9v2F0gi8_QfkctJcHYuViF3Lbzr",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1rDg37ImkueQ8NfeLKCm1jidfgtU6odkN",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1T9MCM6hjE8I5HCR9GHsCyJcTdv-syf-f",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1OXs3CW-_Q3kFPQYtRjrksFswVZy_Dbb8",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1QGkOHNV0aZdcINDrzLCiy-Sv_YKGOgAI",
-            "https://drive.google.com/thumbnail?sz=w1000&id=10Wrqv2gn6CsWvvHhugzud9bRWYm4uOWb",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1xykk-5jSDg3O8NpI4DVE_5pGa9Cm3Mkh",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1IzYFUYYEmdct69DFIUXkSNL7u7OgWxFG",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1RhxxbCaDfRga0hvpNM6CgqM7Oycub5mh",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1BLUrxOxFCujMq93_k16ZJEyk0TMviEM3",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1yTdpRQnqZ-Y2XsQo-P_scHKmTmoHoXgL"
+            "https://drive.google.com/uc?export=view&id=1z6xx50Jr2jO-84vxG46b8bly2nBlKOrO",
+            "https://drive.google.com/uc?export=view&id=1OOg8k7bjhJTIWSaJC5Hk-pE9YCtT6b99",
+            "https://drive.google.com/uc?export=view&id=1MXFS7y0RH2AZ4OZ9xXAU6seeHlPKzf7p",
+            "https://drive.google.com/uc?export=view&id=1pqsvqO-Y2WU8hKyw6vmB6hdz5Xvbzhsg",
+            "https://drive.google.com/uc?export=view&id=1vJ717MI0I-cxGna4GQYCA8RHKMDDPRF6",
+            "https://drive.google.com/uc?export=view&id=1DSh7mVadokMnxdxqQ4yvlEL49Mrc3PR0",
+            "https://drive.google.com/uc?export=view&id=17VPsm-E9Ui9qS2ryjta89v3utOz-wb8C",
+            "https://drive.google.com/uc?export=view&id=1Owuuf9v2F0gi8_QfkctJcHYuViF3Lbzr",
+            "https://drive.google.com/uc?export=view&id=1rDg37ImkueQ8NfeLKCm1jidfgtU6odkN",
+            "https://drive.google.com/uc?export=view&id=1T9MCM6hjE8I5HCR9GHsCyJcTdv-syf-f",
+            "https://drive.google.com/uc?export=view&id=1OXs3CW-_Q3kFPQYtRjrksFswVZy_Dbb8",
+            "https://drive.google.com/uc?export=view&id=1QGkOHNV0aZdcINDrzLCiy-Sv_YKGOgAI",
+            "https://drive.google.com/uc?export=view&id=10Wrqv2gn6CsWvvHhugzud9bRWYm4uOWb",
+            "https://drive.google.com/uc?export=view&id=1xykk-5jSDg3O8NpI4DVE_5pGa9Cm3Mkh",
+            "https://drive.google.com/uc?export=view&id=1IzYFUYYEmdct69DFIUXkSNL7u7OgWxFG",
+            "https://drive.google.com/uc?export=view&id=1RhxxbCaDfRga0hvpNM6CgqM7Oycub5mh",
+            "https://drive.google.com/uc?export=view&id=1BLUrxOxFCujMq93_k16ZJEyk0TMviEM3",
+            "https://drive.google.com/uc?export=view&id=1yTdpRQnqZ-Y2XsQo-P_scHKmTmoHoXgL"
         ];
 
+        // UNIFIED AUTOMATIC SHUFFLER CORE HOOK
         function shuffleFridgePolaroidMemory() {
             if (ryanAndBeaPhotos.length === 0) return;
             const randomIndex = Math.floor(Math.random() * ryanAndBeaPhotos.length);
@@ -392,6 +382,99 @@
                 targetElement.style.backgroundImage = `url('${ryanAndBeaPhotos[randomIndex]}')`;
             }
         }
+
+        const savedRecipesDatabase = [
+            {
+                id: "vodka-pasta",
+                category: "dinners",
+                title: "Penne with Vodka & Tomato Sauce",
+                author: "Pasta alla vodka",
+                prep: "15 mins",
+                cook: "45 mins",
+                servings: "4",
+                ingredients: ["2 x 400g tins of plum tomatoes", "1 large onion, finely diced", "Extra virgin olive oil", "Flaky sea salt", "1 clove of garlic, finely chopped", "1/2 tsp chilli flakes", "1 tsp dried oregano", "200ml vodka", "320g dried penne lisce (or penne rigate)", "4 tbsp double cream", "2 tsp caster sugar", "100g grated Parmesan"],
+                instructions: ["Drain the tomatoes, reserving the juice for another purpose.", "Place a large, ovenproof saucepan over low to medium heat and gently sauté the onion with a pinch of salt for 12-15 minutes until glossy and translucent.", "Add garlic, chilli flakes, and oregano. Combine and stir for a few minutes. Pour in the vodka, bring to a gentle bubble, and cook until the liquid has reduced by a third. Preheat oven to 140°C.", "Add drained tomatoes to the saucepan, bring to a gentle boil for 1-2 minutes, then bake uncovered in the oven for 30-40 minutes until sauce reduces and colors.", "Meanwhile, cook the penne in plenty of salted boiling water. Drain.", "Remove tomatoes from oven, add double cream, sugar, and half the Parmesan. Blend with a stick blender into a smooth sauce.", "Immediately add the cooked penne and stir until fully combined. Adjust seasoning and serve with remaining Parmesan."]
+            },
+            {
+                id: "black-bean-nasi",
+                category: "dinners",
+                title: "Black Bean Nasi Goreng",
+                author: "David & Naomi",
+                prep: "10 mins",
+                cook: "20 mins",
+                servings: "4",
+                ingredients: ["250g cooked brown basmati rice", "4 shallots, peeled and finely chopped", "2 sticks of celery, finely chopped", "3 tbsp groundnut oil", "5 cloves of garlic, peeled and finely chopped", "2 red chillies, 1 finely chopped, 1 sliced", "30g bunch of coriander (stalks and leaves separated)", "2 small cucumbers (or 1/2 large), thickly sliced", "2 tbsp rice wine vinegar", "1/2 tsp runny honey or sugar", "2 tbsp toasted sesame oil", "2 tbsp plus 1 tsp soy sauce", "2 tbsp tomato purée", "1 tbsp miso paste (red or brown)", "3 tbsp kecap manis", "1 x 400g tin black beans, drained", "4 free-range or organic eggs", "Bunch of spring onions, trimmed and finely sliced", "2 unwaxed limes to serve"],
+                instructions: ["Sauté chopped shallots and celery in a tablespoon of groundnut oil for 10 minutes until soft. Add 5 cloves of chopped garlic, 1 finely chopped red chilli, and coriander stalks; fry for a couple more minutes.", "Make pickle: Mix sliced cucumber, sliced red chilli, rice wine vinegar, honey/sugar, and a pinch of salt. Set aside.", "Micro flavorings: Whisk toasted sesame oil, 1 tsp soy sauce, tomato purée, miso paste, kecap manis, and 2 tbsp soy sauce.", "Pour flavorings over the cooked veg, add drained black beans, and cook for a few minutes. Tip into a bowl.", "Put pan back over heat, add remaining groundnut oil, add cooked brown basmati rice and stir-fry for a few minutes until beginning to crisp. Tip in the black bean mixture, stir well and cook for another couple of minutes.", "Fry eggs in a separate large frying pan with a little oil. Stir sliced spring onions and coriander leaves into rice.", "Serve nasi goreng piled into bowls topped with a fried egg, cucumber pickle, and lime wedges."]
+            },
+            {
+                id: "butter-chicken",
+                category: "dinners",
+                title: "Butter Chicken Curry",
+                author: "Text Recipe",
+                prep: "15 mins",
+                cook: "20 mins",
+                servings: "4",
+                ingredients: ["750g cubed Chicken thigh", "1/2 cup yogurt", "1 tbsp lemon juice", "1 tsp Turmeric", "2 tsp garam masala", "1/2 tsp chilli powder or cayenne", "1 tsp cumin", "1 tbsp ginger", "2 cloves garlic", "2 tbsp butter", "1 cup Passata", "1 cup heavy cream", "1 tbsp sugar", "1 1/4 tsp salt"],
+                instructions: ["Marinate chicken in yogurt, lemon juice, turmeric, garam masala, chilli powder, cumin, ginger, and garlic.", "Melt 2 tbsp butter in a pan over medium heat.", "Add Passata, heavy cream, sugar, and salt. Bring to a simmer.", "Add marinated chicken to the sauce and simmer until cooked through and sauce is thickened."]
+            },
+            {
+                id: "shawarma-pie",
+                category: "dinners",
+                title: "Chicken Shawarma Pie",
+                author: "Meat Section",
+                prep: "30 mins",
+                cook: "1 hour",
+                servings: "6",
+                ingredients: ["750g chicken thighs, skinless and boneless", "4 garlic cloves, crushed", "2cm piece of ginger, finely grated (15g)", "2 tsp ground cumin", "2 tsp ground coriander", "3/4 tsp smoked paprika", "1/2 tsp ground turmeric", "3/4 tsp ground cinnamon", "1/8 tsp ground cloves", "90ml olive oil (plus extra for greasing)", "2 tbsp cider vinegar", "2 baking potatoes (450g), cut into 0.5cm rounds", "45g unsalted butter", "1 onion, thinly sliced (150g)", "200ml chicken stock", "5g parsley leaves, chopped", "5g coriander leaves, chopped", "8 sheets of filo pastry (170g)", "1 tsp nigella seeds", "3/4 tsp Aleppo chilli flakes", "50g tahini, 80g Greek yoghurt, 2 crushed garlic cloves, 1 tbsp lemon juice (for sauce)"],
+                instructions: ["Marinate chicken with garlic, ginger, ground spices, 1 tbsp oil, vinegar, 1 tsp salt, and black pepper for at least 30 mins.", "Preheat oven to 180°C fan. Toss potatoes with 1.5 tbsp oil, 3/4 tsp salt, and pepper. Bake on parchment paper for 20 mins, flip and bake at 220°C for 10 mins until golden.", "Reduce oven to 180°C fan. Melt 15g butter and 1.5 tbsp oil in a pan. Sauté onion for 5 mins. Add chicken and cook for 10 mins until browned.", "Add chicken stock, 1/4 tsp salt, and pepper. Boil, lower heat, and simmer for 25 mins. Increase heat to reduce liquid to 4 tbsp. Cool, shred chicken into chunks, and mix with herbs.", "Whisk tahini sauce ingredients with 2 tbsp water until smooth.", "Assemble pie: Layer potato slices at the base of a greased dish, add chicken mixture, pour over tahini sauce, top with butter-brushed filo sheets, sprinkle nigella seeds and chilli flakes, and bake until crisp."]
+            },
+            {
+                id: "pancakes",
+                category: "breakfast",
+                title: "Classic Griddle Pancakes",
+                author: "Breads/Grains Box",
+                prep: "5 mins",
+                cook: "10 mins",
+                servings: "3",
+                ingredients: ["1 egg", "130g all-purpose flour", "180ml milk", "1 tbsp sugar", "2 tbsp shortening (melted) or vegetable oil", "3 tsp baking powder", "1/2 tsp salt"],
+                instructions: ["Beat egg with hand beater until fluffy.", "Beat in remaining ingredients just until smooth. (For thinner pancakes, stir in additional 1/4 cup milk).", "Pour about 3 tablespoons batter onto hot, greased griddle.", "Cook pancakes until puffed and dry around edges. Turn and cook other sides until golden brown."]
+            },
+            {
+                id: "banana-bread",
+                category: "bakes",
+                title: "Classic Banana Bread",
+                author: "Vintage Book",
+                prep: "10 mins",
+                cook: "1 hour",
+                servings: "12",
+                ingredients: ["200g sugar", "75g butter or margarine, softened", "2 eggs", "1.5 cups mashed ripe bananas (3 to 4 medium)", "80ml water", "220g all-purpose flour", "1 tsp baking soda", "1/2 tsp salt", "1/4 tsp baking powder", "1/2 cup chopped nuts"],
+                instructions: ["Heat oven to 175°C. Grease bottom only of loaf pan.", "Mix sugar and margarine/butter in a large bowl. Stir in eggs until blended.", "Add bananas and water; beat 30 seconds. Stir in remaining ingredients except nuts just until moistened; stir in nuts.", "Pour into pan. Bake until wooden pick inserted in center comes out clean (approx 55 to 60 minutes). Cool 5 mins before slicing."]
+            }
+        ];
+
+        let foodMenuDatabase = {
+            "PASTA": ["Bolognese", "Carbonara", "Sausage ragú", "Mac & cheese", "Tomato sauce of something", "Vegetable pasta (corgettes/tomato)", "Vodka", "Gnocchi bake", "Lasagne"],
+            "INT.": ["stir fry", "Chicken and rice", "Fajitas", "Curry (katsu/chickpea/lentil)", "Enchiladas"],
+            "MEAT": ["chicken shawarma", "Schnitzel", "Roast dinner", "Sausage and mash", "Chicken and chorizo stew", "Cod with breadcrumbs", "Pesto chicken", "Pork belly", "Steak"],
+            "VEGGIE": ["caesar salad", "Pasta Salad", "Halloumi something", "Chilli with beans", "Baked potato", "Mushroom risotto", "Spanakopita", "Noodle soup", "Beans"],
+            "GUILTY": ["Fish and chips", "Takeaway", "Burger", "Hot dogs", "Frozen pizza", "Freezer food picky bits"],
+            "OTHER": []
+        };
+
+        let appState = {
+            shoppingList: [{ name: 'Oat Milk', checked: false }],
+            ryanDinners: {},
+            beaDinners: {},
+            bothInDinners: {},
+            dinnerSelections: {},
+            ryanLunches: {},
+            beaLunches: {},
+            bothInLunches: {},
+            lunchSelections: {},
+            freezerDrawer1: "",
+            freezerDrawer2: "",
+            freezerDrawer3: ""
+        };
 
         async function loadCloudState() {
             try {
@@ -416,7 +499,7 @@
             document.getElementById('freezer-d2-input').value = appState.freezerDrawer2 || "";
             document.getElementById('freezer-d3-input').value = appState.freezerDrawer3 || "";
 
-            shuffleFridgePolaroidMemory();
+            shuffleFridgePolaroidMemory(); // Fires the Google Drive direct image shuffler loop!
         }
 
         async function saveCloudState() {
@@ -720,7 +803,6 @@
             if(counters.both === 0) document.getElementById('container-both').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
         }
 
-        // RESTORED DESIGN PIPELINE FOR THE GROCERY SYSTEM DISPLAY
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
             listEl.innerHTML = '';
