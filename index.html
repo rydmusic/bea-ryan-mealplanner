@@ -96,14 +96,19 @@
         .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px var(--border-clr); }
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
         
-        /* Fixed Column-Stacked Layout Framework for Dropdowns and Dice Hooks */
-        .dropdown-stack-group { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
-        .stacked-selector-block { display: flex; flex-direction: column; gap: 4px; width: 100%; min-width: 0; }
-        .food-select-dropdown { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 6px; font-family: inherit; font-size: 0.8rem; background: #fff; outline: none; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+        .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+        
+        /* Clean Side-By-Side Row Layout Fitted for Mobile Screens */
+        .inline-selector-row { display: flex; gap: 5px; align-items: center; width: 100%; min-width: 0; }
+        
+        /* Smaller Mobile Font Size with Automatic Safety Text Ellipsis Truncation */
+        .food-select-dropdown { flex: 1; border: 2px solid #000; border-radius: 4px; padding: 5px 3px; font-family: inherit; font-size: 0.75rem; background: #fff; outline: none; min-width: 0; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+        @media (min-width: 600px) { .food-select-dropdown { font-size: 0.8rem; padding: 5px; } }
+        
         .other-text-box { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; outline: none; background: #fffdf2; }
         
-        /* Mobile-Safe Understacked Dice Action Button Styles */
-        .dice-random-btn { background-color: #fff; border: 2px solid #000; border-radius: 4px; padding: 0; font-family: 'Courier Prime', monospace; font-size: 0.9rem; font-weight: bold; cursor: pointer; box-shadow: 2px 2px 0px #000; height: 26px; width: 36px; display: flex; align-items: center; justify-content: center; align-self: flex-start; }
+        /* Compact Side-by-Side Square Mini Dice Buttons */
+        .dice-random-btn { background-color: #fff; border: 2px solid #000; border-radius: 4px; padding: 0; font-size: 0.85rem; cursor: pointer; box-shadow: 2px 2px 0px #000; height: 28px; width: 30px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
         .dice-random-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
 
         /* Mobile-Friendly Saved Recipes Layout Matrix */
@@ -160,7 +165,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v70.3_VERTICAL_SELECTOR_FIX</div>
+        <div class="nav-logo">💾 FOOD_OS // v70.4_SIDE_BY_SIDE_DICE</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -170,6 +175,7 @@
 
     <main class="desktop-layout">
 
+        <!-- WEEK TIMELINE BOARD -->
         <section class="retro-window full-width">
             <div class="window-header yellow-variant">
                 <span>User_Schedule: Rolling_Timeline_Matrix.exe</span>
@@ -184,6 +190,7 @@
             </div>
         </section>
 
+        <!-- AUTOMATED ROUTER COLUMNS -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span id="router-header-title">Intelligent_Router: Dinner_Router.exe</span>
@@ -205,6 +212,7 @@
             </div>
         </section>
 
+        <!-- GROCERY TRACKER -->
         <section class="retro-window full-width">
             <div class="window-header blue-variant">
                 <span>System Error: Missing Ingredients</span>
@@ -220,6 +228,7 @@
             </div>
         </section>
 
+        <!-- SAVED RECIPES WINDOW -->
         <section class="retro-window full-width" id="recipe-module-window">
             <div class="window-header orange-variant">
                 <span>Database_Explorer: Saved_Recipes.db</span>
@@ -242,6 +251,7 @@
             </div>
         </section>
 
+        <!-- WHAT'S IN THE FREEZER MODULE -->
         <section class="retro-window full-width">
             <div class="window-header freezer-variant">
                 <span>Subzero_Storage: Whats_In_The_Freezer.exe</span>
@@ -249,6 +259,7 @@
             </div>
             <div class="window-body">
                 <div class="freezer-chassis">
+                    <!-- Drawer 1 (Top Slot) -->
                     <div class="freezer-drawer">
                         <div class="drawer-lbl"><span>❄️ Drawer 1 (Top)</span><span id="d1-sync-status" style="font-size:0.65rem; opacity:0.6;"></span></div>
                         <textarea class="freezer-textarea" id="freezer-d1-input" placeholder="Type items in Drawer 1... (e.g., Ice cream, frozen fruit)"></textarea>
@@ -256,13 +267,15 @@
                         <button class="freezer-save-btn" onclick="saveFreezerDrawer(1)">💾 Save Drawer</button>
                     </div>
 
+                    <!-- Drawer 2 (Middle Slot) -->
                     <div class="freezer-drawer">
-                        <div class="drawer-lbl"><span>❄️ Drawer 2 (Middle)</span><span id="d1-sync-status" style="font-size:0.65rem; opacity:0.6;"></span></div>
+                        <div class="drawer-lbl"><span>❄️ Drawer 2 (Middle)</span><span id="d2-sync-status" style="font-size:0.65rem; opacity:0.6;"></span></div>
                         <textarea class="freezer-textarea" id="freezer-d2-input" placeholder="Type items in Drawer 2... (e.g., Prepared meals, leftovers)"></textarea>
                         <div class="freezer-handle"></div>
                         <button class="freezer-save-btn" onclick="saveFreezerDrawer(2)">💾 Save Drawer</button>
                     </div>
 
+                    <!-- Drawer 3 (Bottom Slot) -->
                     <div class="freezer-drawer">
                         <div class="drawer-lbl"><span>❄️ Drawer 3 (Bottom)</span><span id="d3-sync-status" style="font-size:0.65rem; opacity:0.6;"></span></div>
                         <textarea class="freezer-textarea" id="freezer-d3-input" placeholder="Type items in Drawer 3... (e.g., Meat, bulk veggies, fries)"></textarea>
@@ -687,14 +700,16 @@
                 <div class="smart-day-title"><span>● ${label}</span></div>
                 <div class="dropdown-stack-group">
                     
-                    <div class="stacked-selector-block">
+                    <!-- Clean Row 1 Layout: Category Dropdown + Horizontal Dice Alignment -->
+                    <div class="inline-selector-row">
                         <select class="food-select-dropdown" onchange="handleHeaderChange('${dateKey}', this.value)">
                             ${headerOptionsHtml}
                         </select>
                         <button class="dice-random-btn" onclick="rollRandomCategory('${dateKey}')" title="Randomize Category">🎲</button>
                     </div>
                     
-                    <div class="stacked-selector-block" id="dish-row-box-${dateKey}" style="display: ${showOtherBox ? 'none' : 'flex'};">
+                    <!-- Clean Row 2 Layout: Dishes Dropdown + Horizontal Dice Alignment -->
+                    <div class="inline-selector-row" id="dish-row-box-${dateKey}" style="display: ${showOtherBox ? 'none' : 'flex'};">
                         <select class="food-select-dropdown" id="dish-drop-${dateKey}" onchange="handleDishChange('${dateKey}', this.value)">
                             ${dishOptionsHtml}
                         </select>
