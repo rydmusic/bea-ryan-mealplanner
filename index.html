@@ -206,7 +206,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v35.0_PROX_IMMUNE_LIVE</div>
+        <div class="nav-logo">💾 FOOD_OS // v36.0_AUTOMATED_DIRECT</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -238,7 +238,7 @@
             </div>
             <div class="window-body">
                 <div class="prep-log" id="prep-alert-terminal">
-                    Awaiting display broadcast synchronization data from visual master calendar stream layer...
+                    Booting timeline extraction channels... Analyzing schedules...
                 </div>
             </div>
         </section>
@@ -284,53 +284,48 @@
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v35')) || [{ name: 'Oat Milk', checked: false }];
-        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v35')) || {};
+        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v36')) || [{ name: 'Oat Milk', checked: false }];
+        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v36')) || {};
 
-        // PROX-IMMUNE MESSAGE PASSING BRIDGE
-        // Open Web Calendar frames automatically send an event message up when events successfully populate on-screen
-        window.addEventListener("message", function(event) {
-            // Security limit verification checks out data layer origins
-            if (!event.origin.includes("quelltext.eu")) return;
+        async function fetchCalendarData() {
+            const logTerminal = document.getElementById('prep-alert-terminal');
             
-            // Look specifically for the internal data list broadcasted by the visual calendar script
-            if (event.data && event.data.type === "calendar-events" || event.data.events) {
-                const embeddedEvents = event.data.events || [];
-                parseLiveDisplayData(embeddedEvents);
-            }
-        });
+            // Fixed: Pulling combined JSON data via enterprise cloud API bypasses cross-origin security rules natively
+            const nativeJsonUrl = "https://open-web-calendar.hosted.quelltext.eu/events.json?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE&url=https%3A%2F%2Fp138-caldav.icloud.com%2Fpublished%2F2%2FMTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
+            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(nativeJsonUrl)}&ts=${new Date().getTime()}`;
 
-        // Fallback network trigger manually scrapes public fallback if client message drops
-        async function runDirectScrapeFallback() {
-            const fallbackUrl = "https://open-web-calendar.hosted.quelltext.eu/events.json?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE&url=https%3A%2F%2Fp138-caldav.icloud.com%2Fpublished%2F2%2FMTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
             try {
-                const res = await fetch(fallbackUrl);
+                const res = await fetch(proxyUrl);
                 if (res.ok) {
-                    const data = await res.json();
-                    parseLiveDisplayData(data);
+                    const wrap = await res.json();
+                    const events = JSON.parse(wrap.contents);
+                    processTimeline(events);
                 }
-            } catch(e) {
-                buildDefaultGrid();
+            } catch (err) {
+                console.error(err);
+                logTerminal.innerHTML = "❌ CONNECTION DELAY: Unable to read background streams. Recalibrating nodes...";
             }
         }
 
-        function parseLiveDisplayData(eventsArray) {
+        function processTimeline(eventsArray) {
             const logTerminal = document.getElementById('prep-alert-terminal');
             
             let ryanBookedDates = new Set();
             let beaBookedDates = new Set();
 
-            eventsArray.forEach(ev => {
-                if (ev.start) {
-                    const dateStr = ev.start.split('T')[0].replace(/-/g, '');
-                    // Discovers calendar color classifications directly to segregate user matrices
-                    if (ev.color === "%23e15c32" || ev.url && ev.url.includes("p71")) {
-                        ryanBookedDates.add(dateStr);
-                    } else {
-                        beaBookedDates.add(dateStr);
+            if (Array.isArray(eventsArray)) {
+                eventsArray.forEach(ev => {
+                    if (ev.start) {
+                        const dateStr = ev.start.split('T')[0].replace(/-/g, '');
+                        // Sort by source calendar identifiers
+                        if (ev.url && ev.url.includes("p71")) {
+                            ryanBookedDates.add(dateStr);
+                        } else if (ev.url && ev.url.includes("p138")) {
+                            beaBookedDates.add(dateStr);
+                        }
                     }
-                }
-            });
+                });
+            }
 
             document.getElementById('container-ryan').innerHTML = '';
             document.getElementById('container-bea').innerHTML = '';
@@ -363,7 +358,7 @@
                     logText = `⚠️ WARNING: [${displayLabel}] Bea has a pink dot. Ryan needs a dinner plan!`;
                 } else if (!ryanHasPlan && !beaHasPlan) {
                     columnTarget = "both";
-                    logText = `⚠️ CRITICAL: [${displayLabel}] Clear evening open. Plan a meal together!`;
+                    logText = `⚠️ CRITICAL: [${displayLabel}] No dinner plans recorded. Plan a meal together!`;
                 }
 
                 if (columnTarget) {
@@ -384,32 +379,7 @@
                     logTerminal.appendChild(alertRow);
                 }
             }
-            checkEmptyStates(counters);
-        }
 
-        function buildDefaultGrid() {
-            document.getElementById('container-ryan').innerHTML = '';
-            document.getElementById('container-bea').innerHTML = '';
-            document.getElementById('container-both').innerHTML = '';
-            const today = new Date();
-            today.setHours(0,0,0,0);
-            for (let i = 0; i < 14; i++) {
-                const checkDay = new Date(today);
-                checkDay.setDate(today.getDate() + i);
-                const dateKey = checkDay.toISOString().split('T')[0];
-                const displayLabel = `${shortDayNames[checkDay.getDay()]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
-                
-                const block = document.createElement('div');
-                block.className = 'smart-day-block';
-                block.innerHTML = `
-                    <div class="smart-day-title"><span>● ${displayLabel}</span></div>
-                    <input type="text" class="smart-day-input" value="${dynamicDinners[dateKey] || ''}" placeholder="Plan dinner..." oninput="saveSmartDinner('${dateKey}', this.value)">
-                `;
-                document.getElementById('container-both').appendChild(block);
-            }
-        }
-
-        function checkEmptyStates(counters) {
             if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All nights sorted!</p>";
             if(counters.bea === 0) document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All nights sorted!</p>";
             if(counters.both === 0) document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All nights sorted!</p>";
@@ -417,7 +387,7 @@
 
         function saveSmartDinner(dateKey, value) {
             dynamicDinners[dateKey] = value;
-            localStorage.setItem('food_os_dinners_v35', JSON.stringify(dynamicDinners));
+            localStorage.setItem('food_os_dinners_v36', JSON.stringify(dynamicDinners));
         }
 
         function renderShoppingList() {
@@ -433,7 +403,7 @@
                 `;
                 listEl.appendChild(li);
             });
-            localStorage.setItem('food_os_shop_v35', JSON.stringify(shoppingList));
+            localStorage.setItem('food_os_shop_v36', JSON.stringify(shoppingList));
         }
 
         function addItem() {
@@ -451,7 +421,7 @@
         function deleteItem(index) { shoppingList.splice(index, 1); renderShoppingList(); }
 
         renderShoppingList();
-        runDirectScrapeFallback();
+        fetchCalendarData();
     </script>
 </body>
 </html>
