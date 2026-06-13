@@ -206,6 +206,7 @@
         .tag-both { background-color: var(--together-purple); }
 
         .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px var(--border-clr); }
+        .smart-day-block select.food-select-dropdown { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; background: #fff; outline: none; margin-bottom: 6px; }
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
 
         .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
@@ -242,7 +243,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v66.2_METRIC_COOKBOOK</div>
+        <div class="nav-logo">💾 FOOD_OS // v66.3_RECIPE_EXPANSION</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -325,11 +326,11 @@
 
         const cloudStorageUrl = "https://script.google.com/macros/s/AKfycbxzTv-Qrjsi0Fgd1S5DdBn8J0swaqIPNDOaJZXeKQ_EdsTtpS3w5MBlWAdpNhEf_82M/exec";
 
-        // Local Cookbook Store - Converted cleanly to Metric Units
+        // Cookbook Data Store with metrics applied
         const savedRecipesDatabase = [
             {
                 id: "chickpea-curry",
-                title: "Butter Chickpea Curry with Coconut Milk",
+                title: "Butter Chickpea Curry",
                 author: "Aly Michell",
                 prep: "5 mins",
                 cook: "23 mins",
@@ -387,6 +388,7 @@
                 const response = await fetch(cloudStorageUrl);
                 if (response.ok) {
                     const payload = await response.json();
+                    
                     if (payload.menuDatabase && Object.keys(payload.menuDatabase).length > 1) {
                         foodMenuDatabase = payload.menuDatabase;
                     }
