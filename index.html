@@ -114,6 +114,64 @@
         
         .prep-item { margin-bottom: 5px; }
 
+        /* Custom Scrollable Schedule Board */
+        .schedule-scroll-deck {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            max-height: 450px;
+            overflow-y: auto;
+            padding: 5px;
+            border: 2px solid #000;
+            background: rgba(0,0,0,0.03);
+            border-radius: 6px;
+        }
+
+        .schedule-day-card {
+            background: #ffffff;
+            border: 2px solid var(--border-clr);
+            border-radius: 6px;
+            padding: 12px;
+            box-shadow: 3px 3px 0px var(--border-clr);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .card-date-label {
+            font-family: 'Courier Prime', monospace;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-bottom: 2px solid var(--border-clr);
+            padding-bottom: 4px;
+            background-color: #fffdf0;
+        }
+
+        .user-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .user-input-group label {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .card-plan-input {
+            width: 100%;
+            border: 1px solid #777;
+            border-radius: 4px;
+            padding: 4px 6px;
+            font-family: inherit;
+            font-size: 0.8rem;
+            outline: none;
+        }
+        .card-plan-input.ryan-focus:focus { border-color: var(--accent-orange); background-color: #fffaf7; }
+        .card-plan-input.bea-focus:focus { border-color: var(--accent-pink); background-color: #fff7f8; }
+
         /* Smart Multi-Column Configuration */
         .smart-dinner-grid {
             display: grid;
@@ -179,7 +237,7 @@
         }
         .smart-day-input:focus { background-color: #fffdf0; border-color: #000; }
 
-        /* Grocery Checklist Layout Elements */
+        /* Grocery Checklist Tracker Layout Elements */
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; }
         .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 20px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; }
@@ -206,7 +264,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v36.0_AUTOMATED_DIRECT</div>
+        <div class="nav-logo">💾 FOOD_OS // v40.0_INDEPENDENT_MASTER</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -216,21 +274,20 @@
 
     <main class="desktop-layout">
 
+        <!-- ADVANCED 90-DAY DUAL ENTRY MASTER DASHBOARD -->
         <section class="retro-window full-width">
             <div class="window-header yellow-variant">
-                <span>User_Schedule: Consolidated_Master_Calendar.live</span>
+                <span>User_Schedule: Unified_Kitchen_Timeline_Matrix (Next 90 Days)</span>
                 <span>✖</span>
             </div>
-            <div class="window-body" style="padding: 0; height: 480px; background-color: #ffffff;">
-                <iframe 
-                    id="calendar-frame"
-                    src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE&color=%23e15c32&url=https%3A%2F%2Fp138-caldav.icloud.com%2Fpublished%2F2%2FMTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU&color=%23f2a6b4&skin=flat&tab=month&controls=prev,next,today,date&title=Master%20Timeline" 
-                    style="border: none; width: 100%; height: 100%;" 
-                    frameborder="0">
-                </iframe>
+            <div class="window-body">
+                <div class="schedule-scroll-deck" id="master-scroll-deck">
+                    <!-- Dynamic multi-month interactive elements spawn here -->
+                </div>
             </div>
         </section>
 
+        <!-- SYSTEM WINDOW: PREP DIAGNOSTICS LOG TERMINAL -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span>Diagnostics_Log: Empty_Day_Prep_Scanner.exe</span>
@@ -238,11 +295,12 @@
             </div>
             <div class="window-body">
                 <div class="prep-log" id="prep-alert-terminal">
-                    Booting timeline extraction channels... Analyzing schedules...
+                    System compilation complete. Processing matrix outputs...
                 </div>
             </div>
         </section>
 
+        <!-- DINNER PLANNER AUTOMATED COLUMNS FRAME -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span>Intelligent_Router: Dinner_Router.exe</span>
@@ -250,11 +308,11 @@
             </div>
             <div class="window-body smart-dinner-grid">
                 <div class="smart-column" id="col-ryan">
-                    <div class="column-header-tag tag-ryan">Ryan Nights In</div>
+                    <div class="column-header-tag tag-ryan">Ryan Nights In (Bea Cooks)</div>
                     <div id="container-ryan"></div>
                 </div>
                 <div class="smart-column" id="col-bea">
-                    <div class="column-header-tag tag-bea">Bea Nights In</div>
+                    <div class="column-header-tag tag-bea">Bea Nights In (Ryan Cooks)</div>
                     <div id="container-bea"></div>
                 </div>
                 <div class="smart-column" id="col-both">
@@ -264,6 +322,7 @@
             </div>
         </section>
 
+        <!-- GROCERY SYSTEM CHECKLIST WINDOW -->
         <section class="retro-window full-width">
             <div class="window-header blue-variant">
                 <span>System Error: Missing Ingredients</span>
@@ -284,49 +343,17 @@
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v36')) || [{ name: 'Oat Milk', checked: false }];
-        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v36')) || {};
+        // 90-Day Production Storage Registries
+        let shoppingList = JSON.parse(localStorage.getItem('food_os_shop_v40')) || [{ name: 'Oat Milk', checked: false }];
+        let dynamicDinners = JSON.parse(localStorage.getItem('food_os_dinners_v40')) || {};
+        let ryanSchedule = JSON.parse(localStorage.getItem('food_os_ryan_sched_v40')) || {};
+        let beaSchedule = JSON.parse(localStorage.getItem('food_os_bea_sched_v40')) || {};
 
-        async function fetchCalendarData() {
+        function buildMasterTimelineEngine() {
+            const deckAnchor = document.getElementById('master-scroll-deck');
             const logTerminal = document.getElementById('prep-alert-terminal');
-            
-            // Fixed: Pulling combined JSON data via enterprise cloud API bypasses cross-origin security rules natively
-            const nativeJsonUrl = "https://open-web-calendar.hosted.quelltext.eu/events.json?url=https%3A%2F%2Fp71-caldav.icloud.com%2Fpublished%2F2%2FNDExODI0MTIzNDExODI0MYev8Apu_-PoflykAHs6lUaUKgnPiG8zFY4VKkUpkx4N8xkW8ITpSd5sVW5iC5foEhNZZwxGqCzUL43NeMX_wtE&url=https%3A%2F%2Fp138-caldav.icloud.com%2Fpublished%2F2%2FMTk3MzYwMDU3NjE5NzM2MDm-sgNm-S_9BofdAdgE5JBWdDsC7bTp8PgJVkC1wqoOfTzVc7T-Vrb_Pi1jWT7Srcu2rnRuGI3focX3Ppw2KSU";
-            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(nativeJsonUrl)}&ts=${new Date().getTime()}`;
 
-            try {
-                const res = await fetch(proxyUrl);
-                if (res.ok) {
-                    const wrap = await res.json();
-                    const events = JSON.parse(wrap.contents);
-                    processTimeline(events);
-                }
-            } catch (err) {
-                console.error(err);
-                logTerminal.innerHTML = "❌ CONNECTION DELAY: Unable to read background streams. Recalibrating nodes...";
-            }
-        }
-
-        function processTimeline(eventsArray) {
-            const logTerminal = document.getElementById('prep-alert-terminal');
-            
-            let ryanBookedDates = new Set();
-            let beaBookedDates = new Set();
-
-            if (Array.isArray(eventsArray)) {
-                eventsArray.forEach(ev => {
-                    if (ev.start) {
-                        const dateStr = ev.start.split('T')[0].replace(/-/g, '');
-                        // Sort by source calendar identifiers
-                        if (ev.url && ev.url.includes("p71")) {
-                            ryanBookedDates.add(dateStr);
-                        } else if (ev.url && ev.url.includes("p138")) {
-                            beaBookedDates.add(dateStr);
-                        }
-                    }
-                });
-            }
-
+            deckAnchor.innerHTML = '';
             document.getElementById('container-ryan').innerHTML = '';
             document.getElementById('container-bea').innerHTML = '';
             document.getElementById('container-both').innerHTML = '';
@@ -334,32 +361,118 @@
 
             const today = new Date();
             today.setHours(0,0,0,0);
+            
             let counters = { ryan: 0, bea: 0, both: 0 };
 
-            for (let i = 0; i < 14; i++) {
+            // Expands calculation window to handle the next 90 days cleanly
+            for (let i = 0; i < 90; i++) {
                 const checkDay = new Date(today);
                 checkDay.setDate(today.getDate() + i);
                 
                 const dateKey = checkDay.toISOString().split('T')[0];
-                const iCalKey = checkDay.toISOString().replace(/-/g, '').split('T')[0];
                 const displayLabel = `${shortDayNames[checkDay.getDay()]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
 
-                const ryanHasPlan = ryanBookedDates.has(iCalKey);
-                const beaHasPlan = beaBookedDates.has(iCalKey);
+                if (!ryanSchedule[dateKey]) ryanSchedule[dateKey] = "";
+                if (!beaSchedule[dateKey]) beaSchedule[dateKey] = "";
+
+                // 1. Render Interactive Deck Cards at the top
+                const dayCard = document.createElement('div');
+                dayCard.className = 'schedule-day-card';
+                dayCard.innerHTML = `
+                    <div class="card-date-label">● ${displayLabel}</div>
+                    <div class="user-input-group">
+                        <label style="color: var(--accent-orange)">Ryan Out:</label>
+                        <input type="text" class="card-plan-input ryan-focus" value="${ryanSchedule[dateKey]}" placeholder="Free..." oninput="updateSchedulePlan('${dateKey}', 'ryan', this.value)">
+                    </div>
+                    <div class="user-input-group">
+                        <label style="color: #d65a7f">Bea Out:</label>
+                        <input type="text" class="card-plan-input bea-focus" value="${beaSchedule[dateKey]}" placeholder="Free..." oninput="updateSchedulePlan('${dateKey}', 'bea', this.value)">
+                    </div>
+                `;
+                deckAnchor.appendChild(dayCard);
+
+                // 2. Compute Automatic Cross-Data Sorting Rules
+                const ryanHasPlan = ryanSchedule[dateKey].trim() !== "";
+                const beaHasPlan = beaSchedule[dateKey].trim() !== "";
 
                 let columnTarget = null;
                 let logText = "";
 
                 if (ryanHasPlan && !beaHasPlan) {
                     columnTarget = "bea";
-                    logText = `⚠️ WARNING: [${displayLabel}] Ryan has an orange dot. Bea needs a dinner plan!`;
+                    logText = `⚠️ WARNING: [${displayLabel}] Ryan out: "${ryanSchedule[dateKey]}". Bea needs dinner!`;
                 } else if (beaHasPlan && !ryanHasPlan) {
                     columnTarget = "ryan";
-                    logText = `⚠️ WARNING: [${displayLabel}] Bea has a pink dot. Ryan needs a dinner plan!`;
+                    logText = `⚠️ WARNING: [${displayLabel}] Bea out: "${beaSchedule[dateKey]}". Ryan needs dinner!`;
                 } else if (!ryanHasPlan && !beaHasPlan) {
                     columnTarget = "both";
-                    logText = `⚠️ CRITICAL: [${displayLabel}] No dinner plans recorded. Plan a meal together!`;
+                    // Only clutter logs for the upcoming 14 days to keep terminal clean
+                    if (i < 14) logText = `⚠️ CRITICAL: [${displayLabel}] Both free. Plan a meal together!`;
                 }
+
+                // Append Day Blocks to routing layout columns
+                if (columnTarget) {
+                    counters[columnTarget]++;
+                    
+                    const block = document.createElement('div');
+                    block.className = 'smart-day-block';
+                    block.innerHTML = `
+                        <div class="smart-day-title"><span>● ${displayLabel}</span></div>
+                        <input type="text" class="smart-day-input" value="${dynamicDinners[dateKey] || ''}" placeholder="Plan dinner..." oninput="saveSmartDinner('${dateKey}', this.value)">
+                    `;
+                    document.getElementById(`container-${columnTarget}`).appendChild(block);
+
+                    if (logText) {
+                        const alertRow = document.createElement('div');
+                        alertRow.className = 'prep-item';
+                        alertRow.style.color = columnTarget === 'both' ? '#ff4d4d' : '#ff9f43';
+                        alertRow.innerHTML = logText;
+                        logTerminal.appendChild(alertRow);
+                    }
+                }
+            }
+            checkEmptyColumnStates(counters);
+        }
+
+        function updateSchedulePlan(dateKey, user, value) {
+            if (user === 'ryan') {
+                ryanSchedule[dateKey] = value;
+                localStorage.setItem('food_os_ryan_sched_v40', JSON.stringify(ryanSchedule));
+            } else {
+                beaSchedule[dateKey] = value;
+                localStorage.setItem('food_os_bea_sched_v40', JSON.stringify(beaSchedule));
+            }
+            // Updates automated outputs without breaking keyboard input focus
+            syncOutputsSilently();
+        }
+
+        function saveSmartDinner(dateKey, value) {
+            dynamicDinners[dateKey] = value;
+            localStorage.setItem('food_os_dinners_v40', JSON.stringify(dynamicDinners));
+        }
+
+        function syncOutputsSilently() {
+            const logTerminal = document.getElementById('prep-alert-terminal');
+            logTerminal.innerHTML = '';
+            
+            document.getElementById('container-ryan').innerHTML = '';
+            document.getElementById('container-bea').innerHTML = '';
+            document.getElementById('container-both').innerHTML = '';
+            
+            const today = new Date();
+            today.setHours(0,0,0,0);
+            let counters = { ryan: 0, bea: 0, both: 0 };
+
+            for (let i = 0; i < 90; i++) {
+                const checkDay = new Date(today);
+                checkDay.setDate(today.getDate() + i);
+                const dateKey = checkDay.toISOString().split('T')[0];
+                const displayLabel = `${shortDayNames[checkDay.getDay()]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
+
+                const ryanHasPlan = (ryanSchedule[dateKey] || "").trim() !== "";
+                const beaHasPlan = (beaSchedule[dateKey] || "").trim() !== "";
+
+                let columnTarget = ryanHasPlan && !beaHasPlan ? "bea" : (beaHasPlan && !ryanHasPlan ? "ryan" : (!ryanHasPlan && !beaHasPlan ? "both" : null));
 
                 if (columnTarget) {
                     counters[columnTarget]++;
@@ -371,25 +484,30 @@
                         <input type="text" class="smart-day-input" value="${dynamicDinners[dateKey] || ''}" placeholder="Plan dinner..." oninput="saveSmartDinner('${dateKey}', this.value)">
                     `;
                     document.getElementById(`container-${columnTarget}`).appendChild(block);
-                    
-                    const alertRow = document.createElement('div');
-                    alertRow.className = 'prep-item';
-                    alertRow.style.color = columnTarget === 'both' ? '#ff4d4d' : '#ff9f43';
-                    alertRow.innerHTML = logText;
-                    logTerminal.appendChild(alertRow);
+
+                    if (i < 14) {
+                        let logText = columnTarget === 'both' ? 
+                            `⚠️ CRITICAL: [${displayLabel}] Both free. Plan a meal together!` :
+                            `⚠️ WARNING: [${displayLabel}] ${columnTarget==='bea'?'Ryan':'Bea'} out: "${columnTarget==='bea'?ryanSchedule[dateKey]:beaSchedule[dateKey]}". ${columnTarget.toUpperCase()} needs dinner!`;
+                        
+                        const alertRow = document.createElement('div');
+                        alertRow.className = 'prep-item';
+                        alertRow.style.color = columnTarget === 'both' ? '#ff4d4d' : '#ff9f43';
+                        alertRow.innerHTML = logText;
+                        logTerminal.appendChild(alertRow);
+                    }
                 }
             }
-
-            if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All nights sorted!</p>";
-            if(counters.bea === 0) document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All nights sorted!</p>";
-            if(counters.both === 0) document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All nights sorted!</p>";
+            checkEmptyColumnStates(counters);
         }
 
-        function saveSmartDinner(dateKey, value) {
-            dynamicDinners[dateKey] = value;
-            localStorage.setItem('food_os_dinners_v36', JSON.stringify(dynamicDinners));
+        function checkEmptyColumnStates(counters) {
+            if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All sorted!</p>";
+            if(counters.bea === 0) document.getElementById('container-bea').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All sorted!</p>";
+            if(counters.both === 0) document.getElementById('container-both').innerHTML = "<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All sorted!</p>";
         }
 
+        // GROCERY CHECKLIST TRACKER ENGINE
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
             listEl.innerHTML = '';
@@ -403,7 +521,7 @@
                 `;
                 listEl.appendChild(li);
             });
-            localStorage.setItem('food_os_shop_v36', JSON.stringify(shoppingList));
+            localStorage.setItem('food_os_shop_v40', JSON.stringify(shoppingList));
         }
 
         function addItem() {
@@ -421,7 +539,7 @@
         function deleteItem(index) { shoppingList.splice(index, 1); renderShoppingList(); }
 
         renderShoppingList();
-        fetchCalendarData();
+        buildMasterTimelineEngine();
     </script>
 </body>
 </html>
