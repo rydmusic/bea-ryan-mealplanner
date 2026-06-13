@@ -134,16 +134,29 @@
         .recipe-ingredients-list, .recipe-instructions-list { padding-left: 18px; font-size: 0.88rem; word-break: break-word; }
         .recipe-ingredients-list li, .recipe-instructions-list li { margin-bottom: 6px; }
 
-        /* Interactive Freezer Chassis & Absolute Layer Canvas Overlays */
-        .freezer-chassis { display: flex; flex-direction: column; background: #c2e2ec; border: 4px solid #000; border-radius: 8px; padding: 12px; gap: 12px; box-shadow: 4px 4px 0px #000; max-width: 600px; margin: 0 auto; position: relative; }
-        .freezer-drawer { background: var(--window-bg); border: 2px solid #000; border-radius: 6px; padding: 12px; display: flex; flex-direction: column; gap: 8px; box-shadow: 2px 2px 0px rgba(0,0,0,0.15); position: relative; overflow: hidden; }
-        .freezer-handle { height: 10px; width: 80px; background: #000; margin: 0 auto; border-radius: 2px; opacity: 0.8; }
-        .drawer-lbl { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; color: #4f8294; text-transform: uppercase; display: flex; justify-content: space-between; }
-        .freezer-textarea { width: 100%; height: 60px; border: 2px solid #000; border-radius: 4px; padding: 6px; font-family: inherit; font-size: 0.85rem; outline: none; resize: none; background: #fdfdfd; position: relative; z-index: 1; }
-        .freezer-save-btn { font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.7rem; text-transform: uppercase; padding: 3px 10px; border: 2px solid #000; background: var(--freezer-blue); cursor: pointer; border-radius: 4px; box-shadow: 2px 2px 0 #000; align-self: flex-end; position: relative; z-index: 1; }
+        /* Interactive Freezer Chassis Layout with 3D Door Swing Physics */
+        .freezer-outer-enclosure { width: 100%; max-width: 550px; margin: 0 auto; perspective: 1200px; position: relative; }
+        .freezer-chassis { display: flex; flex-direction: column; background: #a2cbd6; border: 4px solid #000; border-radius: 8px; padding: 15px; gap: 14px; box-shadow: 4px 4px 0px #000; width: 100%; position: relative; }
         
-        /* Fixed Stack Order Layering for True Scratch Physics */
-        .condensation-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; cursor: cell; transition: opacity 0.5s ease; touch-action: none; }
+        .freezer-drawer { background: var(--window-bg); border: 2px solid #000; border-radius: 6px; padding: 12px; display: flex; flex-direction: column; gap: 8px; box-shadow: 2px 2px 0px rgba(0,0,0,0.1); position: relative; }
+        .freezer-drawer-pullhandle { height: 10px; width: 80px; background: #000; margin: 0 auto; border-radius: 2px; opacity: 0.7; }
+        .drawer-lbl { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; color: #4f8294; text-transform: uppercase; display: flex; justify-content: space-between; }
+        .freezer-textarea { width: 100%; height: 60px; border: 2px solid #000; border-radius: 4px; padding: 6px; font-family: inherit; font-size: 0.85rem; outline: none; resize: none; background: #fdfdfd; }
+        .freezer-save-btn { font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.7rem; text-transform: uppercase; padding: 3px 10px; border: 2px solid #000; background: var(--freezer-blue); cursor: pointer; border-radius: 4px; box-shadow: 2px 2px 0 #000; align-self: flex-end; }
+
+        /* 3D Animated Mechanical Freezer Cabinet Door Layer */
+        .freezer-front-door { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(194, 226, 236, 0.45); border: 4px solid #000; border-radius: 8px; z-index: 100; transform-origin: left center; transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease, box-shadow 1.2s ease; pointer-events: auto; backdrop-filter: blur(1px); box-shadow: inset 0 0 20px rgba(255,255,255,0.5); }
+        
+        /* Opened State Class Triggered dynamically by JavaScript */
+        .freezer-front-door.door-swung-open { transform: rotateY(-115deg); pointer-events: none; box-shadow: none; border-color: rgba(0,0,0,0.15); }
+        
+        /* Fixed Scratch Canvas Mapping Inside the Door Unit Frame */
+        .condensation-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 102; cursor: cell; touch-action: none; transition: opacity 0.5s ease; }
+        
+        /* Steel Handle Locked to the Right Side of the Door Panel Frame */
+        .freezer-door-latchhandle { position: absolute; right: 15px; top: 40%; width: 22px; height: 85px; background: #e0e0e0; border: 3px solid #000; border-radius: 4px; box-shadow: 3px 3px 0px rgba(0,0,0,0.3); z-index: 105; cursor: pointer; transition: transform 0.1s; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold; }
+        .freezer-door-latchhandle:hover { background: #fff; }
+        .freezer-door-latchhandle:active { transform: scale(0.96); }
 
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
@@ -162,7 +175,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v71.1_STABLE_DEFROST</div>
+        <div class="nav-logo">💾 FOOD_OS // v71.2_ANIMATED_FREEZER_DOOR</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -172,7 +185,6 @@
 
     <main class="desktop-layout">
 
-        <!-- WEEK TIMELINE BOARD -->
         <section class="retro-window full-width">
             <div class="window-header yellow-variant">
                 <span>User_Schedule: Rolling_Timeline_Matrix.exe</span>
@@ -187,7 +199,6 @@
             </div>
         </section>
 
-        <!-- AUTOMATED ROUTER COLUMNS -->
         <section class="retro-window full-width">
             <div class="window-header orange-variant">
                 <span id="router-header-title">Intelligent_Router: Dinner_Router.exe</span>
@@ -209,7 +220,6 @@
             </div>
         </section>
 
-        <!-- GROCERY TRACKER -->
         <section class="retro-window full-width">
             <div class="window-header blue-variant">
                 <span>System Error: Missing Ingredients</span>
@@ -225,7 +235,6 @@
             </div>
         </section>
 
-        <!-- SAVED RECIPES WINDOW -->
         <section class="retro-window full-width" id="recipe-module-window">
             <div class="window-header orange-variant">
                 <span>Database_Explorer: Saved_Recipes.db</span>
@@ -248,42 +257,42 @@
             </div>
         </section>
 
-        <!-- WHAT'S IN THE FREEZER MODULE WITH ADVANCED SCRATCH MATRIX -->
         <section class="retro-window full-width">
             <div class="window-header freezer-variant">
                 <span>Subzero_Storage: Whats_In_The_Freezer.exe</span>
                 <span>✖</span>
             </div>
             <div class="window-body">
-                <div class="freezer-chassis">
+                <div class="freezer-outer-enclosure">
                     
-                    <!-- Drawer 1 (Top Slot) -->
-                    <div class="freezer-drawer" id="drawer-wrapper-1">
-                        <canvas class="condensation-canvas" id="fog-canvas-1"></canvas>
-                        <div class="drawer-lbl"><span>❄️ Drawer 1 (Top)</span><span id="d1-sync-status" style="font-size:0.65rem; opacity:0.6;"></span></div>
-                        <textarea class="freezer-textarea" id="freezer-d1-input" placeholder="Type items in Drawer 1..."></textarea>
-                        <div class="freezer-handle"></div>
-                        <button class="freezer-save-btn" onclick="saveFreezerDrawer(1)">💾 Save Drawer</button>
+                    <div class="freezer-front-door" id="freezer-main-door-panel">
+                        <canvas class="condensation-canvas" id="freezer-frost-canvas"></canvas>
+                        <div class="freezer-door-latchhandle" id="freezer-door-handle-trigger" onclick="actuateFreezerDoorHandle()"><span>║</span></div>
                     </div>
 
-                    <!-- Drawer 2 (Middle Slot) -->
-                    <div class="freezer-drawer" id="drawer-wrapper-2">
-                        <canvas class="condensation-canvas" id="fog-canvas-2"></canvas>
-                        <div class="drawer-lbl"><span>❄️ Drawer 2 (Middle)</span><span id="d2-sync-status" style="font-size:0.65rem; opacity:0.6;"></span></div>
-                        <textarea class="freezer-textarea" id="freezer-d2-input" placeholder="Type items in Drawer 2..."></textarea>
-                        <div class="freezer-handle"></div>
-                        <button class="freezer-save-btn" onclick="saveFreezerDrawer(2)">💾 Save Drawer</button>
+                    <div class="freezer-chassis">
+                        <div class="freezer-drawer">
+                            <div class="drawer-lbl"><span>❄️ Drawer 1 (Top)</span><span id="d1-sync-status" style="font-size:0.65rem; opacity:0.6;"></span></div>
+                            <textarea class="freezer-textarea" id="freezer-d1-input" placeholder="Type items in Drawer 1..."></textarea>
+                            <div class="freezer-drawer-pullhandle"></div>
+                            <button class="freezer-save-btn" onclick="saveFreezerDrawer(1)">💾 Save Drawer</button>
+                        </div>
+
+                        <div class="freezer-drawer">
+                            <div class="drawer-lbl"><span>❄️ Drawer 2 (Middle)</span><span id="d2-sync-status" style="font-size:0.65rem; opacity:0.6;"></span></div>
+                            <textarea class="freezer-textarea" id="freezer-d2-input" placeholder="Type items in Drawer 2..."></textarea>
+                            <div class="freezer-drawer-pullhandle"></div>
+                            <button class="freezer-save-btn" onclick="saveFreezerDrawer(2)">💾 Save Drawer</button>
+                        </div>
+
+                        <div class="freezer-drawer">
+                            <div class="drawer-lbl"><span>❄️ Drawer 3 (Bottom)</span><span id="d3-sync-status" style="font-size:0.65rem; opacity:0.6;"></span></div>
+                            <textarea class="freezer-textarea" id="freezer-d3-input" placeholder="Type items in Drawer 3..."></textarea>
+                            <div class="freezer-drawer-pullhandle"></div>
+                            <button class="freezer-save-btn" onclick="saveFreezerDrawer(3)">💾 Save Drawer</button>
+                        </div>
                     </div>
 
-                    <!-- Drawer 3 (Bottom Slot) -->
-                    <div class="freezer-drawer" id="drawer-wrapper-3">
-                        <canvas class="condensation-canvas" id="fog-canvas-3"></canvas>
-                        <div class="drawer-lbl"><span>❄️ Drawer 3 (Bottom)</span><span id="d3-sync-status" style="font-size:0.65rem; opacity:0.6;"></span></div>
-                        <textarea class="freezer-textarea" id="freezer-d3-input" placeholder="Type items in Drawer 3..."></textarea>
-                        <div class="freezer-handle"></div>
-                        <button class="freezer-save-btn" onclick="saveFreezerDrawer(3)">💾 Save Drawer</button>
-                    </div>
-                    
                 </div>
             </div>
         </section>
@@ -329,7 +338,7 @@
                 cook: "20 mins",
                 servings: "4",
                 ingredients: ["750g cubed Chicken thigh", "1/2 cup yogurt", "1 tbsp lemon juice", "1 tsp Turmeric", "2 tsp garam masala", "1/2 tsp chilli powder or cayenne", "1 tsp cumin", "1 tbsp ginger", "2 cloves garlic", "2 tbsp butter", "1 cup Passata", "1 cup heavy cream", "1 tbsp sugar", "1 1/4 tsp salt"],
-                instructions: ["Marinate chicken in yogurt, lemon juice, turmeric, garam masala, chilli powder, cumin, ginger, and garlic.", "Melt 2 tbsp butter in a pan over medium heat.", "Add Passata, heavy cream, sugar, and salt. Bring to a simmer.", "Add marinated chicken to the sauce and simmer until cooked through and sauce is thickened."]
+                instructions: ["Marinate chicken in yogurt, lemon juice, turmeric, garam masala, chilli powder, cumin, ginger, and garlic.", "Melt 2 tbsp butter in a pan over medium heat.", "Add Passata, heavy cream, sugar, and salt. Bring to a simmer.", "Add marinated chicken to the sauce and simmer until cooked through and sauce is thickened."
             },
             {
                 id: "shawarma-pie",
@@ -390,6 +399,8 @@
             freezerDrawer3: ""
         };
 
+        let isFreezerDoorUnlockingTriggered = false;
+
         async function loadCloudState() {
             try {
                 const response = await fetch(cloudStorageUrl);
@@ -413,7 +424,7 @@
             document.getElementById('freezer-d2-input').value = appState.freezerDrawer2 || "";
             document.getElementById('freezer-d3-input').value = appState.freezerDrawer3 || "";
             
-            setupCondensationMatrices();
+            setupUnifiedFreezerDoorCondensation();
         }
 
         async function saveCloudState() {
@@ -429,106 +440,101 @@
             }
         }
 
-        // REALISTIC PIXEL SCRATCH-OFF LOGIC PIPELINE WITH 50% MELT THRESHOLD
-        function setupCondensationMatrices() {
-            for (let id = 1; id <= 3; id++) {
-                const canvas = document.getElementById(`fog-canvas-${id}`);
-                const wrapper = document.getElementById(`drawer-wrapper-${id}`);
-                if (!canvas) continue;
-                
-                const ctx = canvas.getContext('2d');
-                let isWiping = false;
-                let isDefrosted = false; // Prevents re-frosting loops once cleared!
+        // UNIFIED RE-ENGINEERED SCRATCH CONDESATION MECHANICS
+        function setupUnifiedFreezerDoorCondensation() {
+            const canvas = document.getElementById("freezer-frost-canvas");
+            const doorPanel = document.getElementById("freezer-main-door-panel");
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            let isWiping = false;
+            let isDefrosted = false;
 
-                function resizeCanvas() {
-                    if (isDefrosted) return;
-                    canvas.width = wrapper.clientWidth;
-                    canvas.height = wrapper.clientHeight;
-                    generateIceFrostLayer(ctx, canvas.width, canvas.height);
-                }
-                
-                resizeCanvas();
-                window.addEventListener('resize', resizeCanvas);
-
-                // Check cleared pixel percentage matrix array
-                function checkDefrostMeltThreshold() {
-                    if (isDefrosted) return;
-                    
-                    // Low resolution sample scan optimization for fluid phone rendering
-                    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                    const pixels = imgData.data;
-                    let invisibleCount = 0;
-                    
-                    // Scan alpha channels step jumps
-                    for (let i = 3; i < pixels.length; i += 32) {
-                        if (pixels[i] === 0) {
-                            invisibleCount++;
-                        }
-                    }
-                    
-                    const totalSampled = pixels.length / 32;
-                    const clearPercentage = invisibleCount / totalSampled;
-
-                    // If more than 50% is wiped clean, dissolve the remaining frost layer entirely
-                    if (clearPercentage >= 0.50) {
-                        isDefrosted = true;
-                        canvas.style.opacity = '0';
-                        setTimeout(() => {
-                            canvas.style.pointerEvents = 'none'; // Unlocks textbox completely
-                        }, 500);
-                    }
-                }
-
-                function rubOutFrost(clientX, clientY) {
-                    if (isDefrosted) return;
-                    const rect = canvas.getBoundingClientRect();
-                    const x = clientX - rect.left;
-                    const y = clientY - rect.top;
-
-                    ctx.globalCompositeOperation = 'destination-out';
-                    ctx.beginPath();
-                    ctx.arc(x, y, 20, 0, Math.PI * 2); // Wiping brush radius size
-                    ctx.fill();
-                    
-                    checkDefrostMeltThreshold();
-                }
-
-                // Desktop Mouse Hooks
-                canvas.addEventListener('mousedown', (e) => { isWiping = true; rubOutFrost(e.clientX, e.clientY); });
-                canvas.addEventListener('mousemove', (e) => { if (isWiping) rubOutFrost(e.clientX, e.clientY); });
-                window.addEventListener('mouseup', () => isWiping = false);
-
-                // Mobile Touch Hooks
-                canvas.addEventListener('touchstart', (e) => {
-                    isWiping = true;
-                    rubOutFrost(e.touches[0].clientX, e.touches[0].clientY);
-                });
-                canvas.addEventListener('touchmove', (e) => {
-                    if (!isWiping) return;
-                    e.preventDefault(); 
-                    rubOutFrost(e.touches[0].clientX, e.touches[0].clientY);
-                });
-                window.addEventListener('touchend', () => isWiping = false);
+            function resizeDoorCanvas() {
+                if (isDefrosted) return;
+                canvas.width = doorPanel.clientWidth;
+                canvas.height = doorPanel.clientHeight;
+                generateIceFrostLayer(ctx, canvas.width, canvas.height);
             }
+            
+            resizeDoorCanvas();
+            window.addEventListener('resize', resizeDoorCanvas);
+
+            function checkDefrostMeltThreshold() {
+                if (isDefrosted) return;
+                
+                const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const pixels = imgData.data;
+                let invisibleCount = 0;
+                
+                for (let i = 3; i < pixels.length; i += 64) { // Fast scan optimization
+                    if (pixels[i] === 0) invisibleCount++;
+                }
+                
+                const totalSampled = pixels.length / 64;
+                const clearPercentage = invisibleCount / totalSampled;
+
+                // Threshold Check: Dissolve frost if 50% or more is scraped away cleanly
+                if (clearPercentage >= 0.50) {
+                    isDefrosted = true;
+                    isFreezerDoorUnlockingTriggered = true; // Handle latch state open enabled
+                    canvas.style.opacity = '0';
+                    setTimeout(() => { canvas.removeAttribute('id'); canvas.remove(); }, 600);
+                }
+            }
+
+            function rubOutFrost(clientX, clientY) {
+                if (isDefrosted) return;
+                const rect = canvas.getBoundingClientRect();
+                const x = clientX - rect.left;
+                const y = clientY - rect.top;
+
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.arc(x, y, 28, 0, Math.PI * 2); // Wiping brush width radius
+                ctx.fill();
+                
+                checkDefrostMeltThreshold();
+            }
+
+            // Desktop Mouse Bindings
+            canvas.addEventListener('mousedown', (e) => { isWiping = true; rubOutFrost(e.clientX, e.clientY); });
+            canvas.addEventListener('mousemove', (e) => { if (isWiping) rubOutFrost(e.clientX, e.clientY); });
+            window.addEventListener('mouseup', () => isWiping = false);
+
+            // Mobile Touch Screen Bindings
+            canvas.addEventListener('touchstart', (e) => { isWiping = true; rubOutFrost(e.touches[0].clientX, e.touches[0].clientY); });
+            canvas.addEventListener('touchmove', (e) => { if (!isWiping) return; e.preventDefault(); rubOutFrost(e.touches[0].clientX, e.touches[0].clientY); });
+            window.addEventListener('touchend', () => isWiping = false);
         }
 
         function generateIceFrostLayer(ctx, w, height) {
-            ctx.fillStyle = 'rgba(215, 240, 246, 0.95)'; 
+            ctx.fillStyle = 'rgba(215, 240, 246, 0.96)'; 
             ctx.fillRect(0, 0, w, height);
             
-            // Text hint so users know what to do
-            ctx.fillStyle = 'rgba(79, 130, 148, 0.6)';
-            ctx.font = 'bold 13px Courier Prime, monospace';
+            ctx.fillStyle = 'rgba(79, 130, 148, 0.7)';
+            ctx.font = 'bold 14px Courier Prime, monospace';
             ctx.textAlign = 'center';
-            ctx.fillText('👋 WIPE FROST TO UNLOCK DRAWER', w / 2, height / 2 + 4);
+            ctx.fillText('👋 SCRUB 50% CONDENSATION', w / 2, height / 2 - 8);
+            ctx.fillText('TO DEFROST REFRIGERATOR DOOR', w / 2, height / 2 + 10);
 
-            for (let i = 0; i < 300; i++) {
+            for (let i = 0; i < 400; i++) {
                 let rx = Math.random() * w;
                 let ry = Math.random() * height;
                 let size = Math.random() * 2 + 1;
                 ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
                 ctx.fillRect(rx, ry, size, size);
             }
+        }
+
+        // 3D MECHANICAL SWING DOOR TOGGLE MECHANICS
+        function actuateFreezerDoorHandle() {
+            if (!isFreezerDoorUnlockingTriggered) {
+                alert("The mechanical handle is jammed shut under deep ice! Please wipe out at least 50% of the front glass condensation first.");
+                return;
+            }
+            const door = document.getElementById("freezer-main-door-panel");
+            door.classList.toggle("door-swung-open");
         }
 
         async function saveFreezerDrawer(drawerNum) {
@@ -736,7 +742,7 @@
 
                 renderedCount++;
                 const dateKey = checkDay.toISOString().split('T')[0];
-                const displayLabel = `${shortDayNames[dayOfWeek]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
+                const displayLabel = `${shortDayNames[checkDay.getDay()]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
 
                 const rFilled = (activeRyan[dateKey] || "").trim() !== "";
                 const bFilled = (activeBea[dateKey] || "").trim() !== "";
@@ -805,43 +811,6 @@
                 </div>
             `;
             container.appendChild(block);
-        }
-
-        async function rollRandomCategory(dateKey) {
-            const categories = Object.keys(foodMenuDatabase).filter(cat => cat !== 'OTHER');
-            if (categories.length === 0) return;
-            const randomCat = categories[Math.floor(Math.random() * categories.length)];
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            selections[dateKey] = { category: randomCat, dish: "" };
-            renderActiveMatrix();
-            await saveCloudState();
-        }
-
-        async function rollRandomDish(dateKey) {
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            const currentCat = selections[dateKey] ? selections[dateKey].category : "";
-            if (!currentCat || currentCat === 'OTHER' || !foodMenuDatabase[currentCat] || foodMenuDatabase[currentCat].length === 0) {
-                alert("Please select a category row block first before rolling an option!");
-                return;
-            }
-            const optionsList = foodMenuDatabase[currentCat];
-            const randomDish = optionsList[Math.floor(Math.random() * optionsList.length)];
-            selections[dateKey].dish = randomDish;
-            renderActiveMatrix();
-            await saveCloudState();
-        }
-
-        async function handleHeaderChange(dateKey, category) {
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            selections[dateKey] = { category: category, dish: "" };
-            renderActiveMatrix();
-            await saveCloudState();
-        }
-
-        async function handleDishChange(dateKey, dishName) {
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            if (selections[dateKey]) { selections[dateKey].dish = dishName; }
-            await saveCloudState();
         }
 
         function checkEmptyStates(counters) {
