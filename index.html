@@ -96,13 +96,14 @@
         .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px var(--border-clr); }
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
         
-        .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
-        .inline-selector-row { display: flex; gap: 6px; align-items: center; width: 100%; min-width: 0; }
-        .food-select-dropdown { flex: 1; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; background: #fff; outline: none; min-width: 0; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+        /* Fixed Column-Stacked Layout Framework for Dropdowns and Dice Hooks */
+        .dropdown-stack-group { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+        .stacked-selector-block { display: flex; flex-direction: column; gap: 4px; width: 100%; min-width: 0; }
+        .food-select-dropdown { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 6px; font-family: inherit; font-size: 0.8rem; background: #fff; outline: none; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
         .other-text-box { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; outline: none; background: #fffdf2; }
         
-        /* Mobile Fixed & Clean Dice Action Buttons */
-        .dice-random-btn { background-color: #fff; border: 2px solid #000; border-radius: 4px; padding: 0; font-family: 'Courier Prime', monospace; font-size: 1rem; font-weight: bold; cursor: pointer; box-shadow: 2px 2px 0px #000; white-space: nowrap; height: 32px; width: 34px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+        /* Mobile-Safe Understacked Dice Action Button Styles */
+        .dice-random-btn { background-color: #fff; border: 2px solid #000; border-radius: 4px; padding: 0; font-family: 'Courier Prime', monospace; font-size: 0.9rem; font-weight: bold; cursor: pointer; box-shadow: 2px 2px 0px #000; height: 26px; width: 36px; display: flex; align-items: center; justify-content: center; align-self: flex-start; }
         .dice-random-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
 
         /* Mobile-Friendly Saved Recipes Layout Matrix */
@@ -159,7 +160,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v70.2_MOBILE_DICE_FIX</div>
+        <div class="nav-logo">💾 FOOD_OS // v70.3_VERTICAL_SELECTOR_FIX</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -256,7 +257,7 @@
                     </div>
 
                     <div class="freezer-drawer">
-                        <div class="drawer-lbl"><span>❄️ Drawer 2 (Middle)</span><span id="d2-sync-status" style="font-size:0.65rem; opacity:0.6;"></span></div>
+                        <div class="drawer-lbl"><span>❄️ Drawer 2 (Middle)</span><span id="d1-sync-status" style="font-size:0.65rem; opacity:0.6;"></span></div>
                         <textarea class="freezer-textarea" id="freezer-d2-input" placeholder="Type items in Drawer 2... (e.g., Prepared meals, leftovers)"></textarea>
                         <div class="freezer-handle"></div>
                         <button class="freezer-save-btn" onclick="saveFreezerDrawer(2)">💾 Save Drawer</button>
@@ -685,14 +686,15 @@
             block.innerHTML = `
                 <div class="smart-day-title"><span>● ${label}</span></div>
                 <div class="dropdown-stack-group">
-                    <div class="inline-selector-row">
+                    
+                    <div class="stacked-selector-block">
                         <select class="food-select-dropdown" onchange="handleHeaderChange('${dateKey}', this.value)">
                             ${headerOptionsHtml}
                         </select>
                         <button class="dice-random-btn" onclick="rollRandomCategory('${dateKey}')" title="Randomize Category">🎲</button>
                     </div>
                     
-                    <div class="inline-selector-row" id="dish-row-box-${dateKey}" style="display: ${showOtherBox ? 'none' : 'flex'};">
+                    <div class="stacked-selector-block" id="dish-row-box-${dateKey}" style="display: ${showOtherBox ? 'none' : 'flex'};">
                         <select class="food-select-dropdown" id="dish-drop-${dateKey}" onchange="handleDishChange('${dateKey}', this.value)">
                             ${dishOptionsHtml}
                         </select>
