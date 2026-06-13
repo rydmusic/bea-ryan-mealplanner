@@ -53,7 +53,7 @@
         .calendar-days-grid { display: grid; grid-template-columns: repeat(2, 1fr); border-left: 1px solid #000; border-top: 1px solid #000; background: #fff; }
         .calendar-days-grid.lunch-mode-grid { grid-template-columns: repeat(2, 1fr); }
 
-        @media (min-width: 700px) {
+        @media (min-width: 750px) {
             .calendar-days-grid { grid-template-columns: repeat(4, 1fr); }
             .calendar-days-grid.lunch-mode-grid { grid-template-columns: repeat(5, 1fr); }
         }
@@ -107,7 +107,7 @@
         .dice-random-btn { background-color: #fff; border: 2px solid #000; border-radius: 4px; padding: 0; font-size: 0.85rem; cursor: pointer; box-shadow: 2px 2px 0px #000; height: 28px; width: 30px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
         .dice-random-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
 
-        /* Saved Recipes Layout */
+        /* Mobile-Friendly Saved Recipes Layout Matrix */
         .recipe-category-tabs { display: flex; gap: 6px; margin-bottom: 15px; background: rgba(0, 0, 0, 0.04); padding: 6px; border: 2px solid #000; border-radius: 4px; flex-wrap: wrap; }
         .recipe-cat-btn { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.75rem; border: 1px solid #000; background: #fff; padding: 6px 12px; cursor: pointer; border-radius: 3px; box-shadow: 2px 2px 0px #000; }
         .recipe-cat-btn.active-cat-tab { background: var(--accent-blue); color: #fff; transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
@@ -135,7 +135,7 @@
         .recipe-ingredients-list, .recipe-instructions-list { padding-left: 18px; font-size: 0.88rem; word-break: break-word; }
         .recipe-ingredients-list li, .recipe-instructions-list li { margin-bottom: 6px; }
 
-        /* GROCERY SYSTEM VISUAL COMPONENTS */
+        /* CLASSIC SHOPPING LIST INTERFACE SYSTEM STYLE SHEETS */
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
         .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 15px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; white-space: nowrap; }
@@ -149,7 +149,7 @@
         .delete-btn { background: none; border: none; font-family: monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; padding: 0 5px; }
         .checker-banner { height: 16px; background-image: linear-gradient(45deg, #000 25%, transparent 25%), linear-gradient(-45deg, #000 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #000 75%), linear-gradient(-45deg, transparent 75%, #000 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; background-color: var(--accent-blue); border-bottom: 2px solid var(--border-clr); }
 
-        /* RECTANGULAR SMEG APPLIANCE HULL ENCLOSURE */
+        /* IMAGE_B3D845.JPG APPLIANCE CABINET STYLINGS */
         .fridge-hardware-container { width: 100%; max-width: 440px; margin: 50px auto; perspective: 1500px; padding: 10px; }
         .fridge-top-prop-shelf { width: 100%; display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 4px; position: relative; z-index: 5; margin-bottom: -5px; padding-left: 30px; padding-right: 30px; }
         .prop-bottle { width: 32px; height: 75px; background: #4a533c; border: 3px solid #000; border-radius: 6px 6px 2px 2px; position: relative; }
@@ -201,7 +201,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v74.3_STABLE_REVERT</div>
+        <div class="nav-logo">💾 FOOD_OS // v74.3_STABLE_RESTORED</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -366,7 +366,6 @@
             "https://drive.google.com/thumbnail?sz=w1000&id=1yTdpRQnqZ-Y2XsQo-P_scHKmTmoHoXgL"
         ];
 
-        // RESTORED STABLE CODE DATABASE ARRAY
         const staticRecipeDatabase = [
             {
                 id: "vodka-pasta",
