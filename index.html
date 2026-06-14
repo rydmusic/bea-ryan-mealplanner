@@ -101,7 +101,7 @@
         .tag-bea { background-color: var(--bea-pink); }
         .tag-both { background-color: var(--together-purple); }
 
-        .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px var(--border-clr); position: relative; }
+        .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px #000; position: relative; }
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
         
         .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
@@ -811,26 +811,62 @@
         async function toggleCinemaCheckboxLatchingModal(masterIndex) { appState.cinemaRegistry[masterIndex].checked = !appState.cinemaRegistry[masterIndex].checked; renderCinemaCatalogDeck(); inspectMovieGridCardRecord(masterIndex); await saveCloudState(); }
         async function deleteCinemaRegistryItemModal(masterIndex) { if(confirm("Are you sure you want to remove this film?")) { appState.cinemaRegistry.splice(masterIndex, 1); renderCinemaCatalogDeck(); closeMovieInspectionModal(); await saveCloudState(); } }
 
-        function toggleActivePage(targetPage) {
-            document.querySelectorAll('.page-nav-bar .page-nav-btn').forEach(b => b.classList.remove('active-page'));
-            document.getElementById('core-meal-planner-view').style.display = 'none';
-            document.getElementById('core-date-night-view').style.display = 'none';
-            document.getElementById('core-cinema-club-view').style.display = 'none';
+        function toggleCardCollapseView(targetId, index) {
+            const el = document.getElementById(`collapsible-card-${targetId}-${index}`); const arrow = document.getElementById(`arrow-indicator-${targetId}-${index}`); if(!el) return;
+            if (el.style.display === 'block') { el.style.display = 'none'; if(arrow) arrow.innerText = '▼'; } else { el.style.display = 'block'; if(arrow) arrow.innerText = '▲'; }
+        }
 
-            if (targetPage === 'meal') {
-                document.getElementById('page-btn-meal').classList.add('active-page');
-                document.getElementById('core-meal-planner-view').style.display = 'block';
-            } else if (targetPage === 'date') {
-                document.getElementById('page-btn-date').classList.add('active-page');
-                document.getElementById('core-date-night-view').style.display = 'block';
+        function activateInlineDateEdit(targetId, index) {
+            let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); targetArr[index]._isEditing = true; renderAllDateColumns();
+            setTimeout(() => { const el = document.getElementById(`collapsible-card-${targetId}-${index}`); if(el) el.style.display = 'block'; }, 10);
+        }
+
+        function cancelInlineDateEdit(targetId, index) { let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); delete targetArr[index]._isEditing; renderAllDateColumns(); }
+
+        async function saveInlineDateModifications(targetId, index) {
+            let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); let item = targetArr[index];
+            const updatedName = document.getElementById('edit-name-' + targetId + '-' + index).value.trim();
+            const updatedNotes = document.getElementById('edit-notes-' + targetId + '-' + index).value.trim(); const updatedLoc = document.getElementById('edit-loc-' + targetId + '-' + index).value.trim();
+            if (updatedName === '') return; let addressChanged = item.location !== updatedLoc; item.name = updatedName; item.notes = updatedNotes; item.location = updatedLoc; delete item._isEditing;
+            renderAllDateColumns();
+            if (updatedLoc !== '' && addressChanged) {
+                try {
+                    let res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(updatedLoc + ", London")}`);
+                    let data = await res.json(); if (data && data.length > 0) { item.lat = parseFloat(data[0].lat); item.lng = parseFloat(data[0].lon); } else { item.lat = null; item.lng = null; }
+                } catch(err) { console.warn(err); }
+            } else if (updatedLoc === '') { item.lat = null; item.lng = null; }
+            renderAllDateColumns(); refreshPersistentPinsOnMap(); await saveCloudState();
+        }
+
+        async function addDateIdea(targetId) {
+            const input = document.getElementById(`date-${targetId}-input`); const notesInput = document.getElementById(`date-${targetId}-notes`); const locInput = document.getElementById(`date-${targetId}-map`);
+            if(!input || !notesInput || !locInput) return; const val = input.value.trim(); const notesVal = notesInput.value.trim(); const locVal = locInput.value.trim();
+            if (val !== '') {
+                const targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral);
+                let newItem = { name: val, notes: notesVal, location: locVal, checked: false, lat: null, lng: null };
+                targetArr.push(newItem); input.value = ''; notesInput.value = ''; locInput.value = '';
                 renderAllDateColumns();
-                setTimeout(initializeVintageLondonMap, 100);
-            } else if (targetPage === 'film') {
-                document.getElementById('page-btn-film').classList.add('active-page');
-                document.getElementById('core-cinema-club-view').style.display = 'block';
-                renderCinemaCatalogDeck();
+                if (locVal !== '') {
+                    try {
+                        let res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(locVal + ", London")}`);
+                        let data = await res.json(); if (data && data.length > 0) { newItem.lat = parseFloat(data[0].lat); newItem.lng = parseFloat(data[0].lon); }
+                    } catch(err) { console.warn(err); }
+                }
+                renderAllDateColumns(); refreshPersistentPinsOnMap(); await saveCloudState();
             }
         }
+
+        async function toggleDateItem(targetId, index) { let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); targetArr[index].checked = !targetArr[index].checked; renderAllDateColumns(); await saveCloudState(); }
+        async function deleteDateItem(targetId, index) { let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); targetArr.splice(index, 1); renderAllDateColumns(); refreshPersistentPinsOnMap(); await saveCloudState(); }
+
+        function toggleFreezerDoor() { const door = document.getElementById("fridge-top-door-panel"); if(door) door.classList.toggle("door-swung-open"); }
+        async function saveFreezerDrawer(drawerNum) {
+            const statusIndicator = document.getElementById(`d${drawerNum}-sync-status`); statusIndicator.innerText = "⏳ Saving..."; const txtVal = document.getElementById(`freezer-d${drawerNum}-input`).value;
+            if (drawerNum === 1) appState.freezerDrawer1 = txtVal; if (drawerNum === 2) appState.freezerDrawer2 = txtVal; if (drawerNum === 3) appState.freezerDrawer3 = txtVal;
+            await saveCloudState(); setTimeout(() => { statusIndicator.innerText = "✅ Saved!"; setTimeout(() => { statusIndicator.innerText = ""; }, 2000); }, 800);
+        }
+
+        function toggleFreezerDoor() { const door = document.getElementById("fridge-top-door-panel"); if(door) door.classList.toggle("door-swung-open"); }
 
         function filterRecipeCategory(category) { currentRecipeCategory = category; document.querySelectorAll('.recipe-cat-btn').forEach(btn => btn.classList.remove('active-cat-tab')); document.getElementById(`cat-tab-${category}`).classList.add('active-cat-tab'); buildRecipeRegistryDeck(); closeRecipePanel(); }
         function buildRecipeRegistryDeck() {
@@ -1041,14 +1077,14 @@
             await saveCloudState();
         }
 
-        // UNIFIED DEFLATTENED SPREADSHEET DECODER LOADER PIPELINE
+        // DEFLATTENED INITIAL STATE HANDSHAKE INITIALIZER PIPELINE
         document.addEventListener('DOMContentLoaded', () => {
             fetch(cloudStorageUrl)
                 .then(res => res.json())
                 .then(payload => {
                     if (payload.menuDatabase && Object.keys(payload.menuDatabase).length > 1) { foodMenuDatabase = payload.menuDatabase; }
                     
-                    // PARSE RECIPES LIVE FEED FROM SHEET 3
+                    // PARSE FLAT SHEET 3 MULTILINE CELLS SUCCESSFULLY
                     if (payload.liveRecipesFeed && payload.liveRecipesFeed.length > 0) {
                         let parsedFeed = [];
                         payload.liveRecipesFeed.forEach(row => {
@@ -1071,7 +1107,7 @@
                         if (parsedFeed.length > 0) { staticRecipeDatabase = parsedFeed; }
                     }
 
-                    // Map metrics directly out of top level spreadsheet properties
+                    // Map object metrics straight out of high-level stream handles
                     appState.shoppingList = payload.shoppingList || [];
                     appState.dateLocal = payload.dateLocal || [];
                     appState.dateEast = payload.dateEast || [];
@@ -1100,9 +1136,10 @@
                     document.getElementById('freezer-d1-input').value = appState.freezerDrawer1;
                     document.getElementById('freezer-d2-input').value = appState.freezerDrawer2;
                     document.getElementById('freezer-d3-input').value = appState.freezerDrawer3;
+                    
                     shuffleFridgePolaroidMemory();
                 }).catch(err => {
-                    console.error("handshake timeout fallback routine.", err);
+                    console.error("Connection breakdown. Running backup cache layout safely.", err);
                     switchAppMode(currentMode);
                     renderShoppingList();
                     buildRecipeRegistryDeck();
