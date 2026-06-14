@@ -139,7 +139,13 @@
         .recipe-close-btn { position: absolute; top: 15px; right: 15px; font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; background: #fff; border: 2px solid #000; padding: 2px 7px; border-radius: 4px; box-shadow: 2px 2px 0 #000; }
         .recipe-close-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 #000; }
 
-        /* THEME GROCERY CARD DEFINITIONS (RESTORED CHECKBOX SYSTEM) */
+        .recipe-meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 15px 0; font-family: 'Courier Prime', monospace; font-size: 0.75rem; font-weight: bold; }
+        .recipe-meta-tag { background: #eee; border: 1px solid #000; padding: 2px 6px; border-radius: 3px; }
+        .recipe-section-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 1rem; text-transform: uppercase; border-bottom: 2px dashed #000; margin: 18px 0 8px 0; padding-bottom: 2px; color: #000; }
+        .recipe-ingredients-list, .recipe-instructions-list { padding-left: 18px; font-size: 0.88rem; word-break: break-word; }
+        .recipe-ingredients-list li, .recipe-instructions-list li { margin-bottom: 6px; }
+
+        /* UNIFIED STRUCTURAL CSS PATTERNS FOR GROCERY DISPLAY CARDS[cite: 2] */
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
         .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 15px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; white-space: nowrap; }
@@ -154,7 +160,7 @@
         .delete-btn { background: none; border: none; font-family: monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; padding: 0 5px; margin-left: auto; }
         .checker-banner { height: 16px; background-image: linear-gradient(45deg, #000 25%, transparent 25%), linear-gradient(-45deg, #000 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #000 75%), linear-gradient(-45deg, transparent 75%, #000 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; background-color: var(--accent-blue); border-bottom: 2px solid var(--border-clr); }
 
-        /* REFRIGERATOR ENCLOSURE HULL STYLINGS */
+        /* REFRIGERATOR ENCLOSURE HULL STYLINGS[cite: 2] */
         .fridge-hardware-container { width: 100%; max-width: 440px; margin: 50px auto; perspective: 1500px; padding: 10px; }
         .fridge-top-prop-shelf { width: 100%; display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 4px; position: relative; z-index: 5; margin-bottom: -5px; padding-left: 30px; padding-right: 30px; }
         .prop-bottle { width: 32px; height: 75px; background: #4a533c; border: 3px solid #000; border-radius: 6px 6px 2px 2px; position: relative; }
@@ -205,7 +211,7 @@
         .mag-bottom-doc { bottom: 60px; left: calc(50% - 35px); width: 75px; height: 85px; background: #ebdcb5; border-radius: 2px; transform: rotate(4deg); padding: 6px; font-family: monospace; font-size: 0.45rem; line-height: 1.4; letter-spacing: -0.5px; }
         .mag-bottom-doc::before { content: ''; position: absolute; top: -10px; left: calc(50% - 10px); width: 20px; height: 20px; background: #4a8cb2; border: 2px solid #000; border-radius: 50%; }
 
-        /* THREE SECTION DATE NIGHT LAYOUT FIELDS */
+        /* THREE SECTION DATE NIGHT LAYOUT FIELDS[cite: 2] */
         .date-night-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 25px; }
         @media (min-width: 950px) { .date-night-grid { grid-template-columns: repeat(3, 1fr); } }
         .date-night-column { background: #fffcf7; border: 2px solid #000; border-radius: 6px; padding: 15px; box-shadow: 4px 4px 0px #000; display: flex; flex-direction: column; gap: 10px; }
@@ -213,7 +219,7 @@
         
         .date-input-stack-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; background: rgba(0,0,0,0.02); padding: 10px; border: 1px dashed #000; border-radius: 4px; }
         
-        /* NEW COLLAPSIBLE AND EDITABLE CARD ARCHITECTURE STYLES */
+        /* COLLAPSIBLE AND EDITABLE CARD ARCHITECTURE STYLES[cite: 2] */
         .date-item-row-wrapper { font-size: 0.72rem; display: flex; flex-direction: column; gap: 4px; text-decoration: none !important; width: 100%; }
         .date-card-header-clickable { font-weight: 700; font-size: 1rem; color: #000; cursor: pointer; display: flex; justify-content: space-between; align-items: center; width: 100%; padding-bottom: 2px; }
         .date-card-header-clickable:hover { color: var(--accent-orange); }
@@ -230,7 +236,7 @@
 
         .map-badge-link-pill { display: inline-flex; align-items: center; gap: 3px; font-size: 0.65rem; background: var(--folder-yellow); color: #000; padding: 1px 6px; border-radius: 3px; font-family: 'Courier Prime', monospace; font-weight: bold; width: max-content; border: 1px solid #000; cursor: pointer; box-shadow: 1px 1px 0 #000; }
 
-        /* VINTAGE ILLUSTRATED MAP OVERLAYS FROM image_53f623.jpg SETUP */
+        /* VINTAGE MAP OVERLAYS */
         .map-terminal-frame { background: var(--map-vintage-paper); border: 2px solid #000; border-radius: 8px; box-shadow: 6px 6px 0px #000; overflow: hidden; display: flex; flex-direction: column; margin-top: 10px; position: relative; }
         .crt-london-viewscreen { width: 100%; height: 440px; z-index: 1; }
         
@@ -244,7 +250,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v75.4_COLLAPSIBLE_CARDS</div>
+        <div class="nav-logo">💾 FOOD_OS // v75.5_PERSISTENT_BOOT</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -330,7 +336,7 @@
                 </div>
             </section>
 
-            <!-- APPLIANCE DRAWER ENCLOSURES -->
+            <!-- RESTORED TALL STORAGE CABINET DATABASE MODULE FRAME -->
             <div class="fridge-hardware-container full-width">
                 <div class="fridge-top-prop-shelf">
                     <div class="prop-bottle" title="Wine bottle"></div>
@@ -430,7 +436,7 @@
 
             </div>
 
-            <!-- RETRO MAP VECTOR TERMINAL CONTAINER -->
+            <!-- RETRO ILLUSTRATED RADAR DECK COMPONENT PANEL -->
             <div class="map-terminal-frame">
                 <div class="window-header purple-variant" style="border-bottom:2px solid #000;">
                     <span>Radar_Plotter: Illustrated_London_Blueprint.exe</span>
@@ -534,24 +540,6 @@
             "OTHER": []
         };
 
-        let appState = {
-            shoppingList: [{ name: 'Oat Milk', checked: false }],
-            dateLocal: [],
-            dateEast: [],
-            dateCentral: [],
-            ryanDinners: {},
-            beaDinners: {},
-            bothInDinners: {},
-            dinnerSelections: {},
-            ryanLunches: {},
-            beaLunches: {},
-            bothInLunches: {},
-            lunchSelections: {},
-            freezerDrawer1: "",
-            freezerDrawer2: "",
-            freezerDrawer3: ""
-        };
-
         function toggleActivePage(targetPage) {
             document.querySelectorAll('.page-nav-btn').forEach(b => b.classList.remove('active-page'));
             if (targetPage === 'meal') {
@@ -563,10 +551,7 @@
                 document.getElementById('core-meal-planner-view').style.display = 'none';
                 document.getElementById('core-date-night-view').style.display = 'block';
                 renderAllDateColumns();
-                setTimeout(() => {
-                    initializeVintageLondonMap();
-                    refreshPersistentPinsOnMap();
-                }, 100);
+                setTimeout(initializeVintageLondonMap, 100);
             }
         }
 
@@ -589,6 +574,7 @@
             }).addTo(leafletMapInstance);
 
             mapPinsLayerGroup = L.layerGroup().addTo(leafletMapInstance);
+            refreshPersistentPinsOnMap();
         }
 
         function refreshPersistentPinsOnMap() {
@@ -693,7 +679,6 @@
             renderSingleDateColumn('central', appState.dateCentral || []);
         }
 
-        // DYNAMICALLY BUILD COLLAPSIBLE MATRIX BLOCK ITEMS WITH INTERNAL INLINE EDIT HANDLERS[cite: 2]
         function renderSingleDateColumn(targetId, listData) {
             const listEl = document.getElementById(`date-${targetId}-list`);
             if(!listEl) return;
@@ -703,12 +688,10 @@
                 const li = document.createElement('li');
                 li.className = 'grocery-item' + (item.checked ? ' checked' : '');
                 
-                // Track dynamic layout visibility parameters
                 let isEditing = item._isEditing || false;
-
                 let expandedContentHtml = "";
+
                 if (isEditing) {
-                    // Inject edit state controls box directly
                     expandedContentHtml = `
                         <div class="date-edit-fields-box" onclick="event.stopPropagation()">
                             <input type="text" class="date-edit-mini-input" id="edit-name-${targetId}-${index}" value="${item.name}" placeholder="Title...">
@@ -721,7 +704,6 @@
                         </div>
                     `;
                 } else {
-                    // Standard text display parameters
                     let notesHtml = item.notes ? `<div class="date-notes-subtext">${item.notes}</div>` : "";
                     let addressHtml = item.location ? `<div class="date-address-subtext">🏠 ${item.location}</div>` : "";
                     let radarButtonHtml = (item.lat && item.lng) ? `<div class="map-badge-link-pill" onclick="event.stopPropagation(); triggerCameraGlide(${item.lat}, ${item.lng})">CNTR 🗺️</div>` : "";
@@ -772,7 +754,6 @@
             targetArr[index]._isEditing = true;
             renderAllDateColumns();
             
-            // Force block visibility layout since edit pane is rendered
             setTimeout(() => {
                 const cardBody = document.getElementById(`collapsible-card-${targetId}-${index}`);
                 if(cardBody) cardBody.style.display = 'block';
@@ -909,7 +890,6 @@
             document.querySelectorAll('.recipe-cat-btn').forEach(btn => btn.classList.remove('active-cat-tab'));
             document.getElementById(`cat-tab-${category}`).classList.add('active-cat-tab');
             buildRecipeRegistryDeck();
-            closeRecipePanel();
         }
 
         function buildRecipeRegistryDeck() {
@@ -932,6 +912,11 @@
                 };
                 listAnchor.appendChild(li);
             });
+            
+            // AUTOMATIC PERSISTENT BOOT: Renders index item right at load-cycle launch
+            if (filteredRecipes.length > 0) {
+                displayRecipeProfile(filteredRecipes[0]);
+            }
         }
 
         function displayRecipeProfile(recipe) {
@@ -958,9 +943,6 @@
                 <ol class="recipe-instructions-list">${instHtml}</ol>
             `;
             panel.style.display = 'block';
-            if (window.innerWidth < 750) {
-                panel.scrollIntoView({ behavior: 'smooth' });
-            }
         }
 
         function closeRecipePanel() {
@@ -1164,6 +1146,13 @@
                 </div>
             `;
             container.appendChild(block);
+        }
+
+        function checkEmptyStates(counters) {
+            let tag = currentMode === 'dinners' ? 'nights sorted!' : 'days sorted!';
+            if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
+            if(counters.bea === 0) document.getElementById('container-bea').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
+            if(counters.both === 0) document.getElementById('container-both').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
         }
 
         function renderShoppingList() {
