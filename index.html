@@ -101,7 +101,7 @@
         .tag-bea { background-color: var(--bea-pink); }
         .tag-both { background-color: var(--together-purple); }
 
-        .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px #000; position: relative; }
+        .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px var(--border-clr); position: relative; }
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
         
         .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
@@ -585,7 +585,13 @@
             freezerDrawer1: "", freezerDrawer2: "", freezerDrawer3: ""
         };
 
-        /* LOCAL ROBUST RECIPE SUGGESTER MATCHING INTERNAL CONTROLS ENGINE */
+        function shuffleFridgePolaroidMemory() {
+            if (ryanAndBeaPhotos.length === 0) return;
+            const randomIndex = Math.floor(Math.random() * ryanAndBeaPhotos.length);
+            const targetElement = document.querySelector('.polaroid-photo-frame');
+            if (targetElement) { targetElement.style.backgroundImage = `url('${ryanAndBeaPhotos[randomIndex]}')`; }
+        }
+
         function queryLocalIngredientMealSuggestion() {
             const inputEl = document.getElementById('api-ingredient-tags-input');
             const outputAnchor = document.getElementById('api-suggestions-dynamic-output-rail');
@@ -805,6 +811,27 @@
         async function toggleCinemaCheckboxLatchingModal(masterIndex) { appState.cinemaRegistry[masterIndex].checked = !appState.cinemaRegistry[masterIndex].checked; renderCinemaCatalogDeck(); inspectMovieGridCardRecord(masterIndex); await saveCloudState(); }
         async function deleteCinemaRegistryItemModal(masterIndex) { if(confirm("Are you sure you want to remove this film?")) { appState.cinemaRegistry.splice(masterIndex, 1); renderCinemaCatalogDeck(); closeMovieInspectionModal(); await saveCloudState(); } }
 
+        function toggleActivePage(targetPage) {
+            document.querySelectorAll('.page-nav-bar .page-nav-btn').forEach(b => b.classList.remove('active-page'));
+            document.getElementById('core-meal-planner-view').style.display = 'none';
+            document.getElementById('core-date-night-view').style.display = 'none';
+            document.getElementById('core-cinema-club-view').style.display = 'none';
+
+            if (targetPage === 'meal') {
+                document.getElementById('page-btn-meal').classList.add('active-page');
+                document.getElementById('core-meal-planner-view').style.display = 'block';
+            } else if (targetPage === 'date') {
+                document.getElementById('page-btn-date').classList.add('active-page');
+                document.getElementById('core-date-night-view').style.display = 'block';
+                renderAllDateColumns();
+                setTimeout(initializeVintageLondonMap, 100);
+            } else if (targetPage === 'film') {
+                document.getElementById('page-btn-film').classList.add('active-page');
+                document.getElementById('core-cinema-club-view').style.display = 'block';
+                renderCinemaCatalogDeck();
+            }
+        }
+
         function filterRecipeCategory(category) { currentRecipeCategory = category; document.querySelectorAll('.recipe-cat-btn').forEach(btn => btn.classList.remove('active-cat-tab')); document.getElementById(`cat-tab-${category}`).classList.add('active-cat-tab'); buildRecipeRegistryDeck(); closeRecipePanel(); }
         function buildRecipeRegistryDeck() {
             const listAnchor = document.getElementById('recipe-list-tabs-anchor'); if(!listAnchor) return; listAnchor.innerHTML = '';
@@ -966,16 +993,62 @@
             renderCinemaCatalogDeck(); await saveCloudState();
         }
 
-        async function saveCloudState() { try { await fetch(cloudStorageUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(appState) }); } catch (e) { console.error(e); } }
+        async function handleHeaderChange(dateKey, category) {
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            selections[dateKey] = { category: category, dish: "", locked: false };
+            renderActiveMatrix();
+            await saveCloudState();
+        }
 
-        // DEFLATTENED INITIAL STATE HANDSHAKE INITIALIZER PIPELINE
+        async function handleDishChange(dateKey, dishName) {
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            if (selections[dateKey]) { selections[dateKey].dish = dishName; }
+            await saveCloudState();
+        }
+
+        async function rollRandomCategory(dateKey) {
+            const categories = Object.keys(foodMenuDatabase).filter(cat => cat !== 'OTHER');
+            if (categories.length === 0) return;
+            const randomCat = categories[Math.floor(Math.random() * categories.length)];
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            selections[dateKey] = { category: randomCat, dish: "", locked: false };
+            renderActiveMatrix();
+            await saveCloudState();
+        }
+
+        async function rollRandomDish(dateKey) {
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            const currentCat = selections[dateKey] ? selections[dateKey].category : "";
+            if (!currentCat || currentCat === 'OTHER' || !foodMenuDatabase[currentCat] || foodMenuDatabase[currentCat].length === 0) {
+                alert("Please select a category block first before rolling an option!");
+                return;
+            }
+            const optionsList = foodMenuDatabase[currentCat];
+            const randomDish = optionsList[Math.floor(Math.random() * optionsList.length)];
+            selections[dateKey].dish = randomDish;
+            renderActiveMatrix();
+            await saveCloudState();
+        }
+
+        async function saveCellPlan(dateKey) {
+            let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches;
+            let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches;
+            let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches;
+            activeRyan[dateKey] = document.getElementById(`input-r-${dateKey}`).value.trim();
+            activeBea[dateKey] = document.getElementById(`input-b-${dateKey}`).value.trim();
+            activeBothIn[dateKey] = document.getElementById(`check-both-${dateKey}`).checked;
+            renderActiveMatrix();
+            await saveCloudState();
+        }
+
+        // UNIFIED DEFLATTENED SPREADSHEET DECODER LOADER PIPELINE
         document.addEventListener('DOMContentLoaded', () => {
             fetch(cloudStorageUrl)
                 .then(res => res.json())
                 .then(payload => {
                     if (payload.menuDatabase && Object.keys(payload.menuDatabase).length > 1) { foodMenuDatabase = payload.menuDatabase; }
                     
-                    // PARSE FLAT SHEET 3 MULTILINE CELLS SUCCESSFULLY
+                    // PARSE RECIPES LIVE FEED FROM SHEET 3
                     if (payload.liveRecipesFeed && payload.liveRecipesFeed.length > 0) {
                         let parsedFeed = [];
                         payload.liveRecipesFeed.forEach(row => {
@@ -998,7 +1071,7 @@
                         if (parsedFeed.length > 0) { staticRecipeDatabase = parsedFeed; }
                     }
 
-                    // Map object metrics straight out of high-level stream handles
+                    // Map metrics directly out of top level spreadsheet properties
                     appState.shoppingList = payload.shoppingList || [];
                     appState.dateLocal = payload.dateLocal || [];
                     appState.dateEast = payload.dateEast || [];
@@ -1029,7 +1102,7 @@
                     document.getElementById('freezer-d3-input').value = appState.freezerDrawer3;
                     shuffleFridgePolaroidMemory();
                 }).catch(err => {
-                    console.error("Connection breakdown. Running backup cache layout safely.", err);
+                    console.error("handshake timeout fallback routine.", err);
                     switchAppMode(currentMode);
                     renderShoppingList();
                     buildRecipeRegistryDeck();
