@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retro OS Meal Planner</title>
-    <!-- Open-Source Safe Mapping Asset Layout Rails -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;700&display=swap');
@@ -139,7 +138,7 @@
         .recipe-close-btn { position: absolute; top: 15px; right: 15px; font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; background: #fff; border: 2px solid #000; padding: 2px 7px; border-radius: 4px; box-shadow: 2px 2px 0 #000; }
         .recipe-close-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 #000; }
 
-        /* UNIFIED STRUCTURAL CSS PATTERNS FOR GROCERY DISPLAY CARDS[cite: 2] */
+        /* SHOPPING LIST STRUCTURAL VISUAL SPECIFICATIONS */
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
         .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 15px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; white-space: nowrap; }
@@ -154,7 +153,7 @@
         .delete-btn { background: none; border: none; font-family: monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; padding: 0 5px; margin-left: auto; }
         .checker-banner { height: 16px; background-image: linear-gradient(45deg, #000 25%, transparent 25%), linear-gradient(-45deg, #000 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #000 75%), linear-gradient(-45deg, transparent 75%, #000 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; background-color: var(--accent-blue); border-bottom: 2px solid var(--border-clr); }
 
-        /* REFRIGERATOR ENCLOSURE HULL STYLINGS[cite: 2] */
+        /* REFRIGERATOR ENCLOSURE HULL STYLINGS */
         .fridge-hardware-container { width: 100%; max-width: 440px; margin: 50px auto; perspective: 1500px; padding: 10px; }
         .fridge-top-prop-shelf { width: 100%; display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 4px; position: relative; z-index: 5; margin-bottom: -5px; padding-left: 30px; padding-right: 30px; }
         .prop-bottle { width: 32px; height: 75px; background: #4a533c; border: 3px solid #000; border-radius: 6px 6px 2px 2px; position: relative; }
@@ -205,7 +204,7 @@
         .mag-bottom-doc { bottom: 60px; left: calc(50% - 35px); width: 75px; height: 85px; background: #ebdcb5; border-radius: 2px; transform: rotate(4deg); padding: 6px; font-family: monospace; font-size: 0.45rem; line-height: 1.4; letter-spacing: -0.5px; }
         .mag-bottom-doc::before { content: ''; position: absolute; top: -10px; left: calc(50% - 10px); width: 20px; height: 20px; background: #4a8cb2; border: 2px solid #000; border-radius: 50%; }
 
-        /* THREE SECTION DATE NIGHT LAYOUT FIELDS[cite: 2] */
+        /* THREE SECTION DATE NIGHT LAYOUT FIELDS */
         .date-night-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 25px; }
         @media (min-width: 950px) { .date-night-grid { grid-template-columns: repeat(3, 1fr); } }
         .date-night-column { background: #fffcf7; border: 2px solid #000; border-radius: 6px; padding: 15px; box-shadow: 4px 4px 0px #000; display: flex; flex-direction: column; gap: 10px; }
@@ -213,7 +212,7 @@
         
         .date-input-stack-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; background: rgba(0,0,0,0.02); padding: 10px; border: 1px dashed #000; border-radius: 4px; }
         
-        /* CARD MATRIX COLLAPSIBLE AND EDITABLE HOOKS[cite: 2] */
+        /* CARD MATRIX COLLAPSIBLE AND EDITABLE HOOKS */
         .date-item-row-wrapper { font-size: 0.72rem; display: flex; flex-direction: column; gap: 4px; text-decoration: none !important; width: 100%; }
         .date-card-header-clickable { font-weight: 700; font-size: 1rem; color: #000; cursor: pointer; display: flex; justify-content: space-between; align-items: center; width: 100%; padding-bottom: 2px; }
         .date-card-header-clickable:hover { color: var(--accent-orange); }
@@ -235,7 +234,7 @@
         .crt-london-viewscreen { width: 100%; height: 440px; z-index: 1; }
         .map-vintage-paper-overlay-skin { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; box-shadow: inset 0 0 40px rgba(115, 87, 61, 0.12); mix-blend-mode: multiply; opacity: 0.7; background-image: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.05) 100%); }
 
-        /* CINEMA APP DECK MODULE SPECIFIC CSS RULES */
+        /* CINEMA APP DECK MODULE STYLES */
         .cinema-layout-deck { display: grid; grid-template-columns: 1fr; gap: 25px; }
         @media (min-width: 900px) { .cinema-layout-deck { grid-template-columns: 320px 1fr; } }
         
@@ -256,7 +255,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v76.1_IMDB_INTEGRATION</div>
+        <div class="nav-logo">💾 FOOD_OS // v76.2_STABLE_INTEGRATED</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -264,14 +263,12 @@
         </div>
     </nav>
 
-    <!-- CORE SITE PAGE BUTTON SWITCHBOARD SYSTEM -->
     <div class="page-nav-bar">
         <button id="page-btn-meal" class="page-nav-btn active-page" onclick="toggleActivePage('meal')">[ 💾 Meal Planner OS ]</button>
         <button id="page-btn-date" class="page-nav-btn" onclick="toggleActivePage('date')">[ ❤️ Date Nights ]</button>
         <button id="page-btn-film" class="page-nav-btn" onclick="toggleActivePage('film')">[ 🎬 Cinema Club OS ]</button>
     </div>
 
-    <!-- MAIN OS MEAL PLANNERS CONTAINER -->
     <div id="core-meal-planner-view">
         <main class="desktop-layout">
             <section class="retro-window full-width">
@@ -344,7 +341,6 @@
                 </div>
             </section>
 
-            <!-- APPLIANCE DRAWER CABINET MODULE -->
             <div class="fridge-hardware-container full-width">
                 <div class="fridge-top-prop-shelf">
                     <div class="prop-bottle" title="Wine bottle"></div>
@@ -401,11 +397,9 @@
         </main>
     </div>
 
-    <!-- DATE NIGHT ENGINE CONTAINER VIEWPORT -->
     <div id="core-date-night-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="date-night-grid">
-                <!-- LOCAL SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-orange);">📍 Local</div>
                     <div class="date-input-stack-group">
@@ -417,7 +411,6 @@
                     <ul class="shopping-list" id="date-local-list"></ul>
                 </div>
 
-                <!-- EAST LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-blue);">🧱 East LDN</div>
                     <div class="date-input-stack-group">
@@ -429,7 +422,6 @@
                     <ul class="shopping-list" id="date-east-list"></ul>
                 </div>
 
-                <!-- CENTRAL LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-pink);">🏛️ Central LDN</div>
                     <div class="date-input-stack-group">
@@ -442,7 +434,6 @@
                 </div>
             </div>
 
-            <!-- ILLUSTRATED BLUEPRINT TELETRACT TERMINAL -->
             <div class="map-terminal-frame">
                 <div class="window-header purple-variant" style="border-bottom:2px solid #000;">
                     <span>Radar_Plotter: Illustrated_London_Blueprint.exe</span>
@@ -454,12 +445,10 @@
         </main>
     </div>
 
-    <!-- THIRD PAGE APP CONTAINER: MULTI-GENRE COOPERATIVE MOVIES VAULT -->
     <div id="core-cinema-club-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="cinema-layout-deck">
                 
-                <!-- CREATION INPUT BLOCK -->
                 <div class="date-night-column" style="height: max-content;">
                     <div class="date-column-title" style="color: var(--accent-orange);">🎬 Log New Movie</div>
                     <div class="date-input-stack-group" style="gap:6px; background:none; border:none; padding:0;">
@@ -487,7 +476,6 @@
                     </div>
                 </div>
 
-                <!-- COOPERATIVE INVENTORY VAULT MATRIX -->
                 <div class="retro-window" style="margin-bottom:0;">
                     <div class="window-header blue-variant">
                         <span>Movie_Vault // Matrix_Index.exe</span>
@@ -517,7 +505,6 @@
         </main>
     </div>
 
-    <!-- Leaflet processing library engine scripts hooks -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -619,7 +606,7 @@
             mapPinsLayerGroup.eachLayer(marker => { if (marker.getLatLng().lat === lat && marker.getLatLng().lng === lng) marker.openPopup(); });
         }
 
-        /* AUTOMATED IMDB & CINEMA CATALOG CORE LOGIC MATRIX */
+        /* FILMS API REGISTER ENGINE AND DYNAMIC COMPONENT LOOPS */
         async function registerNewFilmToDatabase() {
             const titleEl = document.getElementById('film-input-title');
             const yearEl = document.getElementById('film-input-year');
@@ -643,24 +630,21 @@
             if (!appState.cinemaRegistry) appState.cinemaRegistry = [];
             appState.cinemaRegistry.push(newFilm);
 
-            // Clear creator input logs instantly
             titleEl.value = ''; yearEl.value = ''; runtimeEl.value = ''; watchEl.value = ''; posterEl.value = '';
             document.querySelectorAll('.multi-select-category-grid input').forEach(b => b.checked = false);
             renderCinemaCatalogDeck();
 
-            // Run direct asynchronous handshake search loops over OMDb API registry nodes
             try {
                 let fetchQuery = `https://www.omdbapi.com/?apikey=7ba98797&t=${encodeURIComponent(titleVal)}&y=${encodeURIComponent(yearVal)}`;
                 let response = await fetch(fetchQuery);
                 let data = await response.json();
                 if (data && data.imdbRating) {
                     newFilm.imdbRating = data.imdbRating;
-                    // Auto-extract secondary data metrics if fields were logged blank
                     if (!newFilm.runtime && data.Runtime) newFilm.runtime = data.Runtime;
                     if (!newFilm.year && data.Year) newFilm.year = data.Year;
                     if (!newFilm.posterUrl && data.Poster && data.Poster !== 'N/A') newFilm.posterUrl = data.Poster;
                 }
-            } catch(e) { console.warn("API latency.", e); }
+            } catch(e) { console.warn(e); }
 
             renderCinemaCatalogDeck();
             await saveCloudState();
@@ -793,7 +777,6 @@
 
             renderCinemaCatalogDeck();
 
-            // Refetch data metrics if name values changed significantly on manual update cycles
             if (oldTitle !== film.name || oldYear !== film.year) {
                 try {
                     let res = await fetch(`https://www.omdbapi.com/?apikey=7ba98797&t=${encodeURIComponent(film.name)}&y=${encodeURIComponent(film.year)}`);
@@ -811,44 +794,6 @@
 
         async function toggleCinemaCheckboxLatching(masterIndex) { appState.cinemaRegistry[masterIndex].checked = !appState.cinemaRegistry[masterIndex].checked; renderCinemaCatalogDeck(); await saveCloudState(); }
         async function deleteCinemaRegistryItem(masterIndex) { appState.cinemaRegistry.splice(masterIndex, 1); renderCinemaCatalogDeck(); await saveCloudState(); }
-
-        async function loadCloudState() {
-            try {
-                const response = await fetch(cloudStorageUrl);
-                if (response.ok) {
-                    const payload = await response.json();
-                    if (payload.menuDatabase && Object.keys(payload.menuDatabase).length > 1) { foodMenuDatabase = payload.menuDatabase; }
-                    if (payload.calendarState && payload.calendarState.shoppingList) {
-                        appState = payload.calendarState;
-                        if (!appState.dateLocal) appState.dateLocal = [];
-                        if (!appState.dateEast) appState.dateEast = [];
-                        if (!appState.dateCentral) appState.dateCentral = [];
-                        if (!appState.cinemaRegistry) appState.cinemaRegistry = [];
-                    }
-                }
-            } catch (err) { console.warn("Handshake latency."); }
-            switchAppMode(currentMode);
-            renderShoppingList();
-            renderAllDateColumns();
-            buildRecipeRegistryDeck();
-            
-            document.getElementById('freezer-d1-input').value = appState.freezerDrawer1 || "";
-            document.getElementById('freezer-d2-input').value = appState.freezerDrawer2 || "";
-            document.getElementById('freezer-d3-input').value = appState.freezerDrawer3 || "";
-            shuffleFridgePolaroidMemory();
-        }
-
-        async function saveCloudState() {
-            try {
-                await fetch(cloudStorageUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(appState) });
-            } catch (e) { console.error("Transmission fault.", e); }
-        }
-
-        function renderAllDateColumns() {
-            renderSingleDateColumn('local', appState.dateLocal || []);
-            renderSingleDateColumn('east', appState.dateEast || []);
-            renderSingleDateColumn('central', appState.dateCentral || []);
-        }
 
         function renderSingleDateColumn(targetId, listData) {
             const listEl = document.getElementById(`date-${targetId}-list`); if(!listEl) return; listEl.innerHTML = '';
@@ -886,7 +831,7 @@
 
         async function saveInlineDateModifications(targetId, index) {
             let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); let item = targetArr[index];
-            const updatedName = document.getElementById suicide = document.getElementById(`edit-name-${targetId}-${index}`).value.trim();
+            const updatedName = document.getElementById(`edit-name-${targetId}-${index}`).value.trim();
             const updatedNotes = document.getElementById(`edit-notes-${targetId}-${index}`).value.trim(); const updatedLoc = document.getElementById(`edit-loc-${targetId}-${index}`).value.trim();
             if (updatedName === '') return; let addressChanged = item.location !== updatedLoc; item.name = updatedName; item.notes = updatedNotes; item.location = updatedLoc; delete item._isEditing;
             renderAllDateColumns();
@@ -899,8 +844,59 @@
             renderAllDateColumns(); refreshPersistentPinsOnMap(); await saveCloudState();
         }
 
+        async function addDateIdea(targetId) {
+            const input = document.getElementById(`date-${targetId}-input`); const notesInput = document.getElementById(`date-${targetId}-notes`); const locInput = document.getElementById(`date-${targetId}-map`);
+            if(!input || !notesInput || !locInput) return; const val = input.value.trim(); const notesVal = notesInput.value.trim(); const locVal = locInput.value.trim();
+            if (val !== '') {
+                const targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral);
+                let newItem = { name: val, notes: notesVal, location: locVal, checked: false, lat: null, lng: null };
+                targetArr.push(newItem); input.value = ''; notesInput.value = ''; locInput.value = '';
+                renderAllDateColumns();
+                if (locVal !== '') {
+                    try {
+                        let res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(locVal + ", London")}`);
+                        let data = await res.json(); if (data && data.length > 0) { newItem.lat = parseFloat(data[0].lat); newItem.lng = parseFloat(data[0].lon); }
+                    } catch(err) { console.warn(err); }
+                }
+                renderAllDateColumns(); refreshPersistentPinsOnMap(); await saveCloudState();
+            }
+        }
+
         async function toggleDateItem(targetId, index) { let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); targetArr[index].checked = !targetArr[index].checked; renderAllDateColumns(); await saveCloudState(); }
         async function deleteDateItem(targetId, index) { let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); targetArr.splice(index, 1); renderAllDateColumns(); refreshPersistentPinsOnMap(); await saveCloudState(); }
+
+        async function loadCloudState() {
+            try {
+                const response = await fetch(cloudStorageUrl);
+                if (response.ok) {
+                    const payload = await response.json();
+                    if (payload.menuDatabase && Object.keys(payload.menuDatabase).length > 1) { foodMenuDatabase = payload.menuDatabase; }
+                    if (payload.calendarState && payload.calendarState.shoppingList) {
+                        appState = payload.calendarState;
+                        if (!appState.dateLocal) appState.dateLocal = [];
+                        if (!appState.dateEast) appState.dateEast = [];
+                        if (!appState.dateCentral) appState.dateCentral = [];
+                        if (!appState.cinemaRegistry) appState.cinemaRegistry = [];
+                    }
+                }
+            } catch (err) { console.warn("Handshake latency."); }
+            switchAppMode(currentMode);
+            renderShoppingList();
+            renderAllDateColumns();
+            buildRecipeRegistryDeck();
+            
+            document.getElementById('freezer-d1-input').value = appState.freezerDrawer1 || "";
+            document.getElementById('freezer-d2-input').value = appState.freezerDrawer2 || "";
+            document.getElementById('freezer-d3-input').value = appState.freezerDrawer3 || "";
+            shuffleFridgePolaroidMemory();
+        }
+
+        async function saveCloudState() {
+            try { await fetch(cloudStorageUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(appState) }); } catch (e) { console.error(e); }
+        }
+
+        async function toggleItem(index) { appState.shoppingList[index].checked = !appState.shoppingList[index].checked; renderShoppingList(); await saveCloudState(); }
+        async function deleteItem(index) { appState.shoppingList.splice(index, 1); renderShoppingList(); await saveCloudState(); }
 
         function toggleFreezerDoor() { const door = document.getElementById("fridge-top-door-panel"); if(door) door.classList.toggle("door-swung-open"); }
         async function saveFreezerDrawer(drawerNum) {
@@ -1008,8 +1004,1014 @@
                 li.innerHTML = `<div class="retro-checkbox" onclick="toggleItem(${index})"></div><span class="item-text" onclick="toggleItem(${index})">${item.name}</span><button class="delete-btn" onclick="deleteItem(${index})">⌫</button>`; listEl.appendChild(li);
             });
         }
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro OS Meal Planner</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;700&display=swap');
 
-        loadCloudState();
+        :root {
+            --bg-color: #ebdccb;
+            --window-bg: #fffcf7;
+            --border-clr: #000000;
+            --accent-orange: #e15c32;
+            --accent-pink: #f2a6b4;
+            --accent-blue: #3283c4;
+            --folder-yellow: #f5cd79;
+            --ryan-blue: #d2e4f1;
+            --bea-pink: #fcdbdc;
+            --together-purple: #e2dbfc;
+            --smeg-orange: #df6d2d;
+            --freezer-blue: #d4f1f9;
+            --map-vintage-paper: #f4ecd8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Space Grotesk', sans-serif; background-color: var(--bg-color); color: var(--border-clr); padding: 15px; min-height: 100vh; }
+        
+        @media (min-width: 600px) {
+            body { padding: 30px; }
+        }
+
+        .top-nav { display: flex; justify-content: space-between; align-items: center; border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 8px 20px; box-shadow: 4px 4px 0px var(--border-clr); margin-bottom: 20px; border-radius: 4px; }
+        .nav-logo { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; }
+        @media (min-width: 600px) { .nav-logo { font-size: 1.4rem; } }
+        
+        .window-controls-dummy { display: flex; gap: 8px; }
+        .dot-control { width: 12px; height: 12px; border: 2px solid var(--border-clr); border-radius: 50%; background: white; }
+
+        .page-nav-bar { display: flex; gap: 12px; margin-bottom: 25px; flex-wrap: wrap; }
+        .page-nav-btn { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.95rem; padding: 8px 16px; border: 2px solid #000; background: #fff; cursor: pointer; border-radius: 4px; box-shadow: 4px 4px 0px #000; text-transform: uppercase; }
+        .page-nav-btn.active-page { background-color: var(--accent-orange); color: #fff; transform: translate(2px, 2px); box-shadow: 1px 1px 0px #000; }
+
+        .retro-window { background-color: var(--window-bg); border: 2px solid var(--border-clr); border-radius: 8px; box-shadow: 6px 6px 0px var(--border-clr); display: flex; flex-direction: column; overflow: hidden; margin-bottom: 30px; position: relative; }
+        .window-header { background-color: var(--accent-pink); border-bottom: 2px solid var(--border-clr); padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; font-family: 'Courier Prime', monospace; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
+        .window-header.blue-variant { background-color: var(--accent-blue); color: white; }
+        .window-header.orange-variant { background-color: var(--accent-orange); color: white; }
+        .window-header.yellow-variant { background-color: var(--folder-yellow); }
+        .window-header.freezer-variant { background-color: var(--smeg-orange); color: white; }
+        .window-header.purple-variant { background-color: var(--together-purple); }
+        
+        .window-body { padding: 15px; }
+        @media (min-width: 600px) { .window-body { padding: 20px; } }
+
+        .app-tab-container { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+        .tab-switch-btn { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.85rem; padding: 6px 14px; border: 2px solid #000; background: #fff; cursor: pointer; border-radius: 4px; box-shadow: 3px 3px 0px #000; text-transform: uppercase; }
+        .tab-switch-btn.active-tab { background-color: var(--accent-blue); color: #fff; transform: translate(2px, 2px); box-shadow: 1px 1px 0px #000; }
+
+        .calendar-days-grid { display: grid; grid-template-columns: repeat(2, 1fr); border-left: 1px solid #000; border-top: 1px solid #000; background: #fff; }
+        .calendar-days-grid.lunch-mode-grid { grid-template-columns: repeat(2, 1fr); }
+
+        @media (min-width: 750px) {
+            .calendar-days-grid { grid-template-columns: repeat(4, 1fr); }
+            .calendar-days-grid.lunch-mode-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+        @media (min-width: 1000px) {
+            .calendar-days-grid { grid-template-columns: repeat(7, 1fr); }
+        }
+
+        .calendar-day-cell { border-right: 1px solid #000; border-bottom: 1px solid #000; min-height: 125px; padding: 8px; position: relative; display: flex; flex-direction: column; gap: 5px; background-color: var(--window-bg); }
+        .cell-date-num { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.85rem; display: flex; justify-content: space-between; border-bottom: 1px dashed #ccc; padding-bottom: 3px; }
+
+        .cell-event-pill { font-size: 0.72rem; padding: 1px 4px; border-radius: 3px; border: 1px solid #000; font-weight: bold; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .pill-ryan { background-color: var(--ryan-blue); }
+        .pill-bea { background-color: var(--bea-pink); }
+        .pill-both-in { background-color: var(--together-purple); border-style: dashed; }
+
+        .cell-hover-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255, 252, 247, 0.98); border: 2px solid #000; border-radius: 4px; z-index: 10; padding: 8px; display: none; flex-direction: column; gap: 5px; box-shadow: 4px 4px 0 #000; }
+        .calendar-day-cell:hover .cell-hover-overlay, .calendar-day-cell:focus-within .cell-hover-overlay { display: flex; }
+
+        .overlay-input-item { width: 100%; border: 1px solid #000; border-radius: 4px; padding: 3px 5px; font-size: 0.75rem; font-family: inherit; outline: none; }
+        .both-in-checkbox-row { display: flex; align-items: center; gap: 6px; font-family: 'Courier Prime', monospace; font-size: 0.75rem; font-weight: bold; margin-top: 2px; }
+        .both-in-checkbox-row input { width: 14px; height: 14px; cursor: pointer; }
+
+        .overlay-action-btn { width: 100%; font-family: 'Courier Prime', monospace; font-size: 0.70rem; font-weight: bold; border: 2px solid #000; background: #fff; padding: 3px 0; cursor: pointer; border-radius: 4px; box-shadow: 2px 2px 0px #000; margin-top: auto; }
+        .overlay-action-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
+
+        .desktop-layout { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 1400px; margin: 0 auto; }
+        @media (min-width: 950px) {
+            .desktop-layout { grid-template-columns: 1.3fr 1fr; gap: 30px; }
+            .full-width { grid-column: span 2; }
+        }
+        
+        .smart-dinner-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media (min-width: 750px) { .smart-dinner-grid { grid-template-columns: repeat(3, 1fr); } }
+
+        .smart-column { background: rgba(0, 0, 0, 0.02); border: 2px dashed var(--border-clr); border-radius: 6px; padding: 15px; min-height: 120px; }
+        .column-header-tag { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.9rem; text-align: center; padding: 6px; border: 2px solid #000; border-radius: 4px; margin-bottom: 15px; text-transform: uppercase; box-shadow: 2px 2px 0px #000; }
+        .tag-ryan { background-color: var(--ryan-blue); }
+        .tag-bea { background-color: var(--bea-pink); }
+        .tag-both { background-color: var(--together-purple); }
+
+        .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px var(--border-clr); }
+        .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
+        
+        .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+        .inline-selector-row { display: flex; gap: 5px; align-items: center; width: 100%; min-width: 0; }
+        .food-select-dropdown { flex: 1; border: 2px solid #000; border-radius: 4px; padding: 5px 3px; font-family: inherit; font-size: 0.75rem; background: #fff; outline: none; min-width: 0; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+        @media (min-width: 600px) { .food-select-dropdown { font-size: 0.8rem; padding: 5px; } }
+        
+        .other-text-box { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; outline: none; background: #fffdf2; }
+        
+        .dice-random-btn { background-color: #fff; border: 2px solid #000; border-radius: 4px; padding: 0; font-size: 0.85rem; cursor: pointer; box-shadow: 2px 2px 0px #000; height: 28px; width: 30px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+        .dice-random-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
+
+        .recipe-category-tabs { display: flex; gap: 6px; margin-bottom: 15px; background: rgba(0, 0, 0, 0.04); padding: 6px; border: 2px solid #000; border-radius: 4px; flex-wrap: wrap; }
+        .recipe-cat-btn { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.75rem; border: 1px solid #000; background: #fff; padding: 6px 12px; cursor: pointer; border-radius: 3px; box-shadow: 2px 2px 0px #000; }
+        .recipe-cat-btn.active-cat-tab { background: var(--accent-blue); color: #fff; transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
+        
+        .recipe-browser-deck { display: grid; grid-template-columns: 1fr; border: 2px solid #000; background: #fff; border-radius: 4px; overflow: hidden; height: auto; }
+        @media (min-width: 750px) {
+            .recipe-browser-deck { grid-template-columns: 240px 1fr; height: 500px; }
+        }
+        
+        .recipe-sidebar-list { border-bottom: 2px solid #000; background: rgba(0,0,0,0.02); overflow-y: auto; list-style: none; max-height: 180px; }
+        @media (min-width: 750px) {
+            .recipe-sidebar-list { border-bottom: none; border-right: 2px solid #000; max-height: none; }
+        }
+        
+        .recipe-tab-item { padding: 10px 15px; border-bottom: 1px solid #000; font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.82rem; cursor: pointer; text-transform: uppercase; line-height: 1.3; }
+        .recipe-tab-item:hover { background: rgba(0,0,0,0.05); }
+        .recipe-tab-item.active-recipe-tab { background-color: var(--accent-orange); color: white; }
+        
+        .recipe-viewer-panel { padding: 15px; overflow-y: auto; line-height: 1.6; background: #fff; display: none; position: relative; }
+        @media (min-width: 750px) { .recipe-viewer-panel { padding: 25px; } }
+        
+        .recipe-close-btn { position: absolute; top: 15px; right: 15px; font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; background: #fff; border: 2px solid #000; padding: 2px 7px; border-radius: 4px; box-shadow: 2px 2px 0 #000; }
+        .recipe-close-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 #000; }
+
+        /* SHOPPING LIST STRUCTURAL VISUAL SPECIFICATIONS */
+        .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
+        .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
+        .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 15px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; white-space: nowrap; }
+        
+        .shopping-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .grocery-item { display: flex; align-items: flex-start; border: 2px solid var(--border-clr); background: white; padding: 10px 15px; border-radius: 6px; box-shadow: 2px 2px 0px var(--border-clr); cursor: pointer; position: relative; }
+        .grocery-item.checked { background-color: #f0ede6; opacity: 0.7; }
+        .grocery-item.checked .item-text { text-decoration: line-through; }
+        .retro-checkbox { width: 18px; height: 18px; border: 2px solid var(--border-clr); background: white; margin-right: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+        .grocery-item.checked .retro-checkbox::after { content: ""; width: 8px; height: 8px; background: var(--accent-orange); }
+        .item-text { flex: 1; font-weight: 700; font-size: 1rem; min-width: 0; word-break: break-word; color: #000; text-transform: none; }
+        .delete-btn { background: none; border: none; font-family: monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; padding: 0 5px; margin-left: auto; }
+        .checker-banner { height: 16px; background-image: linear-gradient(45deg, #000 25%, transparent 25%), linear-gradient(-45deg, #000 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #000 75%), linear-gradient(-45deg, transparent 75%, #000 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; background-color: var(--accent-blue); border-bottom: 2px solid var(--border-clr); }
+
+        /* REFRIGERATOR ENCLOSURE HULL STYLINGS */
+        .fridge-hardware-container { width: 100%; max-width: 440px; margin: 50px auto; perspective: 1500px; padding: 10px; }
+        .fridge-top-prop-shelf { width: 100%; display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 4px; position: relative; z-index: 5; margin-bottom: -5px; padding-left: 30px; padding-right: 30px; }
+        .prop-bottle { width: 32px; height: 75px; background: #4a533c; border: 3px solid #000; border-radius: 6px 6px 2px 2px; position: relative; }
+        .prop-bottle::before { content: ''; position: absolute; top: -10px; left: 9px; width: 8px; height: 10px; background: #c69c6d; border: 2px solid #000; border-radius: 2px; }
+        .prop-bottle::after { content: ''; position: absolute; bottom: 10px; left: 4px; width: 18px; height: 25px; background: #fffdee; border: 2px solid #000; }
+        
+        .prop-candle-holder { display: flex; flex-direction: column; align-items: center; margin-bottom: -2px; }
+        .prop-candle-stick { width: 8px; height: 45px; background: #fffcf0; border: 2px solid #000; position: relative; }
+        .prop-candle-stick::before { content: '🔥'; position: absolute; top: -18px; left: -5px; font-size: 0.65rem; }
+        .prop-base-cup { width: 26px; height: 12px; background: #df317e; border: 2px solid #000; border-radius: 0 0 10px 10px; }
+
+        .prop-book-plant-stack { display: flex; flex-direction: column; align-items: center; }
+        .prop-plant-pot { width: 44px; height: 34px; background: #1f3d4d; border: 3px solid #000; border-radius: 4px 4px 12px 12px; position: relative; z-index: 3; margin-bottom: -2px; display: flex; justify-content: center; }
+        .prop-leaves-cluster { position: absolute; top: -25px; width: 65px; height: 28px; background: #5a8f54; border: 3px solid #000; border-radius: 50% 50% 40% 40%; }
+        .prop-book-ottolenghi { width: 75px; height: 22px; background: #fae13c; border: 3px solid #000; font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.58rem; display: flex; align-items: center; justify-content: center; letter-spacing: 0.5px; box-shadow: 2px 2px 0 rgba(0,0,0,0.15); }
+
+        .fridge-cabinet { display: flex; flex-direction: column; background: #be552a; border: 5px solid #000; border-radius: 45px 45px 16px 16px; padding: 18px; gap: 14px; box-shadow: 8px 8px 0px #000; width: 100%; position: relative; min-height: 640px; background-color: var(--smeg-orange); }
+        .fridge-freezer-zone { flex: 1; background: #edf7fa; border: 3px solid #000; border-radius: 18px; padding: 15px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; justify-content: center; }
+        
+        .freezer-drawer { background: var(--window-bg); border: 2px solid #000; border-radius: 6px; padding: 10px; display: flex; flex-direction: column; gap: 6px; box-shadow: 2px 2px 0px rgba(0,0,0,0.1); }
+        .freezer-drawer-pullhandle { height: 8px; width: 64px; background: #000; margin: 0 auto 2px auto; border-radius: 2px; opacity: 0.7; }
+        .drawer-lbl { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.72rem; color: #4f8294; text-transform: uppercase; display: flex; justify-content: space-between; }
+        .freezer-textarea { width: 100%; height: 65px; border: 2px solid #000; border-radius: 4px; padding: 6px; font-family: inherit; font-size: 0.85rem; outline: none; resize: none; background: #fdfdfd; }
+        .freezer-save-btn { font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 0.68rem; text-transform: uppercase; padding: 3px 10px; border: 2px solid #000; background: var(--freezer-blue); cursor: pointer; border-radius: 4px; align-self: flex-end; box-shadow: 1px 1px 0 #000; }
+
+        .fridge-door-wing { position: absolute; top: 8px; left: 8px; width: calc(100% - 16px); height: calc(100% - 16px); background: var(--smeg-orange); border: 4px solid #000; border-radius: 38px 36px 12px 12px; z-index: 100; transform-origin: left center; transition: transform 1.2s cubic-bezier(0.15, 1, 0.25, 1); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; overflow: hidden; box-shadow: inset -6px -6px 0px rgba(0,0,0,0.12); padding-top: 45px; }
+        .fridge-door-wing.door-swung-open { transform: rotateY(-135deg); z-index: 110; box-shadow: -15px 15px 30px rgba(0,0,0,0.3); }
+        
+        .fridge-door-face-elements-group { display: flex; flex-direction: column; align-items: center; width: 100%; height: 100%; position: relative; transition: opacity 0.35s ease; }
+        .fridge-door-wing.door-swung-open .fridge-door-face-elements-group { opacity: 0; pointer-events: none; }
+
+        .smeg-brand-badge { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 1.9rem; letter-spacing: 12px; color: #fdfdfd; text-shadow: 2px 2px 0px #000, -1px -1px 0px #c5c5c5; padding-left: 12px; margin-bottom: 35px; user-select: none; pointer-events: none; }
+        .fridge-door-horizontal-handle { position: absolute; left: 15px; top: 48%; width: 95px; height: 15px; background: #bfbfbe; border: 3px solid #000; border-radius: 3px; box-shadow: 2px 3px 0px rgba(0,0,0,0.25); z-index: 105; cursor: pointer; }
+        .fridge-door-horizontal-handle::after { content: ''; position: absolute; top: 1px; left: 4%; width: 92%; height: 2px; background: #fff; opacity: 0.8; }
+
+        .magnet-item { position: absolute; border: 2px solid #000; box-shadow: 2px 2px 0px rgba(0,0,0,0.15); user-select: none; pointer-events: none; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .mag-lemon { top: 175px; right: 45px; width: 34px; height: 34px; background: #fff13a; border-radius: 50% 60% 50% 60%; transform: rotate(-15deg); font-size: 1.1rem; }
+        
+        .mag-polaroid { top: 135px; right: 25px; width: 68px; height: 82px; background: #fffdf5; border-radius: 2px; transform: rotate(10deg); box-shadow: 2px 2px 0 #000; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 5px 5px 0 5px; }
+        .polaroid-photo-frame { width: 54px; height: 54px; border: 2px solid #000; background-size: cover; background-position: center; background-color: #6b5c58; transition: background-image 0.4s ease; }
+        
+        .mag-croissant-note { top: 165px; left: 45px; width: 45px; height: 52px; background: #fffdec; transform: rotate(-5deg); padding: 4px; display: flex; flex-direction: column; justify-content: space-between; }
+        .mag-croissant-note::before { content: '🥐'; font-size: 0.9rem; position: absolute; top: -14px; left: 10px; }
+        .mag-croissant-note::after { content: '⚡'; font-size: 0.8rem; color: #000; text-align: center; width: 100%; display: block; margin-top: 10px; }
+        .mag-chili-paper { bottom: 180px; left: 25px; width: 50px; height: 38px; background: #ffffff; transform: rotate(15deg); font-family: monospace; font-size: 0.45rem; line-height: 1.2; padding: 4px; letter-spacing: -0.5px; }
+        .mag-chili-paper::before { content: '🌶️'; font-size: 1.1rem; position: absolute; bottom: -8px; left: -16px; transform: rotate(-25deg); }
+        .mag-pink-sticky { bottom: 195px; right: 40px; width: 44px; height: 42px; background: #ff9ec4; transform: rotate(-8deg); font-size: 0.5rem; padding: 4px; font-family: monospace; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .mag-bottom-doc { bottom: 60px; left: calc(50% - 35px); width: 75px; height: 85px; background: #ebdcb5; border-radius: 2px; transform: rotate(4deg); padding: 6px; font-family: monospace; font-size: 0.45rem; line-height: 1.4; letter-spacing: -0.5px; }
+        .mag-bottom-doc::before { content: ''; position: absolute; top: -10px; left: calc(50% - 10px); width: 20px; height: 20px; background: #4a8cb2; border: 2px solid #000; border-radius: 50%; }
+
+        /* THREE SECTION DATE NIGHT LAYOUT FIELDS */
+        .date-night-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 25px; }
+        @media (min-width: 950px) { .date-night-grid { grid-template-columns: repeat(3, 1fr); } }
+        .date-night-column { background: #fffcf7; border: 2px solid #000; border-radius: 6px; padding: 15px; box-shadow: 4px 4px 0px #000; display: flex; flex-direction: column; gap: 10px; }
+        .date-column-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; text-align: center; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 5px; }
+        
+        .date-input-stack-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; background: rgba(0,0,0,0.02); padding: 10px; border: 1px dashed #000; border-radius: 4px; }
+        
+        /* CARD MATRIX COLLAPSIBLE AND EDITABLE HOOKS */
+        .date-item-row-wrapper { font-size: 0.72rem; display: flex; flex-direction: column; gap: 4px; text-decoration: none !important; width: 100%; }
+        .date-card-header-clickable { font-weight: 700; font-size: 1rem; color: #000; cursor: pointer; display: flex; justify-content: space-between; align-items: center; width: 100%; padding-bottom: 2px; }
+        .date-card-header-clickable:hover { color: var(--accent-orange); }
+        .date-card-body-collapsible { display: none; margin-top: 6px; border-top: 1px dashed #bbb; padding-top: 8px; width: 100%; }
+        .date-notes-subtext { font-family: 'Courier Prime', monospace; font-size: 0.78rem; opacity: 0.85; white-space: pre-wrap; margin-bottom: 4px; background: rgba(0,0,0,0.02); padding: 4px; border-radius: 3px; border-left: 2px solid #000; }
+        .date-address-subtext { font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; font-weight: bold; opacity: 0.6; display: flex; align-items: center; gap: 4px; margin-bottom: 8px; }
+        
+        .date-card-actions-row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-top: 6px; }
+        .date-inline-edit-btn { font-family: 'Courier Prime', monospace; font-size: 0.65rem; font-weight: bold; background: #fff; border: 1px solid #000; padding: 1px 6px; border-radius: 3px; cursor: pointer; box-shadow: 1px 1px 0 #000; }
+        .date-inline-edit-btn:active { transform: translate(1px, 1px); box-shadow: 0px 0px 0 #000; }
+
+        .date-edit-fields-box { display: flex; flex-direction: column; gap: 5px; width: 100%; background: #fffde6; padding: 8px; border: 1px solid #000; border-radius: 4px; margin-bottom: 5px; }
+        .date-edit-mini-input { width: 100%; border: 1px solid #000; border-radius: 3px; padding: 4px; font-family: inherit; font-size: 0.75rem; outline: none; }
+
+        .map-badge-link-pill { display: inline-flex; align-items: center; gap: 3px; font-size: 0.65rem; background: var(--folder-yellow); color: #000; padding: 1px 6px; border-radius: 3px; font-family: 'Courier Prime', monospace; font-weight: bold; width: max-content; border: 1px solid #000; cursor: pointer; box-shadow: 1px 1px 0 #000; }
+
+        /* VINTAGE ILLUSTRATED MAP WINDOW OVERLAYS */
+        .map-terminal-frame { background: var(--map-vintage-paper); border: 2px solid #000; border-radius: 8px; box-shadow: 6px 6px 0px #000; overflow: hidden; display: flex; flex-direction: column; margin-top: 10px; position: relative; }
+        .crt-london-viewscreen { width: 100%; height: 440px; z-index: 1; }
+        .map-vintage-paper-overlay-skin { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; box-shadow: inset 0 0 40px rgba(115, 87, 61, 0.12); mix-blend-mode: multiply; opacity: 0.7; background-image: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.05) 100%); }
+
+        /* CINEMA APP DECK MODULE STYLES */
+        .cinema-layout-deck { display: grid; grid-template-columns: 1fr; gap: 25px; }
+        @media (min-width: 900px) { .cinema-layout-deck { grid-template-columns: 320px 1fr; } }
+        
+        .film-poster-preview-box { width: 100%; max-width: 140px; height: 200px; border: 2px solid #000; background-size: cover; background-position: center; border-radius: 4px; box-shadow: 3px 3px 0 #000; background-color: #eee; margin-bottom: 8px; }
+        .category-pill-tag { display: inline-block; font-size: 0.62rem; font-weight: bold; background: #eee; border: 1px solid #000; padding: 1px 5px; border-radius: 3px; margin: 1px; text-transform: uppercase; font-family: 'Courier Prime', monospace; }
+        
+        .multi-select-category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; max-height: 120px; overflow-y: auto; border: 1px dashed #000; padding: 6px; border-radius: 4px; background: rgba(0,0,0,0.02); }
+        .category-checkbox-wrapper { display: flex; align-items: center; gap: 5px; font-size: 0.75rem; font-family: 'Courier Prime', monospace; font-weight: bold; }
+        .category-checkbox-wrapper input { width: 13px; height: 13px; cursor: pointer; }
+
+        .imdb-rating-pills-node { display: inline-flex; align-items: center; gap: 4px; font-family: 'Courier Prime', monospace; font-size: 0.72rem; font-weight: bold; color: #000; background: #f5c518; padding: 2px 6px; border: 1px solid #000; border-radius: 4px; width: max-content; margin-top: 3px; box-shadow: 1px 1px 0 #000; }
+
+        .leaflet-container { font-family: 'Courier Prime', monospace !important; background: #f2ebd4 !important; }
+        .leaflet-popup-content-wrapper { border: 2px solid #000; border-radius: 4px; box-shadow: 3px 3px 0 #000; background: var(--window-bg) !important; color: #000 !important; }
+        .leaflet-popup-tip { border: 2px solid #000; background: var(--window-bg) !important; }
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">
+        <div class="nav-logo">💾 FOOD_OS // v76.2_STABLE_INTEGRATED</div>
+        <div class="window-controls-dummy">
+            <div class="dot-control"></div>
+            <div class="dot-control"></div>
+            <div class="dot-control"></div>
+        </div>
+    </nav>
+
+    <div class="page-nav-bar">
+        <button id="page-btn-meal" class="page-nav-btn active-page" onclick="toggleActivePage('meal')">[ 💾 Meal Planner OS ]</button>
+        <button id="page-btn-date" class="page-nav-btn" onclick="toggleActivePage('date')">[ ❤️ Date Nights ]</button>
+        <button id="page-btn-film" class="page-nav-btn" onclick="toggleActivePage('film')">[ 🎬 Cinema Club OS ]</button>
+    </div>
+
+    <div id="core-meal-planner-view">
+        <main class="desktop-layout">
+            <section class="retro-window full-width">
+                <div class="window-header yellow-variant">
+                    <span>User_Schedule: Rolling_Timeline_Matrix.exe</span>
+                    <span>✖</span>
+                </div>
+                <div class="window-body calendar-dashboard-container">
+                    <div class="app-tab-container">
+                        <button id="tab-dinners" class="tab-switch-btn active-tab" onclick="switchAppMode('dinners')">[ Dinners (Full Week) ]</button>
+                        <button id="tab-lunches" class="tab-switch-btn" onclick="switchAppMode('lunches')">[ Lunches (Mon-Fri) ]</button>
+                    </div>
+                    <div class="calendar-days-grid" id="calendar-days-injector"></div>
+                </div>
+            </section>
+
+            <section class="retro-window full-width">
+                <div class="window-header orange-variant">
+                    <span id="router-header-title">Intelligent_Router: Dinner_Router.exe</span>
+                    <span>✖</span>
+                </div>
+                <div class="window-body smart-dinner-grid">
+                    <div class="smart-column" id="col-ryan">
+                        <div class="column-header-tag tag-ryan" id="header-col-r">Ryan Nights In</div>
+                        <div id="container-ryan"></div>
+                    </div>
+                    <div class="smart-column" id="col-bea">
+                        <div class="column-header-tag tag-bea" id="header-col-b">Bea Nights In</div>
+                        <div id="container-bea"></div>
+                    </div>
+                    <div class="smart-column" id="col-both">
+                        <div class="column-header-tag tag-both" id="header-col-both">Nights In Together</div>
+                        <div id="container-both"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="retro-window full-width">
+                <div class="window-header blue-variant">
+                    <span>System Error: Missing Ingredients</span>
+                    <span>✖</span>
+                </div>
+                <div class="checker-banner"></div>
+                <div class="window-body">
+                    <div class="search-bar-container">
+                        <input type="text" id="item-input" class="retro-input" placeholder="Search / Add item...">
+                        <button onclick="addItem()" class="retro-btn">Enter...</button>
+                    </div>
+                    <ul class="shopping-list" id="shopping-list"></ul>
+                </div>
+            </section>
+
+            <section class="retro-window full-width" id="recipe-module-window">
+                <div class="window-header orange-variant">
+                    <span>Database_Explorer: Saved_Recipes.db</span>
+                    <span>✖</span>
+                </div>
+                <div class="window-body">
+                    <div class="recipe-category-tabs">
+                        <button id="cat-tab-all" class="recipe-cat-btn active-cat-tab" onclick="filterRecipeCategory('all')">ALL RECIPES</button>
+                        <button id="cat-tab-dinners" class="recipe-cat-btn" onclick="filterRecipeCategory('dinners')">DINNERS</button>
+                        <button id="cat-tab-breakfast" class="recipe-cat-btn" onclick="filterRecipeCategory('breakfast')">BREAKFAST</button>
+                        <button id="cat-tab-bakes" class="recipe-cat-btn" onclick="filterRecipeCategory('bakes')">BAKES</button>
+                    </div>
+
+                    <div class="recipe-browser-deck">
+                        <ul class="recipe-sidebar-list" id="recipe-list-tabs-anchor"></ul>
+                        <div class="recipe-viewer-panel" id="recipe-content-panel"></div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="fridge-hardware-container full-width">
+                <div class="fridge-top-prop-shelf">
+                    <div class="prop-bottle" title="Wine bottle"></div>
+                    <div class="prop-candle-holder">
+                        <div class="prop-candle-stick"></div>
+                        <div class="prop-base-cup"></div>
+                    </div>
+                    <div class="prop-book-plant-stack">
+                        <div class="prop-plant-pot">
+                            <div class="prop-leaves-cluster"></div>
+                        </div>
+                        <div class="prop-book-ottolenghi">OTTOLENGHI</div>
+                    </div>
+                </div>
+
+                <div class="fridge-cabinet">
+                    <div class="fridge-freezer-zone">
+                        <div class="freezer-drawer">
+                            <div class="drawer-lbl"><span>❄️ Drawer 1 (Top)</span><span id="d1-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
+                            <textarea class="freezer-textarea" id="freezer-d1-input" placeholder="Drawer 1 items..."></textarea>
+                            <div class="freezer-drawer-pullhandle"></div>
+                            <button class="freezer-save-btn" onclick="saveFreezerDrawer(1)">💾 Save</button>
+                        </div>
+                        <div class="freezer-drawer">
+                            <div class="drawer-lbl"><span>❄️ Drawer 2 (Middle)</span><span id="d2-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
+                            <textarea class="freezer-textarea" id="freezer-d2-input" placeholder="Drawer 2 items..."></textarea>
+                            <div class="freezer-drawer-pullhandle"></div>
+                            <button class="freezer-save-btn" onclick="saveFreezerDrawer(2)">💾 Save</button>
+                        </div>
+                        <div class="freezer-drawer">
+                            <div class="drawer-lbl"><span>❄️ Drawer 3 (Bottom)</span><span id="d3-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
+                            <textarea class="freezer-textarea" id="freezer-d3-input" placeholder="Drawer 3 items..."></textarea>
+                            <div class="freezer-drawer-pullhandle"></div>
+                            <button class="freezer-save-btn" onclick="saveFreezerDrawer(3)">💾 Save</button>
+                        </div>
+                    </div>
+
+                    <div class="fridge-door-wing" id="fridge-top-door-panel" onclick="toggleFreezerDoor()">
+                        <div class="fridge-door-face-elements-group">
+                            <div class="smeg-brand-badge">SMEG</div>
+                            <div class="fridge-door-horizontal-handle"></div>
+                            <div class="magnet-item mag-lemon"></div>
+                            <div class="magnet-item mag-polaroid">
+                                <div class="polaroid-photo-frame"></div>
+                            </div>
+                            <div class="magnet-item mag-croissant-note">⚡</div>
+                            <div class="magnet-item mag-chili-paper">---<br>---</div>
+                            <div class="magnet-item mag-pink-sticky">➔</div>
+                            <div class="magnet-item mag-bottom-doc">Menu:<br>• Peas<br>• Ice<br>• Pizza</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="core-date-night-view" style="display: none;">
+        <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
+            <div class="date-night-grid">
+                <div class="date-night-column">
+                    <div class="date-column-title" style="color: var(--accent-orange);">📍 Local</div>
+                    <div class="date-input-stack-group">
+                        <input type="text" id="date-local-input" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Date night idea...">
+                        <input type="text" id="date-local-notes" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Notes...">
+                        <input type="text" id="date-local-map" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Address (e.g., Shoreditch High St)">
+                        <button onclick="addDateIdea('local')" class="retro-btn" style="padding:4px 0; font-size:0.8rem;">+ Save Idea</button>
+                    </div>
+                    <ul class="shopping-list" id="date-local-list"></ul>
+                </div>
+
+                <div class="date-night-column">
+                    <div class="date-column-title" style="color: var(--accent-blue);">🧱 East LDN</div>
+                    <div class="date-input-stack-group">
+                        <input type="text" id="date-east-input" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Date night idea...">
+                        <input type="text" id="date-east-notes" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Notes...">
+                        <input type="text" id="date-east-map" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Address (e.g., Brick Lane)">
+                        <button onclick="addDateIdea('east')" class="retro-btn" style="padding:4px 0; font-size:0.8rem;">+ Save Idea</button>
+                    </div>
+                    <ul class="shopping-list" id="date-east-list"></ul>
+                </div>
+
+                <div class="date-night-column">
+                    <div class="date-column-title" style="color: var(--accent-pink);">🏛️ Central LDN</div>
+                    <div class="date-input-stack-group">
+                        <input type="text" id="date-central-input" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Date night idea...">
+                        <input type="text" id="date-central-notes" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Notes...">
+                        <input type="text" id="date-central-map" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Address (e.g., Covent Garden)">
+                        <button onclick="addDateIdea('central')" class="retro-btn" style="padding:4px 0; font-size:0.8rem;">+ Save Idea</button>
+                    </div>
+                    <ul class="shopping-list" id="date-central-list"></ul>
+                </div>
+            </div>
+
+            <div class="map-terminal-frame">
+                <div class="window-header purple-variant" style="border-bottom:2px solid #000;">
+                    <span>Radar_Plotter: Illustrated_London_Blueprint.exe</span>
+                    <span id="active-map-tracker-status" style="font-size:0.75rem; font-weight:bold;">📡 TRACKING: STANDBY</span>
+                </div>
+                <div id="london-crt-viewscreen-map" class="crt-london-viewscreen"></div>
+                <div class="map-vintage-paper-overlay-skin"></div>
+            </div>
+        </main>
+    </div>
+
+    <div id="core-cinema-club-view" style="display: none;">
+        <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
+            <div class="cinema-layout-deck">
+                
+                <div class="date-night-column" style="height: max-content;">
+                    <div class="date-column-title" style="color: var(--accent-orange);">🎬 Log New Movie</div>
+                    <div class="date-input-stack-group" style="gap:6px; background:none; border:none; padding:0;">
+                        <input type="text" id="film-input-title" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Film Name...">
+                        <input type="text" id="film-input-year" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Year Released...">
+                        <input type="text" id="film-input-runtime" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Running Time (e.g. 1h 52m)...">
+                        <input type="text" id="film-input-watchat" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Platform (Netflix, BBC iPlayer)...">
+                        <input type="text" id="film-input-poster" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Poster Cover Hyperlink Image URL...">
+                        
+                        <div style="font-size:0.7rem; font-weight:bold; margin-top:4px;">Select Categories (Check multiple):</div>
+                        <div class="multi-select-category-grid">
+                            <label class="category-checkbox-wrapper"><input type="checkbox" value="Under 90mins"> Under 90mins</label>
+                            <label class="category-checkbox-wrapper"><input type="checkbox" value="Sunday film"> Sunday film</label>
+                            <label class="category-checkbox-wrapper"><input type="checkbox" value="Horror"> Horror</label>
+                            <label class="category-checkbox-wrapper"><input type="checkbox" value="Comedy"> Comedy</label>
+                            <label class="category-checkbox-wrapper"><input type="checkbox" value="Drama"> Drama</label>
+                            <label class="category-checkbox-wrapper"><input type="checkbox" value="Action"> Action</label>
+                            <label class="category-checkbox-wrapper"><input type="checkbox" value="Nostalgia"> Nostalgia</label>
+                            <label class="category-checkbox-wrapper"><input type="checkbox" value="Cute"> Cute</label>
+                            <label class="category-checkbox-wrapper"><input type="checkbox" value="Thriller"> Thriller</label>
+                            <label class="category-checkbox-wrapper"><input type="checkbox" value="Doc"> Doc</label>
+                        </div>
+                        
+                        <button onclick="registerNewFilmToDatabase()" class="retro-btn" style="padding:6px 0; font-size:0.85rem; margin-top:5px; background:var(--together-purple);">+ Mount Film</button>
+                    </div>
+                </div>
+
+                <div class="retro-window" style="margin-bottom:0;">
+                    <div class="window-header blue-variant">
+                        <span>Movie_Vault // Matrix_Index.exe</span>
+                        <span id="cinema-vault-count-status" style="font-size:0.72rem;">0 MOVIES READY</span>
+                    </div>
+                    
+                    <div class="recipe-category-tabs" style="border:none; border-bottom:2px solid #000; border-radius:0; margin-bottom:0; background:rgba(0,0,0,0.02);">
+                        <button class="recipe-cat-btn active-cat-tab" id="film-filter-all" onclick="filterCinemaCatalogDeck('all')">ALL</button>
+                        <button class="recipe-cat-btn" id="film-filter-under90" onclick="filterCinemaCatalogDeck('Under 90mins')">UNDER 90</button>
+                        <button class="recipe-cat-btn" id="film-filter-sunday" onclick="filterCinemaCatalogDeck('Sunday film')">SUNDAY</button>
+                        <button class="recipe-cat-btn" id="film-filter-horror" onclick="filterCinemaCatalogDeck('Horror')">HORROR</button>
+                        <button class="recipe-cat-btn" id="film-filter-comedy" onclick="filterCinemaCatalogDeck('Comedy')">COMEDY</button>
+                        <button class="recipe-cat-btn" id="film-filter-drama" onclick="filterCinemaCatalogDeck('Drama')">DRAMA</button>
+                        <button class="recipe-cat-btn" id="film-filter-action" onclick="filterCinemaCatalogDeck('Action')">ACTION</button>
+                        <button class="recipe-cat-btn" id="film-filter-nostalgia" onclick="filterCinemaCatalogDeck('Nostalgia')">NOSTALGIA</button>
+                        <button class="recipe-cat-btn" id="film-filter-cute" onclick="filterCinemaCatalogDeck('Cute')">CUTE</button>
+                        <button class="recipe-cat-btn" id="film-filter-thriller" onclick="filterCinemaCatalogDeck('Thriller')">THRILLER</button>
+                        <button class="recipe-cat-btn" id="film-filter-doc" onclick="filterCinemaCatalogDeck('Doc')">DOC</button>
+                    </div>
+
+                    <div class="window-body" style="padding:15px; background:#fff;">
+                        <ul class="shopping-list" id="cinema-catalog-list-anchor"></ul>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        let currentMode = 'dinners';
+        let currentRecipeCategory = 'all';
+        let currentCinemaFilter = 'all';
+        let leafletMapInstance = null;
+        let mapPinsLayerGroup = null;
+
+        const cloudStorageUrl = "https://script.google.com/macros/s/AKfycbxzTv-Qrjsi0Fgd1S5DdBn8J0swaqIPNDOaJZXeKQ_EdsTtpS3w5MBlWAdpNhEf_82M/exec";
+
+        const ryanAndBeaPhotos = [
+            "https://drive.google.com/thumbnail?sz=w1000&id=1z6xx50Jr2jO-84vxG46b8bly2nBlKOrO",
+            "https://drive.google.com/thumbnail?sz=w1000&id=1OOg8k7bjhJTIWSaJC5Hk-pE9YCtT6b99",
+            "https://drive.google.com/thumbnail?sz=w1000&id=1MXFS7y0RH2AZ4OZ9xXAU6seeHlPKzf7p",
+            "https://drive.google.com/thumbnail?sz=w1000&id=1pqsvqO-Y2WU8hKyw6vmB6hdz5Xvbzhsg",
+            "https://drive.google.com/thumbnail?sz=w1000&id=1vJ717MI0I-cxGna4GQYCA8RHKMDDPRF6",
+            "https://drive.google.com/thumbnail?sz=w1000&id=1DSh7mVadokMnxdxqQ4yvlEL49Mrc3PR0",
+            "https://drive.google.com/thumbnail?sz=w1000&id=17VPsm-E9Ui9qS2ryjta89v3utOz-wb8C",
+            "https://drive.google.com/thumbnail?sz=w1000&id=1Owuuf9v2F0gi8_QfkctJcHYuViF3Lbzr",
+            "https://drive.google.com/thumbnail?sz=w1000&id=1rDg37ImkueQ8NfeLKCm1jidfgtU6odkN",
+            "https://drive.google.com/thumbnail?sz=w1000&id=1T9MCM6hjE8I5HCR9GHsCyJcTdv-syf-f",
+            "https://drive.google.com/thumbnail?sz=w1000&id=1OXs3CW-_Q3kFPQYtRjrksFswVZy_Dbb8",
+            "https://drive.google.com/thumbnail?sz=w1000&id=1QGkOHNV0aZdcINDrzLCiy-Sv_YKGOgAI",
+            "https://drive.google.com/thumbnail?sz=w1000&id=10Wrqv2gn6CsWvvHhugzud9bRWYm4uOWb",
+            "https://drive.google.com/thumbnail?sz=w1000&id=1xykk-5jSDg3O8NpI4DVE_5pGa9Cm3Mkh",
+            "https://drive.google.com/thumbnail?sz=w1000&id=10Wrqv2gn6CsWvvHhugzud9bRWYm4uOWb",
+            "https://drive.google.com/thumbnail?sz=w1000&id=1RhxxbCaDfRga0hvpNM6CgqM7Oycub5mh",
+            "https://drive.google.com/thumbnail?sz=w1000&id=1BLUrxOxFCujMq93_k16ZJEyk0TMviEM3",
+            "https://drive.google.com/thumbnail?sz=w1000&id=1yTdpRQnqZ-Y2XsQo-P_scHKmTmoHoXgL"
+        ];
+
+        const staticRecipeDatabase = [
+            {
+                id: "vodka-pasta", category: "dinners", title: "Penne with Vodka & Tomato Sauce", prep: "15 mins", cook: "45 mins", servings: "4",
+                ingredients: ["2 x 400g tins of plum tomatoes", "1 large onion, finely diced", "Extra virgin olive oil", "Flaky sea salt", "1 clove of garlic, finely chopped", "1/2 tsp chilli flakes", "1 tsp dried oregano", "200ml vodka", "320g dried penne lisce (or penne rigate)", "4 tbsp double cream", "2 tsp caster sugar", "100g grated Parmesan"],
+                instructions: ["Drain the tomatoes, reserving the juice for another purpose.", "Place a large, ovenproof saucepan over low to medium heat and gently sauté the onion with a pinch of salt for 12-15 minutes until glossy and translucent.", "Add garlic, chilli flakes, and oregano. Combine and stir for a few minutes. Pour in the vodka, bring to a gentle bubble, and cook until the liquid has reduced by a third. Preheat oven to 140°C.", "Add drained tomatoes to the saucepan, bring to a gentle boil for 1-2 minutes, then bake uncovered in the oven for 30-40 minutes until sauce reduces and colors.", "Meanwhile, cook the penne in plenty of salted boiling water. Drain.", "Remove tomatoes from oven, add double cream, sugar, and half the Parmesan. Blend with a stick blender into a smooth sauce.", "Immediately add the cooked penne and stir until fully combined. Adjust seasoning and serve with remaining Parmesan."]
+            },
+            {
+                id: "black-bean-nasi", category: "dinners", title: "Black Bean Nasi Goreng", prep: "10 mins", cook: "20 mins", servings: "4",
+                ingredients: ["250g cooked brown basmati rice", "4 shallots, peeled and finely chopped", "2 sticks of celery, finely chopped", "3 tbsp groundnut oil", "5 cloves of garlic, peeled and finely chopped", "2 red chillies, 1 finely chopped, 1 sliced", "30g bunch of coriander (stalks and leaves separated)", "2 small cucumbers (or 1/2 large), thickly sliced", "2 tbsp rice wine vinegar", "1/2 tsp runny honey or sugar", "2 tbsp toasted sesame oil", "2 tbsp plus 1 tsp soy sauce", "2 tbsp tomato purée", "1 tbsp miso paste (red or brown)", "3 tbsp kecap manis", "1 x 400g tin black beans, drained", "4 free-range or organic eggs", "Bunch of spring onions, trimmed and finely sliced", "2 unwaxed limes to serve"],
+                instructions: ["Sauté chopped shallots and celery in a tablespoon of groundnut oil for 10 minutes until soft. Add 5 cloves of chopped garlic, 1 finely chopped red chilli, and coriander stalks; fry for a couple more minutes.", "Make pickle: Mix sliced cucumber, sliced red chilli, rice wine vinegar, honey/sugar, and a pinch of salt. Set aside.", "Whisk toasted sesame oil, 1 tsp soy sauce, tomato purée, miso paste, kecap manis, and 2 tbsp soy sauce.", "Pour flavorings over the cooked veg, add drained black beans, and cook for a few minutes. Tip into a bowl.", "Put pan back over heat, add remaining groundnut oil, add cooked brown basmati rice and stir-fry for a few minutes until beginning to crisp. Tip in the black bean mixture, stir well and cook for another couple of minutes.", "Fry eggs in a separate large frying pan with a little oil. Stir sliced spring onions and coriander leaves into rice.", "Serve nasi goreng piled into bowls topped with a fried egg, cucumber pickle, and lime wedges."]
+            }
+        ];
+
+        function toggleActivePage(targetPage) {
+            document.querySelectorAll('.page-nav-btn').forEach(b => b.classList.remove('active-page'));
+            document.getElementById('core-meal-planner-view').style.display = 'none';
+            document.getElementById('core-date-night-view').style.display = 'none';
+            document.getElementById('core-cinema-club-view').style.display = 'none';
+
+            if (targetPage === 'meal') {
+                document.getElementById('page-btn-meal').classList.add('active-page');
+                document.getElementById('core-meal-planner-view').style.display = 'block';
+            } else if (targetPage === 'date') {
+                document.getElementById('page-btn-date').classList.add('active-page');
+                document.getElementById('core-date-night-view').style.display = 'block';
+                renderAllDateColumns();
+                setTimeout(initializeVintageLondonMap, 100);
+            } else if (targetPage === 'film') {
+                document.getElementById('page-btn-film').classList.add('active-page');
+                document.getElementById('core-cinema-club-view').style.display = 'block';
+                renderCinemaCatalogDeck();
+            }
+        }
+
+        function initializeVintageLondonMap() {
+            if (leafletMapInstance) { leafletMapInstance.invalidateSize(); return; }
+            leafletMapInstance = L.map('london-crt-viewscreen-map', { center: [51.5074, -0.1278], zoom: 12, zoomControl: true, scrollWheelZoom: false });
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(leafletMapInstance);
+            mapPinsLayerGroup = L.layerGroup().addTo(leafletMapInstance);
+            refreshPersistentPinsOnMap();
+        }
+
+        function refreshPersistentPinsOnMap() {
+            if (!mapPinsLayerGroup) return;
+            mapPinsLayerGroup.clearLayers();
+            const tracks = [
+                { data: appState.dateLocal || [], color: '#e15c32' },
+                { data: appState.dateEast || [], color: '#3283c4' },
+                { data: appState.dateCentral || [], color: '#f2a6b4' }
+            ];
+            tracks.forEach(track => {
+                track.data.forEach(item => {
+                    if (item.lat && item.lng) {
+                        const vintageRoundelIcon = L.divIcon({ className: 'custom-vintage-pin', html: `<div style="background:${track.color}; width:16px; height:14px; border:3px solid #000; border-radius:3px; position:relative; box-shadow:2px 2px 0px #000;"><div style="position:absolute; top:4px; left:-4px; width:18px; height:3px; background:#000;"></div></div>`, iconSize: [16, 14], iconAnchor: [8, 7] });
+                        let popupLabel = `<div style="font-family:'Courier Prime',monospace; font-size:0.8rem; line-height:1.4;"><b style="text-transform:uppercase; color:#e15c32;">${item.name}</b>`;
+                        if (item.notes) popupLabel += `<br><i>"${item.notes}"</i>`;
+                        popupLabel += `</div>`;
+                        L.marker([item.lat, item.lng], { icon: vintageRoundelIcon }).addTo(mapPinsLayerGroup).bindPopup(popupLabel);
+                    }
+                });
+            });
+        }
+
+        function triggerCameraGlide(lat, lng) {
+            if (!leafletMapInstance || !lat || !lng) return;
+            leafletMapInstance.setView([lat, lng], 15, { animate: true });
+            mapPinsLayerGroup.eachLayer(marker => { if (marker.getLatLng().lat === lat && marker.getLatLng().lng === lng) marker.openPopup(); });
+        }
+
+        /* FILMS API REGISTER ENGINE AND DYNAMIC COMPONENT LOOPS */
+        async function registerNewFilmToDatabase() {
+            const titleEl = document.getElementById('film-input-title');
+            const yearEl = document.getElementById('film-input-year');
+            const runtimeEl = document.getElementById('film-input-runtime');
+            const watchEl = document.getElementById('film-input-watchat');
+            const posterEl = document.getElementById('film-input-poster');
+
+            const titleVal = titleEl.value.trim();
+            const yearVal = yearEl.value.trim();
+            if (titleVal === '') return;
+
+            let selectedCategories = [];
+            document.querySelectorAll('.multi-select-category-grid input:checked').forEach(box => { selectedCategories.push(box.value); });
+
+            let newFilm = {
+                name: titleVal, year: yearVal, runtime: runtimeEl.value.trim(),
+                watchAt: watchEl.value.trim(), posterUrl: posterEl.value.trim(),
+                imdbRating: "N/A", categories: selectedCategories, checked: false
+            };
+
+            if (!appState.cinemaRegistry) appState.cinemaRegistry = [];
+            appState.cinemaRegistry.push(newFilm);
+
+            titleEl.value = ''; yearEl.value = ''; runtimeEl.value = ''; watchEl.value = ''; posterEl.value = '';
+            document.querySelectorAll('.multi-select-category-grid input').forEach(b => b.checked = false);
+            renderCinemaCatalogDeck();
+
+            try {
+                let fetchQuery = `https://www.omdbapi.com/?apikey=7ba98797&t=${encodeURIComponent(titleVal)}&y=${encodeURIComponent(yearVal)}`;
+                let response = await fetch(fetchQuery);
+                let data = await response.json();
+                if (data && data.imdbRating) {
+                    newFilm.imdbRating = data.imdbRating;
+                    if (!newFilm.runtime && data.Runtime) newFilm.runtime = data.Runtime;
+                    if (!newFilm.year && data.Year) newFilm.year = data.Year;
+                    if (!newFilm.posterUrl && data.Poster && data.Poster !== 'N/A') newFilm.posterUrl = data.Poster;
+                }
+            } catch(e) { console.warn(e); }
+
+            renderCinemaCatalogDeck();
+            await saveCloudState();
+        }
+
+        function filterCinemaCatalogDeck(categoryKey) {
+            currentCinemaFilter = categoryKey;
+            document.querySelectorAll('.recipe-category-tabs .recipe-cat-btn').forEach(b => b.classList.remove('active-cat-tab'));
+            
+            const tabMap = {
+                'all': 'film-filter-all', 'Under 90mins': 'film-filter-under90', 'Sunday film': 'film-filter-sunday',
+                'Horror': 'film-filter-horror', 'Comedy': 'film-filter-comedy', 'Drama': 'film-filter-drama',
+                'Action': 'film-filter-action', 'Nostalgia': 'film-filter-nostalgia', 'Cute': 'film-filter-cute',
+                'Thriller': 'film-filter-thriller', 'Doc': 'film-filter-doc'
+            };
+            if(tabMap[categoryKey]) document.getElementById(tabMap[categoryKey]).classList.add('active-cat-tab');
+            renderCinemaCatalogDeck();
+        }
+
+        function renderCinemaCatalogDeck() {
+            const anchor = document.getElementById('cinema-catalog-list-anchor');
+            if (!anchor) return; anchor.innerHTML = '';
+            let sourceList = appState.cinemaRegistry || [];
+            let filteredList = sourceList.filter(film => currentCinemaFilter === 'all' || (film.categories && film.categories.includes(currentCinemaFilter)));
+
+            document.getElementById('cinema-vault-count-status').innerText = `${filteredList.length} FILMS LOADED`;
+            if (filteredList.length === 0) {
+                anchor.innerHTML = `<p style="font-size:0.85rem; opacity:0.4; text-align:center; padding:20px;">No film entries logged under this category category track yet...</p>`;
+                return;
+            }
+
+            filteredList.forEach((film) => {
+                let masterIndex = sourceList.findIndex(f => f === film);
+                const li = document.createElement('li');
+                li.className = 'grocery-item' + (film.checked ? ' checked' : '');
+
+                let isEditing = film._isEditing || false;
+                let cardBodyHtml = "";
+
+                if (isEditing) {
+                    cardBodyHtml = `
+                        <div class="date-edit-fields-box" onclick="event.stopPropagation()">
+                            <input type="text" class="date-edit-mini-input" id="edit-film-title-${masterIndex}" value="${film.name}" placeholder="Movie Title...">
+                            <input type="text" class="date-edit-mini-input" id="edit-film-year-${masterIndex}" value="${film.year || ''}" placeholder="Year...">
+                            <input type="text" class="date-edit-mini-input" id="edit-film-run-${masterIndex}" value="${film.runtime || ''}" placeholder="Runtime...">
+                            <input type="text" class="date-edit-mini-input" id="edit-film-watch-${masterIndex}" value="${film.watchAt || ''}" placeholder="Watch Location...">
+                            <input type="text" class="date-edit-mini-input" id="edit-film-post-${masterIndex}" value="${film.posterUrl || ''}" placeholder="Poster Image URL...">
+                            
+                            <div style="font-size:0.65rem; font-weight:bold; margin-top:2px;">Edit Genres:</div>
+                            <div class="multi-select-category-grid" id="edit-film-catgrid-${masterIndex}">
+                                ${['Under 90mins', 'Sunday film', 'Horror', 'Comedy', 'Drama', 'Action', 'Nostalgia', 'Cute', 'Thriller', 'Doc'].map(cat => {
+                                    let checked = film.categories && film.categories.includes(cat) ? 'checked' : '';
+                                    return `<label class="category-checkbox-wrapper"><input type="checkbox" value="${cat}" ${checked}> ${cat}</label>`;
+                                }).join('')}
+                            </div>
+                            <div style="display:flex; gap:5px; margin-top:5px;">
+                                <button class="date-inline-edit-btn" style="background:#d4f1f9;" onclick="saveInlineCinemaModifications(${masterIndex})">✅ Save</button>
+                                <button class="date-inline-edit-btn" onclick="cancelInlineCinemaEdit(${masterIndex})">Cancel</button>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    let pills = (film.categories || []).map(c => `<span class="category-pill-tag">${c}</span>`).join('');
+                    let posterStyleHtml = film.posterUrl ? `<div class="film-poster-preview-box" style="background-image:url('${film.posterUrl}')"></div>` : `<div class="film-poster-preview-box" style="display:flex; align-items:center; justify-content:center; font-size:0.65rem; opacity:0.3; font-weight:bold;">NO IMAGE</div>`;
+                    let ratingVal = (film.imdbRating && film.imdbRating !== 'N/A') ? film.imdbRating : 'N/A';
+
+                    cardBodyHtml = `
+                        <div class="date-card-body-collapsible" id="collapsible-film-card-${masterIndex}">
+                            <div style="display:flex; gap:15px; flex-wrap:wrap;">
+                                ${posterStyleHtml}
+                                <div style="flex:1; display:flex; flex-direction:column; gap:4px; font-family:'Courier Prime', monospace; font-size:0.82rem; font-weight:bold;">
+                                    <div>📅 RELEASED: ${film.year || 'UNKNOWN'}</div>
+                                    <div>⏱️ RUNTIME: ${film.runtime || 'UNSPECIFIED'}</div>
+                                    <div>📺 WATCH AT: ${film.watchAt || 'NOT LOGGED'}</div>
+                                    <div class="imdb-rating-pills-node">⭐ IMDb: ${ratingVal}/10</div>
+                                    <div style="margin-top:6px;">${pills}</div>
+                                </div>
+                            </div>
+                            <div class="date-card-actions-row" style="margin-top:10px;">
+                                <button class="date-inline-edit-btn" onclick="event.stopPropagation(); activateInlineCinemaEdit(${masterIndex})">✏️ Edit</button>
+                                <button class="delete-btn" style="padding:0; font-size:0.85rem;" onclick="event.stopPropagation(); deleteCinemaRegistryItem(${masterIndex})">⌫ Delete</button>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                li.innerHTML = `
+                    <div class="retro-checkbox" onclick="event.stopPropagation(); toggleCinemaCheckboxLatching(${masterIndex})"></div>
+                    <div class="date-item-row-wrapper">
+                        <div class="date-card-header-clickable" onclick="toggleCinemaCardView(${masterIndex})">
+                            <span><b>${film.name}</b> ${film.year ? `(${film.year})` : ''}</span>
+                            <span style="font-size:0.7rem; opacity:0.5;" id="film-arrow-indicator-${masterIndex}">▼</span>
+                        </div>
+                        ${cardBodyHtml}
+                    </div>
+                `;
+                anchor.appendChild(li);
+            });
+        }
+
+        function toggleCinemaCardView(masterIndex) {
+            const el = document.getElementById(`collapsible-film-card-${masterIndex}`);
+            const arrow = document.getElementById(`film-arrow-indicator-${masterIndex}`);
+            if(!el) return;
+            if (el.style.display === 'block') { el.style.display = 'none'; if(arrow) arrow.innerText = '▼'; }
+            else { el.style.display = 'block'; if(arrow) arrow.innerText = '▲'; }
+        }
+
+        function activateInlineCinemaEdit(masterIndex) {
+            appState.cinemaRegistry[masterIndex]._isEditing = true; renderCinemaCatalogDeck();
+            setTimeout(() => { const el = document.getElementById(`collapsible-film-card-${masterIndex}`); if(el) el.style.display = 'block'; }, 10);
+        }
+
+        function cancelInlineCinemaEdit(masterIndex) { delete appState.cinemaRegistry[masterIndex]._isEditing; renderCinemaCatalogDeck(); }
+
+        async function saveInlineCinemaModifications(masterIndex) {
+            let film = appState.cinemaRegistry[masterIndex];
+            let oldTitle = film.name; let oldYear = film.year;
+
+            film.name = document.getElementById(`edit-film-title-${masterIndex}`).value.trim();
+            film.year = document.getElementById(`edit-film-year-${masterIndex}`).value.trim();
+            film.runtime = document.getElementById(`edit-film-run-${masterIndex}`).value.trim();
+            film.watchAt = document.getElementById(`edit-film-watch-${masterIndex}`).value.trim();
+            film.posterUrl = document.getElementById(`edit-film-post-${masterIndex}`).value.trim();
+            
+            let updatedCats = [];
+            document.querySelectorAll(`#edit-film-catgrid-${masterIndex} input:checked`).forEach(b => updatedCats.push(b.value));
+            film.categories = updatedCats;
+            delete film._isEditing;
+
+            renderCinemaCatalogDeck();
+
+            if (oldTitle !== film.name || oldYear !== film.year) {
+                try {
+                    let res = await fetch(`https://www.omdbapi.com/?apikey=7ba98797&t=${encodeURIComponent(film.name)}&y=${encodeURIComponent(film.year)}`);
+                    let data = await res.json();
+                    if (data && data.imdbRating) {
+                        film.imdbRating = data.imdbRating;
+                        if(data.Poster && data.Poster !== 'N/A') film.posterUrl = data.Poster;
+                    }
+                } catch(e) {}
+            }
+
+            renderCinemaCatalogDeck();
+            await saveCloudState();
+        }
+
+        async function toggleCinemaCheckboxLatching(masterIndex) { appState.cinemaRegistry[masterIndex].checked = !appState.cinemaRegistry[masterIndex].checked; renderCinemaCatalogDeck(); await saveCloudState(); }
+        async function deleteCinemaRegistryItem(masterIndex) { appState.cinemaRegistry.splice(masterIndex, 1); renderCinemaCatalogDeck(); await saveCloudState(); }
+
+        function renderSingleDateColumn(targetId, listData) {
+            const listEl = document.getElementById(`date-${targetId}-list`); if(!listEl) return; listEl.innerHTML = '';
+            listData.forEach((item, index) => {
+                const li = document.createElement('li'); li.className = 'grocery-item' + (item.checked ? ' checked' : '');
+                let notesHtml = item.notes ? `<div class="date-notes-subtext">${item.notes}</div>` : "";
+                let addressHtml = item.location ? `<div class="date-address-subtext">🏠 ${item.location}</div>` : "";
+                let radarButtonHtml = (item.lat && item.lng) ? `<div class="map-badge-link-pill" onclick="event.stopPropagation(); triggerCameraGlide(${item.lat}, ${item.lng})">CNTR 🗺️</div>` : "";
+                let isEditing = item._isEditing || false; let wrapperHtml = "";
+
+                if (isEditing) {
+                    wrapperHtml = `<div class="date-edit-fields-box" onclick="event.stopPropagation()"><input type="text" class="date-edit-mini-input" id="edit-name-${targetId}-${index}" value="${item.name}"><input type="text" class="date-edit-mini-input" id="edit-notes-${targetId}-${index}" value="${item.notes || ''}"><input type="text" class="date-edit-mini-input" id="edit-loc-${targetId}-${index}" value="${item.location || ''}"><div style="display:flex; gap:5px; margin-top:3px;"><button class="date-inline-edit-btn" style="background:#d4f1f9;" onclick="saveInlineDateModifications('${targetId}', ${index})">✅ Save</button><button class="date-inline-edit-btn" onclick="cancelInlineDateEdit('${targetId}', ${index})">Cancel</button></div></div>`;
+                } else {
+                    wrapperHtml = `<div class="date-card-body-collapsible" id="collapsible-card-${targetId}-${index}">${notesHtml}${addressHtml}<div class="date-card-actions-row">${radarButtonHtml}<button class="date-inline-edit-btn" onclick="event.stopPropagation(); activateInlineDateEdit('${targetId}', ${index})">✏️ Edit</button><button class="delete-btn" style="padding:0; font-size:0.85rem;" onclick="event.stopPropagation(); deleteDateItem('${targetId}', ${index})">⌫ Delete</button></div></div>`;
+                }
+                li.innerHTML = `
+                    <div class="retro-checkbox" onclick="event.stopPropagation(); toggleDateItem('${targetId}', ${index})"></div>
+                    <div class="date-item-row-wrapper"><div class="date-card-header-clickable" onclick="toggleCardCollapseView('${targetId}', ${index})"><span>${item.name}</span><span style="font-size:0.7rem; opacity:0.5;" id="arrow-indicator-${targetId}-${index}">▼</span></div>${wrapperHtml}</div>
+                `;
+                listEl.appendChild(li);
+            });
+        }
+
+        function toggleCardCollapseView(targetId, index) {
+            const el = document.getElementById(`collapsible-card-${targetId}-${index}`); const arrow = document.getElementById(`arrow-indicator-${targetId}-${index}`); if(!el) return;
+            if (el.style.display === 'block') { el.style.display = 'none'; if(arrow) arrow.innerText = '▼'; } else { el.style.display = 'block'; if(arrow) arrow.innerText = '▲'; }
+        }
+
+        function activateInlineDateEdit(targetId, index) {
+            let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); targetArr[index]._isEditing = true; renderAllDateColumns();
+            setTimeout(() => { const el = document.getElementById(`collapsible-card-${targetId}-${index}`); if(el) el.style.display = 'block'; }, 10);
+        }
+
+        function cancelInlineDateEdit(targetId, index) { let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); delete targetArr[index]._isEditing; renderAllDateColumns(); }
+
+        async function saveInlineDateModifications(targetId, index) {
+            let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); let item = targetArr[index];
+            const updatedName = document.getElementById(`edit-name-${targetId}-${index}`).value.trim();
+            const updatedNotes = document.getElementById(`edit-notes-${targetId}-${index}`).value.trim(); const updatedLoc = document.getElementById(`edit-loc-${targetId}-${index}`).value.trim();
+            if (updatedName === '') return; let addressChanged = item.location !== updatedLoc; item.name = updatedName; item.notes = updatedNotes; item.location = updatedLoc; delete item._isEditing;
+            renderAllDateColumns();
+            if (updatedLoc !== '' && addressChanged) {
+                try {
+                    let res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(updatedLoc + ", London")}`);
+                    let data = await res.json(); if (data && data.length > 0) { item.lat = parseFloat(data[0].lat); item.lng = parseFloat(data[0].lon); } else { item.lat = null; item.lng = null; }
+                } catch(err) { console.warn(err); }
+            } else if (updatedLoc === '') { item.lat = null; item.lng = null; }
+            renderAllDateColumns(); refreshPersistentPinsOnMap(); await saveCloudState();
+        }
+
+        async function addDateIdea(targetId) {
+            const input = document.getElementById(`date-${targetId}-input`); const notesInput = document.getElementById(`date-${targetId}-notes`); const locInput = document.getElementById(`date-${targetId}-map`);
+            if(!input || !notesInput || !locInput) return; const val = input.value.trim(); const notesVal = notesInput.value.trim(); const locVal = locInput.value.trim();
+            if (val !== '') {
+                const targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral);
+                let newItem = { name: val, notes: notesVal, location: locVal, checked: false, lat: null, lng: null };
+                targetArr.push(newItem); input.value = ''; notesInput.value = ''; locInput.value = '';
+                renderAllDateColumns();
+                if (locVal !== '') {
+                    try {
+                        let res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(locVal + ", London")}`);
+                        let data = await res.json(); if (data && data.length > 0) { newItem.lat = parseFloat(data[0].lat); newItem.lng = parseFloat(data[0].lon); }
+                    } catch(err) { console.warn(err); }
+                }
+                renderAllDateColumns(); refreshPersistentPinsOnMap(); await saveCloudState();
+            }
+        }
+
+        async function toggleDateItem(targetId, index) { let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); targetArr[index].checked = !targetArr[index].checked; renderAllDateColumns(); await saveCloudState(); }
+        async function deleteDateItem(targetId, index) { let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); targetArr.splice(index, 1); renderAllDateColumns(); refreshPersistentPinsOnMap(); await saveCloudState(); }
+
+        async function loadCloudState() {
+            try {
+                const response = await fetch(cloudStorageUrl);
+                if (response.ok) {
+                    const payload = await response.json();
+                    if (payload.menuDatabase && Object.keys(payload.menuDatabase).length > 1) { foodMenuDatabase = payload.menuDatabase; }
+                    if (payload.calendarState && payload.calendarState.shoppingList) {
+                        appState = payload.calendarState;
+                        if (!appState.dateLocal) appState.dateLocal = [];
+                        if (!appState.dateEast) appState.dateEast = [];
+                        if (!appState.dateCentral) appState.dateCentral = [];
+                        if (!appState.cinemaRegistry) appState.cinemaRegistry = [];
+                    }
+                }
+            } catch (err) { console.warn("Handshake latency."); }
+            switchAppMode(currentMode);
+            renderShoppingList();
+            renderAllDateColumns();
+            buildRecipeRegistryDeck();
+            
+            document.getElementById('freezer-d1-input').value = appState.freezerDrawer1 || "";
+            document.getElementById('freezer-d2-input').value = appState.freezerDrawer2 || "";
+            document.getElementById('freezer-d3-input').value = appState.freezerDrawer3 || "";
+            shuffleFridgePolaroidMemory();
+        }
+
+        async function saveCloudState() {
+            try { await fetch(cloudStorageUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(appState) }); } catch (e) { console.error(e); }
+        }
+
+        async function toggleItem(index) { appState.shoppingList[index].checked = !appState.shoppingList[index].checked; renderShoppingList(); await saveCloudState(); }
+        async function deleteItem(index) { appState.shoppingList.splice(index, 1); renderShoppingList(); await saveCloudState(); }
+
+        function toggleFreezerDoor() { const door = document.getElementById("fridge-top-door-panel"); if(door) door.classList.toggle("door-swung-open"); }
+        async function saveFreezerDrawer(drawerNum) {
+            const statusIndicator = document.getElementById(`d${drawerNum}-sync-status`); statusIndicator.innerText = "⏳ Saving..."; const txtVal = document.getElementById(`freezer-d${drawerNum}-input`).value;
+            if (drawerNum === 1) appState.freezerDrawer1 = txtVal; if (drawerNum === 2) appState.freezerDrawer2 = txtVal; if (drawerNum === 3) appState.freezerDrawer3 = txtVal;
+            await saveCloudState(); setTimeout(() => { statusIndicator.innerText = "✅ Saved!"; setTimeout(() => { statusIndicator.innerText = ""; }, 2000); }, 800);
+        }
+
+        function filterRecipeCategory(category) { currentRecipeCategory = category; document.querySelectorAll('.recipe-cat-btn').forEach(btn => btn.classList.remove('active-cat-tab')); document.getElementById(`cat-tab-${category}`).classList.add('active-cat-tab'); buildRecipeRegistryDeck(); closeRecipePanel(); }
+        function buildRecipeRegistryDeck() {
+            const listAnchor = document.getElementById('recipe-list-tabs-anchor'); if(!listAnchor) return; listAnchor.innerHTML = '';
+            const filteredRecipes = staticRecipeDatabase.filter(recipe => { return currentRecipeCategory === 'all' || recipe.category === currentRecipeCategory; });
+            filteredRecipes.forEach((recipe, index) => {
+                const li = document.createElement('li'); li.className = 'recipe-tab-item'; li.innerText = recipe.title;
+                li.onclick = function() { document.querySelectorAll('.recipe-tab-item').forEach(el => el.classList.remove('active-recipe-tab')); li.classList.add('active-recipe-tab'); displayRecipeProfile(recipe); };
+                listAnchor.appendChild(li);
+            });
+            if (filteredRecipes.length > 0) displayRecipeProfile(filteredRecipes[0]);
+        }
+
+        function displayRecipeProfile(recipe) {
+            const panel = document.getElementById('recipe-content-panel'); if(!panel) return;
+            let ingHtml = recipe.ingredients.map(i => `<li>${i}</li>`).join(''); let instHtml = recipe.instructions.map(i => `<li>${i}</li>`).join('');
+            panel.innerHTML = `
+                <div class="recipe-close-btn" onclick="closeRecipePanel()">✖</div><h3 style="font-size:1.2rem; font-weight:bold; text-transform:uppercase; padding-right:40px;">${recipe.title}</h3><p style="font-size: 0.8rem; opacity: 0.7; margin-bottom: 4px;">Track: ${recipe.category.toUpperCase()}</p>
+                <div class="recipe-meta-row"><div class="recipe-meta-tag">⏱️ Prep: ${recipe.prep}</div><div class="recipe-meta-tag">🍳 Cook: ${recipe.cook}</div><div class="recipe-meta-tag">👥 Serves: ${recipe.servings}</div></div>
+                <div class="recipe-section-title">Ingredients</div><ul class="recipe-ingredients-list">${ingHtml}</ul><div class="recipe-section-title">Instructions</div><ol class="recipe-instructions-list">${instHtml}</ol>
+            `; panel.style.display = 'block';
+        }
+
+        function closeRecipePanel() { const panel = document.getElementById('recipe-content-panel'); if(panel) panel.style.display = 'none'; document.querySelectorAll('.recipe-tab-item').forEach(el => el.classList.remove('active-recipe-tab')); }
+
+        function switchAppMode(targetMode) {
+            currentMode = targetMode; document.getElementById('tab-dinners').classList.toggle('active-tab', targetMode === 'dinners'); document.getElementById('tab-lunches').classList.toggle('active-tab', targetMode === 'lunches');
+            const gridEl = document.getElementById('calendar-days-injector'); if(gridEl) gridEl.classList.toggle('lunch-mode-grid', targetMode === 'lunches');
+            if (targetMode === 'dinners') {
+                document.getElementById('router-header-title').innerText = "Intelligent_Router: Dinner_Router.exe";
+                document.getElementById('header-col-r').innerText = "Ryan Nights In"; document.getElementById('header-col-b').innerText = "Bea Nights In"; document.getElementById('header-col-both').innerText = "Nights In Together";
+            } else {
+                document.getElementById('router-header-title').innerText = "Intelligent_Router: Lunch_Router.exe";
+                document.getElementById('header-col-r').innerText = "Ryan In Office"; document.getElementById('header-col-b').innerText = "Bea In Office"; document.getElementById('header-col-both').innerText = "Both Home/WFH Lunches";
+            }
+            renderActiveMatrix();
+        }
+
+        function renderActiveMatrix() {
+            const gridAnchor = document.getElementById('calendar-days-injector'); if(!gridAnchor) return; gridAnchor.innerHTML = '';
+            const today = new Date(); today.setHours(0,0,0,0);
+            let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches; let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches; let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches; let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            let loops = currentMode === 'dinners' ? 14 : 20; let renderedCount = 0;
+            for (let i = 0; i < loops; i++) {
+                if (currentMode === 'dinners' && renderedCount >= 14) break; if (currentMode === 'lunches' && renderedCount >= 10) break;
+                const targetDay = new Date(today); targetDay.setDate(today.getDate() + i); const dayOfWeek = targetDay.getDay();
+                if (currentMode === 'lunches' && (dayOfWeek === 0 || dayOfWeek === 6)) continue;
+                renderedCount++; const dateKey = targetDay.toISOString().split('T')[0]; const dayNum = targetDay.getDate(); const dayName = shortDayNames[dayOfWeek]; const monthNum = targetDay.getMonth() + 1;
+                const cell = document.createElement('div'); cell.className = 'calendar-day-cell';
+                let rText = (activeRyan[dateKey] || "").trim(); let bText = (activeBea[dateKey] || "").trim(); let isBothIn = activeBothIn[dateKey] || false;
+                let pillsHtml = "";
+                if (isBothIn) { pillsHtml += `<div class="cell-event-pill pill-both-in">🔒 BOTH IN</div>`; } 
+                else {
+                    let prefixR = currentMode === 'dinners' ? 'R Out' : 'R Office'; let prefixB = currentMode === 'dinners' ? 'B Out' : 'B Office';
+                    if (rText) pillsHtml += `<div class="cell-event-pill pill-ryan">${prefixR}: ${rText}</div>`; if (bText) pillsHtml += `<div class="cell-event-pill pill-bea">${prefixB}: ${bText}</div>`;
+                }
+                if (selections[dateKey] && selections[dateKey].dish) { pillsHtml += `<div class="cell-event-pill" style="background:#eefcfd;border-color:var(--accent-blue);">🍽️ ${selections[dateKey].dish}</div>`; }
+                cell.innerHTML = `
+                    <div class="cell-date-num"><span>● ${dayName}</span><span>${dayNum}/${monthNum}</span></div>${pillsHtml}
+                    <div class="cell-hover-overlay"><div style="font-size:0.72rem; font-weight:bold; text-transform:uppercase;">Edit [${dayName} ${dayNum}/${monthNum}]:</div><input type="text" class="overlay-input-item" id="input-r-${dateKey}" value="${rText}" placeholder="Ryan notes..."><input type="text" class="overlay-input-item" id="input-b-${dateKey}" value="${bText}" placeholder="Bea notes..."><div class="both-in-checkbox-row"><input type="checkbox" id="check-both-${dateKey}" ${isBothIn ? 'checked' : ''}><label for="check-both-${dateKey}">Mark "Both In"</label></div><button class="overlay-action-btn" onclick="saveCellPlan('${dateKey}')">Save Parameters</button></div>
+                `; gridAnchor.appendChild(cell);
+            }
+            calculateRouterEngine();
+        }
+
+        function calculateRouterEngine() {
+            const cr = document.getElementById('container-ryan'); if(!cr) return; cr.innerHTML = ''; document.getElementById('container-bea').innerHTML = ''; document.getElementById('container-both').innerHTML = '';
+            const today = new Date(); today.setHours(0,0,0,0); let counters = { ryan: 0, bea: 0, both: 0 };
+            let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches; let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches; let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches; let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            let renderedCount = 0;
+            for (let i = 0; i < 20; i++) {
+                if (currentMode === 'dinners' && renderedCount >= 14) break; if (currentMode === 'lunches' && renderedCount >= 10) break;
+                const checkDay = new Date(today); checkDay.setDate(today.getDate() + i); const dayOfWeek = checkDay.getDay(); if (currentMode === 'lunches' && (dayOfWeek === 0 || dayOfWeek === 6)) continue;
+                renderedCount++; const dateKey = checkDay.toISOString().split('T')[0]; const displayLabel = `${shortDayNames[checkDay.getDay()]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
+                const rFilled = (activeRyan[dateKey] || "").trim() !== ""; const bFilled = (activeBea[dateKey] || "").trim() !== ""; const explicitlyBothIn = activeBothIn[dateKey] || false;
+                let columnTarget = null;
+                if (explicitlyBothIn) { columnTarget = "both"; } 
+                else if (currentMode === 'dinners') { if (rFilled && !bFilled) columnTarget = "bea"; else if (bFilled && !rFilled) columnTarget = "ryan"; } 
+                else { if (rFilled && !bFilled) columnTarget = "ryan"; else if (bFilled && !rFilled) columnTarget = "bea"; }
+                if (columnTarget) { counters[columnTarget]++; buildSmartCardBlock(columnTarget, dateKey, displayLabel, selections); }
+            } checkEmptyStates(counters);
+        }
+
+        function buildSmartCardBlock(column, dateKey, label, selections) {
+            const container = document.getElementById(`container-${column}`); if (!selections[dateKey]) { selections[dateKey] = { category: "", dish: "" }; }
+            const currentCat = selections[dateKey].category; const currentDish = selections[dateKey].dish; const block = document.createElement('div'); block.className = 'smart-day-block';
+            let headerOptionsHtml = `<option value="">-- Category --</option>`; Object.keys(foodMenuDatabase).forEach(cat => { headerOptionsHtml += `<option value="${cat}" ${currentCat === cat ? 'selected' : ''}>${cat}</option>`; });
+            let dishOptionsHtml = `<option value="">-- Option --</option>`; let showOtherBox = currentCat === 'OTHER'; if (currentCat && currentCat !== 'OTHER' && foodMenuDatabase[currentCat]) { foodMenuDatabase[currentCat].forEach(dish => { dishOptionsHtml += `<option value="${dish}" ${currentDish === dish ? 'selected' : ''}>${dish}</option>`; }); }
+            block.innerHTML = `
+                <div class="smart-day-title"><span>● ${label}</span></div><div class="dropdown-stack-group"><div class="inline-selector-row"><select class="food-select-dropdown" onchange="handleHeaderChange('${dateKey}', this.value)">${headerOptionsHtml}</select><button class="dice-random-btn" onclick="rollRandomCategory('${dateKey}')">🎲</button></div><div class="inline-selector-row" id="dish-row-box-${dateKey}" style="display: ${showOtherBox ? 'none' : 'flex'};"><select class="food-select-dropdown" id="dish-drop-${dateKey}" onchange="handleDishChange('${dateKey}', this.value)">${dishOptionsHtml}</select><button class="dice-random-btn" onclick="rollRandomDish('${dateKey}')">🎲</button></div><input type="text" class="other-text-box" id="other-input-${dateKey}" style="display: ${showOtherBox ? 'block' : 'none'};" value="${showOtherBox ? currentDish : ''}" placeholder="Type alternative option..." oninput="handleDishChange('${dateKey}', this.value)"></div>
+            `; container.appendChild(block);
+        }
+
+        function renderShoppingList() {
+            const listEl = document.getElementById('shopping-list'); if(!listEl) return; listEl.innerHTML = '';
+            appState.shoppingList.forEach((item, index) => {
+                const li = document.createElement('li'); li.className = 'grocery-item' + (item.checked ? ' checked' : '');
+                li.innerHTML = `<div class="retro-checkbox" onclick="toggleItem(${index})"></div><span class="item-text" onclick="toggleItem(${index})">${item.name}</span><button class="delete-btn" onclick="deleteItem(${index})">⌫</button>`; listEl.appendChild(li);
+            });
+        }
     </script>
 </body>
 </html>
