@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retro OS Meal Planner</title>
+    <!-- Open-Source Safe Mapping Asset Layout Rails -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;700&display=swap');
@@ -101,7 +102,7 @@
         .tag-bea { background-color: var(--bea-pink); }
         .tag-both { background-color: var(--together-purple); }
 
-        .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px var(--border-clr); }
+        .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px var(--border-clr); position: relative; }
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
         
         .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
@@ -251,12 +252,17 @@
         .leaflet-container { font-family: 'Courier Prime', monospace !important; background: #f2ebd4 !important; }
         .leaflet-popup-content-wrapper { border: 2px solid #000; border-radius: 4px; box-shadow: 3px 3px 0 #000; background: var(--window-bg) !important; color: #000 !important; }
         .leaflet-popup-tip { border: 2px solid #000; background: var(--window-bg) !important; }
+
+        /* LOCK BUTTON RETRO OS THEME DEFINITIONS */
+        .lock-selection-btn { font-family: 'Courier Prime', monospace; font-size: 0.68rem; font-weight: bold; border: 2px solid #000; background: #fff; padding: 3px 8px; cursor: pointer; border-radius: 4px; box-shadow: 2px 2px 0 #000; text-transform: uppercase; margin-top: 2px; }
+        .lock-selection-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 #000; }
+        .locked-meal-display-box { font-family: 'Courier Prime', monospace; font-size: 0.85rem; font-weight: bold; background: #fdfdfd; border: 2px dashed #000; border-radius: 4px; padding: 8px; margin-top: 4px; line-height: 1.4; display: flex; flex-direction: column; gap: 5px; }
     </style>
 </head>
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v76.5_STABLE_INTEGRATED</div>
+        <div class="nav-logo">💾 FOOD_OS // v76.6_STABLE_INTEGRATED</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -264,12 +270,14 @@
         </div>
     </nav>
 
+    <!-- CORE SITE PAGE NAVIGATION CONTROLS SWITCHBOARD SYSTEM -->
     <div class="page-nav-bar">
         <button id="page-btn-meal" class="page-nav-btn active-page" onclick="toggleActivePage('meal')">[ 💾 Meal Planner OS ]</button>
         <button id="page-btn-date" class="page-nav-btn" onclick="toggleActivePage('date')">[ ❤️ Date Nights ]</button>
         <button id="page-btn-film" class="page-nav-btn" onclick="toggleActivePage('film')">[ 🎬 Cinema Club OS ]</button>
     </div>
 
+    <!-- MAIN OS MEAL PLANNERS CONTAINER -->
     <div id="core-meal-planner-view">
         <main class="desktop-layout">
             <section class="retro-window full-width">
@@ -342,6 +350,7 @@
                 </div>
             </section>
 
+            <!-- RESTORED TALL STORAGE DRAWER CABINET FRAME -->
             <div class="fridge-hardware-container full-width">
                 <div class="fridge-top-prop-shelf">
                     <div class="prop-bottle" title="Wine bottle"></div>
@@ -398,9 +407,11 @@
         </main>
     </div>
 
+    <!-- DATE NIGHT APP VIEWS CONTAINER -->
     <div id="core-date-night-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="date-night-grid">
+                <!-- LOCAL SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-orange);">📍 Local</div>
                     <div class="date-input-stack-group">
@@ -412,6 +423,7 @@
                     <ul class="shopping-list" id="date-local-list"></ul>
                 </div>
 
+                <!-- EAST LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-blue);">🧱 East LDN</div>
                     <div class="date-input-stack-group">
@@ -423,6 +435,7 @@
                     <ul class="shopping-list" id="date-east-list"></ul>
                 </div>
 
+                <!-- CENTRAL LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-pink);">🏛️ Central LDN</div>
                     <div class="date-input-stack-group">
@@ -435,6 +448,7 @@
                 </div>
             </div>
 
+            <!-- ILLUSTRATED LONDON BLUEPRINT TELETRACT TERMINAL -->
             <div class="map-terminal-frame">
                 <div class="window-header purple-variant" style="border-bottom:2px solid #000;">
                     <span>Radar_Plotter: Illustrated_London_Blueprint.exe</span>
@@ -446,21 +460,23 @@
         </main>
     </div>
 
+    <!-- THIRD PAGE APP CONTAINER: MULTI-GENRE COOPERATIVE MOVIES VAULT -->
     <div id="core-cinema-club-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="cinema-layout-deck">
                 
+                <!-- CREATION INPUT BLOCK -->
                 <div class="date-night-column" style="height: max-content;">
-                    <div class="date-column-title" style="color: var(--accent-orange);">🎬 Add New Film</div>
+                    <div class="date-column-title" style="color: var(--accent-orange);">🎬 Log New Movie</div>
                     <div class="date-input-stack-group" style="gap:6px; background:none; border:none; padding:0;">
                         <input type="text" id="film-input-title" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Film Name...">
                         <input type="text" id="film-input-year" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Year Released...">
-                        <input type="text" id="film-input-runtime" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Running Time (e.g. 1h 45m)...">
-                        <input type="text" id="film-input-watchat" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Where to watch (Netflix, Disney+)...">
-                        <input type="text" id="film-input-poster" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Image Poster Hyperlink URL...">
-                        <input type="text" id="film-input-letterboxd" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Letterboxd URL Link...">
+                        <input type="text" id="film-input-runtime" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Running Time (e.g. 1h 52m)...">
+                        <input type="text" id="film-input-watchat" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Platform (Netflix, BBC iPlayer)...">
+                        <input type="text" id="film-input-poster" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Poster Cover Hyperlink Image URL...">
+                        <input type="text" id="film-input-imdb-manual" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="IMDb Rating (e.g., 8.2)...">
                         
-                        <div style="font-size:0.7rem; font-weight:bold; margin-top:4px;">Select Categories (Check all that apply):</div>
+                        <div style="font-size:0.7rem; font-weight:bold; margin-top:4px;">Select Categories (Check multiple):</div>
                         <div class="multi-select-category-grid">
                             <label class="category-checkbox-wrapper"><input type="checkbox" value="Under 90mins"> Under 90mins</label>
                             <label class="category-checkbox-wrapper"><input type="checkbox" value="Sunday film"> Sunday film</label>
@@ -474,19 +490,20 @@
                             <label class="category-checkbox-wrapper"><input type="checkbox" value="Doc"> Doc</label>
                         </div>
                         
-                        <button onclick="registerNewFilmToDatabase()" class="retro-btn" style="padding:6px 0; font-size:0.85rem; margin-top:5px; background:var(--together-purple);">+ Log Film</button>
+                        <button onclick="registerNewFilmToDatabase()" class="retro-btn" style="padding:6px 0; font-size:0.85rem; margin-top:5px; background:var(--together-purple);">+ Mount Film</button>
                     </div>
                 </div>
 
+                <!-- COOPERATIVE INVENTORY VAULT MATRIX -->
                 <div class="retro-window" style="margin-bottom:0;">
                     <div class="window-header blue-variant">
-                        <span>Film_Inventory_Vault // System_Catalog.exe</span>
-                        <span id="cinema-vault-count-status" style="font-size:0.72rem;">0 FILMS LOGGED</span>
+                        <span>Movie_Vault // Matrix_Index.exe</span>
+                        <span id="cinema-vault-count-status" style="font-size:0.72rem;">0 MOVIES READY</span>
                     </div>
                     
                     <div class="recipe-category-tabs" style="border:none; border-bottom:2px solid #000; border-radius:0; margin-bottom:0; background:rgba(0,0,0,0.02);">
                         <button class="recipe-cat-btn active-cat-tab" id="film-filter-all" onclick="filterCinemaCatalogDeck('all')">ALL</button>
-                        <button class="recipe-cat-btn" id="film-filter-under90" onclick="filterCinemaCatalogDeck('Under 90mins')">UNDER 90MINS</button>
+                        <button class="recipe-cat-btn" id="film-filter-under90" onclick="filterCinemaCatalogDeck('Under 90mins')">UNDER 90</button>
                         <button class="recipe-cat-btn" id="film-filter-sunday" onclick="filterCinemaCatalogDeck('Sunday film')">SUNDAY</button>
                         <button class="recipe-cat-btn" id="film-filter-horror" onclick="filterCinemaCatalogDeck('Horror')">HORROR</button>
                         <button class="recipe-cat-btn" id="film-filter-comedy" onclick="filterCinemaCatalogDeck('Comedy')">COMEDY</button>
@@ -507,6 +524,7 @@
         </main>
     </div>
 
+    <!-- Leaflet processing library engine scripts hooks -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -526,7 +544,7 @@
             "https://drive.google.com/thumbnail?sz=w1000&id=1vJ717MI0I-cxGna4GQYCA8RHKMDDPRF6",
             "https://drive.google.com/thumbnail?sz=w1000&id=1DSh7mVadokMnxdxqQ4yvlEL49Mrc3PR0",
             "https://drive.google.com/thumbnail?sz=w1000&id=17VPsm-E9Ui9qS2ryjta89v3utOz-wb8C",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1Owuuf9v2F0gi8_QfkctJcHY ViF3Lbzr",
+            "https://drive.google.com/thumbnail?sz=w1000&id=1Owuuf9v2F0gi8_QfkctJcHYuViF3Lbzr",
             "https://drive.google.com/thumbnail?sz=w1000&id=1rDg37ImkueQ8NfeLKCm1jidfgtU6odkN",
             "https://drive.google.com/thumbnail?sz=w1000&id=1T9MCM6hjE8I5HCR9GHsCyJcTdv-syf-f",
             "https://drive.google.com/thumbnail?sz=w1000&id=1OXs3CW-_Q3kFPQYtRjrksFswVZy_Dbb8",
@@ -569,84 +587,64 @@
             freezerDrawer1: "", freezerDrawer2: "", freezerDrawer3: ""
         };
 
-        function renderAllDateColumns() {
-            renderSingleDateColumn('local', appState.dateLocal || []);
-            renderSingleDateColumn('east', appState.dateEast || []);
-            renderSingleDateColumn('central', appState.dateCentral || []);
-        }
+        function toggleActivePage(targetPage) {
+            document.querySelectorAll('.page-nav-bar .page-nav-btn').forEach(b => b.classList.remove('active-page'));
+            document.getElementById('core-meal-planner-view').style.display = 'none';
+            document.getElementById('core-date-night-view').style.display = 'none';
+            document.getElementById('core-cinema-club-view').style.display = 'none';
 
-        function renderSingleDateColumn(targetId, listData) {
-            const listEl = document.getElementById(`date-${targetId}-list`); if(!listEl) return; listEl.innerHTML = '';
-            listData.forEach((item, index) => {
-                const li = document.createElement('li'); li.className = 'grocery-item' + (item.checked ? ' checked' : '');
-                let notesHtml = item.notes ? `<div class="date-notes-subtext">${item.notes}</div>` : "";
-                let addressHtml = item.location ? `<div class="date-address-subtext">🏠 ${item.location}</div>` : "";
-                let radarButtonHtml = (item.lat && item.lng) ? `<div class="map-badge-link-pill" onclick="event.stopPropagation(); triggerCameraGlide(${item.lat}, ${item.lng})">CNTR 🗺️</div>` : "";
-                let isEditing = item._isEditing || false; let wrapperHtml = "";
-
-                if (isEditing) {
-                    wrapperHtml = `<div class="date-edit-fields-box" onclick="event.stopPropagation()"><input type="text" class="date-edit-mini-input" id="edit-name-${targetId}-${index}" value="${item.name}"><input type="text" class="date-edit-mini-input" id="edit-notes-${targetId}-${index}" value="${item.notes || ''}"><input type="text" class="date-edit-mini-input" id="edit-loc-${targetId}-${index}" value="${item.location || ''}"><div style="display:flex; gap:5px; margin-top:3px;"><button class="date-inline-edit-btn" style="background:#d4f1f9;" onclick="saveInlineDateModifications('${targetId}', ${index})">✅ Save</button><button class="date-inline-edit-btn" onclick="cancelInlineDateEdit('${targetId}', ${index})">Cancel</button></div></div>`;
-                } else {
-                    wrapperHtml = `<div class="date-card-body-collapsible" id="collapsible-card-${targetId}-${index}">${notesHtml}${addressHtml}<div class="date-card-actions-row">${radarButtonHtml}<button class="date-inline-edit-btn" onclick="event.stopPropagation(); activateInlineDateEdit('${targetId}', ${index})">✏️ Edit</button><button class="delete-btn" style="padding:0; font-size:0.85rem;" onclick="event.stopPropagation(); deleteDateItem('${targetId}', ${index})">⌫ Delete</button></div></div>`;
-                }
-                li.innerHTML = `
-                    <div class="retro-checkbox" onclick="event.stopPropagation(); toggleDateItem('${targetId}', ${index})"></div>
-                    <div class="date-item-row-wrapper"><div class="date-card-header-clickable" onclick="toggleCardCollapseView('${targetId}', ${index})"><span>${item.name}</span><span style="font-size:0.7rem; opacity:0.5;" id="arrow-indicator-${targetId}-${index}">▼</span></div>${wrapperHtml}</div>
-                `;
-                listEl.appendChild(li);
-            });
-        }
-
-        function toggleCardCollapseView(targetId, index) {
-            const el = document.getElementById(`collapsible-card-${targetId}-${index}`); const arrow = document.getElementById(`arrow-indicator-${targetId}-${index}`); if(!el) return;
-            if (el.style.display === 'block') { el.style.display = 'none'; if(arrow) arrow.innerText = '▼'; } else { el.style.display = 'block'; if(arrow) arrow.innerText = '▲'; }
-        }
-
-        function activateInlineDateEdit(targetId, index) {
-            let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); targetArr[index]._isEditing = true; renderAllDateColumns();
-            setTimeout(() => { const el = document.getElementById(`collapsible-card-${targetId}-${index}`); if(el) el.style.display = 'block'; }, 10);
-        }
-
-        function cancelInlineDateEdit(targetId, index) { let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); delete targetArr[index]._isEditing; renderAllDateColumns(); }
-
-        async function saveInlineDateModifications(targetId, index) {
-            let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); let item = targetArr[index];
-            const updatedName = document.getElementById(`edit-name-${targetId}-${index}`).value.trim();
-            const updatedNotes = document.getElementById(`edit-notes-${targetId}-${index}`).value.trim(); const updatedLoc = document.getElementById(`edit-loc-${targetId}-${index}`).value.trim();
-            if (updatedName === '') return; let addressChanged = item.location !== updatedLoc; item.name = updatedName; item.notes = updatedNotes; item.location = updatedLoc; delete item._isEditing;
-            renderAllDateColumns();
-            if (updatedLoc !== '' && addressChanged) {
-                try {
-                    let res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(updatedLoc + ", London")}`);
-                    let data = await res.json(); if (data && data.length > 0) { item.lat = parseFloat(data[0].lat); item.lng = parseFloat(data[0].lon); } else { item.lat = null; item.lng = null; }
-                } catch(err) { console.warn(err); }
-            } else if (updatedLoc === '') { item.lat = null; item.lng = null; }
-            renderAllDateColumns(); refreshPersistentPinsOnMap(); await saveCloudState();
-        }
-
-        async function addDateIdea(targetId) {
-            const input = document.getElementById(`date-${targetId}-input`); const notesInput = document.getElementById(`date-${targetId}-notes`); const locInput = document.getElementById(`date-${targetId}-map`);
-            if(!input || !notesInput || !locInput) return; const val = input.value.trim(); const notesVal = notesInput.value.trim(); const locVal = locInput.value.trim();
-            if (val !== '') {
-                const targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral);
-                let newItem = { name: val, notes: notesVal, location: locVal, checked: false, lat: null, lng: null };
-                targetArr.push(newItem); input.value = ''; notesInput.value = ''; locInput.value = '';
+            if (targetPage === 'meal') {
+                document.getElementById('page-btn-meal').classList.add('active-page');
+                document.getElementById('core-meal-planner-view').style.display = 'block';
+            } else if (targetPage === 'date') {
+                document.getElementById('page-btn-date').classList.add('active-page');
+                document.getElementById('core-date-night-view').style.display = 'block';
                 renderAllDateColumns();
-                if (locVal !== '') {
-                    try {
-                        let res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(locVal + ", London")}`);
-                        let data = await res.json(); if (data && data.length > 0) { newItem.lat = parseFloat(data[0].lat); newItem.lng = parseFloat(data[0].lon); }
-                    } catch(err) { console.warn(err); }
-                }
-                renderAllDateColumns(); refreshPersistentPinsOnMap(); await saveCloudState();
+                setTimeout(initializeVintageLondonMap, 100);
+            } else if (targetPage === 'film') {
+                document.getElementById('page-btn-film').classList.add('active-page');
+                document.getElementById('core-cinema-club-view').style.display = 'block';
+                renderCinemaCatalogDeck();
             }
         }
 
-        async function toggleDateItem(targetId, index) { let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); targetArr[index].checked = !targetArr[index].checked; renderAllDateColumns(); await saveCloudState(); }
-        async function deleteDateItem(targetId, index) { let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); targetArr.splice(index, 1); renderAllDateColumns(); refreshPersistentPinsOnMap(); await saveCloudState(); }
+        function initializeVintageLondonMap() {
+            if (leafletMapInstance) { leafletMapInstance.invalidateSize(); return; }
+            leafletMapInstance = L.map('london-crt-viewscreen-map', { center: [51.5074, -0.1278], zoom: 12, zoomControl: true, scrollWheelZoom: false });
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(leafletMapInstance);
+            mapPinsLayerGroup = L.layerGroup().addTo(leafletMapInstance);
+            refreshPersistentPinsOnMap();
+        }
 
-        /* FILMS ENGINE CODES BLOCK Layouts */
-        async function registerNewFilmToDatabase() {
+        function refreshPersistentPinsOnMap() {
+            if (!mapPinsLayerGroup) return;
+            mapPinsLayerGroup.clearLayers();
+            const tracks = [
+                { data: appState.dateLocal || [], color: '#e15c32' },
+                { data: appState.dateEast || [], color: '#3283c4' },
+                { data: appState.dateCentral || [], color: '#f2a6b4' }
+            ];
+            tracks.forEach(track => {
+                track.data.forEach(item => {
+                    if (item.lat && item.lng) {
+                        const vintageRoundelIcon = L.divIcon({ className: 'custom-vintage-pin', html: `<div style="background:${track.color}; width:16px; height:14px; border:3px solid #000; border-radius:3px; position:relative; box-shadow:2px 2px 0px #000;"><div style="position:absolute; top:4px; left:-4px; width:18px; height:3px; background:#000;"></div></div>`, iconSize: [16, 14], iconAnchor: [8, 7] });
+                        let popupLabel = `<div style="font-family:'Courier Prime',monospace; font-size:0.8rem; line-height:1.4;"><b style="text-transform:uppercase; color:#e15c32;">${item.name}</b>`;
+                        if (item.notes) popupLabel += `<br><i>"${item.notes}"</i>`;
+                        popupLabel += `</div>`;
+                        L.marker([item.lat, item.lng], { icon: vintageRoundelIcon }).addTo(mapPinsLayerGroup).bindPopup(popupLabel);
+                    }
+                });
+            });
+        }
+
+        function triggerCameraGlide(lat, lng) {
+            if (!leafletMapInstance || !lat || !lng) return;
+            leafletMapInstance.setView([lat, lng], 15, { animate: true });
+            mapPinsLayerGroup.eachLayer(marker => { if (marker.getLatLng().lat === lat && marker.getLatLng().lng === lng) marker.openPopup(); });
+        }
+
+        /* FILMS CORE HANDLERS AND BLUEPRINTS */
+        function registerNewFilmToDatabase() {
             const titleEl = document.getElementById('film-input-title');
             const yearEl = document.getElementById('film-input-year');
             const runtimeEl = document.getElementById('film-input-runtime');
@@ -673,7 +671,7 @@
             document.querySelectorAll('.multi-select-category-grid input').forEach(b => b.checked = false);
 
             renderCinemaCatalogDeck();
-            await saveCloudState();
+            saveCloudState();
         }
 
         function filterCinemaCatalogDeck(categoryKey) {
@@ -718,7 +716,6 @@
                             <input type="text" class="date-edit-mini-input" id="edit-film-run-${masterIndex}" value="${film.runtime || ''}" placeholder="Runtime...">
                             <input type="text" class="date-edit-mini-input" id="edit-film-watch-${masterIndex}" value="${film.watchAt || ''}" placeholder="Watch Location...">
                             <input type="text" class="date-edit-mini-input" id="edit-film-post-${masterIndex}" value="${film.posterUrl || ''}" placeholder="Poster Image URL...">
-                            <input type="text" class="date-edit-mini-input" id="edit-film-imdb-${masterIndex}" value="${film.imdbRating || ''}" placeholder="IMDb Rating (e.g. 7.8)...">
                             
                             <div style="font-size:0.65rem; font-weight:bold; margin-top:2px;">Edit Genres:</div>
                             <div class="multi-select-category-grid" id="edit-film-catgrid-${masterIndex}">
@@ -804,6 +801,82 @@
         async function toggleCinemaCheckboxLatching(masterIndex) { appState.cinemaRegistry[masterIndex].checked = !appState.cinemaRegistry[masterIndex].checked; renderCinemaCatalogDeck(); await saveCloudState(); }
         async function deleteCinemaRegistryItem(masterIndex) { appState.cinemaRegistry.splice(masterIndex, 1); renderCinemaCatalogDeck(); await saveCloudState(); }
 
+        function renderAllDateColumns() {
+            renderSingleDateColumn('local', appState.dateLocal || []);
+            renderSingleDateColumn('east', appState.dateEast || []);
+            renderSingleDateColumn('central', appState.dateCentral || []);
+        }
+
+        function renderSingleDateColumn(targetId, listData) {
+            const listEl = document.getElementById(`date-${targetId}-list`); if(!listEl) return; listEl.innerHTML = '';
+            listData.forEach((item, index) => {
+                const li = document.createElement('li'); li.className = 'grocery-item' + (item.checked ? ' checked' : '');
+                let notesHtml = item.notes ? `<div class="date-notes-subtext">${item.notes}</div>` : "";
+                let addressHtml = item.location ? `<div class="date-address-subtext">🏠 ${item.location}</div>` : "";
+                let radarButtonHtml = (item.lat && item.lng) ? `<div class="map-badge-link-pill" onclick="event.stopPropagation(); triggerCameraGlide(${item.lat}, ${item.lng})">CNTR 🗺️</div>` : "";
+                let isEditing = item._isEditing || false; let wrapperHtml = "";
+
+                if (isEditing) {
+                    wrapperHtml = `<div class="date-edit-fields-box" onclick="event.stopPropagation()"><input type="text" class="date-edit-mini-input" id="edit-name-${targetId}-${index}" value="${item.name}"><input type="text" class="date-edit-mini-input" id="edit-notes-${targetId}-${index}" value="${item.notes || ''}"><input type="text" class="date-edit-mini-input" id="edit-loc-${targetId}-${index}" value="${item.location || ''}"><div style="display:flex; gap:5px; margin-top:3px;"><button class="date-inline-edit-btn" style="background:#d4f1f9;" onclick="saveInlineDateModifications('${targetId}', ${index})">✅ Save</button><button class="date-inline-edit-btn" onclick="cancelInlineDateEdit('${targetId}', ${index})">Cancel</button></div></div>`;
+                } else {
+                    wrapperHtml = `<div class="date-card-body-collapsible" id="collapsible-card-${targetId}-${index}">${notesHtml}${addressHtml}<div class="date-card-actions-row">${radarButtonHtml}<button class="date-inline-edit-btn" onclick="event.stopPropagation(); activateInlineDateEdit('${targetId}', ${index})">✏️ Edit</button><button class="delete-btn" style="padding:0; font-size:0.85rem;" onclick="event.stopPropagation(); deleteDateItem('${targetId}', ${index})">⌫ Delete</button></div></div>`;
+                }
+                li.innerHTML = `
+                    <div class="retro-checkbox" onclick="event.stopPropagation(); toggleDateItem('${targetId}', ${index})"></div>
+                    <div class="date-item-row-wrapper"><div class="date-card-header-clickable" onclick="toggleCardCollapseView('${targetId}', ${index})"><span>${item.name}</span><span style="font-size:0.7rem; opacity:0.5;" id="arrow-indicator-${targetId}-${index}">▼</span></div>${wrapperHtml}</div>
+                `;
+                listEl.appendChild(li);
+            });
+        }
+
+        function toggleCardCollapseView(targetId, index) {
+            const el = document.getElementById(`collapsible-card-${targetId}-${index}`); const arrow = document.getElementById(`arrow-indicator-${targetId}-${index}`); if(!el) return;
+            if (el.style.display === 'block') { el.style.display = 'none'; if(arrow) arrow.innerText = '▼'; } else { el.style.display = 'block'; if(arrow) arrow.innerText = '▲'; }
+        }
+
+        function activateInlineDateEdit(targetId, index) {
+            let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); targetArr[index]._isEditing = true; renderAllDateColumns();
+            setTimeout(() => { const el = document.getElementById(`collapsible-card-${targetId}-${index}`); if(el) el.style.display = 'block'; }, 10);
+        }
+
+        function cancelInlineDateEdit(targetId, index) { let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); delete targetArr[index]._isEditing; renderAllDateColumns(); }
+
+        async function saveInlineDateModifications(targetId, index) {
+            let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); let item = targetArr[index];
+            const updatedName = document.getElementById(`edit-name-${targetId}-${index}`).value.trim();
+            const updatedNotes = document.getElementById(`edit-notes-${targetId}-${index}`).value.trim(); const updatedLoc = document.getElementById(`edit-loc-${targetId}-${index}`).value.trim();
+            if (updatedName === '') return; let addressChanged = item.location !== updatedLoc; item.name = updatedName; item.notes = updatedNotes; item.location = updatedLoc; delete item._isEditing;
+            renderAllDateColumns();
+            if (updatedLoc !== '' && addressChanged) {
+                try {
+                    let res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(updatedLoc + ", London")}`);
+                    let data = await res.json(); if (data && data.length > 0) { item.lat = parseFloat(data[0].lat); item.lng = parseFloat(data[0].lon); } else { item.lat = null; item.lng = null; }
+                } catch(err) { console.warn(err); }
+            } else if (updatedLoc === '') { item.lat = null; item.lng = null; }
+            renderAllDateColumns(); refreshPersistentPinsOnMap(); await saveCloudState();
+        }
+
+        async function addDateIdea(targetId) {
+            const input = document.getElementById(`date-${targetId}-input`); const notesInput = document.getElementById(`date-${targetId}-notes`); const locInput = document.getElementById(`date-${targetId}-map`);
+            if(!input || !notesInput || !locInput) return; const val = input.value.trim(); const notesVal = notesInput.value.trim(); const locVal = locInput.value.trim();
+            if (val !== '') {
+                const targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral);
+                let newItem = { name: val, notes: notesVal, location: locVal, checked: false, lat: null, lng: null };
+                targetArr.push(newItem); input.value = ''; notesInput.value = ''; locInput.value = '';
+                renderAllDateColumns();
+                if (locVal !== '') {
+                    try {
+                        let res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(locVal + ", London")}`);
+                        let data = await res.json(); if (data && data.length > 0) { newItem.lat = parseFloat(data[0].lat); newItem.lng = parseFloat(data[0].lon); }
+                    } catch(err) { console.warn(err); }
+                }
+                renderAllDateColumns(); refreshPersistentPinsOnMap(); await saveCloudState();
+            }
+        }
+
+        async function toggleDateItem(targetId, index) { let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); targetArr[index].checked = !targetArr[index].checked; renderAllDateColumns(); await saveCloudState(); }
+        async function deleteDateItem(targetId, index) { let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); targetArr.splice(index, 1); renderAllDateColumns(); refreshPersistentPinsOnMap(); await saveCloudState(); }
+
         function toggleFreezerDoor() { const door = document.getElementById("fridge-top-door-panel"); if(door) door.classList.toggle("door-swung-open"); }
         async function saveFreezerDrawer(drawerNum) {
             const statusIndicator = document.getElementById(`d${drawerNum}-sync-status`); statusIndicator.innerText = "⏳ Saving..."; const txtVal = document.getElementById(`freezer-d${drawerNum}-input`).value;
@@ -812,7 +885,6 @@
         }
 
         function filterRecipeCategory(category) { currentRecipeCategory = category; document.querySelectorAll('.recipe-cat-btn').forEach(btn => btn.classList.remove('active-cat-tab')); document.getElementById(`cat-tab-${category}`).classList.add('active-cat-tab'); buildRecipeRegistryDeck(); closeRecipePanel(); }
-        
         function buildRecipeRegistryDeck() {
             const listAnchor = document.getElementById('recipe-list-tabs-anchor'); if(!listAnchor) return; listAnchor.innerHTML = '';
             const filteredRecipes = staticRecipeDatabase.filter(recipe => { return currentRecipeCategory === 'all' || recipe.category === currentRecipeCategory; });
@@ -896,13 +968,82 @@
         }
 
         function buildSmartCardBlock(column, dateKey, label, selections) {
-            const container = document.getElementById(`container-${column}`); if (!selections[dateKey]) { selections[dateKey] = { category: "", dish: "" }; }
-            const currentCat = selections[dateKey].category; const currentDish = selections[dateKey].dish; const block = document.createElement('div'); block.className = 'smart-day-block';
-            let headerOptionsHtml = `<option value="">-- Category --</option>`; Object.keys(foodMenuDatabase).forEach(cat => { headerOptionsHtml += `<option value="${cat}" ${currentCat === cat ? 'selected' : ''}>${cat}</option>`; });
-            let dishOptionsHtml = `<option value="">-- Option --</option>`; let showOtherBox = currentCat === 'OTHER'; if (currentCat && currentCat !== 'OTHER' && foodMenuDatabase[currentCat]) { foodMenuDatabase[currentCat].forEach(dish => { dishOptionsHtml += `<option value="${dish}" ${currentDish === dish ? 'selected' : ''}>${dish}</option>`; }); }
-            block.innerHTML = `
-                <div class="smart-day-title"><span>● ${label}</span></div><div class="dropdown-stack-group"><div class="inline-selector-row"><select class="food-select-dropdown" onchange="handleHeaderChange('${dateKey}', this.value)">${headerOptionsHtml}</select><button class="dice-random-btn" onclick="rollRandomCategory('${dateKey}')">🎲</button></div><div class="inline-selector-row" id="dish-row-box-${dateKey}" style="display: ${showOtherBox ? 'none' : 'flex'};"><select class="food-select-dropdown" id="dish-drop-${dateKey}" onchange="handleDishChange('${dateKey}', this.value)">${dishOptionsHtml}</select><button class="dice-random-btn" onclick="rollRandomDish('${dateKey}')">🎲</button></div><input type="text" class="other-text-box" id="other-input-${dateKey}" style="display: ${showOtherBox ? 'block' : 'none'};" value="${showOtherBox ? currentDish : ''}" placeholder="Type alternative option..." oninput="handleDishChange('${dateKey}', this.value)"></div>
-            `; container.appendChild(block);
+            const container = document.getElementById(`container-${column}`);
+            if (!selections[dateKey]) { selections[dateKey] = { category: "", dish: "", locked: false }; }
+
+            const currentCat = selections[dateKey].category;
+            const currentDish = selections[dateKey].dish;
+            const isLocked = selections[dateKey].locked || false;
+
+            const block = document.createElement('div');
+            block.className = 'smart-day-block';
+            
+            if (isLocked) {
+                // Render flat text with a manual edit latch button if state is currently confirmed[cite: 2]
+                let summaryText = currentDish ? `🍽️ ${currentDish}` : `📁 ${currentCat || 'Empty Option'}`;
+                if (currentCat === 'OTHER' && currentDish) summaryText = `📝 Alternative: ${currentDish}`;
+                
+                block.innerHTML = `
+                    <div class="smart-day-title"><span>● ${label}</span></div>
+                    <div class="locked-meal-display-box">
+                        <div>${summaryText}</div>
+                        <button class="lock-selection-btn" onclick="toggleMealLockLatching('${dateKey}', false)">✏️ Edit Selection</button>
+                    </div>
+                `;
+            } else {
+                // Standard active setup view panel option selectors rendering loops[cite: 2]
+                let headerOptionsHtml = `<option value="">-- Category --</option>`;
+                Object.keys(foodMenuDatabase).forEach(cat => {
+                    headerOptionsHtml += `<option value="${cat}" ${currentCat === cat ? 'selected' : ''}>${cat}</option>`;
+                });
+
+                let dishOptionsHtml = `<option value="">-- Option --</option>`;
+                let showOtherBox = currentCat === 'OTHER';
+                if (currentCat && currentCat !== 'OTHER' && foodMenuDatabase[currentCat]) {
+                    foodMenuDatabase[currentCat].forEach(dish => {
+                        dishOptionsHtml += `<option value="${dish}" ${currentDish === dish ? 'selected' : ''}>${dish}</option>`;
+                    });
+                }
+
+                block.innerHTML = `
+                    <div class="smart-day-title"><span>● ${label}</span></div>
+                    <div class="dropdown-stack-group">
+                        <div class="inline-selector-row">
+                            <select class="food-select-dropdown" onchange="handleHeaderChange('${dateKey}', this.value)">
+                                ${headerOptionsHtml}
+                            </select>
+                            <button class="dice-random-btn" onclick="rollRandomCategory('${dateKey}')">🎲</button>
+                        </div>
+                        
+                        <div class="inline-selector-row" id="dish-row-box-${dateKey}" style="display: ${showOtherBox ? 'none' : 'flex'};">
+                            <select class="food-select-dropdown" id="dish-drop-${dateKey}" onchange="handleDishChange('${dateKey}', this.value)">
+                                ${dishOptionsHtml}
+                            </select>
+                            <button class="dice-random-btn" onclick="rollRandomDish('${dateKey}')">🎲</button>
+                        </div>
+                        
+                        <input type="text" class="other-text-box" id="other-input-${dateKey}" style="display: ${showOtherBox ? 'block' : 'none'};" value="${showOtherBox ? currentDish : ''}" placeholder="Type alternative option..." oninput="handleDishChange('${dateKey}', this.value)">
+                        <button class="lock-selection-btn" style="background:#eefcfd; align-self:flex-start;" onclick="toggleMealLockLatching('${dateKey}', true)">🔒 LOCK IN</button>
+                    </div>
+                `;
+            }
+            container.appendChild(block);
+        }
+
+        async function toggleMealLockLatching(dateKey, lockStatus) {
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            if (selections[dateKey]) {
+                selections[dateKey].locked = lockStatus;
+                renderActiveMatrix();
+                await saveCloudState();
+            }
+        }
+
+        function checkEmptyStates(counters) {
+            let tag = currentMode === 'dinners' ? 'nights sorted!' : 'days sorted!';
+            if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
+            if(counters.bea === 0) document.getElementById('container-bea').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
+            if(counters.both === 0) document.getElementById('container-both').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
         }
 
         function renderShoppingList() {
@@ -920,7 +1061,7 @@
 
         async function handleHeaderChange(dateKey, category) {
             let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            selections[dateKey] = { category: category, dish: "" };
+            selections[dateKey] = { category: category, dish: "", locked: false };
             renderActiveMatrix();
             await saveCloudState();
         }
@@ -936,7 +1077,7 @@
             if (categories.length === 0) return;
             const randomCat = categories[Math.floor(Math.random() * categories.length)];
             let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            selections[dateKey] = { category: randomCat, dish: "" };
+            selections[dateKey] = { category: randomCat, dish: "", locked: false };
             renderActiveMatrix();
             await saveCloudState();
         }
@@ -966,7 +1107,6 @@
             await saveCloudState();
         }
 
-        // WRAPPED INITIAL LIFECYCLE LATCH INSIDE LOAD-EVENT CAPTURE RAILS
         async function loadCloudState() {
             try {
                 const response = await fetch(cloudStorageUrl);
@@ -993,7 +1133,6 @@
             shuffleFridgePolaroidMemory();
         }
 
-        // Fires setup sequences cleanly only after the complete HTML tree structure is built
         document.addEventListener('DOMContentLoaded', loadCloudState);
     </script>
 </body>
