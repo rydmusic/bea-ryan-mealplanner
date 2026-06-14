@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retro OS Meal Planner</title>
-    <!-- Open-Source Safe Mapping Asset Layout Rails -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;700&display=swap');
@@ -102,7 +101,7 @@
         .tag-bea { background-color: var(--bea-pink); }
         .tag-both { background-color: var(--together-purple); }
 
-        .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px #000; position: relative; }
+        .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px var(--border-clr); position: relative; }
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
         
         .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
@@ -258,7 +257,7 @@
         .lock-selection-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 #000; }
         .locked-meal-display-box { font-family: 'Courier Prime', monospace; font-size: 0.85rem; font-weight: bold; background: #fdfdfd; border: 2px dashed #000; border-radius: 4px; padding: 8px; margin-top: 4px; line-height: 1.4; display: flex; flex-direction: column; gap: 5px; }
 
-        /* API SUGGESTION CARD LOOK STYLES */
+        /* SUGGESTION CARD LOOK STYLES */
         .api-suggestion-card-block { background: #fffdf0; border: 2px solid #000; border-radius: 6px; padding: 12px; margin-top: 10px; box-shadow: 3px 3px 0 #000; display: flex; gap: 10px; }
         
         /* INDIVIDUAL ADD BUTTON AND CHIP ROWS */
@@ -278,14 +277,12 @@
         </div>
     </nav>
 
-    <!-- CORE SITE PAGE NAVIGATION CONTROLS SWITCHBOARD SYSTEM -->
     <div class="page-nav-bar">
         <button id="page-btn-meal" class="page-nav-btn active-page" onclick="toggleActivePage('meal')">[ 💾 Meal Planner OS ]</button>
         <button id="page-btn-date" class="page-nav-btn" onclick="toggleActivePage('date')">[ ❤️ Date Nights ]</button>
         <button id="page-btn-film" class="page-nav-btn" onclick="toggleActivePage('film')">[ 🎬 Cinema Club OS ]</button>
     </div>
 
-    <!-- MAIN OS MEAL PLANNERS CONTAINER -->
     <div id="core-meal-planner-view">
         <main class="desktop-layout">
             <section class="retro-window full-width">
@@ -338,7 +335,6 @@
                 </div>
             </section>
 
-            <!-- RECIPE MODULE WITH LOCAL INGREDIENTS SEARCH CONSOLE -->
             <section class="retro-window full-width" id="recipe-module-window">
                 <div class="window-header orange-variant">
                     <span>Database_Explorer: Saved_Recipes.db & Local_AI_Suggester.exe</span>
@@ -346,7 +342,6 @@
                 </div>
                 <div class="window-body">
                     
-                    <!-- LOCAL KITCHEN INGREDIENTS CONSOLE PANEL -->
                     <div style="background:rgba(0,0,0,0.03); border:2px dashed #000; border-radius:6px; padding:15px; margin-bottom:20px;">
                         <h4 style="font-family:'Courier Prime',monospace; font-size:0.9rem; font-weight:bold; text-transform:uppercase; margin-bottom:5px;">💡 Native Ingredient Shuffler Engine</h4>
                         <div class="search-bar-container" style="margin-bottom:10px;">
@@ -370,7 +365,6 @@
                 </div>
             </section>
 
-            <!-- APPLIANCE DRAWER CABINET MODULE -->
             <div class="fridge-hardware-container full-width">
                 <div class="fridge-top-prop-shelf">
                     <div class="prop-bottle" title="Wine bottle"></div>
@@ -427,11 +421,9 @@
         </main>
     </div>
 
-    <!-- DATE NIGHT APP VIEWS CONTAINER -->
     <div id="core-date-night-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="date-night-grid">
-                <!-- LOCAL SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-orange);">📍 Local</div>
                     <div class="date-input-stack-group">
@@ -443,7 +435,6 @@
                     <ul class="shopping-list" id="date-local-list"></ul>
                 </div>
 
-                <!-- EAST LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-blue);">🧱 East LDN</div>
                     <div class="date-input-stack-group">
@@ -455,7 +446,6 @@
                     <ul class="shopping-list" id="date-east-list"></ul>
                 </div>
 
-                <!-- CENTRAL LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-pink);">🏛️ Central LDN</div>
                     <div class="date-input-stack-group">
@@ -468,7 +458,6 @@
                 </div>
             </div>
 
-            <!-- ILLUSTRATED LONDON BLUEPRINT TELETRACT TERMINAL -->
             <div class="map-terminal-frame">
                 <div class="window-header purple-variant" style="border-bottom:2px solid #000;">
                     <span>Radar_Plotter: Illustrated_London_Blueprint.exe</span>
@@ -480,12 +469,10 @@
         </main>
     </div>
 
-    <!-- THIRD PAGE APP CONTAINER: CINEMA POSTER GRID VAULT DECK -->
     <div id="core-cinema-club-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="cinema-layout-deck">
                 
-                <!-- CREATION INPUT BLOCK -->
                 <div class="date-night-column" style="height: max-content;">
                     <div class="date-column-title" style="color: var(--accent-orange);">🎬 Log New Movie</div>
                     <div class="date-input-stack-group" style="gap:6px; background:none; border:none; padding:0;">
@@ -513,7 +500,6 @@
                     </div>
                 </div>
 
-                <!-- COOPERATIVE INVENTORY VAULT MATRIX -->
                 <div class="retro-window" style="margin-bottom:0;">
                     <div class="window-header blue-variant">
                         <span>Movie_Vault // Poster_Matrix_Catalog.exe</span>
@@ -543,12 +529,10 @@
         </main>
     </div>
 
-    <!-- MODAL MANAGER ELEMENT BOX TRACK FOR POSTER OVERLAYS -->
     <div class="cinema-detail-modal-overlay" id="cinema-inspect-modal-frame" onclick="closeMovieInspectionModal()">
         <div class="cinema-detail-modal-window" onclick="event.stopPropagation()" id="cinema-modal-content-injector"></div>
     </div>
 
-    <!-- Leaflet processing library engine scripts hooks -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -606,13 +590,6 @@
             ryanLunches: {}, beaLunches: {}, bothInLunches: {}, lunchSelections: {},
             freezerDrawer1: "", freezerDrawer2: "", freezerDrawer3: ""
         };
-
-        function shuffleFridgePolaroidMemory() {
-            if (ryanAndBeaPhotos.length === 0) return;
-            const randomIndex = Math.floor(Math.random() * ryanAndBeaPhotos.length);
-            const targetElement = document.querySelector('.polaroid-photo-frame');
-            if (targetElement) { targetElement.style.backgroundImage = `url('${ryanAndBeaPhotos[randomIndex]}')`; }
-        }
 
         /* LOCAL ROBUST RECIPE SUGGESTER MATCHING INTERNAL CONTROLS ENGINE */
         function queryLocalIngredientMealSuggestion() {
@@ -902,7 +879,6 @@
             if (filteredRecipes.length > 0) displayRecipeProfile(filteredRecipes[0]);
         }
 
-        style="display: block;"
         function displayRecipeProfile(recipe) {
             const panel = document.getElementById('recipe-content-panel'); if(!panel) return;
             let ingHtml = recipe.ingredients.map(i => `<li>${i}</li>`).join(''); 
@@ -1028,15 +1004,14 @@
 
         async function saveCloudState() { try { await fetch(cloudStorageUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(appState) }); } catch (e) { console.error(e); } }
 
-        // AUTOMATED DEFLATTENED MASTER LIVE FEED LOADER ENGINE
+        // DEFLATTENED INITIAL STATE HANDSHAKE INITIALIZER PIPELINE
         document.addEventListener('DOMContentLoaded', () => {
             fetch(cloudStorageUrl)
                 .then(res => res.json())
                 .then(payload => {
-                    // 1. Map core dropdown category tracking parameters
                     if (payload.menuDatabase && Object.keys(payload.menuDatabase).length > 1) { foodMenuDatabase = payload.menuDatabase; }
                     
-                    // 2. PARSE FLAT SHEET 3 OBJECT WRAPPERS DIRECTLY FROM PAYLOAD matrix arrays
+                    // PARSE FLAT SHEET 3 MULTILINE CELLS SUCCESSFULLY
                     if (payload.liveRecipesFeed && payload.liveRecipesFeed.length > 0) {
                         let parsedFeed = [];
                         payload.liveRecipesFeed.forEach(row => {
@@ -1059,7 +1034,7 @@
                         if (parsedFeed.length > 0) { staticRecipeDatabase = parsedFeed; }
                     }
 
-                    // 3. Unpack layout states directly out of baseline payload references
+                    // Map object metrics straight out of high-level stream handles
                     appState.shoppingList = payload.shoppingList || [];
                     appState.dateLocal = payload.dateLocal || [];
                     appState.dateEast = payload.dateEast || [];
@@ -1080,7 +1055,6 @@
                     appState.freezerDrawer2 = payload.freezerDrawer2 || "";
                     appState.freezerDrawer3 = payload.freezerDrawer3 || "";
 
-                    // Run view-dashboard painters safely
                     switchAppMode(currentMode);
                     renderShoppingList();
                     renderAllDateColumns();
@@ -1089,10 +1063,9 @@
                     document.getElementById('freezer-d1-input').value = appState.freezerDrawer1;
                     document.getElementById('freezer-d2-input').value = appState.freezerDrawer2;
                     document.getElementById('freezer-d3-input').value = appState.freezerDrawer3;
-                    
                     shuffleFridgePolaroidMemory();
                 }).catch(err => {
-                    console.error("Transmission breakdown. Running backup cache layout safely.", err);
+                    console.error("Connection drop, using safety fallback state configurations.", err);
                     switchAppMode(currentMode);
                     renderShoppingList();
                     buildRecipeRegistryDeck();
