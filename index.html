@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retro OS Meal Planner</title>
+    <!-- Open-Source Safe Mapping Asset Layout Rails -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;700&display=swap');
@@ -101,7 +102,7 @@
         .tag-bea { background-color: var(--bea-pink); }
         .tag-both { background-color: var(--together-purple); }
 
-        .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px #000; position: relative; }
+        .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px var(--border-clr); position: relative; }
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
         
         .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
@@ -265,7 +266,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v77.3_LOCAL_SUGGESTER_FIX</div>
+        <div class="nav-logo">💾 FOOD_OS // v77.4_PANTRY_HUB_INTEGRATED</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -273,12 +274,14 @@
         </div>
     </nav>
 
+    <!-- CORE SITE SWITCH BUTTON BAR -->
     <div class="page-nav-bar">
         <button id="page-btn-meal" class="page-nav-btn active-page" onclick="toggleActivePage('meal')">[ 💾 Meal Planner OS ]</button>
         <button id="page-btn-date" class="page-nav-btn" onclick="toggleActivePage('date')">[ ❤️ Date Nights ]</button>
         <button id="page-btn-film" class="page-nav-btn" onclick="toggleActivePage('film')">[ 🎬 Cinema Club OS ]</button>
     </div>
 
+    <!-- MAIN OS MEAL PLANNERS CONTAINER -->
     <div id="core-meal-planner-view">
         <main class="desktop-layout">
             <section class="retro-window full-width">
@@ -316,6 +319,21 @@
                 </div>
             </section>
 
+            <!-- NEW PANTRY INVENTORY MANAGEMENT MODULE WINDOW -->
+            <section class="retro-window full-width">
+                <div class="window-header yellow-variant">
+                    <span>Database_Manager: Pantry_Inventory_Hub.db</span>
+                    <span>✖</span>
+                </div>
+                <div class="window-body">
+                    <div class="search-bar-container">
+                        <input type="text" id="pantry-item-input" class="retro-input" placeholder="Type items currently in the house (e.g. Milk, Pasta, Eggs)...">
+                        <button onclick="addPantryItem()" class="retro-btn">Log Item...</button>
+                    </div>
+                    <ul class="shopping-list" id="pantry-inventory-list-anchor"></ul>
+                </div>
+            </section>
+
             <section class="retro-window full-width">
                 <div class="window-header blue-variant">
                     <span>System Error: Missing Ingredients</span>
@@ -331,6 +349,7 @@
                 </div>
             </section>
 
+            <!-- RECIPE MODULE WITH CRASH-PROOF LOCAL DISH ENGINE SEARCH -->
             <section class="retro-window full-width" id="recipe-module-window">
                 <div class="window-header orange-variant">
                     <span>Database_Explorer: Saved_Recipes.db & Local_AI_Suggester.exe</span>
@@ -338,6 +357,7 @@
                 </div>
                 <div class="window-body">
                     
+                    <!-- CRASH-PROOF LOCAL KITCHEN INGREDIENTS CONSOLE PANEL -->
                     <div style="background:rgba(0,0,0,0.03); border:2px dashed #000; border-radius:6px; padding:15px; margin-bottom:20px;">
                         <h4 style="font-family:'Courier Prime',monospace; font-size:0.9rem; font-weight:bold; text-transform:uppercase; margin-bottom:5px;">💡 Native Ingredient Shuffler Engine</h4>
                         <div class="search-bar-container" style="margin-bottom:10px;">
@@ -361,6 +381,7 @@
                 </div>
             </section>
 
+            <!-- APPLIANCE CABINET -->
             <div class="fridge-hardware-container full-width">
                 <div class="fridge-top-prop-shelf">
                     <div class="prop-bottle" title="Wine bottle"></div>
@@ -417,9 +438,11 @@
         </main>
     </div>
 
+    <!-- DATE NIGHT APP VIEWS CONTAINER -->
     <div id="core-date-night-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="date-night-grid">
+                <!-- LOCAL SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-orange);">📍 Local</div>
                     <div class="date-input-stack-group">
@@ -431,6 +454,7 @@
                     <ul class="shopping-list" id="date-local-list"></ul>
                 </div>
 
+                <!-- EAST LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-blue);">🧱 East LDN</div>
                     <div class="date-input-stack-group">
@@ -442,6 +466,7 @@
                     <ul class="shopping-list" id="date-east-list"></ul>
                 </div>
 
+                <!-- CENTRAL LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-pink);">🏛️ Central LDN</div>
                     <div class="date-input-stack-group">
@@ -454,6 +479,7 @@
                 </div>
             </div>
 
+            <!-- TELETRACT BLUEPRINT DECK -->
             <div class="map-terminal-frame">
                 <div class="window-header purple-variant" style="border-bottom:2px solid #000;">
                     <span>Radar_Plotter: Illustrated_London_Blueprint.exe</span>
@@ -465,10 +491,12 @@
         </main>
     </div>
 
+    <!-- THIRD PAGE APP CONTAINER: CINEMA POSTER GRID VAULT DECK -->
     <div id="core-cinema-club-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="cinema-layout-deck">
                 
+                <!-- CREATION INPUT BLOCK -->
                 <div class="date-night-column" style="height: max-content;">
                     <div class="date-column-title" style="color: var(--accent-orange);">🎬 Log New Movie</div>
                     <div class="date-input-stack-group" style="gap:6px; background:none; border:none; padding:0;">
@@ -496,6 +524,7 @@
                     </div>
                 </div>
 
+                <!-- COOPERATIVE INVENTORY VAULT MATRIX -->
                 <div class="retro-window" style="margin-bottom:0;">
                     <div class="window-header blue-variant">
                         <span>Movie_Vault // Poster_Matrix_Catalog.exe</span>
@@ -525,10 +554,12 @@
         </main>
     </div>
 
+    <!-- MODAL MANAGER ELEMENT BOX TRACK FOR POSTER OVERLAYS -->
     <div class="cinema-detail-modal-overlay" id="cinema-inspect-modal-frame" onclick="closeMovieInspectionModal()">
         <div class="cinema-detail-modal-window" onclick="event.stopPropagation()" id="cinema-modal-content-injector"></div>
     </div>
 
+    <!-- Leaflet processing library engine scripts hooks -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -561,7 +592,6 @@
             "https://drive.google.com/thumbnail?sz=w1000&id=1yTdpRQnqZ-Y2XsQo-P_scHKmTmoHoXgL"
         ];
 
-        // LOCAL STATIC RECIPE INVENTORY BLUEPRINTS ARRAY
         const staticRecipeDatabase = [
             {
                 id: "vodka-pasta", category: "dinners", title: "Penne with Vodka & Tomato Sauce", prep: "15 mins", cook: "45 mins", servings: "4",
@@ -592,11 +622,9 @@
                 return;
             }
 
-            // Split and clean user ingredients into an array
             const userIngredients = searchString.split(',').map(item => item.trim()).filter(item => item !== '');
-            
-            // Loop through static database and count overlapping items
             let scoreboards = [];
+
             staticRecipeDatabase.forEach(recipe => {
                 let matchesCount = 0;
                 let matchedItems = [];
@@ -622,7 +650,6 @@
                 }
             });
 
-            // Rank highest match counts first
             scoreboards.sort((a, b) => b.matchCount - a.matchCount);
 
             if (scoreboards.length === 0) {
@@ -630,11 +657,10 @@
                 return;
             }
 
-            outputAnchor.innerHTML = ''; // Clear fallback string
+            outputAnchor.innerHTML = '';
             scoreboards.forEach(item => {
                 const suggCard = document.createElement('div');
                 suggCard.className = 'api-suggestion-card-block';
-
                 let shortcutParam = encodeURIComponent(JSON.stringify(item.missingList));
 
                 suggCard.innerHTML = `
@@ -664,6 +690,50 @@
             } catch(e) { console.error(e); }
         }
 
+        /* PANTRY INVENTORY MODULE LOGIC TRACKS */
+        function renderPantryInventoryList() {
+            const anchor = document.getElementById('pantry-inventory-list-anchor');
+            if(!anchor) return; anchor.innerHTML = '';
+            
+            if(!appState.pantryInventory) appState.pantryInventory = [];
+
+            appState.pantryInventory.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.className = 'grocery-item' + (item.checked ? ' checked' : '');
+                li.innerHTML = `
+                    <div class="retro-checkbox" onclick="togglePantryItemLatch(${index})"></div>
+                    <span class="item-text" onclick="togglePantryItemLatch(${index})">${item.name}</span>
+                    <button class="delete-btn" onclick="deletePantryItemRecord(${index})">⌫</button>
+                `;
+                anchor.appendChild(li);
+            });
+        }
+
+        async function addPantryItem() {
+            const input = document.getElementById('pantry-item-input');
+            if(!input) return;
+            const val = input.value.trim();
+            if(val !== '') {
+                if(!appState.pantryInventory) appState.pantryInventory = [];
+                appState.pantryInventory.push({ name: val, checked: false });
+                input.value = '';
+                renderPantryInventoryList();
+                await saveCloudState();
+            }
+        }
+
+        async function togglePantryItemLatch(index) {
+            appState.pantryInventory[index].checked = !appState.pantryInventory[index].checked;
+            renderPantryInventoryList();
+            await saveCloudState();
+        }
+
+        async function deletePantryItemRecord(index) {
+            appState.pantryInventory.splice(index, 1);
+            renderPantryInventoryList();
+            await saveCloudState();
+        }
+
         function filterCinemaCatalogDeck(categoryKey) {
             currentCinemaFilter = categoryKey;
             document.querySelectorAll('.recipe-category-tabs .recipe-cat-btn').forEach(b => b.classList.remove('active-cat-tab'));
@@ -686,7 +756,7 @@
 
             document.getElementById('cinema-vault-count-status').innerText = `${filteredList.length} FILMS LOADED`;
             if (filteredList.length === 0) {
-                anchor.innerHTML = `<p style="font-size:0.85rem; opacity:0.4; text-align:center; padding:20px; width:100%; grid-column:span 4;">No film entries logged under this category category track yet...</p>`;
+                anchor.innerHTML = `<p style="font-size:0.85rem; opacity:0.4; text-align:center; padding:20px; width:100%; grid-column:span 4;">No film entries logged under this category track yet...</p>`;
                 return;
             }
 
@@ -710,6 +780,98 @@
                 anchor.appendChild(li);
             });
         }
+
+        function inspectMovieGridCardRecord(masterIndex) {
+            const modal = document.getElementById('cinema-inspect-modal-frame');
+            const inner = document.getElementById('cinema-modal-content-injector');
+            if(!modal || !inner) return;
+
+            let film = appState.cinemaRegistry[masterIndex];
+            let isEditing = film._isEditing || false;
+
+            if (isEditing) {
+                inner.innerHTML = `
+                    <div class="window-header orange-variant" style="border-radius:4px 4px 0 0;">
+                        <span>Edit_Matrix: Metadata_Config.exe</span>
+                        <span style="cursor:pointer;" onclick="closeMovieInspectionModal()">✖</span>
+                    </div>
+                    <div class="window-body" style="background:white; padding:20px; display:flex; flex-direction:column; gap:8px;">
+                        <input type="text" class="date-edit-mini-input" id="edit-film-title-${masterIndex}" value="${film.name}" placeholder="Movie Title...">
+                        <input type="text" class="date-edit-mini-input" id="edit-film-year-${masterIndex}" value="${film.year || ''}" placeholder="Year...">
+                        <input type="text" class="date-edit-mini-input" id="edit-film-run-${masterIndex}" value="${film.runtime || ''}" placeholder="Runtime...">
+                        <input type="text" class="date-edit-mini-input" id="edit-film-watch-${masterIndex}" value="${film.watchAt || ''}" placeholder="Watch Location...">
+                        <input type="text" class="date-edit-mini-input" id="edit-film-post-${masterIndex}" value="${film.posterUrl || ''}" placeholder="Poster Image URL...">
+                        <input type="text" class="date-edit-mini-input" id="edit-film-imdb-${masterIndex}" value="${film.imdbRating || ''}" placeholder="IMDb Rating...">
+                        
+                        <div style="font-size:0.65rem; font-weight:bold; margin-top:2px;">Edit Genres:</div>
+                        <div class="multi-select-category-grid" id="edit-film-catgrid-${masterIndex}">
+                            ${['Under 90mins', 'Sunday film', 'Horror', 'Comedy', 'Drama', 'Action', 'Nostalgia', 'Cute', 'Thriller', 'Doc'].map(cat => {
+                                let checked = film.categories && film.categories.includes(cat) ? 'checked' : '';
+                                return `<label class="category-checkbox-wrapper"><input type="checkbox" value="${cat}" ${checked}> ${cat}</label>`;
+                            }).join('')}
+                        </div>
+                        <div style="display:flex; gap:10px; margin-top:10px;">
+                            <button class="date-inline-edit-btn" style="background:#d4f1f9; padding:5px 12px;" onclick="saveInlineCinemaModifications(${masterIndex})">✅ Save</button>
+                            <button class="date-inline-edit-btn" style="padding:5px 12px;" onclick="cancelInlineCinemaEdit(${masterIndex})">Cancel</button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                let pills = (film.categories || []).map(c => `<span class="category-pill-tag">${c}</span>`).join('');
+                let posterBg = film.posterUrl ? film.posterUrl : '';
+                let ratingVal = film.imdbRating || 'N/A';
+
+                inner.innerHTML = `
+                    <div class="window-header blue-variant" style="border-radius:4px 4px 0 0;">
+                        <span>System_Inspector: ${film.name}</span>
+                        <span style="cursor:pointer;" onclick="closeMovieInspectionModal()">✖</span>
+                    </div>
+                    <div class="window-body" style="background:white; padding:20px; display:flex; flex-direction:column; gap:15px;">
+                        <div style="display:flex; gap:20px; flex-wrap:wrap;">
+                            ${posterBg ? `<img src="${posterBg}" style="width:130px; height:190px; border:2px solid #000; border-radius:4px; box-shadow:2px 2px 0 #000; object-fit:cover;">` : ''}
+                            <div style="flex:1; display:flex; flex-direction:column; gap:5px; font-family:'Courier Prime', monospace; font-size:0.85rem; font-weight:bold;">
+                                <div style="font-size:1.1rem; font-family:sans-serif; margin-bottom:5px;"><b>${film.name}</b></div>
+                                <div>📅 RELEASED: ${film.year || 'UNKNOWN'}</div>
+                                <div>⏱️ RUNTIME: ${film.runtime || 'UNSPECIFIED'}</div>
+                                <div>📺 WATCH AT: ${film.watchAt || 'NOT LOGGED'}</div>
+                                <div class="imdb-rating-pills-node">⭐ IMDb: ${ratingVal}/10</div>
+                            </div>
+                        </div>
+                        <div>${pills}</div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px dashed #ccc; padding-top:12px; margin-top:5px;">
+                            <div style="display:flex; gap:8px;">
+                                <button class="date-inline-edit-btn" style="padding:4px 12px;" onclick="activateInlineCinemaEdit(${masterIndex})">✏️ Edit</button>
+                                <button class="date-inline-edit-btn" style="background:${film.checked?'#ebdccb':'#d4f1f9'}; padding:4px 12px;" onclick="toggleCinemaCheckboxLatchingModal(${masterIndex})">${film.checked ? '🔄 Watch Again' : '✅ Mark Watched'}</button>
+                            </div>
+                            <button class="delete-btn" style="color:var(--accent-orange); font-weight:bold; font-size:0.85rem;" onclick="deleteCinemaRegistryItemModal(${masterIndex})">⌫ Delete</button>
+                        </div>
+                    </div>
+                `;
+            }
+            modal.style.display = 'flex';
+        }
+
+        function closeMovieInspectionModal() { document.getElementById('cinema-inspect-modal-frame').style.display = 'none'; }
+        function activateInlineCinemaEdit(masterIndex) { appState.cinemaRegistry[masterIndex]._isEditing = true; inspectMovieGridCardRecord(masterIndex); }
+        function cancelInlineCinemaEdit(masterIndex) { delete appState.cinemaRegistry[masterIndex]._isEditing; inspectMovieGridCardRecord(masterIndex); }
+
+        async function saveInlineCinemaModifications(masterIndex) {
+            let film = appState.cinemaRegistry[masterIndex];
+            film.name = document.getElementById(`edit-film-title-${masterIndex}`).value.trim();
+            film.year = document.getElementById(`edit-film-year-${masterIndex}`).value.trim();
+            film.runtime = document.getElementById(`edit-film-run-${masterIndex}`).value.trim();
+            film.watchAt = document.getElementById(`edit-film-watch-${masterIndex}`).value.trim();
+            film.posterUrl = document.getElementById(`edit-film-post-${masterIndex}`).value.trim();
+            film.imdbRating = document.getElementById(`edit-film-imdb-${masterIndex}`).value.trim() || "N/A";
+            
+            let updatedCats = []; document.querySelectorAll(`#edit-film-catgrid-${masterIndex} input:checked`).forEach(b => updatedCats.push(b.value));
+            film.categories = updatedCats; delete film._isEditing;
+            
+            renderCinemaCatalogDeck(); inspectMovieGridCardRecord(masterIndex); await saveCloudState();
+        }
+
+        async function toggleCinemaCheckboxLatchingModal(masterIndex) { appState.cinemaRegistry[masterIndex].checked = !appState.cinemaRegistry[masterIndex].checked; renderCinemaCatalogDeck(); inspectMovieGridCardRecord(masterIndex); await saveCloudState(); }
+        async function deleteCinemaRegistryItemModal(masterIndex) { if(confirm("Are you sure you want to remove this film?")) { appState.cinemaRegistry.splice(masterIndex, 1); renderCinemaCatalogDeck(); closeMovieInspectionModal(); await saveCloudState(); } }
 
         function toggleActivePage(targetPage) {
             document.querySelectorAll('.page-nav-bar .page-nav-btn').forEach(b => b.classList.remove('active-page'));
@@ -889,7 +1051,7 @@
 
         function renderActiveMatrix() {
             const gridAnchor = document.getElementById('calendar-days-injector'); if(!gridAnchor) return; gridAnchor.innerHTML = '';
-            const today = new Date(); today.setHours(0,0,0,0);
+            const Crane = new Date(); today = new Date(); today.setHours(0,0,0,0);
             let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches; let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches; let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches; let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
             let loops = currentMode === 'dinners' ? 14 : 20; let renderedCount = 0;
             for (let i = 0; i < loops; i++) {
@@ -1044,11 +1206,13 @@
                         if (!appState.dateEast) appState.dateEast = [];
                         if (!appState.dateCentral) appState.dateCentral = [];
                         if (!appState.cinemaRegistry) appState.cinemaRegistry = [];
+                        if (!appState.pantryInventory) appState.pantryInventory = [];
                     }
                 }
             } catch (err) { console.warn("Handshake latency."); }
             switchAppMode(currentMode);
             renderShoppingList();
+            renderPantryInventoryList();
             renderAllDateColumns();
             buildRecipeRegistryDeck();
             
