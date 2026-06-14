@@ -7,7 +7,7 @@
     <!-- Open-Source Safe Mapping Asset Layout Rails -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght=0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;700&display=swap');
 
         :root {
             --bg-color: #ebdccb;
@@ -218,10 +218,13 @@
         .date-column-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; text-align: center; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 5px; }
         
         .date-input-stack-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; background: rgba(0,0,0,0.02); padding: 10px; border: 1px dashed #000; border-radius: 4px; }
-        .date-item-row-wrapper { font-size: 0.72rem; display: flex; flex-direction: column; gap: 2px; text-decoration: none !important; }
-        .map-badge-link-pill { display: inline-flex; align-items: center; gap: 3px; font-size: 0.65rem; background: var(--folder-yellow); color: #000; padding: 1px 6px; border-radius: 3px; font-family: 'Courier Prime', monospace; font-weight: bold; width: max-content; margin-top: 3px; border: 1px solid #000; cursor: pointer; box-shadow: 1px 1px 0 #000; }
+        .date-item-row-wrapper { font-size: 0.72rem; display: flex; flex-direction: column; gap: 4px; text-decoration: none !important; }
+        .date-notes-subtext { font-family: 'Courier Prime', monospace; font-size: 0.68rem; opacity: 0.65; white-space: pre-wrap; margin-top: 1px; }
+        
+        /* THE MAP ACTION BADGE LINK COMPONENT */
+        .map-badge-link-pill { display: inline-flex; align-items: center; gap: 3px; font-size: 0.65rem; background: var(--folder-yellow); color: #000; padding: 1px 6px; border-radius: 3px; font-family: 'Courier Prime', monospace; font-weight: bold; width: max-content; margin-top: 1px; border: 1px solid #000; cursor: pointer; box-shadow: 1px 1px 0 #000; }
 
-        /* ILLUSTRATED MAP OVERLAYS FROM image_53f623.jpg SETUP */
+        /* VINTAGE ILLUSTRATED MAP OVERLAYS FROM image_53f623.jpg SETUP */
         .map-terminal-frame { background: var(--map-vintage-paper); border: 2px solid #000; border-radius: 8px; box-shadow: 6px 6px 0px #000; overflow: hidden; display: flex; flex-direction: column; margin-top: 10px; position: relative; }
         .crt-london-viewscreen { width: 100%; height: 440px; z-index: 1; }
         
@@ -235,7 +238,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v75.2_VINTAGE_MAP</div>
+        <div class="nav-logo">💾 FOOD_OS // v75.3_PERSISTENT_MAP</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -388,7 +391,8 @@
                     <div class="date-column-title" style="color: var(--accent-orange);">📍 Local</div>
                     <div class="date-input-stack-group">
                         <input type="text" id="date-local-input" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Date night idea...">
-                        <input type="text" id="date-local-map" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Actual Address (e.g. Shoreditch High St)">
+                        <input type="text" id="date-local-notes" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Notes (e.g., table booked at 7, try the cocktails)">
+                        <input type="text" id="date-local-map" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Address (e.g., Shoreditch High St)">
                         <button onclick="addDateIdea('local')" class="retro-btn" style="padding:4px 0; font-size:0.8rem;">+ Save Idea</button>
                     </div>
                     <ul class="shopping-list" id="date-local-list"></ul>
@@ -399,7 +403,8 @@
                     <div class="date-column-title" style="color: var(--accent-blue);">🧱 East LDN</div>
                     <div class="date-input-stack-group">
                         <input type="text" id="date-east-input" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Date night idea...">
-                        <input type="text" id="date-east-map" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Actual Address (e.g. Brick Lane)">
+                        <input type="text" id="date-east-notes" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Notes...">
+                        <input type="text" id="date-east-map" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Address (e.g., Brick Lane)">
                         <button onclick="addDateIdea('east')" class="retro-btn" style="padding:4px 0; font-size:0.8rem;">+ Save Idea</button>
                     </div>
                     <ul class="shopping-list" id="date-east-list"></ul>
@@ -410,7 +415,8 @@
                     <div class="date-column-title" style="color: var(--accent-pink);">🏛️ Central LDN</div>
                     <div class="date-input-stack-group">
                         <input type="text" id="date-central-input" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Date night idea...">
-                        <input type="text" id="date-central-map" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Actual Address (e.g. Covent Garden)">
+                        <input type="text" id="date-central-notes" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Notes...">
+                        <input type="text" id="date-central-map" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Address (e.g., Covent Garden)">
                         <button onclick="addDateIdea('central')" class="retro-btn" style="padding:4px 0; font-size:0.8rem;">+ Save Idea</button>
                     </div>
                     <ul class="shopping-list" id="date-central-list"></ul>
@@ -437,7 +443,7 @@
         let currentMode = 'dinners';
         let currentRecipeCategory = 'all';
         let leafletMapInstance = null;
-        let activeMapMarker = null;
+        let mapPinsLayerGroup = null;
 
         const cloudStorageUrl = "https://script.google.com/macros/s/AKfycbxzTv-Qrjsi0Fgd1S5DdBn8J0swaqIPNDOaJZXeKQ_EdsTtpS3w5MBlWAdpNhEf_82M/exec";
 
@@ -522,6 +528,24 @@
             "OTHER": []
         };
 
+        let appState = {
+            shoppingList: [{ name: 'Oat Milk', checked: false }],
+            dateLocal: [],
+            dateEast: [],
+            dateCentral: [],
+            ryanDinners: {},
+            beaDinners: {},
+            bothInDinners: {},
+            dinnerSelections: {},
+            ryanLunches: {},
+            beaLunches: {},
+            bothInLunches: {},
+            lunchSelections: {},
+            freezerDrawer1: "",
+            freezerDrawer2: "",
+            freezerDrawer3: ""
+        };
+
         function toggleActivePage(targetPage) {
             document.querySelectorAll('.page-nav-btn').forEach(b => b.classList.remove('active-page'));
             if (targetPage === 'meal') {
@@ -533,7 +557,10 @@
                 document.getElementById('core-meal-planner-view').style.display = 'none';
                 document.getElementById('core-date-night-view').style.display = 'block';
                 renderAllDateColumns();
-                setTimeout(initializeVintageLondonMap, 100);
+                setTimeout(() => {
+                    initializeVintageLondonMap();
+                    refreshPersistentPinsOnMap();
+                }, 100);
             }
         }
 
@@ -545,67 +572,72 @@
 
             leafletMapInstance = L.map('london-crt-viewscreen-map', {
                 center: [51.5074, -0.1278],
-                zoom: 13,
+                zoom: 12,
                 zoomControl: true,
                 scrollWheelZoom: false
             });
 
-            // Styled, high-contrast monochrome street framework tiles matching image_53f623.jpg
             L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png', {
                 maxZoom: 19,
                 attribution: '© OpenStreetMap'
             }).addTo(leafletMapInstance);
+
+            mapPinsLayerGroup = L.layerGroup().addTo(leafletMapInstance);
         }
 
-        // LOOKS UP TEXT ADDRESSES AND PLOTS THEM ON THE CUSTOM RETRO BLUEPRINT
-        function plotTargetOnRadar(titleText, positionValue) {
-            if (!leafletMapInstance || !positionValue) return;
+        // COMPREHENSIVE SCANNER PLOTTING ALL SAVED ENTRIES PERMANENTLY
+        function refreshPersistentPinsOnMap() {
+            if (!mapPinsLayerGroup) return;
+            mapPinsLayerGroup.clearLayers();
 
-            document.getElementById('active-map-tracker-status').innerText = "⏳ GEOLOCATING VENUE...";
+            const tracks = [
+                { data: appState.dateLocal || [], color: '#e15c32' },
+                { data: appState.dateEast || [], color: '#3283c4' },
+                { data: appState.dateCentral || [], color: '#f2a6b4' }
+            ];
 
-            // Check if user input raw coordinates instead of text address
-            const coordRegex = /([+-]?\d+\.\d+)\s*,\s*([+-]?\d+\.\d+)/;
-            const match = positionValue.match(coordRegex);
-            
-            if (match) {
-                executeMapPinDrop(titleText, parseFloat(match[1]), parseFloat(match[2]));
-                return;
-            }
+            let activePinCount = 0;
 
-            // Safe lookup fallback query (Appends London tag to keep the search bounded)
-            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(positionValue + ", London")}`)
-                .then(res => res.json())
-                .then(data => {
-                    if (data && data.length > 0) {
-                        executeMapPinDrop(titleText, parseFloat(data[0].lat), parseFloat(data[0].lon));
-                    } else {
-                        document.getElementById('active-map-tracker-status').innerText = "⚠️ LOCATION UNKNOWN";
-                        setTimeout(() => { document.getElementById('active-map-tracker-status').innerText = "📡 TRACKING: STANDBY"; }, 3000);
+            tracks.forEach(track => {
+                track.data.forEach(item => {
+                    if (item.lat && item.lng) {
+                        activePinCount++;
+                        
+                        const vintageRoundelIcon = L.divIcon({
+                            className: 'custom-vintage-pin',
+                            html: `<div style="background:${track.color}; width:16px; height:14px; border:3px solid #000; border-radius:3px; position:relative; box-shadow:2px 2px 0px #000;">
+                                    <div style="position:absolute; top:4px; left:-4px; width:18px; height:3px; background:#000;"></div>
+                                   </div>`,
+                            iconSize: [16, 14],
+                            iconAnchor: [8, 7]
+                        });
+
+                        let popupLabel = `<div style="font-family:'Courier Prime',monospace; font-size:0.8rem; line-height:1.4;">
+                            <b style="text-transform:uppercase; color:${track.color === '#f2a6b4' ? '#e15c32' : track.color};">${item.name}</b>`;
+                        if (item.notes) popupLabel += `<br><i style="font-size:0.72rem; opacity:0.8;">"${item.notes}"</i>`;
+                        if (item.location) popupLabel += `<br><span style="font-size:0.68rem; opacity:0.5;">🏠 ${item.location}</span>`;
+                        popupLabel += `</div>`;
+
+                        L.marker([item.lat, item.lng], { icon: vintageRoundelIcon })
+                         .addTo(mapPinsLayerGroup)
+                         .bindPopup(popupLabel);
                     }
-                })
-                .catch(() => {
-                    document.getElementById('active-map-tracker-status').innerText = "⚠️ SYSTEM TIMEOUT";
                 });
-        }
-
-        function executeMapPinDrop(title, lat, lng) {
-            if (activeMapMarker) leafletMapInstance.removeLayer(activeMapMarker);
-
-            // Vintage underground roundel badge styled icon marker pins
-            const illustratedMarker = L.divIcon({
-                className: 'custom-vintage-pin',
-                html: `<div style="background:#e15c32; width:16px; height:14px; border:3px solid #000; border-radius:3px; position:relative; box-shadow:2px 2px 0px #000;">
-                        <div style="position:absolute; top:4px; left:-4px; width:18px; height:3px; background:#000;"></div>
-                       </div>`,
-                iconSize: [16, 14],
-                iconAnchor: [8, 7]
             });
 
-            activeMapMarker = L.marker([lat, lng], { icon: illustratedMarker }).addTo(leafletMapInstance);
-            activeMapMarker.bindPopup(`<div style="font-family:'Courier Prime',monospace; font-weight:bold; font-size:0.8rem;">📍 SPOT FIXED<br><span style="color:var(--accent-orange); text-transform:uppercase;">${title}</span></div>`).openPopup();
-            
+            document.getElementById('active-map-tracker-status').innerText = activePinCount > 0 ? `🔒 ${activePinCount} TARGETS LOCK-CONNECTED` : "📡 TRACKING: STANDBY";
+        }
+
+        function triggerCameraGlide(lat, lng, title) {
+            if (!leafletMapInstance || !lat || !lng) return;
             leafletMapInstance.setView([lat, lng], 15, { animate: true });
-            document.getElementById('active-map-tracker-status').innerText = `🔒 PLOTTED VENUE: [${lat.toFixed(4)}, ${lng.toFixed(4)}]`;
+            
+            // Loop array to find and open the respective target pin popup card
+            mapPinsLayerGroup.eachLayer(marker => {
+                if (marker.getLatLng().lat === lat && marker.getLatLng().lng === lng) {
+                    marker.openPopup();
+                }
+            });
         }
 
         async function loadCloudState() {
@@ -665,15 +697,17 @@
                 const li = document.createElement('li');
                 li.className = 'grocery-item' + (item.checked ? ' checked' : '');
                 
+                let notesHtml = item.notes ? `<div class="date-notes-subtext">• ${item.notes}</div>` : "";
                 let locationBadgeHtml = "";
-                if (item.location) {
-                    locationBadgeHtml = `<div class="map-badge-link-pill" onclick="event.stopPropagation(); plotTargetOnRadar('${item.name.replace(/'/g, "\\'")}', '${item.location.replace(/'/g, "\\'")}')">🗺️ Radar Plot</div>`;
+                if (item.lat && item.lng) {
+                    locationBadgeHtml = `<div class="map-badge-link-pill" onclick="event.stopPropagation(); triggerCameraGlide(${item.lat}, ${item.lng}, '${item.name.replace(/'/g, "\\'")}')">🗺️ Radar Fly</div>`;
                 }
 
                 li.innerHTML = `
                     <div class="retro-checkbox" onclick="toggleDateItem('${targetId}', ${index})"></div>
                     <div class="date-item-row-wrapper" onclick="toggleDateItem('${targetId}', ${index})">
                         <span class="item-text">${item.name}</span>
+                        ${notesHtml}
                         ${locationBadgeHtml}
                     </div>
                     <button class="delete-btn" onclick="deleteDateItem('${targetId}', ${index})">⌫</button>
@@ -684,19 +718,41 @@
 
         async function addDateIdea(targetId) {
             const input = document.getElementById(`date-${targetId}-input`);
+            const notesInput = document.getElementById(`date-${targetId}-notes`);
             const locInput = document.getElementById(`date-${targetId}-map`);
-            if(!input || !locInput) return;
+            if(!input || !notesInput || !locInput) return;
             
             const val = input.value.trim();
+            const notesVal = notesInput.value.trim();
             const locVal = locInput.value.trim();
             
             if (val !== '') {
                 const targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral);
-                targetArr.push({ name: val, location: locVal, checked: false });
                 
+                let newItem = { name: val, notes: notesVal, location: locVal, checked: false, lat: null, lng: null };
+                targetArr.push(newItem);
+
+                // Reset field elements instantly for ultra snappy feedback metrics
                 input.value = '';
+                notesInput.value = '';
                 locInput.value = '';
+
                 renderAllDateColumns();
+
+                if (locVal !== '') {
+                    document.getElementById('active-map-tracker-status').innerText = "⏳ GEOLOCATING VECTOR...";
+                    try {
+                        let res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(locVal + ", London")}`);
+                        let data = await res.json();
+                        if (data && data.length > 0) {
+                            newItem.lat = parseFloat(data[0].lat);
+                            newItem.lng = parseFloat(data[0].lon);
+                        }
+                    } catch(err) { console.warn(err); }
+                }
+
+                renderAllDateColumns();
+                refreshPersistentPinsOnMap();
                 await saveCloudState();
             }
         }
@@ -712,6 +768,7 @@
             let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral);
             targetArr.splice(index, 1);
             renderAllDateColumns();
+            refreshPersistentPinsOnMap();
             await saveCloudState();
         }
 
