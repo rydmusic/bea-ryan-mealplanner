@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retro OS Meal Planner</title>
+    <!-- Open-Source Safe Mapping Asset Layout Rails -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;700&display=swap');
@@ -220,14 +221,14 @@
         .date-item-row-wrapper { font-size: 0.72rem; display: flex; flex-direction: column; gap: 2px; text-decoration: none !important; }
         .map-badge-link-pill { display: inline-flex; align-items: center; gap: 3px; font-size: 0.65rem; background: var(--folder-yellow); color: #000; padding: 1px 6px; border-radius: 3px; font-family: 'Courier Prime', monospace; font-weight: bold; width: max-content; margin-top: 3px; border: 1px solid #000; cursor: pointer; box-shadow: 1px 1px 0 #000; }
 
-        /* VINTAGE MONOCHROMATIC ILLUSTRATED BLUEPRINT MAP STYLES (image_53f623.jpg theme) */
+        /* VINTAGE ILLUSTRATED BLUEPRINT MAP STYLES (image_53f623.jpg theme) */
         .map-terminal-frame { background: var(--map-vintage-paper); border: 2px solid #000; border-radius: 8px; box-shadow: 6px 6px 0px #000; overflow: hidden; display: flex; flex-direction: column; margin-top: 10px; position: relative; }
-        .crt-london-viewscreen { width: 100%; height: 440px; z-index: 1; filter: sepia(0.2) contrast(1.05); }
+        .crt-london-viewscreen { width: 100%; height: 440px; z-index: 1; }
         
-        /* Illustrated map skin overlays */
-        .map-vintage-paper-overlay-skin { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; box-shadow: inset 0 0 40px rgba(115, 87, 61, 0.15); mix-blend-mode: multiply; opacity: 0.6; background-image: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.08) 100%); }
+        /* Illustrated soft warm paper texturing filters overlay */
+        .map-vintage-paper-overlay-skin { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; box-shadow: inset 0 0 40px rgba(115, 87, 61, 0.12); mix-blend-mode: multiply; opacity: 0.7; background-image: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.05) 100%); }
 
-        .leaflet-container { font-family: 'Courier Prime', monospace !important; background: var(--map-vintage-paper) !important; }
+        .leaflet-container { font-family: 'Courier Prime', monospace !important; background: #f2ebd4 !important; }
         .leaflet-popup-content-wrapper { border: 2px solid #000; border-radius: 4px; box-shadow: 3px 3px 0 #000; background: var(--window-bg) !important; color: #000 !important; }
         .leaflet-popup-tip { border: 2px solid #000; background: var(--window-bg) !important; }
     </style>
@@ -235,7 +236,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v75.0_ILLUSTRATED_RADAR</div>
+        <div class="nav-logo">💾 FOOD_OS // v75.1_VINTAGE_MAP</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -248,6 +249,7 @@
         <button id="page-btn-date" class="page-nav-btn" onclick="toggleActivePage('date')">[ ❤️ Date Night Planner ]</button>
     </div>
 
+    <!-- MAIN OS MEAL PLANNERS CONTAINER[cite: 2] -->
     <div id="core-meal-planner-view">
         <main class="desktop-layout">
             <section class="retro-window full-width">
@@ -320,6 +322,7 @@
                 </div>
             </section>
 
+            <!-- APPLIANCE DRAWER ENCLOSURES -->
             <div class="fridge-hardware-container full-width">
                 <div class="fridge-top-prop-shelf">
                     <div class="prop-bottle" title="Wine bottle"></div>
@@ -376,35 +379,39 @@
         </main>
     </div>
 
+    <!-- DATE NIGHT APP VIEWS CONTAINER[cite: 2] -->
     <div id="core-date-night-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="date-night-grid">
                 
+                <!-- LOCAL SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-orange);">📍 Local</div>
                     <div class="date-input-stack-group">
                         <input type="text" id="date-local-input" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Date night idea...">
-                        <input type="text" id="date-local-map" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Plus Code (e.g. 9C3XGV2M+H4)">
+                        <input type="text" id="date-local-map" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Coordinates (e.g. 51.507, -0.127)">
                         <button onclick="addDateIdea('local')" class="retro-btn" style="padding:4px 0; font-size:0.8rem;">+ Save Idea</button>
                     </div>
                     <ul class="shopping-list" id="date-local-list"></ul>
                 </div>
 
+                <!-- EAST LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-blue);">🧱 East LDN</div>
                     <div class="date-input-stack-group">
                         <input type="text" id="date-east-input" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Date night idea...">
-                        <input type="text" id="date-east-map" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Plus Code (e.g. 9C3XGV2M+H4)">
+                        <input type="text" id="date-east-map" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Coordinates (e.g. 51.521, -0.072)">
                         <button onclick="addDateIdea('east')" class="retro-btn" style="padding:4px 0; font-size:0.8rem;">+ Save Idea</button>
                     </div>
                     <ul class="shopping-list" id="date-east-list"></ul>
                 </div>
 
+                <!-- CENTRAL LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-pink);">🏛️ Central LDN</div>
                     <div class="date-input-stack-group">
                         <input type="text" id="date-central-input" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Date night idea...">
-                        <input type="text" id="date-central-map" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Plus Code (e.g. 9C3XGV2M+H4)">
+                        <input type="text" id="date-central-map" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Coordinates (e.g. 51.505, -0.091)">
                         <button onclick="addDateIdea('central')" class="retro-btn" style="padding:4px 0; font-size:0.8rem;">+ Save Idea</button>
                     </div>
                     <ul class="shopping-list" id="date-central-list"></ul>
@@ -412,6 +419,7 @@
 
             </div>
 
+            <!-- MONOCHROMATIC RETRO ILLUSTRATED RADAR RADIAL COMPONENT PANEL -->
             <div class="map-terminal-frame">
                 <div class="window-header purple-variant" style="border-bottom:2px solid #000;">
                     <span>Radar_Plotter: Illustrated_London_Blueprint.exe</span>
@@ -423,6 +431,7 @@
         </main>
     </div>
 
+    <!-- Leaflet mapping framework hooks -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -514,6 +523,24 @@
             "OTHER": []
         };
 
+        let appState = {
+            shoppingList: [{ name: 'Oat Milk', checked: false }],
+            dateLocal: [],
+            dateEast: [],
+            dateCentral: [],
+            ryanDinners: {},
+            beaDinners: {},
+            bothInDinners: {},
+            dinnerSelections: {},
+            ryanLunches: {},
+            beaLunches: {},
+            bothInLunches: {},
+            lunchSelections: {},
+            freezerDrawer1: "",
+            freezerDrawer2: "",
+            freezerDrawer3: ""
+        };
+
         function toggleActivePage(targetPage) {
             document.querySelectorAll('.page-nav-btn').forEach(b => b.classList.remove('active-page'));
             if (targetPage === 'meal') {
@@ -529,7 +556,6 @@
             }
         }
 
-        // INITIALIZE HIGH-CONTRAST VINTAGE BLUEPRINT MAP SKINS
         function initializeVintageLondonMap() {
             if (leafletMapInstance) {
                 leafletMapInstance.invalidateSize();
@@ -537,76 +563,41 @@
             }
 
             leafletMapInstance = L.map('london-crt-viewscreen-map', {
-                center: [51.5074, -0.1278], // Anchors default view directly over Charing Cross / Center London
+                center: [51.5074, -0.1278],
                 zoom: 13,
                 zoomControl: true,
                 scrollWheelZoom: false
             });
 
-            // Uses crisp vintage monochrome print tile maps
+            // Clean, vintage-style blueprint tile map configuration
             L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png', {
                 maxZoom: 19,
                 attribution: '© OpenStreetMap'
             }).addTo(leafletMapInstance);
         }
 
-        // CONVERTS COORDINATE STRINGS OR PLUS CODE TOKENS DYNAMICALLY INTO PINS
         function plotTargetOnRadar(titleText, positionValue) {
             if (!leafletMapInstance || !positionValue) return;
 
-            document.getElementById('active-map-tracker-status').innerText = "⏳ SCANNING RADAR LOGS...";
+            document.getElementById('active-map-tracker-status').innerText = "⏳ CODES UNLOCKED...";
 
-            // Plus Code Router Framework Check: Evaluates code pattern logic strings (e.g., 9C3XGV2M+H4)
-            if (positionValue.includes('+')) {
-                // Strips prefix text handles if copied directly with city text tags attached
-                let cleanCode = positionValue.trim().split(' ')[0];
-                
-                // Routes Plus Code value strings directly through OpenStreetMap parsing pipeline
-                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(cleanCode)}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data && data.length > 0) {
-                            executeMapPinDrop(titleText, parseFloat(data[0].lat), parseFloat(data[0].lon));
-                        } else {
-                            // Secondary fallback array: Evaluates relative coordinates if geocoder times out
-                            attemptTextGeocodeFallback(titleText, positionValue);
-                        }
-                    })
-                    .catch(() => attemptTextGeocodeFallback(titleText, positionValue));
-                return;
-            }
-
-            // Normal Coordinates standard fallback regex loop
-            const coordRegex = /([-+]?\d+\.\d+)\s*,\s*([-+]?\d+\.\d+)/;
+            // Direct Lat/Long tracking router
+            const coordRegex = /([+-]?\d+\.\d+)\s*,\s*([+-]?\d+\.\d+)/;
             const match = positionValue.match(coordRegex);
+            
             if (match) {
                 executeMapPinDrop(titleText, parseFloat(match[1]), parseFloat(match[2]));
                 return;
             }
 
-            attemptTextGeocodeFallback(titleText, positionValue);
-        }
-
-        function attemptTextGeocodeFallback(titleText, textString) {
-            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(textString + ", London")}`)
-                .then(res => res.json())
-                .then(data => {
-                    if (data && data.length > 0) {
-                        executeMapPinDrop(titleText, parseFloat(data[0].lat), parseFloat(data[0].lon));
-                    } else {
-                        document.getElementById('active-map-tracker-status').innerText = "⚠️ DESTINATION MISMATCH";
-                        setTimeout(() => { document.getElementById('active-map-tracker-status').innerText = "📡 TRACKING: STANDBY"; }, 3000);
-                    }
-                })
-                .catch(() => {
-                    document.getElementById('active-map-tracker-status').innerText = "⚠️ TELEMETRY OVERLOAD";
-                });
+            document.getElementById('active-map-tracker-status').innerText = "⚠️ ENTER LAT/LONG NUMBERS";
+            setTimeout(() => { document.getElementById('active-map-tracker-status').innerText = "📡 TRACKING: STANDBY"; }, 3000);
         }
 
         function executeMapPinDrop(title, lat, lng) {
             if (activeMapMarker) leafletMapInstance.removeLayer(activeMapMarker);
 
-            // Vintage red underground roundel style inspired pinpoint markers
+            // Illustrated red underline subway block map badge token pin
             const illustratedMarker = L.divIcon({
                 className: 'custom-vintage-pin',
                 html: `<div style="background:#e15c32; width:16px; height:14px; border:3px solid #000; border-radius:3px; position:relative; box-shadow:2px 2px 0px #000;">
@@ -617,10 +608,53 @@
             });
 
             activeMapMarker = L.marker([lat, lng], { icon: illustratedMarker }).addTo(leafletMapInstance);
-            activeMapMarker.bindPopup(`<div style="font-family:'Courier Prime',monospace; font-weight:bold; font-size:0.8rem;">📍 SPOT FOUND<br><span style="color:var(--accent-orange); text-transform:uppercase;">${title}</span></div>`).openPopup();
+            activeMapMarker.bindPopup(`<div style="font-family:'Courier Prime',monospace; font-weight:bold; font-size:0.8rem;">📍 DESTINATION PLOTTED<br><span style="color:var(--accent-orange); text-transform:uppercase;">${title}</span></div>`).openPopup();
             
             leafletMapInstance.setView([lat, lng], 15, { animate: true });
-            document.getElementById('active-map-tracker-status').innerText = `🔒 TARGET LOCKED: [${lat.toFixed(4)}, ${lng.toFixed(4)}]`;
+            document.getElementById('active-map-tracker-status').innerText = `🔒 PLOTTED AT COORD: [${lat.toFixed(4)}, ${lng.toFixed(4)}]`;
+        }
+
+        async function loadCloudState() {
+            try {
+                const response = await fetch(cloudStorageUrl);
+                if (response.ok) {
+                    const payload = await response.json();
+                    if (payload.menuDatabase && Object.keys(payload.menuDatabase).length > 1) {
+                        foodMenuDatabase = payload.menuDatabase;
+                    }
+                    if (payload.calendarState && payload.calendarState.shoppingList) {
+                        appState = payload.calendarState;
+                        if (!appState.dateLocal) appState.dateLocal = [];
+                        if (!appState.dateEast) appState.dateEast = [];
+                        if (!appState.dateCentral) appState.dateCentral = [];
+                    }
+                }
+            } catch (err) {
+                console.warn("Handshake latency.");
+            }
+            switchAppMode(currentMode);
+            renderShoppingList();
+            renderAllDateColumns();
+            buildRecipeRegistryDeck();
+            
+            document.getElementById('freezer-d1-input').value = appState.freezerDrawer1 || "";
+            document.getElementById('freezer-d2-input').value = appState.freezerDrawer2 || "";
+            document.getElementById('freezer-d3-input').value = appState.freezerDrawer3 || "";
+
+            shuffleFridgePolaroidMemory();
+        }
+
+        async function saveCloudState() {
+            try {
+                await fetch(cloudStorageUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(appState)
+                });
+            } catch (e) {
+                console.error("Transmission fault.", e);
+            }
         }
 
         function renderAllDateColumns() {
@@ -722,7 +756,7 @@
             if(!listAnchor) return;
             listAnchor.innerHTML = '';
 
-            const filteredRecipes = savedRecipesDatabase.filter(recipe => {
+            const filteredRecipes = staticRecipeDatabase.filter(recipe => {
                 return currentRecipeCategory === 'all' || recipe.category === currentRecipeCategory;
             });
 
@@ -869,19 +903,6 @@
                 gridAnchor.appendChild(cell);
             }
             calculateRouterEngine();
-        }
-
-        async function saveCellPlan(dateKey) {
-            let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches;
-            let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches;
-            let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches;
-
-            activeRyan[dateKey] = document.getElementById(`input-r-${dateKey}`).value.trim();
-            activeBea[dateKey] = document.getElementById(`input-b-${dateKey}`).value.trim();
-            activeBothIn[dateKey] = document.getElementById(`check-both-${dateKey}`).checked;
-
-            renderActiveMatrix();
-            await saveCloudState();
         }
 
         function calculateRouterEngine() {
