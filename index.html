@@ -235,6 +235,10 @@
 
         .map-badge-link-pill { display: inline-flex; align-items: center; gap: 3px; font-size: 0.65rem; background: var(--folder-yellow); color: #000; padding: 1px 6px; border-radius: 3px; font-family: 'Courier Prime', monospace; font-weight: bold; width: max-content; border: 1px solid #000; cursor: pointer; box-shadow: 1px 1px 0 #000; }
 
+        .map-terminal-frame { background: var(--map-vintage-paper); border: 2px solid #000; border-radius: 8px; box-shadow: 6px 6px 0px #000; overflow: hidden; display: flex; flex-direction: column; margin-top: 10px; position: relative; }
+        .crt-london-viewscreen { width: 100%; height: 440px; z-index: 1; }
+        .map-vintage-paper-overlay-skin { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; box-shadow: inset 0 0 40px rgba(115, 87, 61, 0.12); mix-blend-mode: multiply; opacity: 0.7; background-image: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.05) 100%); }
+
         /* CINEMA APP MOVIE POSTER GRID STYLES */
         .cinema-poster-grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; list-style: none; padding: 5px; }
         
@@ -565,16 +569,101 @@
             "https://drive.google.com/thumbnail?sz=w1000&id=1yTdpRQnqZ-Y2XsQo-P_scHKmTmoHoXgL"
         ];
 
-        // SAFETY FALLBACK OBJECT STORAGE ARRAYS
         let staticRecipeDatabase = [
             {
-                id: "vodka-pasta", category: "dinners", title: "Penne with Vodka & Tomato Sauce", prep: "15 mins", cook: "45 mins", servings: "4",
-                ingredients: ["onion", "garlic", "chilli flakes", "oregano", "vodka", "plum tomatoes", "penne", "double cream", "parm"],
-                instructions: ["Sauté onion and garlic.", "Pour in vodka and cook down.", "Add tomatoes and bake."]
+                id: "vodka-pasta", category: "dinners", title: "1. Penne with Vodka & Tomato Sauce", prep: "15 mins", cook: "45 mins", servings: "4",
+                ingredients: ["2 x 400g tins of plum tomatoes", "1 large onion, finely diced", "Extra virgin olive oil", "Flaky sea salt", "1 clove of garlic, finely chopped", "1/2 tsp chilli flakes", "1 tsp dried oregano", "200ml vodka", "320g dried penne lisce (or penne rigate)", "4 tbsp double cream", "2 tsp caster sugar", "100g grated Parmesan"],
+                instructions: [
+                    "Drain the tomatoes, reserving the juice for another purpose.",
+                    "Place a large, ovenproof saucepan over low to medium heat and gently sauté the onion with a pinch of salt for 12-15 minutes until glossy and translucent.",
+                    "Add garlic, chilli flakes, and oregano. Combine and stir for a few minutes. Pour in the vodka, bring to a gentle bubble, and cook until the liquid has reduced by a third. Preheat oven to 140°C.",
+                    "Add drained tomatoes to the saucepan, bring to a gentle boil for 1-2 minutes, then bake uncovered in the oven for 30-40 minutes until sauce reduces and colors.",
+                    "Meanwhile, cook the penne in plenty of salted boiling water. Drain.",
+                    "Remove tomatoes from oven, add double cream, sugar, and half the Parmesan. Blend with a stick blender into a smooth sauce.",
+                    "Immediately add the cooked penne and stir until fully combined. Adjust seasoning and serve with remaining Parmesan."
+                ]
+            },
+            {
+                id: "black-bean-nasi", category: "dinners", title: "2. Black Bean Nasi Goreng", prep: "10 mins", cook: "20 mins", servings: "4",
+                ingredients: ["250g cooked brown basmati rice", "4 shallots, peeled and finely chopped", "2 sticks of celery, finely chopped", "3 tbsp groundnut oil", "5 cloves of garlic, peeled and finely chopped", "2 red chillies, 1 finely chopped, 1 sliced", "30g bunch of coriander (stalks and leaves separated)", "2 small cucumbers (or 1/2 large), thickly sliced", "2 tbsp rice wine vinegar", "1/2 tsp runny honey or sugar", "2 tbsp toasted sesame oil", "2 tbsp plus 1 tsp soy sauce", "2 tbsp tomato purée", "1 tbsp miso paste (red or brown)", "3 tbsp kecap manis", "1 x 400g tin black beans, drained", "4 free-range or organic eggs", "Bunch of spring onions, trimmed and finely sliced", "2 unwaxed limes to serve"],
+                instructions: [
+                    "Sauté chopped shallots and celery in a tablespoon of groundnut oil for 10 minutes until soft. Add 5 cloves of chopped garlic, 1 finely chopped red chilli, and coriander stalks; fry for a couple more minutes.",
+                    "Make pickle: Mix sliced cucumber, sliced red chilli, rice wine vinegar, honey/sugar, and a pinch of salt. Set aside.",
+                    "Whisk toasted sesame oil, 1 tsp soy sauce, tomato purée, miso paste, kecap manis, and 2 tbsp soy sauce.",
+                    "Pour flavorings over the cooked veg, add drained black beans, and cook for a few minutes. Tip into a bowl.",
+                    "Put pan back over heat, add remaining groundnut oil, add cooked brown basmati rice and stir-fry for a few minutes until beginning to crisp. Tip in the black bean mixture, stir well and cook for another couple of minutes.",
+                    "Fry eggs in a separate large frying pan with a little oil. Stir sliced spring onions and coriander leaves into rice.",
+                    "Serve nasi goreng piled into bowls topped with a fried egg, cucumber pickle, and lime wedges."
+                ]
+            },
+            {
+                id: "butter-chicken", category: "dinners", title: "3. Butter Chicken Curry", prep: "15 mins", cook: "20 mins", servings: "4",
+                ingredients: ["chicken thigh", "yogurt", "lemon juice", "turmeric", "garam masala", "chilli powder", "cumin", "ginger", "garlic", "butter", "passata", "heavy cream", "sugar"],
+                instructions: [
+                    "Marinate chicken in yogurt, lemon juice, turmeric, garam masala, chilli powder, cumin, ginger, and garlic.",
+                    "Melt 2 tbsp butter in a pan over medium heat.",
+                    "Add Passata, heavy cream, sugar, and salt. Bring to a simmer.",
+                    "Add marinated chicken to the sauce and simmer until cooked through and sauce is thickened."
+                ]
+            },
+            {
+                id: "shawarma-pie", category: "dinners", title: "4. Chicken Shawarma Pie", prep: "30 mins", cook: "1 hour", servings: "6",
+                ingredients: ["chicken thighs", "garlic", "ginger", "cumin", "coriander", "smoked paprika", "turmeric", "cinnamon", "cloves", "olive oil", "cider vinegar", "baking potatoes", "butter", "onion", "chicken stock", "parsley", "filo pastry", "nigella seeds", "tahini", "greek yoghurt", "lemon juice"],
+                instructions: [
+                    "Marinate chicken with garlic, ginger, ground spices, 1 tbsp oil, vinegar, 1 tsp salt, and black pepper for at least 30 mins.",
+                    "Preheat oven to 180°C fan. Toss potatoes with 1.5 tbsp oil, 3/4 tsp salt, and pepper. Bake on parchment paper for 20 mins, flip and bake at 220°C for 10 mins until golden.",
+                    "Reduce oven to 180°C fan. Melt 15g butter and 1.5 tbsp oil in a pan. Sauté onion for 5 mins. Add chicken and cook for 10 mins until browned.",
+                    "Add chicken stock, 1/4 tsp salt, and pepper. Boil, lower heat, and simmer for 25 mins. Increase heat to reduce liquid to 4 tbsp. Cool, shred chicken into chunks, and mix with herbs.",
+                    "Whisk tahini sauce ingredients with 2 tbsp water until smooth.",
+                    "Assemble pie: Layer potato slices at the base of a greased dish, add chicken mixture, pour over tahini sauce, top with butter-brushed filo sheets, sprinkle nigella seeds and chilli flakes, and bake until crisp."
+                ]
+            },
+            {
+                id: "pancakes", category: "breakfast", title: "5. Classic Griddle Pancakes", prep: "5 mins", cook: "10 mins", servings: "3",
+                ingredients: ["egg", "flour", "milk", "sugar", "shortening", "vegetable oil", "baking powder", "salt"],
+                instructions: [
+                    "Beat egg with hand beater until fluffy.",
+                    "Beat in remaining ingredients just until smooth. (For thinner pancakes, stir in additional 1/4 cup milk).",
+                    "Pour about 3 tablespoons batter onto hot, greased griddle.",
+                    "Cook pancakes until puffed and dry around edges. Turn and cook other sides until golden brown."
+                ]
+            },
+            {
+                id: "banana-bread", category: "bakes", title: "6. Classic Banana Bread", prep: "10 mins", cook: "1 hour", servings: "12",
+                ingredients: ["sugar", "butter", "margarine", "eggs", "bananas", "flour", "baking soda", "salt", "baking powder", "nuts"],
+                instructions: [
+                    "Heat oven to 175°C. Grease bottom only of loaf pan.",
+                    "Mix sugar and margarine/butter in a large bowl. Stir in eggs until blended.",
+                    "Add bananas and water; beat 30 seconds. Stir in remaining ingredients except nuts just until moistened; stir in nuts.",
+                    "Pour into pan. Bake until wooden pick inserted in center comes out clean (approx 55 to 60 minutes). Cool 5 mins before slicing."
+                ]
             }
         ];
 
-        /* CRASH-PROOF LOCAL RECIPE SEARCH MATCHING CORE LOGIC FUNCTION */
+        let foodMenuDatabase = {
+            "PASTA": ["Bolognese", "Carbonara", "Sausage ragú", "Mac & cheese", "Tomato sauce of something", "Vegetable pasta (corgettes/tomato)", "Vodka", "Gnocchi bake", "Lasagne"],
+            "INT.": ["stir fry", "Chicken and rice", "Fajitas", "Curry (katsu/chickpea/lentil)", "Enchiladas"],
+            "MEAT": ["chicken shawarma", "Schnitzel", "Roast dinner", "Sausage and mash", "Chicken and chorizo stew", "Cod with breadcrumbs", "Pesto chicken", "Pork belly", "Steak"],
+            "VEGGIE": ["caesar salad", "Pasta Salad", "Halloumi something", "Chilli with beans", "Baked potato", "Mushroom risotto", "Spanakopita", "Noodle soup", "Beans"],
+            "GUILTY": ["Fish and chips", "Takeaway", "Burger", "Hot dogs", "Frozen pizza", "Freezer food picky bits"],
+            "OTHER": []
+        };
+
+        let appState = {
+            shoppingList: [{ name: 'Oat Milk', checked: false }],
+            dateLocal: [], dateEast: [], dateCentral: [], cinemaRegistry: [],
+            ryanDinners: {}, beaDinners: {}, bothInDinners: {}, dinnerSelections: {},
+            ryanLunches: {}, beaLunches: {}, bothInLunches: {}, lunchSelections: {},
+            freezerDrawer1: "", freezerDrawer2: "", freezerDrawer3: ""
+        };
+
+        function shuffleFridgePolaroidMemory() {
+            if (ryanAndBeaPhotos.length === 0) return;
+            const randomIndex = Math.floor(Math.random() * ryanAndBeaPhotos.length);
+            const targetElement = document.querySelector('.polaroid-photo-frame');
+            if (targetElement) { targetElement.style.backgroundImage = `url('${ryanAndBeaPhotos[randomIndex]}')`; }
+        }
+
         function queryLocalIngredientMealSuggestion() {
             const inputEl = document.getElementById('api-ingredient-tags-input');
             const outputAnchor = document.getElementById('api-suggestions-dynamic-output-rail');
@@ -618,7 +707,7 @@
             scoreboards.sort((a, b) => b.matchCount - a.matchCount);
 
             if (scoreboards.length === 0) {
-                outputAnchor.innerHTML = `<p style="font-size:0.75rem; opacity:0.5; font-family:monospace;">No matching recipe database hits found. Try different combinations!</p>`;
+                outputAnchor.innerHTML = `<p style="font-size:0.75rem; opacity:0.4; font-family:monospace;">No matching recipe database hits found.</p>`;
                 return;
             }
 
@@ -655,6 +744,53 @@
             appState.shoppingList.push({ name: itemName, checked: false });
             renderShoppingList();
             await saveCloudState();
+        }
+
+        function filterCinemaCatalogDeck(categoryKey) {
+            currentCinemaFilter = categoryKey;
+            document.querySelectorAll('.recipe-category-tabs .recipe-cat-btn').forEach(b => b.classList.remove('active-cat-tab'));
+            
+            const tabMap = {
+                'all': 'film-filter-all', 'Under 90mins': 'film-filter-under90', 'Sunday film': 'film-filter-sunday',
+                'Horror': 'film-filter-horror', 'Comedy': 'film-filter-comedy', 'Drama': 'film-filter-drama',
+                'Action': 'film-filter-action', 'Nostalgia': 'film-filter-nostalgia', 'Cute': 'film-filter-cute',
+                'Thriller': 'film-filter-thriller', 'Doc': 'film-filter-doc'
+            };
+            if(tabMap[categoryKey]) document.getElementById(tabMap[categoryKey]).classList.add('active-cat-tab');
+            renderCinemaCatalogDeck();
+        }
+
+        function renderCinemaCatalogDeck() {
+            const anchor = document.getElementById('cinema-catalog-list-anchor');
+            if (!anchor) return; anchor.innerHTML = '';
+            let sourceList = appState.cinemaRegistry || [];
+            let filteredList = sourceList.filter(film => currentCinemaFilter === 'all' || (film.categories && film.categories.includes(currentCinemaFilter)));
+
+            document.getElementById('cinema-vault-count-status').innerText = `${filteredList.length} FILMS LOADED`;
+            if (filteredList.length === 0) {
+                anchor.innerHTML = `<p style="font-size:0.85rem; opacity:0.4; text-align:center; padding:20px; width:100%; grid-column:span 4;">No films logged under this filter track yet...</p>`;
+                return;
+            }
+
+            filteredList.forEach((film) => {
+                let masterIndex = sourceList.findIndex(f => f === film);
+                const li = document.createElement('li');
+                li.className = 'cinema-movie-grid-card' + (film.checked ? ' checked' : '');
+                
+                let pills = (film.categories || []).map(c => `<span class="category-pill-tag" style="font-size:0.55rem; padding:0 3px;">${c}</span>`).join('');
+                let posterBg = film.posterUrl ? film.posterUrl : '';
+                let ratingVal = film.imdbRating || 'N/A';
+
+                li.innerHTML = `
+                    <div class="cinema-grid-poster-frame" style="background-image:url('${posterBg}')"></div>
+                    <div class="grid-card-title">${film.name}</div>
+                    <div class="grid-card-meta-line">📅 ${film.year || 'N/A'} • ⭐ ${ratingVal}</div>
+                    <div class="cinema-grid-pills-row">${pills}</div>
+                `;
+                
+                li.onclick = () => inspectMovieGridCardRecord(masterIndex);
+                anchor.appendChild(li);
+            });
         }
 
         function inspectMovieGridCardRecord(masterIndex) {
@@ -737,7 +873,6 @@
             film.runtime = document.getElementById(`edit-film-run-${masterIndex}`).value.trim();
             film.watchAt = document.getElementById(`edit-film-watch-${masterIndex}`).value.trim();
             film.posterUrl = document.getElementById(`edit-film-post-${masterIndex}`).value.trim();
-            film.imdbRating = document.getElementById(`edit-film-imdb-${masterIndex}`).value.trim() || "N/A";
             
             let updatedCats = []; document.querySelectorAll(`#edit-film-catgrid-${masterIndex} input:checked`).forEach(b => updatedCats.push(b.value));
             film.categories = updatedCats; delete film._isEditing;
@@ -747,90 +882,6 @@
 
         async function toggleCinemaCheckboxLatchingModal(masterIndex) { appState.cinemaRegistry[masterIndex].checked = !appState.cinemaRegistry[masterIndex].checked; renderCinemaCatalogDeck(); inspectMovieGridCardRecord(masterIndex); await saveCloudState(); }
         async function deleteCinemaRegistryItemModal(masterIndex) { if(confirm("Are you sure you want to remove this film?")) { appState.cinemaRegistry.splice(masterIndex, 1); renderCinemaCatalogDeck(); closeMovieInspectionModal(); await saveCloudState(); } }
-
-        function toggleActivePage(targetPage) {
-            document.querySelectorAll('.page-nav-bar .page-nav-btn').forEach(b => b.classList.remove('active-page'));
-            document.getElementById('core-meal-planner-view').style.display = 'none';
-            document.getElementById('core-date-night-view').style.display = 'none';
-            document.getElementById('core-cinema-club-view').style.display = 'none';
-
-            if (targetPage === 'meal') {
-                document.getElementById('page-btn-meal').classList.add('active-page');
-                document.getElementById('core-meal-planner-view').style.display = 'block';
-            } else if (targetPage === 'date') {
-                document.getElementById('page-btn-date').classList.add('active-page');
-                document.getElementById('core-date-night-view').style.display = 'block';
-                renderAllDateColumns();
-                setTimeout(initializeVintageLondonMap, 100);
-            } else if (targetPage === 'film') {
-                document.getElementById('page-btn-film').classList.add('active-page');
-                document.getElementById('core-cinema-club-view').style.display = 'block';
-                renderCinemaCatalogDeck();
-            }
-        }
-
-        function initializeVintageLondonMap() {
-            if (leafletMapInstance) { leafletMapInstance.invalidateSize(); return; }
-            leafletMapInstance = L.map('london-crt-viewscreen-map', { center: [51.5074, -0.1278], zoom: 12, zoomControl: true, scrollWheelZoom: false });
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(leafletMapInstance);
-            mapPinsLayerGroup = L.layerGroup().addTo(leafletMapInstance);
-            refreshPersistentPinsOnMap();
-        }
-
-        function refreshPersistentPinsOnMap() {
-            if (!mapPinsLayerGroup) return;
-            mapPinsLayerGroup.clearLayers();
-            const tracks = [
-                { data: appState.dateLocal || [], color: '#e15c32' },
-                { data: appState.dateEast || [], color: '#3283c4' },
-                { data: appState.dateCentral || [], color: '#f2a6b4' }
-            ];
-            tracks.forEach(track => {
-                track.data.forEach(item => {
-                    if (item.lat && item.lng) {
-                        const vintageRoundelIcon = L.divIcon({ className: 'custom-vintage-pin', html: `<div style="background:${track.color}; width:16px; height:14px; border:3px solid #000; border-radius:3px; position:relative; box-shadow:2px 2px 0px #000;"><div style="position:absolute; top:4px; left:-4px; width:18px; height:3px; background:#000;"></div></div>`, iconSize: [16, 14], iconAnchor: [8, 7] });
-                        let popupLabel = `<div style="font-family:'Courier Prime',monospace; font-size:0.8rem; line-height:1.4;"><b style="text-transform:uppercase; color:#e15c32;">${item.name}</b>`;
-                        if (item.notes) popupLabel += `<br><i>"${item.notes}"</i>`;
-                        popupLabel += `</div>`;
-                        L.marker([item.lat, item.lng], { icon: vintageRoundelIcon }).addTo(mapPinsLayerGroup).bindPopup(popupLabel);
-                    }
-                });
-            });
-        }
-
-        function triggerCameraGlide(lat, lng) {
-            if (!leafletMapInstance || !lat || !lng) return;
-            leafletMapInstance.setView([lat, lng], 15, { animate: true });
-            mapPinsLayerGroup.eachLayer(marker => { if (marker.getLatLng().lat === lat && marker.getLatLng().lng === lng) marker.openPopup(); });
-        }
-
-        function renderAllDateColumns() {
-            renderSingleDateColumn('local', appState.dateLocal || []);
-            renderSingleDateColumn('east', appState.dateEast || []);
-            renderSingleDateColumn('central', appState.dateCentral || []);
-        }
-
-        function renderSingleDateColumn(targetId, listData) {
-            const listEl = document.getElementById(`date-${targetId}-list`); if(!listEl) return; listEl.innerHTML = '';
-            listData.forEach((item, index) => {
-                const li = document.createElement('li'); li.className = 'grocery-item' + (item.checked ? ' checked' : '');
-                let notesHtml = item.notes ? `<div class="date-notes-subtext">${item.notes}</div>` : "";
-                let addressHtml = item.location ? `<div class="date-address-subtext">🏠 ${item.location}</div>` : "";
-                let radarButtonHtml = (item.lat && item.lng) ? `<div class="map-badge-link-pill" onclick="event.stopPropagation(); triggerCameraGlide(${item.lat}, ${item.lng})">CNTR 🗺️</div>` : "";
-                let isEditing = item._isEditing || false; let wrapperHtml = "";
-
-                if (isEditing) {
-                    wrapperHtml = `<div class="date-edit-fields-box" onclick="event.stopPropagation()"><input type="text" class="date-edit-mini-input" id="edit-name-${targetId}-${index}" value="${item.name}"><input type="text" class="date-edit-mini-input" id="edit-notes-${targetId}-${index}" value="${item.notes || ''}"><input type="text" class="date-edit-mini-input" id="edit-loc-${targetId}-${index}" value="${item.location || ''}"><div style="display:flex; gap:5px; margin-top:3px;"><button class="date-inline-edit-btn" style="background:#d4f1f9;" onclick="saveInlineDateModifications('${targetId}', ${index})">✅ Save</button><button class="date-inline-edit-btn" onclick="cancelInlineDateEdit('${targetId}', ${index})">Cancel</button></div></div>`;
-                } else {
-                    wrapperHtml = `<div class="date-card-body-collapsible" id="collapsible-card-${targetId}-${index}">${notesHtml}${addressHtml}<div class="date-card-actions-row">${radarButtonHtml}<button class="date-inline-edit-btn" onclick="event.stopPropagation(); activateInlineDateEdit('${targetId}', ${index})">✏️ Edit</button><button class="delete-btn" style="padding:0; font-size:0.85rem;" onclick="event.stopPropagation(); deleteDateItem('${targetId}', ${index})">⌫ Delete</button></div></div>`;
-                }
-                li.innerHTML = `
-                    <div class="retro-checkbox" onclick="event.stopPropagation(); toggleDateItem('${targetId}', ${index})"></div>
-                    <div class="date-item-row-wrapper"><div class="date-card-header-clickable" onclick="toggleCardCollapseView('${targetId}', ${index})"><span>${item.name}</span><span style="font-size:0.7rem; opacity:0.5;" id="arrow-indicator-${targetId}-${index}">▼</span></div>${wrapperHtml}</div>
-                `;
-                listEl.appendChild(li);
-            });
-        }
 
         function toggleCardCollapseView(targetId, index) {
             const el = document.getElementById(`collapsible-card-${targetId}-${index}`); const arrow = document.getElementById(`arrow-indicator-${targetId}-${index}`); if(!el) return;
@@ -879,13 +930,6 @@
 
         async function toggleDateItem(targetId, index) { let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); targetArr[index].checked = !targetArr[index].checked; renderAllDateColumns(); await saveCloudState(); }
         async function deleteDateItem(targetId, index) { let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); targetArr.splice(index, 1); renderAllDateColumns(); refreshPersistentPinsOnMap(); await saveCloudState(); }
-
-        function toggleFreezerDoor() { const door = document.getElementById("fridge-top-door-panel"); if(door) door.classList.toggle("door-swung-open"); }
-        async function saveFreezerDrawer(drawerNum) {
-            const statusIndicator = document.getElementById(`d${drawerNum}-sync-status`); statusIndicator.innerText = "⏳ Saving..."; const txtVal = document.getElementById(`freezer-d${drawerNum}-input`).value;
-            if (drawerNum === 1) appState.freezerDrawer1 = txtVal; if (drawerNum === 2) appState.freezerDrawer2 = txtVal; if (drawerNum === 3) appState.freezerDrawer3 = txtVal;
-            await saveCloudState(); setTimeout(() => { statusIndicator.innerText = "✅ Saved!"; setTimeout(() => { statusIndicator.innerText = ""; }, 2000); }, 800);
-        }
 
         function filterRecipeCategory(category) { currentRecipeCategory = category; document.querySelectorAll('.recipe-cat-btn').forEach(btn => btn.classList.remove('active-cat-tab')); document.getElementById(`cat-tab-${category}`).classList.add('active-cat-tab'); buildRecipeRegistryDeck(); closeRecipePanel(); }
         function buildRecipeRegistryDeck() {
@@ -1022,63 +1066,31 @@
         async function toggleItem(index) { appState.shoppingList[index].checked = !appState.shoppingList[index].checked; renderShoppingList(); await saveCloudState(); }
         async function deleteItem(index) { appState.shoppingList.splice(index, 1); renderShoppingList(); await saveCloudState(); }
 
-        async function saveCloudState() { try { await fetch(cloudStorageUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(appState) }); } catch (e) { console.error(e); } }
+        async function registerNewFilmToDatabase() {
+            const titleEl = document.getElementById('film-input-title');
+            const yearEl = document.getElementById('film-input-year');
+            const runtimeEl = document.getElementById('film-input-runtime');
+            const watchEl = document.getElementById('film-input-watchat');
+            const posterEl = document.getElementById('film-input-poster');
+            const imdbEl = document.getElementById('film-input-imdb-manual');
 
-        // FLEXIBLE MULTI-LINE CARRIAGE RETURN LINE EXTRACTION PROCESSOR
-        document.addEventListener('DOMContentLoaded', () => {
-            fetch(cloudStorageUrl)
-                .then(res => res.json())
-                .then(payload => {
-                    if (payload.menuDatabase && Object.keys(payload.menuDatabase).length > 1) { foodMenuDatabase = payload.menuDatabase; }
-                    
-                    // ROBUST REGEX-BASED MULTI-LINE EXTRACTION RAILS
-                    if (payload.liveRecipesFeed && payload.liveRecipesFeed.length > 0) {
-                        let parsedFeed = [];
-                        payload.liveRecipesFeed.forEach(row => {
-                            if (row.Title) {
-                                // Handles windows, macro, and standard newline character variants (\r\n or \r or \n) cleanly
-                                let ingArr = row.Ingredients ? row.Ingredients.split(/\r?\n|\r/).map(s => s.trim()).filter(s => s !== '') : [];
-                                let instArr = row.Instructions ? row.Instructions.split(/\r?\n|\r/).map(s => s.trim()).filter(s => s !== '') : [];
-                                
-                                parsedFeed.push({
-                                    id: row.Id || row.Title.toLowerCase().replace(/[^a-z0-9]/g, '-'),
-                                    category: row.Category ? row.Category.trim().toLowerCase() : 'dinners',
-                                    title: row.Title.trim(),
-                                    prep: row.Prep || '10 mins',
-                                    cook: row.Cook || '20 mins',
-                                    servings: row.Servings || '2',
-                                    ingredients: ingArr,
-                                    instructions: instArr
-                                });
-                            }
-                        });
-                        if (parsedFeed.length > 0) { staticRecipeDatabase = parsedFeed; }
-                    }
+            const titleVal = titleEl.value.trim(); if (titleVal === '') return;
+            let selectedCategories = []; document.querySelectorAll('.multi-select-category-grid input:checked').forEach(box => selectedCategories.push(box.value));
 
-                    if (payload.calendarState && payload.calendarState.shoppingList) {
-                        appState = payload.calendarState;
-                        if (!appState.dateLocal) appState.dateLocal = [];
-                        if (!appState.dateEast) appState.dateEast = [];
-                        if (!appState.dateCentral) appState.dateCentral = [];
-                        if (!appState.cinemaRegistry) appState.cinemaRegistry = [];
-                    }
+            let newFilm = {
+                name: titleVal, year: yearEl.value.trim(), runtime: runtimeEl.value.trim(),
+                watchAt: watchEl.value.trim(), posterUrl: posterEl.value.trim(),
+                imdbRating: imdbEl.value.trim() || "N/A", categories: selectedCategories, checked: false
+            };
 
-                    switchAppMode(currentMode);
-                    renderShoppingList();
-                    renderAllDateColumns();
-                    buildRecipeRegistryDeck();
-                    
-                    document.getElementById('freezer-d1-input').value = appState.freezerDrawer1 || "";
-                    document.getElementById('freezer-d2-input').value = appState.freezerDrawer2 || "";
-                    document.getElementById('freezer-d3-input').value = appState.freezerDrawer3 || "";
-                    shuffleFridgePolaroidMemory();
-                }).catch(err => {
-                    console.error("Handshake fail, rolling back safely.", err);
-                    switchAppMode(currentMode);
-                    renderShoppingList();
-                    buildRecipeRegistryDeck();
-                });
-        });
+            if (!appState.cinemaRegistry) appState.cinemaRegistry = [];
+            appState.cinemaRegistry.push(newFilm);
+
+            titleEl.value = ''; yearEl.value = ''; runtimeEl.value = ''; watchEl.value = ''; posterEl.value = ''; imdbEl.value = '';
+            document.querySelectorAll('.multi-select-category-grid input').forEach(b => b.checked = false);
+
+            renderCinemaCatalogDeck(); await saveCloudState();
+        }
     </script>
 </body>
 </html>
