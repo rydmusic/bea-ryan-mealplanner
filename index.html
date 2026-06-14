@@ -139,25 +139,19 @@
         .recipe-close-btn { position: absolute; top: 15px; right: 15px; font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; background: #fff; border: 2px solid #000; padding: 2px 7px; border-radius: 4px; box-shadow: 2px 2px 0 #000; }
         .recipe-close-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 #000; }
 
-        .recipe-meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 15px 0; font-family: 'Courier Prime', monospace; font-size: 0.75rem; font-weight: bold; }
-        .recipe-meta-tag { background: #eee; border: 1px solid #000; padding: 2px 6px; border-radius: 3px; }
-        .recipe-section-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 1rem; text-transform: uppercase; border-bottom: 2px dashed #000; margin: 18px 0 8px 0; padding-bottom: 2px; color: #000; }
-        .recipe-ingredients-list, .recipe-instructions-list { padding-left: 18px; font-size: 0.88rem; word-break: break-word; }
-        .recipe-ingredients-list li, .recipe-instructions-list li { margin-bottom: 6px; }
-
         /* THEME GROCERY CARD DEFINITIONS (RESTORED CHECKBOX SYSTEM) */
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
         .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 15px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; white-space: nowrap; }
         
         .shopping-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-        .grocery-item { display: flex; align-items: center; border: 2px solid var(--border-clr); background: white; padding: 10px 15px; border-radius: 6px; box-shadow: 2px 2px 0px var(--border-clr); cursor: pointer; }
+        .grocery-item { display: flex; align-items: flex-start; border: 2px solid var(--border-clr); background: white; padding: 10px 15px; border-radius: 6px; box-shadow: 2px 2px 0px var(--border-clr); cursor: pointer; position: relative; }
         .grocery-item.checked { background-color: #f0ede6; opacity: 0.7; }
         .grocery-item.checked .item-text { text-decoration: line-through; }
-        .retro-checkbox { width: 18px; height: 18px; border: 2px solid var(--border-clr); background: white; margin-right: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .retro-checkbox { width: 18px; height: 18px; border: 2px solid var(--border-clr); background: white; margin-right: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
         .grocery-item.checked .retro-checkbox::after { content: ""; width: 8px; height: 8px; background: var(--accent-orange); }
         .item-text { flex: 1; font-weight: 700; font-size: 1rem; min-width: 0; word-break: break-word; color: #000; text-transform: none; }
-        .delete-btn { background: none; border: none; font-family: monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; padding: 0 5px; }
+        .delete-btn { background: none; border: none; font-family: monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; padding: 0 5px; margin-left: auto; }
         .checker-banner { height: 16px; background-image: linear-gradient(45deg, #000 25%, transparent 25%), linear-gradient(-45deg, #000 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #000 75%), linear-gradient(-45deg, transparent 75%, #000 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; background-color: var(--accent-blue); border-bottom: 2px solid var(--border-clr); }
 
         /* REFRIGERATOR ENCLOSURE HULL STYLINGS */
@@ -218,11 +212,23 @@
         .date-column-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; text-align: center; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 5px; }
         
         .date-input-stack-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; background: rgba(0,0,0,0.02); padding: 10px; border: 1px dashed #000; border-radius: 4px; }
-        .date-item-row-wrapper { font-size: 0.72rem; display: flex; flex-direction: column; gap: 4px; text-decoration: none !important; }
-        .date-notes-subtext { font-family: 'Courier Prime', monospace; font-size: 0.68rem; opacity: 0.65; white-space: pre-wrap; margin-top: 1px; }
         
-        /* THE MAP ACTION BADGE LINK COMPONENT */
-        .map-badge-link-pill { display: inline-flex; align-items: center; gap: 3px; font-size: 0.65rem; background: var(--folder-yellow); color: #000; padding: 1px 6px; border-radius: 3px; font-family: 'Courier Prime', monospace; font-weight: bold; width: max-content; margin-top: 1px; border: 1px solid #000; cursor: pointer; box-shadow: 1px 1px 0 #000; }
+        /* NEW COLLAPSIBLE AND EDITABLE CARD ARCHITECTURE STYLES */
+        .date-item-row-wrapper { font-size: 0.72rem; display: flex; flex-direction: column; gap: 4px; text-decoration: none !important; width: 100%; }
+        .date-card-header-clickable { font-weight: 700; font-size: 1rem; color: #000; cursor: pointer; display: flex; justify-content: space-between; align-items: center; width: 100%; padding-bottom: 2px; }
+        .date-card-header-clickable:hover { color: var(--accent-orange); }
+        .date-card-body-collapsible { display: none; margin-top: 6px; border-top: 1px dashed #bbb; padding-top: 8px; width: 100%; }
+        .date-notes-subtext { font-family: 'Courier Prime', monospace; font-size: 0.78rem; opacity: 0.85; white-space: pre-wrap; margin-bottom: 4px; background: rgba(0,0,0,0.02); padding: 4px; border-radius: 3px; border-left: 2px solid #000; }
+        .date-address-subtext { font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; font-weight: bold; opacity: 0.6; display: flex; align-items: center; gap: 4px; margin-bottom: 8px; }
+        
+        .date-card-actions-row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-top: 6px; }
+        .date-inline-edit-btn { font-family: 'Courier Prime', monospace; font-size: 0.65rem; font-weight: bold; background: #fff; border: 1px solid #000; padding: 1px 6px; border-radius: 3px; cursor: pointer; box-shadow: 1px 1px 0 #000; }
+        .date-inline-edit-btn:active { transform: translate(1px, 1px); box-shadow: 0px 0px 0 #000; }
+
+        .date-edit-fields-box { display: flex; flex-direction: column; gap: 5px; width: 100%; background: #fffde6; padding: 8px; border: 1px solid #000; border-radius: 4px; margin-bottom: 5px; }
+        .date-edit-mini-input { width: 100%; border: 1px solid #000; border-radius: 3px; padding: 4px; font-family: inherit; font-size: 0.75rem; outline: none; }
+
+        .map-badge-link-pill { display: inline-flex; align-items: center; gap: 3px; font-size: 0.65rem; background: var(--folder-yellow); color: #000; padding: 1px 6px; border-radius: 3px; font-family: 'Courier Prime', monospace; font-weight: bold; width: max-content; border: 1px solid #000; cursor: pointer; box-shadow: 1px 1px 0 #000; }
 
         /* VINTAGE ILLUSTRATED MAP OVERLAYS FROM image_53f623.jpg SETUP */
         .map-terminal-frame { background: var(--map-vintage-paper); border: 2px solid #000; border-radius: 8px; box-shadow: 6px 6px 0px #000; overflow: hidden; display: flex; flex-direction: column; margin-top: 10px; position: relative; }
@@ -238,7 +244,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v75.3_PERSISTENT_MAP</div>
+        <div class="nav-logo">💾 FOOD_OS // v75.4_COLLAPSIBLE_CARDS</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -251,7 +257,7 @@
         <button id="page-btn-date" class="page-nav-btn" onclick="toggleActivePage('date')">[ ❤️ Date Night Planner ]</button>
     </div>
 
-    <!-- MAIN OS MEAL PLANNERS CONTAINER -->
+    <!-- MAIN OS MEAL PLANNERS CONTAINER[cite: 2] -->
     <div id="core-meal-planner-view">
         <main class="desktop-layout">
             <section class="retro-window full-width">
@@ -381,7 +387,7 @@
         </main>
     </div>
 
-    <!-- DATE NIGHT APP VIEWS CONTAINER -->
+    <!-- DATE NIGHT APP VIEWS CONTAINER[cite: 2] -->
     <div id="core-date-night-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="date-night-grid">
@@ -391,7 +397,7 @@
                     <div class="date-column-title" style="color: var(--accent-orange);">📍 Local</div>
                     <div class="date-input-stack-group">
                         <input type="text" id="date-local-input" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Date night idea...">
-                        <input type="text" id="date-local-notes" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Notes (e.g., table booked at 7, try the cocktails)">
+                        <input type="text" id="date-local-notes" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Notes...">
                         <input type="text" id="date-local-map" class="retro-input" style="padding:6px; font-size:0.85rem;" placeholder="Address (e.g., Shoreditch High St)">
                         <button onclick="addDateIdea('local')" class="retro-btn" style="padding:4px 0; font-size:0.8rem;">+ Save Idea</button>
                     </div>
@@ -424,7 +430,7 @@
 
             </div>
 
-            <!-- RETRO ILLUSTRATED RADAR DECK COMPONENT PANEL -->
+            <!-- RETRO MAP VECTOR TERMINAL CONTAINER -->
             <div class="map-terminal-frame">
                 <div class="window-header purple-variant" style="border-bottom:2px solid #000;">
                     <span>Radar_Plotter: Illustrated_London_Blueprint.exe</span>
@@ -462,7 +468,7 @@
             "https://drive.google.com/thumbnail?sz=w1000&id=1QGkOHNV0aZdcINDrzLCiy-Sv_YKGOgAI",
             "https://drive.google.com/thumbnail?sz=w1000&id=10Wrqv2gn6CsWvvHhugzud9bRWYm4uOWb",
             "https://drive.google.com/thumbnail?sz=w1000&id=1xykk-5jSDg3O8NpI4DVE_5pGa9Cm3Mkh",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1IzYFUYYEmdct69DFIUXkSNL7u7OgWxFG",
+            "https://drive.google.com/thumbnail?sz=w1000&id=10Wrqv2gn6CsWvvHhugzud9bRWYm4uOWb",
             "https://drive.google.com/thumbnail?sz=w1000&id=1RhxxbCaDfRga0hvpNM6CgqM7Oycub5mh",
             "https://drive.google.com/thumbnail?sz=w1000&id=1BLUrxOxFCujMq93_k16ZJEyk0TMviEM3",
             "https://drive.google.com/thumbnail?sz=w1000&id=1yTdpRQnqZ-Y2XsQo-P_scHKmTmoHoXgL"
@@ -585,7 +591,6 @@
             mapPinsLayerGroup = L.layerGroup().addTo(leafletMapInstance);
         }
 
-        // COMPREHENSIVE SCANNER PLOTTING ALL SAVED ENTRIES PERMANENTLY
         function refreshPersistentPinsOnMap() {
             if (!mapPinsLayerGroup) return;
             mapPinsLayerGroup.clearLayers();
@@ -628,11 +633,10 @@
             document.getElementById('active-map-tracker-status').innerText = activePinCount > 0 ? `🔒 ${activePinCount} TARGETS LOCK-CONNECTED` : "📡 TRACKING: STANDBY";
         }
 
-        function triggerCameraGlide(lat, lng, title) {
+        function triggerCameraGlide(lat, lng) {
             if (!leafletMapInstance || !lat || !lng) return;
             leafletMapInstance.setView([lat, lng], 15, { animate: true });
             
-            // Loop array to find and open the respective target pin popup card
             mapPinsLayerGroup.eachLayer(marker => {
                 if (marker.getLatLng().lat === lat && marker.getLatLng().lng === lng) {
                     marker.openPopup();
@@ -689,31 +693,138 @@
             renderSingleDateColumn('central', appState.dateCentral || []);
         }
 
+        // DYNAMICALLY BUILD COLLAPSIBLE MATRIX BLOCK ITEMS WITH INTERNAL INLINE EDIT HANDLERS[cite: 2]
         function renderSingleDateColumn(targetId, listData) {
             const listEl = document.getElementById(`date-${targetId}-list`);
             if(!listEl) return;
             listEl.innerHTML = '';
+            
             listData.forEach((item, index) => {
                 const li = document.createElement('li');
                 li.className = 'grocery-item' + (item.checked ? ' checked' : '');
                 
-                let notesHtml = item.notes ? `<div class="date-notes-subtext">• ${item.notes}</div>` : "";
-                let locationBadgeHtml = "";
-                if (item.lat && item.lng) {
-                    locationBadgeHtml = `<div class="map-badge-link-pill" onclick="event.stopPropagation(); triggerCameraGlide(${item.lat}, ${item.lng}, '${item.name.replace(/'/g, "\\'")}')">🗺️ Radar Fly</div>`;
+                // Track dynamic layout visibility parameters
+                let isEditing = item._isEditing || false;
+
+                let expandedContentHtml = "";
+                if (isEditing) {
+                    // Inject edit state controls box directly
+                    expandedContentHtml = `
+                        <div class="date-edit-fields-box" onclick="event.stopPropagation()">
+                            <input type="text" class="date-edit-mini-input" id="edit-name-${targetId}-${index}" value="${item.name}" placeholder="Title...">
+                            <input type="text" class="date-edit-mini-input" id="edit-notes-${targetId}-${index}" value="${item.notes || ''}" placeholder="Notes...">
+                            <input type="text" class="date-edit-mini-input" id="edit-loc-${targetId}-${index}" value="${item.location || ''}" placeholder="Address...">
+                            <div style="display:flex; gap:5px; margin-top:3px;">
+                                <button class="date-inline-edit-btn" style="background:#d4f1f9;" onclick="saveInlineDateModifications('${targetId}', ${index})">✅ Save</button>
+                                <button class="date-inline-edit-btn" onclick="cancelInlineDateEdit('${targetId}', ${index})">Cancel</button>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    // Standard text display parameters
+                    let notesHtml = item.notes ? `<div class="date-notes-subtext">${item.notes}</div>` : "";
+                    let addressHtml = item.location ? `<div class="date-address-subtext">🏠 ${item.location}</div>` : "";
+                    let radarButtonHtml = (item.lat && item.lng) ? `<div class="map-badge-link-pill" onclick="event.stopPropagation(); triggerCameraGlide(${item.lat}, ${item.lng})">CNTR 🗺️</div>` : "";
+                    
+                    expandedContentHtml = `
+                        <div class="date-card-body-collapsible" id="collapsible-card-${targetId}-${index}">
+                            ${notesHtml}
+                            ${addressHtml}
+                            <div class="date-card-actions-row">
+                                ${radarButtonHtml}
+                                <button class="date-inline-edit-btn" onclick="event.stopPropagation(); activateInlineDateEdit('${targetId}', ${index})">✏️ Edit</button>
+                                <button class="delete-btn" style="padding:0; font-size:0.85rem;" onclick="event.stopPropagation(); deleteDateItem('${targetId}', ${index})">⌫ Delete</button>
+                            </div>
+                        </div>
+                    `;
                 }
 
                 li.innerHTML = `
-                    <div class="retro-checkbox" onclick="toggleDateItem('${targetId}', ${index})"></div>
-                    <div class="date-item-row-wrapper" onclick="toggleDateItem('${targetId}', ${index})">
-                        <span class="item-text">${item.name}</span>
-                        ${notesHtml}
-                        ${locationBadgeHtml}
+                    <div class="retro-checkbox" onclick="event.stopPropagation(); toggleDateItem('${targetId}', ${index})"></div>
+                    <div class="date-item-row-wrapper">
+                        <div class="date-card-header-clickable" onclick="toggleCardCollapseView('${targetId}', ${index})">
+                            <span>${item.name}</span>
+                            <span style="font-size:0.7rem; opacity:0.5;" id="arrow-indicator-${targetId}-${index}">▼</span>
+                        </div>
+                        ${expandedContentHtml}
                     </div>
-                    <button class="delete-btn" onclick="deleteDateItem('${targetId}', ${index})">⌫</button>
                 `;
                 listEl.appendChild(li);
             });
+        }
+
+        function toggleCardCollapseView(targetId, index) {
+            const cardBody = document.getElementById(`collapsible-card-${targetId}-${index}`);
+            const arrow = document.getElementById(`arrow-indicator-${targetId}-${index}`);
+            if (!cardBody) return;
+
+            if (cardBody.style.display === 'block') {
+                cardBody.style.display = 'none';
+                if(arrow) arrow.innerText = '▼';
+            } else {
+                cardBody.style.display = 'block';
+                if(arrow) arrow.innerText = '▲';
+            }
+        }
+
+        function activateInlineDateEdit(targetId, index) {
+            let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral);
+            targetArr[index]._isEditing = true;
+            renderAllDateColumns();
+            
+            // Force block visibility layout since edit pane is rendered
+            setTimeout(() => {
+                const cardBody = document.getElementById(`collapsible-card-${targetId}-${index}`);
+                if(cardBody) cardBody.style.display = 'block';
+            }, 10);
+        }
+
+        function cancelInlineDateEdit(targetId, index) {
+            let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral);
+            delete targetArr[index]._isEditing;
+            renderAllDateColumns();
+        }
+
+        async function saveInlineDateModifications(targetId, index) {
+            let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral);
+            let item = targetArr[index];
+
+            const updatedName = document.getElementById(`edit-name-${targetId}-${index}`).value.trim();
+            const updatedNotes = document.getElementById(`edit-notes-${targetId}-${index}`).value.trim();
+            const updatedLoc = document.getElementById(`edit-loc-${targetId}-${index}`).value.trim();
+
+            if (updatedName === '') return;
+
+            let addressChanged = item.location !== updatedLoc;
+
+            item.name = updatedName;
+            item.notes = updatedNotes;
+            item.location = updatedLoc;
+            delete item._isEditing;
+
+            renderAllDateColumns();
+
+            if (updatedLoc !== '' && addressChanged) {
+                document.getElementById('active-map-tracker-status').innerText = "⏳ RE-GEOLOCATING TARGET...";
+                try {
+                    let res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(updatedLoc + ", London")}`);
+                    let data = await res.json();
+                    if (data && data.length > 0) {
+                        item.lat = parseFloat(data[0].lat);
+                        item.lng = parseFloat(data[0].lon);
+                    } else {
+                        item.lat = null;
+                        item.lng = null;
+                    }
+                } catch(err) { console.warn(err); }
+            } else if (updatedLoc === '') {
+                item.lat = null;
+                item.lng = null;
+            }
+
+            renderAllDateColumns();
+            refreshPersistentPinsOnMap();
+            await saveCloudState();
         }
 
         async function addDateIdea(targetId) {
@@ -732,7 +843,6 @@
                 let newItem = { name: val, notes: notesVal, location: locVal, checked: false, lat: null, lng: null };
                 targetArr.push(newItem);
 
-                // Reset field elements instantly for ultra snappy feedback metrics
                 input.value = '';
                 notesInput.value = '';
                 locInput.value = '';
