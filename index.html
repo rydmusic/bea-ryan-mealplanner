@@ -145,7 +145,7 @@
         .recipe-ingredients-list, .recipe-instructions-list { padding-left: 18px; font-size: 0.88rem; word-break: break-word; }
         .recipe-ingredients-list li, .recipe-instructions-list li { margin-bottom: 6px; }
 
-        /* UNIFIED STRUCTURAL CSS PATTERNS FOR GROCERY DISPLAY CARDS[cite: 2] */
+        /* THEME GROCERY CARD DEFINITIONS (RESTORED CHECKBOX SYSTEM)[cite: 2] */
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
         .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 15px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; white-space: nowrap; }
@@ -250,7 +250,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v75.5_PERSISTENT_BOOT</div>
+        <div class="nav-logo">💾 FOOD_OS // v75.6_STABLE_INTEGRATED</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -486,7 +486,7 @@
                 category: "dinners",
                 title: "Penne with Vodka & Tomato Sauce",
                 prep: "15 mins", cook: "45 mins", servings: "4",
-                ingredients: ["2 x 400g tins of plum tomatoes", "1 large onion, finely diced", "Extra virgin olive oil", "Flaky sea salt", "1 clove of garlic, finely chopped", "1/2 tsp chilli flakes", "1 tsp dried oregano", "200ml vodka", "320g dried penne lisce (or penne rigate)", "4 tbsp double cream", "2 tsp caster sugar", "100g grated Parmesan"],
+                ingredients: ["2 x 400g tins of plum tomatoes", "1 large onion, finely diced", "Extra virgin olive oil", "Flaky sea salt", "1 clove of garlic, finely chopped", "1/2 tsp chilli flakes", "1 tsp dried oregano", "200ml vodka", "320g dried penne lisce (or penne lisce)", "4 tbsp double cream", "2 tsp caster sugar", "100g grated Parmesan"],
                 instructions: ["Drain the tomatoes, reserving the juice for another purpose.", "Place a large, ovenproof saucepan over low to medium heat and gently sauté the onion with a pinch of salt for 12-15 minutes until glossy and translucent.", "Add garlic, chilli flakes, and oregano. Combine and stir for a few minutes. Pour in the vodka, bring to a gentle bubble, and cook until the liquid has reduced by a third. Preheat oven to 140°C.", "Add drained tomatoes to the saucepan, bring to a gentle boil for 1-2 minutes, then bake uncovered in the oven for 30-40 minutes until sauce reduces and colors.", "Meanwhile, cook the penne in plenty of salted boiling water. Drain.", "Remove tomatoes from oven, add double cream, sugar, and half the Parmesan. Blend with a stick blender into a smooth sauce.", "Immediately add the cooked penne and stir until fully combined. Adjust seasoning and serve with remaining Parmesan."]
             },
             {
@@ -538,6 +538,24 @@
             "VEGGIE": ["caesar salad", "Pasta Salad", "Halloumi something", "Chilli with beans", "Baked potato", "Mushroom risotto", "Spanakopita", "Noodle soup", "Beans"],
             "GUILTY": ["Fish and chips", "Takeaway", "Burger", "Hot dogs", "Frozen pizza", "Freezer food picky bits"],
             "OTHER": []
+        };
+
+        let appState = {
+            shoppingList: [{ name: 'Oat Milk', checked: false }],
+            dateLocal: [],
+            dateEast: [],
+            dateCentral: [],
+            ryanDinners: {},
+            beaDinners: {},
+            bothInDinners: {},
+            dinnerSelections: {},
+            ryanLunches: {},
+            beaLunches: {},
+            bothInLunches: {},
+            lunchSelections: {},
+            freezerDrawer1: "",
+            freezerDrawer2: "",
+            freezerDrawer3: ""
         };
 
         function toggleActivePage(targetPage) {
@@ -913,7 +931,6 @@
                 listAnchor.appendChild(li);
             });
             
-            // AUTOMATIC PERSISTENT BOOT: Renders index item right at load-cycle launch
             if (filteredRecipes.length > 0) {
                 displayRecipeProfile(filteredRecipes[0]);
             }
@@ -1146,6 +1163,44 @@
                 </div>
             `;
             container.appendChild(block);
+        }
+
+        // RESTORED SELECT/RANDOMIZER HANDLERS FOR THE DICTIONARY CORE
+        async function handleHeaderChange(dateKey, category) {
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            selections[dateKey] = { category: category, dish: "" };
+            renderActiveMatrix();
+            await saveCloudState();
+        }
+
+        async function handleDishChange(dateKey, dishName) {
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            if (selections[dateKey]) { selections[dateKey].dish = dishName; }
+            await saveCloudState();
+        }
+
+        async function rollRandomCategory(dateKey) {
+            const categories = Object.keys(foodMenuDatabase).filter(cat => cat !== 'OTHER');
+            if (categories.length === 0) return;
+            const randomCat = categories[Math.floor(Math.random() * categories.length)];
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            selections[dateKey] = { category: randomCat, dish: "" };
+            renderActiveMatrix();
+            await saveCloudState();
+        }
+
+        async function rollRandomDish(dateKey) {
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            const currentCat = selections[dateKey] ? selections[dateKey].category : "";
+            if (!currentCat || currentCat === 'OTHER' || !foodMenuDatabase[currentCat] || foodMenuDatabase[currentCat].length === 0) {
+                alert("Please select a category block first before rolling an option!");
+                return;
+            }
+            const optionsList = foodMenuDatabase[currentCat];
+            const randomDish = optionsList[Math.floor(Math.random() * optionsList.length)];
+            selections[dateKey].dish = randomDish;
+            renderActiveMatrix();
+            await saveCloudState();
         }
 
         function checkEmptyStates(counters) {
