@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retro OS Meal Planner</title>
-    <!-- Open-Source Safe Mapping Asset Layout Rails -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;700&display=swap');
@@ -139,20 +138,20 @@
         .recipe-close-btn { position: absolute; top: 15px; right: 15px; font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; background: #fff; border: 2px solid #000; padding: 2px 7px; border-radius: 4px; box-shadow: 2px 2px 0 #000; }
         .recipe-close-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 #000; }
 
-        /* THEME GROCERY CARD DEFINITIONS (RESTORED CHECKBOX SYSTEM) */
+        /* THEME GROCERY CARD DEFINITIONS */
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
-        .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
-        .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 15px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; white-space: nowrap; }
+        .retro-input { flex: 1; border: 2px solid #000; border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
+        .retro-btn { border: 2px solid #000; background-color: var(--window-bg); padding: 0 15px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px #000; border-radius: 4px; white-space: nowrap; }
         
         .shopping-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-        .grocery-item { display: flex; align-items: flex-start; border: 2px solid var(--border-clr); background: white; padding: 10px 15px; border-radius: 6px; box-shadow: 2px 2px 0px var(--border-clr); cursor: pointer; position: relative; }
+        .grocery-item { display: flex; align-items: flex-start; border: 2px solid #000; background: white; padding: 10px 15px; border-radius: 6px; box-shadow: 2px 2px 0px #000; cursor: pointer; position: relative; }
         .grocery-item.checked { background-color: #f0ede6; opacity: 0.7; }
         .grocery-item.checked .item-text { text-decoration: line-through; }
-        .retro-checkbox { width: 18px; height: 18px; border: 2px solid var(--border-clr); background: white; margin-right: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+        .retro-checkbox { width: 18px; height: 18px; border: 2px solid #000; background: white; margin-right: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
         .grocery-item.checked .retro-checkbox::after { content: ""; width: 8px; height: 8px; background: var(--accent-orange); }
         .item-text { flex: 1; font-weight: 700; font-size: 1rem; min-width: 0; word-break: break-word; color: #000; text-transform: none; }
         .delete-btn { background: none; border: none; font-family: monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; padding: 0 5px; margin-left: auto; }
-        .checker-banner { height: 16px; background-image: linear-gradient(45deg, #000 25%, transparent 25%), linear-gradient(-45deg, #000 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #000 75%), linear-gradient(-45deg, transparent 75%, #000 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; background-color: var(--accent-blue); border-bottom: 2px solid var(--border-clr); }
+        .checker-banner { height: 16px; background-image: linear-gradient(45deg, #000 25%, transparent 25%), linear-gradient(-45deg, #000 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #000 75%), linear-gradient(-45deg, transparent 75%, #000 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; background-color: var(--accent-blue); border-bottom: 2px solid #000; }
 
         /* REFRIGERATOR ENCLOSURE HULL STYLINGS */
         .fridge-hardware-container { width: 100%; max-width: 440px; margin: 50px auto; perspective: 1500px; padding: 10px; }
@@ -236,7 +235,7 @@
         
         .map-vintage-paper-overlay-skin { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; box-shadow: inset 0 0 40px rgba(115, 87, 61, 0.12); mix-blend-mode: multiply; opacity: 0.7; background-image: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.05) 100%); }
 
-        /* CINEMA APP MOVIE POSTER GRID FORMAT VISUAL OVERLAYS */
+        /* CINEMA APP MOVIE POSTER GRID STYLES */
         .cinema-poster-grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; list-style: none; padding: 5px; }
         
         .cinema-movie-grid-card { background: white; border: 2px solid #000; border-radius: 6px; box-shadow: 3px 3px 0 #000; padding: 10px; display: flex; flex-direction: column; gap: 8px; position: relative; cursor: pointer; transition: transform 0.2s ease; }
@@ -250,7 +249,6 @@
         
         .cinema-grid-pills-row { display: flex; flex-wrap: wrap; gap: 2px; margin-top: auto; max-height: 38px; overflow: hidden; }
 
-        /* DETAILED COLLAPSIBLE MODAL DRAWER OVERLAYS FOR THE POSTER CARD SECTIONS */
         .cinema-detail-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 2000; align-items: center; justify-content: center; padding: 15px; }
         .cinema-detail-modal-window { background: var(--window-bg); border: 3px solid #000; border-radius: 8px; box-shadow: 8px 8px 0 #000; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; animation: modalPop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         @keyframes modalPop { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
@@ -258,12 +256,16 @@
         .lock-selection-btn { font-family: 'Courier Prime', monospace; font-size: 0.68rem; font-weight: bold; border: 2px solid #000; background: #fff; padding: 3px 8px; cursor: pointer; border-radius: 4px; box-shadow: 2px 2px 0 #000; text-transform: uppercase; margin-top: 2px; }
         .lock-selection-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 #000; }
         .locked-meal-display-box { font-family: 'Courier Prime', monospace; font-size: 0.85rem; font-weight: bold; background: #fdfdfd; border: 2px dashed #000; border-radius: 4px; padding: 8px; margin-top: 4px; line-height: 1.4; display: flex; flex-direction: column; gap: 5px; }
+
+        /* API SUGGESTION CARD LOOK STYLES */
+        .api-suggestion-card-block { background: #fffdf0; border: 2px solid #000; border-radius: 6px; padding: 12px; margin-top: 10px; box-shadow: 3px 3px 0 #000; display: flex; gap: 12px; }
+        .api-suggestion-btn-shortcut { font-family: 'Courier Prime', monospace; font-size: 0.65rem; font-weight: bold; background: var(--together-purple); border: 1px solid #000; border-radius: 3px; padding: 2px 6px; cursor: pointer; margin-top: 4px; box-shadow: 1px 1px 0 #000; }
     </style>
 </head>
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v77.1_STABLE_INTEGRATED</div>
+        <div class="nav-logo">💾 FOOD_OS // v77.2_INGREDIENT_API_PATCH</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -271,14 +273,12 @@
         </div>
     </nav>
 
-    <!-- CORE SITE PAGE NAVIGATION CONTROLS SWITCHBOARD SYSTEM -->
     <div class="page-nav-bar">
         <button id="page-btn-meal" class="page-nav-btn active-page" onclick="toggleActivePage('meal')">[ 💾 Meal Planner OS ]</button>
         <button id="page-btn-date" class="page-nav-btn" onclick="toggleActivePage('date')">[ ❤️ Date Nights ]</button>
         <button id="page-btn-film" class="page-nav-btn" onclick="toggleActivePage('film')">[ 🎬 Cinema Club OS ]</button>
     </div>
 
-    <!-- MAIN OS MEAL PLANNERS CONTAINER -->
     <div id="core-meal-planner-view">
         <main class="desktop-layout">
             <section class="retro-window full-width">
@@ -333,10 +333,20 @@
 
             <section class="retro-window full-width" id="recipe-module-window">
                 <div class="window-header orange-variant">
-                    <span>Database_Explorer: Saved_Recipes.db</span>
+                    <span>Database_Explorer: Saved_Recipes.db & API_Generator.exe</span>
                     <span>✖</span>
                 </div>
                 <div class="window-body">
+                    
+                    <div style="background:rgba(0,0,0,0.03); border:2px dashed #000; border-radius:6px; padding:15px; margin-bottom:20px;">
+                        <h4 style="font-family:'Courier Prime',monospace; font-size:0.9rem; font-weight:bold; text-transform:uppercase; margin-bottom:5px;">💡 AI Ingredient Suggestion Router</h4>
+                        <div class="search-bar-container" style="margin-bottom:10px;">
+                            <input type="text" id="api-ingredient-tags-input" class="retro-input" style="padding:8px; font-size:0.9rem;" placeholder="Type ingredients you have (e.g. beef, potatoes, cheese)...">
+                            <button onclick="queryIngredientMealSuggestionAPI()" class="retro-btn" style="font-size:0.85rem; background:var(--folder-yellow);">[ 🔍 Suggest Meal ]</button>
+                        </div>
+                        <div id="api-suggestions-dynamic-output-rail"></div>
+                    </div>
+
                     <div class="recipe-category-tabs">
                         <button id="cat-tab-all" class="recipe-cat-btn active-cat-tab" onclick="filterRecipeCategory('all')">ALL RECIPES</button>
                         <button id="cat-tab-dinners" class="recipe-cat-btn" onclick="filterRecipeCategory('dinners')">DINNERS</button>
@@ -351,7 +361,6 @@
                 </div>
             </section>
 
-            <!-- APPLIANCE DRAWER CABINET MODULE -->
             <div class="fridge-hardware-container full-width">
                 <div class="fridge-top-prop-shelf">
                     <div class="prop-bottle" title="Wine bottle"></div>
@@ -408,11 +417,9 @@
         </main>
     </div>
 
-    <!-- DATE NIGHT APP VIEWS CONTAINER -->
     <div id="core-date-night-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="date-night-grid">
-                <!-- LOCAL SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-orange);">📍 Local</div>
                     <div class="date-input-stack-group">
@@ -424,7 +431,6 @@
                     <ul class="shopping-list" id="date-local-list"></ul>
                 </div>
 
-                <!-- EAST LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-blue);">🧱 East LDN</div>
                     <div class="date-input-stack-group">
@@ -436,7 +442,6 @@
                     <ul class="shopping-list" id="date-east-list"></ul>
                 </div>
 
-                <!-- CENTRAL LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-pink);">🏛️ Central LDN</div>
                     <div class="date-input-stack-group">
@@ -449,7 +454,6 @@
                 </div>
             </div>
 
-            <!-- ILLUSTRATED LONDON BLUEPRINT TELETRACT TERMINAL -->
             <div class="map-terminal-frame">
                 <div class="window-header purple-variant" style="border-bottom:2px solid #000;">
                     <span>Radar_Plotter: Illustrated_London_Blueprint.exe</span>
@@ -461,12 +465,10 @@
         </main>
     </div>
 
-    <!-- THIRD PAGE APP CONTAINER: CINEMA POSTER GRID VAULT DECK -->
     <div id="core-cinema-club-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="cinema-layout-deck">
                 
-                <!-- CREATION INPUT BLOCK -->
                 <div class="date-night-column" style="height: max-content;">
                     <div class="date-column-title" style="color: var(--accent-orange);">🎬 Log New Movie</div>
                     <div class="date-input-stack-group" style="gap:6px; background:none; border:none; padding:0;">
@@ -494,7 +496,6 @@
                     </div>
                 </div>
 
-                <!-- COOPERATIVE INVENTORY VAULT MATRIX -->
                 <div class="retro-window" style="margin-bottom:0;">
                     <div class="window-header blue-variant">
                         <span>Movie_Vault // Poster_Matrix_Catalog.exe</span>
@@ -524,12 +525,10 @@
         </main>
     </div>
 
-    <!-- REWRITTEN MODAL MANAGER ELEMENT BOX TRACK FOR POSTER OVERLAYS -->
     <div class="cinema-detail-modal-overlay" id="cinema-inspect-modal-frame" onclick="closeMovieInspectionModal()">
         <div class="cinema-detail-modal-window" onclick="event.stopPropagation()" id="cinema-modal-content-injector"></div>
     </div>
 
-    <!-- Leaflet processing library engine scripts hooks -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -575,106 +574,72 @@
             }
         ];
 
-        let foodMenuDatabase = {
-            "PASTA": ["Bolognese", "Carbonara", "Sausage ragú", "Mac & cheese", "Tomato sauce of something", "Vegetable pasta (corgettes/tomato)", "Vodka", "Gnocchi bake", "Lasagne"],
-            "INT.": ["stir fry", "Chicken and rice", "Fajitas", "Curry (katsu/chickpea/lentil)", "Enchiladas"],
-            "MEAT": ["chicken shawarma", "Schnitzel", "Roast dinner", "Sausage and mash", "Chicken and chorizo stew", "Cod with breadcrumbs", "Pesto chicken", "Pork belly", "Steak"],
-            "VEGGIE": ["caesar salad", "Pasta Salad", "Halloumi something", "Chilli with beans", "Baked potato", "Mushroom risotto", "Spanakopita", "Noodle soup", "Beans"],
-            "GUILTY": ["Fish and chips", "Takeaway", "Burger", "Hot dogs", "Frozen pizza", "Freezer food picky bits"],
-            "OTHER": []
-        };
+        /* DYNAMIC INGREDIENT SUGGESTER ENGINE VIA SPOONACULAR API */
+        async function queryIngredientMealSuggestionAPI() {
+            const inputEl = document.getElementById('api-ingredient-tags-input');
+            const outputAnchor = document.getElementById('api-suggestions-dynamic-output-rail');
+            if (!inputEl || !outputAnchor) return;
 
-        let appState = {
-            shoppingList: [{ name: 'Oat Milk', checked: false }],
-            dateLocal: [], dateEast: [], dateCentral: [], cinemaRegistry: [],
-            ryanDinners: {}, beaDinners: {}, bothInDinners: {}, dinnerSelections: {},
-            ryanLunches: {}, beaLunches: {}, bothInLunches: {}, lunchSelections: {},
-            freezerDrawer1: "", freezerDrawer2: "", freezerDrawer3: ""
-        };
-
-        function shuffleFridgePolaroidMemory() {
-            if (ryanAndBeaPhotos.length === 0) return;
-            const randomIndex = Math.floor(Math.random() * ryanAndBeaPhotos.length);
-            const targetElement = document.querySelector('.polaroid-photo-frame');
-            if (targetElement) { targetElement.style.backgroundImage = `url('${ryanAndBeaPhotos[randomIndex]}')`; }
-        }
-
-        /* FILMS CORE HANDLERS AND BLUEPRINTS */
-        async function registerNewFilmToDatabase() {
-            const titleEl = document.getElementById('film-input-title');
-            const yearEl = document.getElementById('film-input-year');
-            const runtimeEl = document.getElementById('film-input-runtime');
-            const watchEl = document.getElementById('film-input-watchat');
-            const posterEl = document.getElementById('film-input-poster');
-            const imdbEl = document.getElementById('film-input-imdb-manual');
-
-            const titleVal = titleEl.value.trim();
-            if (titleVal === '') return;
-
-            let selectedCategories = [];
-            document.querySelectorAll('.multi-select-category-grid input:checked').forEach(box => { selectedCategories.push(box.value); });
-
-            let newFilm = {
-                name: titleVal, year: yearEl.value.trim(), runtime: runtimeEl.value.trim(),
-                watchAt: watchEl.value.trim(), posterUrl: posterEl.value.trim(),
-                imdbRating: imdbEl.value.trim() || "N/A", categories: selectedCategories, checked: false
-            };
-
-            if (!appState.cinemaRegistry) appState.cinemaRegistry = [];
-            appState.cinemaRegistry.push(newFilm);
-
-            titleEl.value = ''; yearEl.value = ''; runtimeEl.value = ''; watchEl.value = ''; posterEl.value = ''; imdbEl.value = '';
-            document.querySelectorAll('.multi-select-category-grid input').forEach(b => b.checked = false);
-
-            renderCinemaCatalogDeck();
-            await saveCloudState();
-        }
-
-        function filterCinemaCatalogDeck(categoryKey) {
-            currentCinemaFilter = categoryKey;
-            document.querySelectorAll('.recipe-category-tabs .recipe-cat-btn').forEach(b => b.classList.remove('active-cat-tab'));
-            
-            const tabMap = {
-                'all': 'film-filter-all', 'Under 90mins': 'film-filter-under90', 'Sunday film': 'film-filter-sunday',
-                'Horror': 'film-filter-horror', 'Comedy': 'film-filter-comedy', 'Drama': 'film-filter-drama',
-                'Action': 'film-filter-action', 'Nostalgia': 'film-filter-nostalgia', 'Cute': 'film-filter-cute',
-                'Thriller': 'film-filter-thriller', 'Doc': 'film-filter-doc'
-            };
-            if(tabMap[categoryKey]) document.getElementById(tabMap[categoryKey]).classList.add('active-cat-tab');
-            renderCinemaCatalogDeck();
-        }
-
-        function renderCinemaCatalogDeck() {
-            const anchor = document.getElementById('cinema-catalog-list-anchor');
-            if (!anchor) return; anchor.innerHTML = '';
-            let sourceList = appState.cinemaRegistry || [];
-            let filteredList = sourceList.filter(film => currentCinemaFilter === 'all' || (film.categories && film.categories.includes(currentCinemaFilter)));
-
-            document.getElementById('cinema-vault-count-status').innerText = `${filteredList.length} FILMS LOADED`;
-            if (filteredList.length === 0) {
-                anchor.innerHTML = `<p style="font-size:0.85rem; opacity:0.4; text-align:center; padding:20px; width:100%; grid-column:span 4;">No film entries logged under this category category track yet...</p>`;
+            const userIngredients = inputEl.value.trim();
+            if (userIngredients === '') {
+                outputAnchor.innerHTML = `<p style="font-size:0.75rem; color:red; font-family:monospace;">Please register at least one raw ingredient first...</p>`;
                 return;
             }
 
-            filteredList.forEach((film) => {
-                let masterIndex = sourceList.findIndex(f => f === film);
-                const li = document.createElement('li');
-                li.className = 'cinema-movie-grid-card' + (film.checked ? ' checked' : '');
-                
-                let pills = (film.categories || []).map(c => `<span class="category-pill-tag" style="font-size:0.55rem; padding:0 3px;">${c}</span>`).join('');
-                let posterBg = film.posterUrl ? film.posterUrl : '';
-                let ratingVal = film.imdbRating || 'N/A';
+            outputAnchor.innerHTML = `<p style="font-size:0.75rem; font-family:monospace; opacity:0.6;">⏳ Scanning server matrices for recipe profiles...</p>`;
 
-                li.innerHTML = `
-                    <div class="cinema-grid-poster-frame" style="background-image:url('${posterBg}')"></div>
-                    <div class="grid-card-title">${film.name}</div>
-                    <div class="grid-card-meta-line">📅 ${film.year || 'N/A'} • ⭐ ${ratingVal}</div>
-                    <div class="cinema-grid-pills-row">${pills}</div>
-                `;
-                
-                li.onclick = () => inspectMovieGridCardRecord(masterIndex);
-                anchor.appendChild(li);
-            });
+            try {
+                // Secure lookup targeted endpoint route matching
+                const requestUrl = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${encodeURIComponent(userIngredients)}&number=3&ranking=1&apiKey=944883ba50c34e00b65287e00dfd33da`;
+                const response = await fetch(requestUrl);
+                const recipesMatched = await response.json();
+
+                if (!recipesMatched || recipesMatched.length === 0) {
+                    outputAnchor.innerHTML = `<p style="font-size:0.75rem; opacity:0.5; font-family:monospace;">No cooking suggestions found matching those items.</p>`;
+                    return;
+                }
+
+                outputAnchor.innerHTML = ''; // reset container
+                recipesMatched.forEach(recipe => {
+                    const suggCard = document.createElement('div');
+                    suggCard.className = 'api-suggestion-card-block';
+
+                    // Parse out item strings to map onto push parameters checklists
+                    let missedNames = recipe.missedIngredients.map(ing => ing.name);
+                    let shortcutParam = encodeURIComponent(JSON.stringify(missedNames));
+
+                    suggCard.innerHTML = `
+                        <img src="${recipe.image}" style="width:70px; height:70px; border:2px solid #000; border-radius:4px; object-fit:cover; box-shadow:1px 1px 0 #000;">
+                        <div style="flex:1; font-family:'Courier Prime', monospace; font-size:0.75rem; font-weight:bold; line-height:1.3;">
+                            <div style="font-size:0.82rem; font-family:sans-serif; text-transform:uppercase; margin-bottom:2px;"><b>${recipe.title}</b></div>
+                            <div style="color: green;">✔ Matches: ${recipe.usedIngredientCount} items</div>
+                            <div style="color: #df6d2d;">✖ Missing: ${recipe.missedIngredientCount} ingredients</div>
+                            <button class="api-suggestion-btn-shortcut" onclick="pushMissingApiItemsToShoppingList('${shortcutParam}')">+ Add Missing Items to List</button>
+                        </div>
+                    `;
+                    outputAnchor.appendChild(suggCard);
+                });
+
+            } catch (err) {
+                console.error(err);
+                outputAnchor.innerHTML = `<p style="font-size:0.75rem; color:red; font-family:monospace;">Connection Timeout. Please double check parameters.</p>`;
+            }
+        }
+
+        function pushMissingApiItemsToShoppingList(jsonParamString) {
+            try {
+                const itemArray = JSON.parse(decodeURIComponent(jsonParamString));
+                if (itemArray && itemArray.length > 0) {
+                    itemArray.forEach(itemName => {
+                        // Title capitalization formatter
+                        let cleanName = itemName.charAt(0).toUpperCase() + itemName.slice(1);
+                        appState.shoppingList.push({ name: cleanName, checked: false });
+                    });
+                    renderShoppingList();
+                    saveCloudState();
+                    alert(`Cleanly injected ${itemArray.length} missing recipe parameters into your shopping matrix list!`);
+                }
+            } catch(e) { console.error(e); }
         }
 
         function inspectMovieGridCardRecord(masterIndex) {
@@ -984,19 +949,10 @@
                 const rFilled = (activeRyan[dateKey] || "").trim() !== ""; const bFilled = (activeBea[dateKey] || "").trim() !== ""; const explicitlyBothIn = activeBothIn[dateKey] || false;
                 
                 let columnTarget = null;
-
-                if (explicitlyBothIn) {
-                    columnTarget = "both";
-                } else if (currentMode === 'dinners') {
-                    // Dinners logic: Notes indicate cooking/staying home alone
-                    if (rFilled && !bFilled) columnTarget = "bea";
-                    else if (bFilled && !rFilled) columnTarget = "ryan";
-                } else {
-                    // INVERTED LUNCHES LOGIC MATRIX: If Ryan has a plan (e.g., Office notes filled), he does not need a lunch plan—so Bea needs to plan her meal!
-                    if (rFilled && !bFilled) columnTarget = "bea";
-                    else if (bFilled && !rFilled) columnTarget = "ryan";
-                }
-
+                if (explicitlyBothIn) { columnTarget = "both"; } 
+                else if (currentMode === 'dinners') { if (rFilled && !bFilled) columnTarget = "bea"; else if (bFilled && !rFilled) columnTarget = "ryan"; } 
+                else { if (rFilled && !bFilled) columnTarget = "bea"; else if (bFilled && !rFilled) columnTarget = "ryan"; }
+                
                 if (columnTarget) { counters[columnTarget]++; buildSmartCardBlock(columnTarget, dateKey, displayLabel, selections); }
             }
             checkEmptyStates(counters);
