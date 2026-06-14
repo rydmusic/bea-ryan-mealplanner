@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retro OS Meal Planner</title>
+    <!-- Open-Source Safe Mapping Asset Layout Rails -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;700&display=swap');
@@ -212,7 +213,7 @@
         
         .date-input-stack-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; background: rgba(0,0,0,0.02); padding: 10px; border: 1px dashed #000; border-radius: 4px; }
         
-        /* CARD MATRIX COLLAPSIBLE AND EDITABLE HOOKS */
+        /* CARD MATRIX COLLAPSIBLE AND EDITABLE HOOKS[cite: 1] */
         .date-item-row-wrapper { font-size: 0.72rem; display: flex; flex-direction: column; gap: 4px; text-decoration: none !important; width: 100%; }
         .date-card-header-clickable { font-weight: 700; font-size: 1rem; color: #000; cursor: pointer; display: flex; justify-content: space-between; align-items: center; width: 100%; padding-bottom: 2px; }
         .date-card-header-clickable:hover { color: var(--accent-orange); }
@@ -270,6 +271,7 @@
         <button id="page-btn-film" class="page-nav-btn" onclick="toggleActivePage('film')">[ 🎬 Cinema Club OS ]</button>
     </div>
 
+    <!-- MAIN OS MEAL PLANNERS CONTAINER -->
     <div id="core-meal-planner-view">
         <main class="desktop-layout">
             <section class="retro-window full-width">
@@ -342,6 +344,7 @@
                 </div>
             </section>
 
+            <!-- APPLIANCE DRAWER CABINET MODULE -->
             <div class="fridge-hardware-container full-width">
                 <div class="fridge-top-prop-shelf">
                     <div class="prop-bottle" title="Wine bottle"></div>
@@ -398,9 +401,11 @@
         </main>
     </div>
 
+    <!-- DATE NIGHT APP VIEWS CONTAINER -->
     <div id="core-date-night-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="date-night-grid">
+                <!-- LOCAL SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-orange);">📍 Local</div>
                     <div class="date-input-stack-group">
@@ -412,6 +417,7 @@
                     <ul class="shopping-list" id="date-local-list"></ul>
                 </div>
 
+                <!-- EAST LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-blue);">🧱 East LDN</div>
                     <div class="date-input-stack-group">
@@ -423,6 +429,7 @@
                     <ul class="shopping-list" id="date-east-list"></ul>
                 </div>
 
+                <!-- CENTRAL LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-pink);">🏛️ Central LDN</div>
                     <div class="date-input-stack-group">
@@ -435,6 +442,7 @@
                 </div>
             </div>
 
+            <!-- ILLUSTRATED BLUEPRINT TELETRACT TERMINAL -->
             <div class="map-terminal-frame">
                 <div class="window-header purple-variant" style="border-bottom:2px solid #000;">
                     <span>Radar_Plotter: Illustrated_London_Blueprint.exe</span>
@@ -446,10 +454,12 @@
         </main>
     </div>
 
+    <!-- THIRD PAGE APP CONTAINER: MULTI-GENRE COOPERATIVE MOVIES VAULT -->
     <div id="core-cinema-club-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="cinema-layout-deck">
                 
+                <!-- CREATION INPUT BLOCK -->
                 <div class="date-night-column" style="height: max-content;">
                     <div class="date-column-title" style="color: var(--accent-orange);">🎬 Log New Movie</div>
                     <div class="date-input-stack-group" style="gap:6px; background:none; border:none; padding:0;">
@@ -458,6 +468,7 @@
                         <input type="text" id="film-input-runtime" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Running Time (e.g. 1h 52m)...">
                         <input type="text" id="film-input-watchat" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Platform (Netflix, BBC iPlayer)...">
                         <input type="text" id="film-input-poster" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Poster Cover Hyperlink Image URL...">
+                        <input type="text" id="film-input-imdb-manual" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="IMDb Rating (e.g., 8.2)...">
                         
                         <div style="font-size:0.7rem; font-weight:bold; margin-top:4px;">Select Categories (Check multiple):</div>
                         <div class="multi-select-category-grid">
@@ -477,6 +488,7 @@
                     </div>
                 </div>
 
+                <!-- COOPERATIVE INVENTORY VAULT MATRIX -->
                 <div class="retro-window" style="margin-bottom:0;">
                     <div class="window-header blue-variant">
                         <span>Movie_Vault // Matrix_Index.exe</span>
@@ -506,6 +518,7 @@
         </main>
     </div>
 
+    <!-- Leaflet processing library engine scripts hooks -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -624,45 +637,37 @@
             mapPinsLayerGroup.eachLayer(marker => { if (marker.getLatLng().lat === lat && marker.getLatLng().lng === lng) marker.openPopup(); });
         }
 
-        /* FILMS AUTOMATIC HOOKS AND LOOKUPS MATRIX */
+        /* FILMS CORE HANDLERS AND BLUEPRINTS */
         async function registerNewFilmToDatabase() {
             const titleEl = document.getElementById('film-input-title');
             const yearEl = document.getElementById('film-input-year');
             const runtimeEl = document.getElementById('film-input-runtime');
             const watchEl = document.getElementById('film-input-watchat');
             const posterEl = document.getElementById('film-input-poster');
+            const imdbEl = document.getElementById('film-input-imdb-manual');
 
             const titleVal = titleEl.value.trim();
-            const yearVal = yearEl.value.trim();
             if (titleVal === '') return;
 
             let selectedCategories = [];
             document.querySelectorAll('.multi-select-category-grid input:checked').forEach(box => { selectedCategories.push(box.value); });
 
             let newFilm = {
-                name: titleVal, year: yearVal, runtime: runtimeEl.value.trim(),
-                watchAt: watchEl.value.trim(), posterUrl: posterEl.value.trim(),
-                imdbRating: "N/A", categories: selectedCategories, checked: false
+                name: titleVal, 
+                year: yearEl.value.trim(), 
+                runtime: runtimeEl.value.trim(),
+                watchAt: watchEl.value.trim(), 
+                posterUrl: posterEl.value.trim(),
+                imdbRating: imdbEl.value.trim() || "N/A", 
+                categories: selectedCategories, 
+                checked: false
             };
 
             if (!appState.cinemaRegistry) appState.cinemaRegistry = [];
             appState.cinemaRegistry.push(newFilm);
 
-            titleEl.value = ''; yearEl.value = ''; runtimeEl.value = ''; watchEl.value = ''; posterEl.value = '';
+            titleEl.value = ''; yearEl.value = ''; runtimeEl.value = ''; watchEl.value = ''; posterEl.value = ''; imdbEl.value = '';
             document.querySelectorAll('.multi-select-category-grid input').forEach(b => b.checked = false);
-            renderCinemaCatalogDeck();
-
-            try {
-                let fetchQuery = `https://www.omdbapi.com/?apikey=7ba98797&t=${encodeURIComponent(titleVal)}&y=${encodeURIComponent(yearVal)}`;
-                let response = await fetch(fetchQuery);
-                let data = await response.json();
-                if (data && data.imdbRating) {
-                    newFilm.imdbRating = data.imdbRating;
-                    if (!newFilm.runtime && data.Runtime) newFilm.runtime = data.Runtime;
-                    if (!newFilm.year && data.Year) newFilm.year = data.Year;
-                    if (!newFilm.posterUrl && data.Poster && data.Poster !== 'N/A') newFilm.posterUrl = data.Poster;
-                }
-            } catch(e) { console.warn(e); }
 
             renderCinemaCatalogDeck();
             await saveCloudState();
@@ -710,6 +715,7 @@
                             <input type="text" class="date-edit-mini-input" id="edit-film-run-${masterIndex}" value="${film.runtime || ''}" placeholder="Runtime...">
                             <input type="text" class="date-edit-mini-input" id="edit-film-watch-${masterIndex}" value="${film.watchAt || ''}" placeholder="Watch Location...">
                             <input type="text" class="date-edit-mini-input" id="edit-film-post-${masterIndex}" value="${film.posterUrl || ''}" placeholder="Poster Image URL...">
+                            <input type="text" class="date-edit-mini-input" id="edit-film-imdb-${masterIndex}" value="${film.imdbRating || ''}" placeholder="IMDb Rating (e.g. 7.8)...">
                             
                             <div style="font-size:0.65rem; font-weight:bold; margin-top:2px;">Edit Genres:</div>
                             <div class="multi-select-category-grid" id="edit-film-catgrid-${masterIndex}">
@@ -727,7 +733,7 @@
                 } else {
                     let pills = (film.categories || []).map(c => `<span class="category-pill-tag">${c}</span>`).join('');
                     let posterStyleHtml = film.posterUrl ? `<div class="film-poster-preview-box" style="background-image:url('${film.posterUrl}')"></div>` : `<div class="film-poster-preview-box" style="display:flex; align-items:center; justify-content:center; font-size:0.65rem; opacity:0.3; font-weight:bold;">NO IMAGE</div>`;
-                    let ratingVal = (film.imdbRating && film.imdbRating !== 'N/A') ? film.imdbRating : 'N/A';
+                    let ratingVal = film.imdbRating || 'N/A';
 
                     cardBodyHtml = `
                         <div class="date-card-body-collapsible" id="collapsible-film-card-${masterIndex}">
@@ -780,31 +786,18 @@
 
         async function saveInlineCinemaModifications(masterIndex) {
             let film = appState.cinemaRegistry[masterIndex];
-            let oldTitle = film.name; let oldYear = film.year;
 
             film.name = document.getElementById(`edit-film-title-${masterIndex}`).value.trim();
             film.year = document.getElementById(`edit-film-year-${masterIndex}`).value.trim();
             film.runtime = document.getElementById(`edit-film-run-${masterIndex}`).value.trim();
             film.watchAt = document.getElementById(`edit-film-watch-${masterIndex}`).value.trim();
             film.posterUrl = document.getElementById(`edit-film-post-${masterIndex}`).value.trim();
+            film.imdbRating = document.getElementById(`edit-film-imdb-${masterIndex}`).value.trim() || "N/A";
             
             let updatedCats = [];
             document.querySelectorAll(`#edit-film-catgrid-${masterIndex} input:checked`).forEach(b => updatedCats.push(b.value));
             film.categories = updatedCats;
             delete film._isEditing;
-
-            renderCinemaCatalogDeck();
-
-            if (oldTitle !== film.name || oldYear !== film.year) {
-                try {
-                    let res = await fetch(`https://www.omdbapi.com/?apikey=7ba98797&t=${encodeURIComponent(film.name)}&y=${encodeURIComponent(film.year)}`);
-                    let data = await res.json();
-                    if (data && data.imdbRating) {
-                        film.imdbRating = data.imdbRating;
-                        if(data.Poster && data.Poster !== 'N/A') film.posterUrl = data.Poster;
-                    }
-                } catch(e) {}
-            }
 
             renderCinemaCatalogDeck();
             await saveCloudState();
@@ -856,7 +849,8 @@
         async function saveInlineDateModifications(targetId, index) {
             let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); let item = targetArr[index];
             const updatedName = document.getElementById(`edit-name-${targetId}-${index}`).value.trim();
-            const updatedNotes = document.getElementById(`edit-notes-${targetId}-${index}`).value.trim(); const updatedLoc = document.getElementById(`edit-loc-${targetId}-${index}`).value.trim();
+            const updatedNotes = document.getElementById(`edit-notes-${targetId}-${index}`).value.trim(); 
+            const updatedLoc = document.getElementById(`edit-loc-${targetId}-${index}`).value.trim();
             if (updatedName === '') return; let addressChanged = item.location !== updatedLoc; item.name = updatedName; item.notes = updatedNotes; item.location = updatedLoc; delete item._isEditing;
             renderAllDateColumns();
             if (updatedLoc !== '' && addressChanged) {
@@ -989,19 +983,11 @@
             `; container.appendChild(block);
         }
 
-        function checkEmptyStates(counters) {
-            let tag = currentMode === 'dinners' ? 'nights sorted!' : 'days sorted!';
-            if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
-            if(counters.bea === 0) document.getElementById('container-bea').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
-            if(counters.both === 0) document.getElementById('container-both').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
-        }
-
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list'); if(!listEl) return; listEl.innerHTML = '';
             appState.shoppingList.forEach((item, index) => {
                 const li = document.createElement('li'); li.className = 'grocery-item' + (item.checked ? ' checked' : '');
-                li.innerHTML = `<div class="retro-checkbox" onclick="toggleItem(${index})"></div><span class="item-text" onclick="toggleItem(${index})">${item.name}</span><button class="delete-btn" onclick="deleteItem(${index})">⌫</button>`;
-                listEl.appendChild(li);
+                li.innerHTML = `<div class="retro-checkbox" onclick="toggleItem(${index})"></div><span class="item-text" onclick="toggleItem(${index})">${item.name}</span><button class="delete-btn" onclick="deleteItem(${index})">⌫</button>`; listEl.appendChild(li);
             });
         }
 
@@ -1010,7 +996,36 @@
         async function toggleItem(index) { appState.shoppingList[index].checked = !appState.shoppingList[index].checked; renderShoppingList(); await saveCloudState(); }
         async function deleteItem(index) { appState.shoppingList.splice(index, 1); renderShoppingList(); await saveCloudState(); }
 
-        // RE-ATTACH ACTIVE SELECTION AND DYNAMIC RANDOMIZER DICE MARCOS
+        async function loadCloudState() {
+            try {
+                const response = await fetch(cloudStorageUrl);
+                if (response.ok) {
+                    const payload = await response.json();
+                    if (payload.menuDatabase && Object.keys(payload.menuDatabase).length > 1) { foodMenuDatabase = payload.menuDatabase; }
+                    if (payload.calendarState && payload.calendarState.shoppingList) {
+                        appState = payload.calendarState;
+                        if (!appState.dateLocal) appState.dateLocal = [];
+                        if (!appState.dateEast) appState.dateEast = [];
+                        if (!appState.dateCentral) appState.dateCentral = [];
+                        if (!appState.cinemaRegistry) appState.cinemaRegistry = [];
+                    }
+                }
+            } catch (err) { console.warn("Handshake latency."); }
+            switchAppMode(currentMode);
+            renderShoppingList();
+            renderAllDateColumns();
+            buildRecipeRegistryDeck();
+            
+            document.getElementById('freezer-d1-input').value = appState.freezerDrawer1 || "";
+            document.getElementById('freezer-d2-input').value = appState.freezerDrawer2 || "";
+            document.getElementById('freezer-d3-input').value = appState.freezerDrawer3 || "";
+            shuffleFridgePolaroidMemory();
+        }
+
+        async function saveCloudState() {
+            try { await fetch(cloudStorageUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(appState) }); } catch (e) { console.error(e); }
+        }
+
         async function handleHeaderChange(dateKey, category) {
             let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
             selections[dateKey] = { category: category, dish: "" };
@@ -1058,8 +1073,6 @@
             renderActiveMatrix();
             await saveCloudState();
         }
-
-        loadCloudState();
     </script>
 </body>
 </html>
