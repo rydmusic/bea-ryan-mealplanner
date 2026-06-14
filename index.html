@@ -103,7 +103,6 @@
         .tag-both { background-color: var(--together-purple); }
 
         .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px var(--border-clr); position: relative; }
-        .smart-day-block.locked { border-color: var(--accent-orange); }
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
         
         .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
@@ -114,7 +113,7 @@
         .other-text-box { width: 100%; border: 2px solid #000; border-radius: 4px; padding: 5px; font-family: inherit; font-size: 0.8rem; outline: none; background: #fffdf2; }
         
         .dice-random-btn { background-color: #fff; border: 2px solid #000; border-radius: 4px; padding: 0; font-size: 0.85rem; cursor: pointer; box-shadow: 2px 2px 0px #000; height: 28px; width: 30px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-        .dice-random-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 #000; }
+        .dice-random-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
 
         .recipe-category-tabs { display: flex; gap: 6px; margin-bottom: 15px; background: rgba(0, 0, 0, 0.04); padding: 6px; border: 2px solid #000; border-radius: 4px; flex-wrap: wrap; }
         .recipe-cat-btn { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.75rem; border: 1px solid #000; background: #fff; padding: 6px 12px; cursor: pointer; border-radius: 3px; box-shadow: 2px 2px 0px #000; }
@@ -140,7 +139,7 @@
         .recipe-close-btn { position: absolute; top: 15px; right: 15px; font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; background: #fff; border: 2px solid #000; padding: 2px 7px; border-radius: 4px; box-shadow: 2px 2px 0 #000; }
         .recipe-close-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 #000; }
 
-        /* THEME GROCERY CARD DEFINITIONS[cite: 2] */
+        /* THEME GROCERY CARD DEFINITIONS */
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid #000; border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
         .retro-btn { border: 2px solid #000; background-color: var(--window-bg); padding: 0 15px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px #000; border-radius: 4px; white-space: nowrap; }
@@ -155,7 +154,7 @@
         .delete-btn { background: none; border: none; font-family: monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; padding: 0 5px; margin-left: auto; }
         .checker-banner { height: 16px; background-image: linear-gradient(45deg, #000 25%, transparent 25%), linear-gradient(-45deg, #000 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #000 75%), linear-gradient(-45deg, transparent 75%, #000 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; background-color: var(--accent-blue); border-bottom: 2px solid #000; }
 
-        /* REFRIGERATOR ENCLOSURE HULL STYLINGS[cite: 2] */
+        /* REFRIGERATOR ENCLOSURE HULL STYLINGS */
         .fridge-hardware-container { width: 100%; max-width: 440px; margin: 50px auto; perspective: 1500px; padding: 10px; }
         .fridge-top-prop-shelf { width: 100%; display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 4px; position: relative; z-index: 5; margin-bottom: -5px; padding-left: 30px; padding-right: 30px; }
         .prop-bottle { width: 32px; height: 75px; background: #4a533c; border: 3px solid #000; border-radius: 6px 6px 2px 2px; position: relative; }
@@ -260,7 +259,7 @@
         .locked-meal-display-box { font-family: 'Courier Prime', monospace; font-size: 0.85rem; font-weight: bold; background: #fdfdfd; border: 2px dashed #000; border-radius: 4px; padding: 8px; margin-top: 4px; line-height: 1.4; display: flex; flex-direction: column; gap: 5px; }
 
         /* SUGGESTION CARD LOOK STYLES */
-        .api-suggestion-card-block { background: #fffdf0; border: 2px solid #000; border-radius: 6px; padding: 12px; margin-top: 10px; box-shadow: 3px 3px 0 #000; display: flex; flex-direction: column; gap: 10px; }
+        .api-suggestion-card-block { background: #fffdf0; border: 2px solid #000; border-radius: 6px; padding: 12px; margin-top: 10px; box-shadow: 3px 3px 0 #000; display: flex; gap: 10px; }
         
         /* INDIVIDUAL ADD BUTTON AND CHIP ROWS */
         .api-ing-chip-row { display: flex; align-items: center; justify-content: space-between; background: #ffffff; border: 1px solid #000; padding: 4px 8px; border-radius: 4px; font-family: 'Courier Prime', monospace; font-size: 0.72rem; }
@@ -347,7 +346,7 @@
                 </div>
                 <div class="window-body">
                     
-                    <!-- CRASH-PROOF LOCAL KITCHEN INGREDIENTS CONSOLE PANEL -->
+                    <!-- LOCAL KITCHEN INGREDIENTS CONSOLE PANEL -->
                     <div style="background:rgba(0,0,0,0.03); border:2px dashed #000; border-radius:6px; padding:15px; margin-bottom:20px;">
                         <h4 style="font-family:'Courier Prime',monospace; font-size:0.9rem; font-weight:bold; text-transform:uppercase; margin-bottom:5px;">💡 Native Ingredient Shuffler Engine</h4>
                         <div class="search-bar-container" style="margin-bottom:10px;">
@@ -582,22 +581,75 @@
             "https://drive.google.com/thumbnail?sz=w1000&id=1yTdpRQnqZ-Y2XsQo-P_scHKmTmoHoXgL"
         ];
 
-        // LOCAL STATIC RECIPE INVENTORY ARCHITECTURE
+        // 100% GOOGLE DOC INTEGRATED MASTER RECIPE CATALOG DATASET MATRIX
         const staticRecipeDatabase = [
             {
                 id: "vodka-pasta", category: "dinners", title: "Penne with Vodka & Tomato Sauce", prep: "15 mins", cook: "45 mins", servings: "4",
                 ingredients: ["onion", "garlic", "chilli flakes", "oregano", "vodka", "plum tomatoes", "penne", "double cream", "parm"],
-                instructions: ["Sauté onion and garlic.", "Pour in vodka and cook down.", "Add tomatoes and bake.", "Blend with cream and cheese, then toss with cooked penne."]
+                instructions: [
+                    "Drain the tomatoes, reserving the juice for another purpose.",
+                    "Place a large, ovenproof saucepan over low to medium heat and gently sauté the onion with a pinch of salt for 12-15 minutes until glossy and translucent.",
+                    "Add garlic, chilli flakes, and oregano. Combine and stir for a few minutes. Pour in the vodka, bring to a gentle bubble, and cook until the liquid has reduced by a third. Preheat oven to 140°C.",
+                    "Add drained tomatoes to the saucepan, bring to a gentle boil for 1-2 minutes, then bake uncovered in the oven for 30-40 minutes until sauce reduces and colors.",
+                    "Meanwhile, cook the penne in plenty of salted boiling water. Drain.",
+                    "Remove tomatoes from oven, add double cream, sugar, and half the Parmesan. Blend with a stick blender into a smooth sauce.",
+                    "Immediately add the cooked penne and stir until fully combined. Adjust seasoning and serve with remaining Parmesan."
+                ]
             },
             {
                 id: "black-bean-nasi", category: "dinners", title: "Black Bean Nasi Goreng", prep: "10 mins", cook: "20 mins", servings: "4",
                 ingredients: ["brown rice", "shallots", "celery", "garlic", "chilli", "coriander", "cucumber", "vinegar", "honey", "sesame oil", "soy sauce", "tomato purée", "miso paste", "kecap manis", "black beans", "eggs", "spring onions"],
-                instructions: ["Sauté shallots and celery, then add aromatics.", "Mix the sauce base components.", "Stir-fry cooked brown rice with beans and sauce.", "Serve with a fried egg and fast cucumber pickle."]
+                instructions: [
+                    "Sauté chopped shallots and celery in a tablespoon of groundnut oil for 10 minutes until soft. Add 5 cloves of chopped garlic, 1 finely chopped red chilli, and coriander stalks; fry for a couple more minutes.",
+                    "Make pickle: Mix sliced cucumber, sliced red chilli, rice wine vinegar, honey/sugar, and a pinch of salt. Set aside.",
+                    "Whisk toasted sesame oil, 1 tsp soy sauce, tomato purée, miso paste, kecap manis, and 2 tbsp soy sauce.",
+                    "Pour flavorings over the cooked veg, add drained black beans, and cook for a few minutes. Tip into a bowl.",
+                    "Put pan back over heat, add remaining groundnut oil, add cooked brown basmati rice and stir-fry for a few minutes until beginning to crisp. Tip in the black bean mixture, stir well and cook for another couple of minutes.",
+                    "Fry eggs in a separate large frying pan with a little oil. Stir sliced spring onions and coriander leaves into rice.",
+                    "Serve nasi goreng piled into bowls topped with a fried egg, cucumber pickle, and lime wedges."
+                ]
             },
             {
                 id: "butter-chicken", category: "dinners", title: "Butter Chicken Curry", prep: "15 mins", cook: "20 mins", servings: "4",
-                ingredients: ["chicken thigh", "yogurt", "lemon juice", "turmeric", "garam masala", "chilli powder", "cumin", "ginger", "garlic", "butter", "passata", "heavy cream"],
-                instructions: ["Marinate chicken in yogurt and spices.", "Melt butter and simmer passata, heavy cream, and seasonings.", "Add marinated chicken and simmer until tender."]
+                ingredients: ["chicken thigh", "yogurt", "lemon juice", "turmeric", "garam masala", "chilli powder", "cumin", "ginger", "garlic", "butter", "passata", "heavy cream", "sugar"],
+                instructions: [
+                    "Marinate chicken in yogurt, lemon juice, turmeric, garam masala, chilli powder, cumin, ginger, and garlic.",
+                    "Melt 2 tbsp butter in a pan over medium heat.",
+                    "Add Passata, heavy cream, sugar, and salt. Bring to a simmer.",
+                    "Add marinated chicken to the sauce and simmer until cooked through and sauce is thickened."
+                ]
+            },
+            {
+                id: "shawarma-pie", category: "dinners", title: "Chicken Shawarma Pie", prep: "30 mins", cook: "1 hour", servings: "6",
+                ingredients: ["chicken thighs", "garlic", "ginger", "cumin", "coriander", "smoked paprika", "turmeric", "cinnamon", "cloves", "olive oil", "cider vinegar", "baking potatoes", "butter", "onion", "chicken stock", "parsley", "filo pastry", "nigella seeds", "tahini", "greek yoghurt", "lemon juice"],
+                instructions: [
+                    "Marinate chicken with garlic, ginger, ground spices, 1 tbsp oil, vinegar, 1 tsp salt, and black pepper for at least 30 mins.",
+                    "Preheat oven to 180°C fan. Toss potatoes with 1.5 tbsp oil, 3/4 tsp salt, and pepper. Bake on parchment paper for 20 mins, flip and bake at 220°C for 10 mins until golden.",
+                    "Reduce oven to 180°C fan. Melt 15g butter and 1.5 tbsp oil in a pan. Sauté onion for 5 mins. Add chicken and cook for 10 mins until browned.",
+                    "Add chicken stock, 1/4 tsp salt, and pepper. Boil, lower heat, and simmer for 25 mins. Increase heat to reduce liquid to 4 tbsp. Cool, shred chicken into chunks, and mix with herbs.",
+                    "Whisk tahini sauce ingredients with 2 tbsp water until smooth.",
+                    "Assemble pie: Layer potato slices at the base of a greased dish, add chicken mixture, pour over tahini sauce, top with butter-brushed filo sheets, sprinkle nigella seeds and chilli flakes, and bake until crisp."
+                ]
+            },
+            {
+                id: "pancakes", category: "breakfast", title: "Classic Griddle Pancakes", prep: "5 mins", cook: "10 mins", servings: "3",
+                ingredients: ["egg", "flour", "milk", "sugar", "shortening", "vegetable oil", "baking powder", "salt"],
+                instructions: [
+                    "Beat egg with hand beater until fluffy.",
+                    "Beat in remaining ingredients just until smooth. (For thinner pancakes, stir in additional 1/4 cup milk).",
+                    "Pour about 3 tablespoons batter onto hot, greased griddle.",
+                    "Cook pancakes until puffed and dry around edges. Turn and cook other sides until golden brown."
+                ]
+            },
+            {
+                id: "banana-bread", category: "bakes", title: "Classic Banana Bread", prep: "10 mins", cook: "1 hour", servings: "12",
+                ingredients: ["sugar", "butter", "margarine", "eggs", "bananas", "flour", "baking soda", "salt", "baking powder", "nuts"],
+                instructions: [
+                    "Heat oven to 175°C. Grease bottom only of loaf pan.",
+                    "Mix sugar and margarine/butter in a large bowl. Stir in eggs until blended.",
+                    "Add bananas and water; beat 30 seconds. Stir in remaining ingredients except nuts just until moistened; stir in nuts.",
+                    "Pour into pan. Bake until wooden pick inserted in center comes out clean (approx 55 to 60 minutes). Cool 5 mins before slicing."
+                ]
             }
         ];
 
@@ -608,14 +660,6 @@
             "VEGGIE": ["caesar salad", "Pasta Salad", "Halloumi something", "Chilli with beans", "Baked potato", "Mushroom risotto", "Spanakopita", "Noodle soup", "Beans"],
             "GUILTY": ["Fish and chips", "Takeaway", "Burger", "Hot dogs", "Frozen pizza", "Freezer food picky bits"],
             "OTHER": []
-        };
-
-        let appState = {
-            shoppingList: [{ name: 'Oat Milk', checked: false }],
-            dateLocal: [], dateEast: [], dateCentral: [], cinemaRegistry: [],
-            ryanDinners: {}, beaDinners: {}, bothInDinners: {}, dinnerSelections: {},
-            ryanLunches: {}, beaLunches: {}, bothInLunches: {}, lunchSelections: {},
-            freezerDrawer1: "", freezerDrawer2: "", freezerDrawer3: ""
         };
 
         /* LOCAL CRASH-PROOF SUGGESTION MATCHING INTERFACE ENGINE */
@@ -670,7 +714,6 @@
                 const toggledBlock = document.createElement('div');
                 toggledBlock.className = 'api-suggestion-card-block';
 
-                // Map out custom individual item push grids dynamically
                 let missingItemsHtml = item.missingList.map(missingIng => {
                     let cleanString = missingIng.charAt(0).toUpperCase() + missingIng.slice(1);
                     return `
@@ -1065,59 +1108,12 @@
         async function toggleItem(index) { appState.shoppingList[index].checked = !appState.shoppingList[index].checked; renderShoppingList(); await saveCloudState(); }
         async function deleteItem(index) { appState.shoppingList.splice(index, 1); renderShoppingList(); await saveCloudState(); }
 
-        async function handleHeaderChange(dateKey, category) {
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            selections[dateKey] = { category: category, dish: "", locked: false };
-            renderActiveMatrix();
-            await saveCloudState();
-        }
+        async function saveCloudState() { try { await fetch(cloudStorageUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(appState) }); } catch (e) { console.error(e); } }
 
-        async function handleDishChange(dateKey, dishName) {
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            if (selections[dateKey]) { selections[dateKey].dish = dishName; }
-            await saveCloudState();
-        }
-
-        async function rollRandomCategory(dateKey) {
-            const categories = Object.keys(foodMenuDatabase).filter(cat => cat !== 'OTHER');
-            if (categories.length === 0) return;
-            const randomCat = categories[Math.floor(Math.random() * categories.length)];
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            selections[dateKey] = { category: randomCat, dish: "", locked: false };
-            renderActiveMatrix();
-            await saveCloudState();
-        }
-
-        async function rollRandomDish(dateKey) {
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            const currentCat = selections[dateKey] ? selections[dateKey].category : "";
-            if (!currentCat || currentCat === 'OTHER' || !foodMenuDatabase[currentCat] || foodMenuDatabase[currentCat].length === 0) {
-                alert("Please select a category block first before rolling an option!");
-                return;
-            }
-            const optionsList = foodMenuDatabase[currentCat];
-            const randomDish = optionsList[Math.floor(Math.random() * optionsList.length)];
-            selections[dateKey].dish = randomDish;
-            renderActiveMatrix();
-            await saveCloudState();
-        }
-
-        async function saveCellPlan(dateKey) {
-            let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches;
-            let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches;
-            let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches;
-            activeRyan[dateKey] = document.getElementById(`input-r-${dateKey}`).value.trim();
-            activeBea[dateKey] = document.getElementById(`input-b-${dateKey}`).value.trim();
-            activeBothIn[dateKey] = document.getElementById(`check-both-${dateKey}`).checked;
-            renderActiveMatrix();
-            await saveCloudState();
-        }
-
-        async function loadCloudState() {
-            try {
-                const response = await fetch(cloudStorageUrl);
-                if (response.ok) {
-                    const payload = await response.json();
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch(cloudStorageUrl)
+                .then(res => res.json())
+                .then(payload => {
                     if (payload.menuDatabase && Object.keys(payload.menuDatabase).length > 1) { foodMenuDatabase = payload.menuDatabase; }
                     if (payload.calendarState && payload.calendarState.shoppingList) {
                         appState = payload.calendarState;
@@ -1126,20 +1122,20 @@
                         if (!appState.dateCentral) appState.dateCentral = [];
                         if (!appState.cinemaRegistry) appState.cinemaRegistry = [];
                     }
-                }
-            } catch (err) { console.warn("Handshake latency."); }
-            switchAppMode(currentMode);
-            renderShoppingList();
-            renderAllDateColumns();
-            buildRecipeRegistryDeck();
-            
-            document.getElementById('freezer-d1-input').value = appState.freezerDrawer1 || "";
-            document.getElementById('freezer-d2-input').value = appState.freezerDrawer2 || "";
-            document.getElementById('freezer-d3-input').value = appState.freezerDrawer3 || "";
-            shuffleFridgePolaroidMemory();
-        }
-
-        document.addEventListener('DOMContentLoaded', loadCloudState);
+                    switchAppMode(currentMode);
+                    renderShoppingList();
+                    renderAllDateColumns();
+                    buildRecipeRegistryDeck();
+                    document.getElementById('freezer-d1-input').value = appState.freezerDrawer1 || "";
+                    document.getElementById('freezer-d2-input').value = appState.freezerDrawer2 || "";
+                    document.getElementById('freezer-d3-input').value = appState.freezerDrawer3 || "";
+                    shuffleFridgePolaroidMemory();
+                }).catch(err => {
+                    switchAppMode(currentMode);
+                    renderShoppingList();
+                    buildRecipeRegistryDeck();
+                });
+        });
     </script>
 </body>
 </html>
