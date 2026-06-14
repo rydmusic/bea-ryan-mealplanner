@@ -101,7 +101,7 @@
         .tag-bea { background-color: var(--bea-pink); }
         .tag-both { background-color: var(--together-purple); }
 
-        .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px var(--border-clr); position: relative; }
+        .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px #000; position: relative; }
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
         
         .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
@@ -265,7 +265,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v77.2_INGREDIENT_API_PATCH</div>
+        <div class="nav-logo">💾 FOOD_OS // v77.3_LOCAL_SUGGESTER_FIX</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -333,16 +333,16 @@
 
             <section class="retro-window full-width" id="recipe-module-window">
                 <div class="window-header orange-variant">
-                    <span>Database_Explorer: Saved_Recipes.db & API_Generator.exe</span>
+                    <span>Database_Explorer: Saved_Recipes.db & Local_AI_Suggester.exe</span>
                     <span>✖</span>
                 </div>
                 <div class="window-body">
                     
                     <div style="background:rgba(0,0,0,0.03); border:2px dashed #000; border-radius:6px; padding:15px; margin-bottom:20px;">
-                        <h4 style="font-family:'Courier Prime',monospace; font-size:0.9rem; font-weight:bold; text-transform:uppercase; margin-bottom:5px;">💡 AI Ingredient Suggestion Router</h4>
+                        <h4 style="font-family:'Courier Prime',monospace; font-size:0.9rem; font-weight:bold; text-transform:uppercase; margin-bottom:5px;">💡 Native Ingredient Shuffler Engine</h4>
                         <div class="search-bar-container" style="margin-bottom:10px;">
-                            <input type="text" id="api-ingredient-tags-input" class="retro-input" style="padding:8px; font-size:0.9rem;" placeholder="Type ingredients you have (e.g. beef, potatoes, cheese)...">
-                            <button onclick="queryIngredientMealSuggestionAPI()" class="retro-btn" style="font-size:0.85rem; background:var(--folder-yellow);">[ 🔍 Suggest Meal ]</button>
+                            <input type="text" id="api-ingredient-tags-input" class="retro-input" style="padding:8px; font-size:0.9rem;" placeholder="Type ingredients you have (e.g. onion, chicken, cream)...">
+                            <button onclick="queryLocalIngredientMealSuggestion()" class="retro-btn" style="font-size:0.85rem; background:var(--folder-yellow);">[ 🔍 Suggest Meal ]</button>
                         </div>
                         <div id="api-suggestions-dynamic-output-rail"></div>
                     </div>
@@ -561,178 +561,155 @@
             "https://drive.google.com/thumbnail?sz=w1000&id=1yTdpRQnqZ-Y2XsQo-P_scHKmTmoHoXgL"
         ];
 
+        // LOCAL STATIC RECIPE INVENTORY BLUEPRINTS ARRAY
         const staticRecipeDatabase = [
             {
                 id: "vodka-pasta", category: "dinners", title: "Penne with Vodka & Tomato Sauce", prep: "15 mins", cook: "45 mins", servings: "4",
-                ingredients: ["2 x 400g tins of plum tomatoes", "1 large onion, finely diced", "Extra virgin olive oil", "Flaky sea salt", "1 clove of garlic, finely chopped", "1/2 tsp chilli flakes", "1 tsp dried oregano", "200ml vodka", "320g dried penne lisce (or penne rigate)", "4 tbsp double cream", "2 tsp caster sugar", "100g grated Parmesan"],
-                instructions: ["Drain the tomatoes, reserving the juice for another purpose.", "Place a large, ovenproof saucepan over low to medium heat and gently sauté the onion with a pinch of salt for 12-15 minutes until glossy and translucent.", "Add garlic, chilli flakes, and oregano. Combine and stir for a few minutes. Pour in the vodka, bring to a gentle bubble, and cook until the liquid has reduced by a third. Preheat oven to 140°C.", "Add drained tomatoes to the saucepan, bring to a gentle boil for 1-2 minutes, then bake uncovered in the oven for 30-40 minutes until sauce reduces and colors.", "Meanwhile, cook the penne in plenty of salted boiling water. Drain.", "Remove tomatoes from oven, add double cream, sugar, and half the Parmesan. Blend with a stick blender into a smooth sauce.", "Immediately add the cooked penne and stir until fully combined. Adjust seasoning and serve with remaining Parmesan."]
+                ingredients: ["onion", "garlic", "chilli flakes", "oregano", "vodka", "plum tomatoes", "penne", "double cream", "parm"],
+                instructions: ["Sauté onion and garlic.", "Pour in vodka and cook down.", "Add tomatoes and bake.", "Blend with cream and cheese, then toss with cooked penne."]
             },
             {
                 id: "black-bean-nasi", category: "dinners", title: "Black Bean Nasi Goreng", prep: "10 mins", cook: "20 mins", servings: "4",
-                ingredients: ["250g cooked brown basmati rice", "4 shallots, peeled and finely chopped", "2 sticks of celery, finely chopped", "3 tbsp groundnut oil", "5 cloves of garlic, peeled and finely chopped", "2 red chillies, 1 finely chopped, 1 sliced", "30g bunch of coriander (stalks and leaves separated)", "2 small cucumbers (or 1/2 large), thickly sliced", "2 tbsp rice wine vinegar", "1/2 tsp runny honey or sugar", "2 tbsp toasted sesame oil", "2 tbsp plus 1 tsp soy sauce", "2 tbsp tomato purée", "1 tbsp miso paste (red or brown)", "3 tbsp kecap manis", "1 x 400g tin black beans, drained", "4 free-range or organic eggs", "Bunch of spring onions, trimmed and finely sliced", "2 unwaxed limes to serve"],
-                instructions: ["Sauté chopped shallots and celery in a tablespoon of groundnut oil for 10 minutes until soft. Add 5 cloves of chopped garlic, 1 finely chopped red chilli, and coriander stalks; fry for a couple more minutes.", "Make pickle: Mix sliced cucumber, sliced red chilli, rice wine vinegar, honey/sugar, and a pinch of salt. Set aside.", "Whisk toasted sesame oil, 1 tsp soy sauce, tomato purée, miso paste, kecap manis, and 2 tbsp soy sauce.", "Pour flavorings over the cooked veg, add drained black beans, and cook for a few minutes. Tip into a bowl.", "Put pan back over heat, add remaining groundnut oil, add cooked brown basmati rice and stir-fry for a few minutes until beginning to crisp. Tip in the black bean mixture, stir well and cook for another couple of minutes.", "Fry eggs in a separate large frying pan with a little oil. Stir sliced spring onions and coriander leaves into rice.", "Serve nasi goreng piled into bowls topped with a fried egg, cucumber pickle, and lime wedges."]
+                ingredients: ["brown rice", "shallots", "celery", "garlic", "chilli", "coriander", "cucumber", "vinegar", "honey", "sesame oil", "soy sauce", "tomato purée", "miso paste", "kecap manis", "black beans", "eggs", "spring onions"],
+                instructions: ["Sauté shallots and celery, then add aromatics.", "Mix the sauce base components.", "Stir-fry cooked brown rice with beans and sauce.", "Serve with a fried egg and fast cucumber pickle."]
+            },
+            {
+                id: "butter-chicken", category: "dinners", title: "Butter Chicken Curry", prep: "15 mins", cook: "20 mins", servings: "4",
+                ingredients: ["chicken thigh", "yogurt", "lemon juice", "turmeric", "garam masala", "chilli powder", "cumin", "ginger", "garlic", "butter", "passata", "heavy cream"],
+                instructions: ["Marinate chicken in yogurt and spices.", "Melt butter and simmer passata, heavy cream, and seasonings.", "Add marinated chicken and simmer until tender."]
             }
         ];
 
-        /* DYNAMIC INGREDIENT SUGGESTER ENGINE VIA SPOONACULAR API */
-        async function queryIngredientMealSuggestionAPI() {
+        /* CRASH-PROOF LOCAL RECIPE SEARCH MATCHING CORE LOGIC FUNCTION */
+        function queryLocalIngredientMealSuggestion() {
             const inputEl = document.getElementById('api-ingredient-tags-input');
             const outputAnchor = document.getElementById('api-suggestions-dynamic-output-rail');
             if (!inputEl || !outputAnchor) return;
 
-            const userIngredients = inputEl.value.trim();
-            if (userIngredients === '') {
-                outputAnchor.innerHTML = `<p style="font-size:0.75rem; color:red; font-family:monospace;">Please register at least one raw ingredient first...</p>`;
+            const searchString = inputEl.value.toLowerCase().trim();
+            if (searchString === '') {
+                outputAnchor.innerHTML = `<p style="font-size:0.75rem; color:red; font-family:monospace;">Please enter keywords first...</p>`;
                 return;
             }
 
-            outputAnchor.innerHTML = `<p style="font-size:0.75rem; font-family:monospace; opacity:0.6;">⏳ Scanning server matrices for recipe profiles...</p>`;
+            // Split and clean user ingredients into an array
+            const userIngredients = searchString.split(',').map(item => item.trim()).filter(item => item !== '');
+            
+            // Loop through static database and count overlapping items
+            let scoreboards = [];
+            staticRecipeDatabase.forEach(recipe => {
+                let matchesCount = 0;
+                let matchedItems = [];
+                let missingItems = [];
 
-            try {
-                // Secure lookup targeted endpoint route matching
-                const requestUrl = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${encodeURIComponent(userIngredients)}&number=3&ranking=1&apiKey=944883ba50c34e00b65287e00dfd33da`;
-                const response = await fetch(requestUrl);
-                const recipesMatched = await response.json();
-
-                if (!recipesMatched || recipesMatched.length === 0) {
-                    outputAnchor.innerHTML = `<p style="font-size:0.75rem; opacity:0.5; font-family:monospace;">No cooking suggestions found matching those items.</p>`;
-                    return;
-                }
-
-                outputAnchor.innerHTML = ''; // reset container
-                recipesMatched.forEach(recipe => {
-                    const suggCard = document.createElement('div');
-                    suggCard.className = 'api-suggestion-card-block';
-
-                    // Parse out item strings to map onto push parameters checklists
-                    let missedNames = recipe.missedIngredients.map(ing => ing.name);
-                    let shortcutParam = encodeURIComponent(JSON.stringify(missedNames));
-
-                    suggCard.innerHTML = `
-                        <img src="${recipe.image}" style="width:70px; height:70px; border:2px solid #000; border-radius:4px; object-fit:cover; box-shadow:1px 1px 0 #000;">
-                        <div style="flex:1; font-family:'Courier Prime', monospace; font-size:0.75rem; font-weight:bold; line-height:1.3;">
-                            <div style="font-size:0.82rem; font-family:sans-serif; text-transform:uppercase; margin-bottom:2px;"><b>${recipe.title}</b></div>
-                            <div style="color: green;">✔ Matches: ${recipe.usedIngredientCount} items</div>
-                            <div style="color: #df6d2d;">✖ Missing: ${recipe.missedIngredientCount} ingredients</div>
-                            <button class="api-suggestion-btn-shortcut" onclick="pushMissingApiItemsToShoppingList('${shortcutParam}')">+ Add Missing Items to List</button>
-                        </div>
-                    `;
-                    outputAnchor.appendChild(suggCard);
+                recipe.ingredients.forEach(ingName => {
+                    let found = userIngredients.some(userIng => ingName.includes(userIng) || userIng.includes(ingName));
+                    if (found) {
+                        matchesCount++;
+                        matchedItems.push(ingName);
+                    } else {
+                        missingItems.push(ingName);
+                    }
                 });
 
-            } catch (err) {
-                console.error(err);
-                outputAnchor.innerHTML = `<p style="font-size:0.75rem; color:red; font-family:monospace;">Connection Timeout. Please double check parameters.</p>`;
+                if (matchesCount > 0) {
+                    scoreboards.push({
+                        recipe: recipe,
+                        matchCount: matchesCount,
+                        matchedList: matchedItems,
+                        missingList: missingItems
+                    });
+                }
+            });
+
+            // Rank highest match counts first
+            scoreboards.sort((a, b) => b.matchCount - a.matchCount);
+
+            if (scoreboards.length === 0) {
+                outputAnchor.innerHTML = `<p style="font-size:0.75rem; opacity:0.5; font-family:monospace;">No matching recipe database hits found. Try different combinations!</p>`;
+                return;
             }
+
+            outputAnchor.innerHTML = ''; // Clear fallback string
+            scoreboards.forEach(item => {
+                const suggCard = document.createElement('div');
+                suggCard.className = 'api-suggestion-card-block';
+
+                let shortcutParam = encodeURIComponent(JSON.stringify(item.missingList));
+
+                suggCard.innerHTML = `
+                    <div style="flex:1; font-family:'Courier Prime', monospace; font-size:0.75rem; font-weight:bold; line-height:1.3;">
+                        <div style="font-size:0.85rem; font-family:sans-serif; text-transform:uppercase; margin-bottom:2px; color:var(--accent-orange);"><b>${item.recipe.title}</b></div>
+                        <div style="color: green;">✔ Matches: ${item.matchCount} ingredients (${item.matchedList.join(', ')})</div>
+                        <div style="color: #df6d2d;">✖ Missing: ${item.missingList.length} items (${item.missingList.join(', ')})</div>
+                        <button class="api-suggestion-btn-shortcut" onclick="pushMissingApiItemsToShoppingList('${shortcutParam}')">[ + Add Missing to List ]</button>
+                    </div>
+                `;
+                outputAnchor.appendChild(suggCard);
+            });
         }
 
         function pushMissingApiItemsToShoppingList(jsonParamString) {
             try {
-                const itemArray = JSON.parse(decodeURIComponent(jsonParamString));
-                if (itemArray && itemArray.length > 0) {
-                    itemArray.forEach(itemName => {
-                        // Title capitalization formatter
-                        let cleanName = itemName.charAt(0).toUpperCase() + itemName.slice(1);
-                        appState.shoppingList.push({ name: cleanName, checked: false });
+                const missingArray = JSON.parse(decodeURIComponent(jsonParamString));
+                if (missingArray && missingArray.length > 0) {
+                    missingArray.forEach(item => {
+                        let formattedName = item.charAt(0).toUpperCase() + item.slice(1);
+                        appState.shoppingList.push({ name: formattedName, checked: false });
                     });
                     renderShoppingList();
                     saveCloudState();
-                    alert(`Cleanly injected ${itemArray.length} missing recipe parameters into your shopping matrix list!`);
+                    alert(`Cleanly injected missing parameters into your checklist matrix list!`);
                 }
             } catch(e) { console.error(e); }
         }
 
-        function inspectMovieGridCardRecord(masterIndex) {
-            const modal = document.getElementById('cinema-inspect-modal-frame');
-            const inner = document.getElementById('cinema-modal-content-injector');
-            if(!modal || !inner) return;
+        function filterCinemaCatalogDeck(categoryKey) {
+            currentCinemaFilter = categoryKey;
+            document.querySelectorAll('.recipe-category-tabs .recipe-cat-btn').forEach(b => b.classList.remove('active-cat-tab'));
+            
+            const tabMap = {
+                'all': 'film-filter-all', 'Under 90mins': 'film-filter-under90', 'Sunday film': 'film-filter-sunday',
+                'Horror': 'film-filter-horror', 'Comedy': 'film-filter-comedy', 'Drama': 'film-filter-drama',
+                'Action': 'film-filter-action', 'Nostalgia': 'film-filter-nostalgia', 'Cute': 'film-filter-cute',
+                'Thriller': 'film-filter-thriller', 'Doc': 'film-filter-doc'
+            };
+            if(tabMap[categoryKey]) document.getElementById(tabMap[categoryKey]).classList.add('active-cat-tab');
+            renderCinemaCatalogDeck();
+        }
 
-            let film = appState.cinemaRegistry[masterIndex];
-            let isEditing = film._isEditing || false;
+        function renderCinemaCatalogDeck() {
+            const anchor = document.getElementById('cinema-catalog-list-anchor');
+            if (!anchor) return; anchor.innerHTML = '';
+            let sourceList = appState.cinemaRegistry || [];
+            let filteredList = sourceList.filter(film => currentCinemaFilter === 'all' || (film.categories && film.categories.includes(currentCinemaFilter)));
 
-            if (isEditing) {
-                inner.innerHTML = `
-                    <div class="window-header orange-variant" style="border-radius:4px 4px 0 0;">
-                        <span>Edit_Matrix: Metadata_Config.exe</span>
-                        <span style="cursor:pointer;" onclick="closeMovieInspectionModal()">✖</span>
-                    </div>
-                    <div class="window-body" style="background:white; padding:20px; display:flex; flex-direction:column; gap:8px;">
-                        <input type="text" class="date-edit-mini-input" id="edit-film-title-${masterIndex}" value="${film.name}" placeholder="Movie Title...">
-                        <input type="text" class="date-edit-mini-input" id="edit-film-year-${masterIndex}" value="${film.year || ''}" placeholder="Year...">
-                        <input type="text" class="date-edit-mini-input" id="edit-film-run-${masterIndex}" value="${film.runtime || ''}" placeholder="Runtime...">
-                        <input type="text" class="date-edit-mini-input" id="edit-film-watch-${masterIndex}" value="${film.watchAt || ''}" placeholder="Watch Location...">
-                        <input type="text" class="date-edit-mini-input" id="edit-film-post-${masterIndex}" value="${film.posterUrl || ''}" placeholder="Poster Image URL...">
-                        <input type="text" class="date-edit-mini-input" id="edit-film-imdb-${masterIndex}" value="${film.imdbRating || ''}" placeholder="IMDb Rating...">
-                        
-                        <div style="font-size:0.65rem; font-weight:bold; margin-top:2px;">Edit Genres:</div>
-                        <div class="multi-select-category-grid" id="edit-film-catgrid-${masterIndex}">
-                            ${['Under 90mins', 'Sunday film', 'Horror', 'Comedy', 'Drama', 'Action', 'Nostalgia', 'Cute', 'Thriller', 'Doc'].map(cat => {
-                                let checked = film.categories && film.categories.includes(cat) ? 'checked' : '';
-                                return `<label class="category-checkbox-wrapper"><input type="checkbox" value="${cat}" ${checked}> ${cat}</label>`;
-                            }).join('')}
-                        </div>
-                        <div style="display:flex; gap:10px; margin-top:10px;">
-                            <button class="date-inline-edit-btn" style="background:#d4f1f9; padding:5px 12px;" onclick="saveInlineCinemaModifications(${masterIndex})">✅ Save</button>
-                            <button class="date-inline-edit-btn" style="padding:5px 12px;" onclick="cancelInlineCinemaEdit(${masterIndex})">Cancel</button>
-                        </div>
-                    </div>
-                `;
-            } else {
-                let pills = (film.categories || []).map(c => `<span class="category-pill-tag">${c}</span>`).join('');
+            document.getElementById('cinema-vault-count-status').innerText = `${filteredList.length} FILMS LOADED`;
+            if (filteredList.length === 0) {
+                anchor.innerHTML = `<p style="font-size:0.85rem; opacity:0.4; text-align:center; padding:20px; width:100%; grid-column:span 4;">No film entries logged under this category category track yet...</p>`;
+                return;
+            }
+
+            filteredList.forEach((film) => {
+                let masterIndex = sourceList.findIndex(f => f === film);
+                const li = document.createElement('li');
+                li.className = 'cinema-movie-grid-card' + (film.checked ? ' checked' : '');
+                
+                let pills = (film.categories || []).map(c => `<span class="category-pill-tag" style="font-size:0.55rem; padding:0 3px;">${c}</span>`).join('');
                 let posterBg = film.posterUrl ? film.posterUrl : '';
                 let ratingVal = film.imdbRating || 'N/A';
 
-                inner.innerHTML = `
-                    <div class="window-header blue-variant" style="border-radius:4px 4px 0 0;">
-                        <span>System_Inspector: ${film.name}</span>
-                        <span style="cursor:pointer;" onclick="closeMovieInspectionModal()">✖</span>
-                    </div>
-                    <div class="window-body" style="background:white; padding:20px; display:flex; flex-direction:column; gap:15px;">
-                        <div style="display:flex; gap:20px; flex-wrap:wrap;">
-                            ${posterBg ? `<img src="${posterBg}" style="width:130px; height:190px; border:2px solid #000; border-radius:4px; box-shadow:2px 2px 0 #000; object-fit:cover;">` : ''}
-                            <div style="flex:1; display:flex; flex-direction:column; gap:5px; font-family:'Courier Prime', monospace; font-size:0.85rem; font-weight:bold;">
-                                <div style="font-size:1.1rem; font-family:sans-serif; margin-bottom:5px;"><b>${film.name}</b></div>
-                                <div>📅 RELEASED: ${film.year || 'UNKNOWN'}</div>
-                                <div>⏱️ RUNTIME: ${film.runtime || 'UNSPECIFIED'}</div>
-                                <div>📺 WATCH AT: ${film.watchAt || 'NOT LOGGED'}</div>
-                                <div class="imdb-rating-pills-node">⭐ IMDb: ${ratingVal}/10</div>
-                            </div>
-                        </div>
-                        <div>${pills}</div>
-                        <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px dashed #ccc; padding-top:12px; margin-top:5px;">
-                            <div style="display:flex; gap:8px;">
-                                <button class="date-inline-edit-btn" style="padding:4px 12px;" onclick="activateInlineCinemaEdit(${masterIndex})">✏️ Edit</button>
-                                <button class="date-inline-edit-btn" style="background:${film.checked?'#ebdccb':'#d4f1f9'}; padding:4px 12px;" onclick="toggleCinemaCheckboxLatchingModal(${masterIndex})">${film.checked ? '🔄 Watch Again' : '✅ Mark Watched'}</button>
-                            </div>
-                            <button class="delete-btn" style="color:var(--accent-orange); font-weight:bold; font-size:0.85rem;" onclick="deleteCinemaRegistryItemModal(${masterIndex})">⌫ Delete</button>
-                        </div>
-                    </div>
+                li.innerHTML = `
+                    <div class="cinema-grid-poster-frame" style="background-image:url('${posterBg}')"></div>
+                    <div class="grid-card-title">${film.name}</div>
+                    <div class="grid-card-meta-line">📅 ${film.year || 'N/A'} • ⭐ ${ratingVal}</div>
+                    <div class="cinema-grid-pills-row">${pills}</div>
                 `;
-            }
-            modal.style.display = 'flex';
+                
+                li.onclick = () => inspectMovieGridCardRecord(masterIndex);
+                anchor.appendChild(li);
+            });
         }
-
-        function closeMovieInspectionModal() { document.getElementById('cinema-inspect-modal-frame').style.display = 'none'; }
-        function activateInlineCinemaEdit(masterIndex) { appState.cinemaRegistry[masterIndex]._isEditing = true; inspectMovieGridCardRecord(masterIndex); }
-        function cancelInlineCinemaEdit(masterIndex) { delete appState.cinemaRegistry[masterIndex]._isEditing; inspectMovieGridCardRecord(masterIndex); }
-
-        async function saveInlineCinemaModifications(masterIndex) {
-            let film = appState.cinemaRegistry[masterIndex];
-            film.name = document.getElementById(`edit-film-title-${masterIndex}`).value.trim();
-            film.year = document.getElementById(`edit-film-year-${masterIndex}`).value.trim();
-            film.runtime = document.getElementById(`edit-film-run-${masterIndex}`).value.trim();
-            film.watchAt = document.getElementById(`edit-film-watch-${masterIndex}`).value.trim();
-            film.posterUrl = document.getElementById(`edit-film-post-${masterIndex}`).value.trim();
-            film.imdbRating = document.getElementById(`edit-film-imdb-${masterIndex}`).value.trim() || "N/A";
-            
-            let updatedCats = []; document.querySelectorAll(`#edit-film-catgrid-${masterIndex} input:checked`).forEach(b => updatedCats.push(b.value));
-            film.categories = updatedCats; delete film._isEditing;
-            
-            renderCinemaCatalogDeck(); inspectMovieGridCardRecord(masterIndex); await saveCloudState();
-        }
-
-        async function toggleCinemaCheckboxLatchingModal(masterIndex) { appState.cinemaRegistry[masterIndex].checked = !appState.cinemaRegistry[masterIndex].checked; renderCinemaCatalogDeck(); inspectMovieGridCardRecord(masterIndex); await saveCloudState(); }
-        async function deleteCinemaRegistryItemModal(masterIndex) { if(confirm("Are you sure you want to remove this film?")) { appState.cinemaRegistry.splice(masterIndex, 1); renderCinemaCatalogDeck(); closeMovieInspectionModal(); await saveCloudState(); } }
 
         function toggleActivePage(targetPage) {
             document.querySelectorAll('.page-nav-bar .page-nav-btn').forEach(b => b.classList.remove('active-page'));
