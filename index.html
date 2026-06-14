@@ -263,7 +263,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v77.0_CINEMA_GRID_PATCH</div>
+        <div class="nav-logo">💾 FOOD_OS // v77.1_STABLE_INTEGRATED</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -271,7 +271,7 @@
         </div>
     </nav>
 
-    <!-- SITE SWITCHBOARD SYSTEM -->
+    <!-- CORE SITE PAGE NAVIGATION CONTROLS SWITCHBOARD SYSTEM -->
     <div class="page-nav-bar">
         <button id="page-btn-meal" class="page-nav-btn active-page" onclick="toggleActivePage('meal')">[ 💾 Meal Planner OS ]</button>
         <button id="page-btn-date" class="page-nav-btn" onclick="toggleActivePage('date')">[ ❤️ Date Nights ]</button>
@@ -351,7 +351,7 @@
                 </div>
             </section>
 
-            <!-- SMEG STORAGE ENCLOSURE CAB FRAME -->
+            <!-- APPLIANCE DRAWER CABINET MODULE -->
             <div class="fridge-hardware-container full-width">
                 <div class="fridge-top-prop-shelf">
                     <div class="prop-bottle" title="Wine bottle"></div>
@@ -449,7 +449,7 @@
                 </div>
             </div>
 
-            <!-- LONDON BLUEPRINT TERM MAP PANELS -->
+            <!-- ILLUSTRATED LONDON BLUEPRINT TELETRACT TERMINAL -->
             <div class="map-terminal-frame">
                 <div class="window-header purple-variant" style="border-bottom:2px solid #000;">
                     <span>Radar_Plotter: Illustrated_London_Blueprint.exe</span>
@@ -461,12 +461,12 @@
         </main>
     </div>
 
-    <!-- THIRD PAGE APP CONTAINER: CINEMA POSTER GRID VAULT DECK Look look look LOOK[cite: 2] -->
+    <!-- THIRD PAGE APP CONTAINER: CINEMA POSTER GRID VAULT DECK -->
     <div id="core-cinema-club-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="cinema-layout-deck">
                 
-                <!-- CREATION CONSOLE -->
+                <!-- CREATION INPUT BLOCK -->
                 <div class="date-night-column" style="height: max-content;">
                     <div class="date-column-title" style="color: var(--accent-orange);">🎬 Log New Movie</div>
                     <div class="date-input-stack-group" style="gap:6px; background:none; border:none; padding:0;">
@@ -474,7 +474,7 @@
                         <input type="text" id="film-input-year" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Year Released...">
                         <input type="text" id="film-input-runtime" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Running Time (e.g. 1h 52m)...">
                         <input type="text" id="film-input-watchat" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Platform (Netflix, Disney+)...">
-                        <input type="text" id="film-input-poster" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Poster Hyperlink Cover URL...">
+                        <input type="text" id="film-input-poster" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Poster Cover Hyperlink Image URL...">
                         <input type="text" id="film-input-imdb-manual" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="IMDb Rating (e.g., 8.2)...">
                         
                         <div style="font-size:0.7rem; font-weight:bold; margin-top:4px;">Select Categories (Check multiple):</div>
@@ -494,7 +494,7 @@
                     </div>
                 </div>
 
-                <!-- POSTER GRID CATALOG CONTAINER WINDOW FRAME[cite: 2] -->
+                <!-- COOPERATIVE INVENTORY VAULT MATRIX -->
                 <div class="retro-window" style="margin-bottom:0;">
                     <div class="window-header blue-variant">
                         <span>Movie_Vault // Poster_Matrix_Catalog.exe</span>
@@ -516,7 +516,6 @@
                     </div>
 
                     <div class="window-body" style="padding:15px; background:#fff;">
-                        <!-- REST_RAILS MULTI-COLUMN INTERACTIVE MOSTER GRID ANCHOR CONTAINER[cite: 2] -->
                         <ul class="cinema-poster-grid-container" id="cinema-catalog-list-anchor"></ul>
                     </div>
                 </div>
@@ -530,7 +529,7 @@
         <div class="cinema-detail-modal-window" onclick="event.stopPropagation()" id="cinema-modal-content-injector"></div>
     </div>
 
-    <!-- Leaflet mapping library engine scripts hooks -->
+    <!-- Leaflet processing library engine scripts hooks -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -600,7 +599,7 @@
             if (targetElement) { targetElement.style.backgroundImage = `url('${ryanAndBeaPhotos[randomIndex]}')`; }
         }
 
-        /* DYNAMIC REWRITTEN MULTI-COLUMN CINEMA CATALOG GRID DECK HANDLERS[cite: 2] */
+        /* FILMS CORE HANDLERS AND BLUEPRINTS */
         async function registerNewFilmToDatabase() {
             const titleEl = document.getElementById('film-input-title');
             const yearEl = document.getElementById('film-input-year');
@@ -616,14 +615,9 @@
             document.querySelectorAll('.multi-select-category-grid input:checked').forEach(box => { selectedCategories.push(box.value); });
 
             let newFilm = {
-                name: titleVal, 
-                year: yearEl.value.trim(), 
-                runtime: runtimeEl.value.trim(),
-                watchAt: watchEl.value.trim(), 
-                posterUrl: posterEl.value.trim(),
-                imdbRating: imdbEl.value.trim() || "N/A", 
-                categories: selectedCategories, 
-                checked: false
+                name: titleVal, year: yearEl.value.trim(), runtime: runtimeEl.value.trim(),
+                watchAt: watchEl.value.trim(), posterUrl: posterEl.value.trim(),
+                imdbRating: imdbEl.value.trim() || "N/A", categories: selectedCategories, checked: false
             };
 
             if (!appState.cinemaRegistry) appState.cinemaRegistry = [];
@@ -656,9 +650,9 @@
             let sourceList = appState.cinemaRegistry || [];
             let filteredList = sourceList.filter(film => currentCinemaFilter === 'all' || (film.categories && film.categories.includes(currentCinemaFilter)));
 
-            document.getElementById('cinema-vault-count-status').innerText = `${filteredList.length} FILMS TILED`;
+            document.getElementById('cinema-vault-count-status').innerText = `${filteredList.length} FILMS LOADED`;
             if (filteredList.length === 0) {
-                anchor.innerHTML = `<p style="font-size:0.85rem; opacity:0.4; text-align:center; padding:20px; width:100%; grid-column:span 4;">No movies inside this grid track yet...</p>`;
+                anchor.innerHTML = `<p style="font-size:0.85rem; opacity:0.4; text-align:center; padding:20px; width:100%; grid-column:span 4;">No film entries logged under this category category track yet...</p>`;
                 return;
             }
 
@@ -668,7 +662,7 @@
                 li.className = 'cinema-movie-grid-card' + (film.checked ? ' checked' : '');
                 
                 let pills = (film.categories || []).map(c => `<span class="category-pill-tag" style="font-size:0.55rem; padding:0 3px;">${c}</span>`).join('');
-                let posterBg = film.posterUrl ? film.posterUrl : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="%23eee"/><text x="50%" y="50%" font-family="monospace" font-size="10" dominant-baseline="middle" text-anchor="middle" fill="%23aaa">NO POSTER</text></svg>';
+                let posterBg = film.posterUrl ? film.posterUrl : '';
                 let ratingVal = film.imdbRating || 'N/A';
 
                 li.innerHTML = `
@@ -683,7 +677,6 @@
             });
         }
 
-        /* INTERACTIVE INSPECT MODAL LOGIC LOOP RAILS[cite: 2] */
         function inspectMovieGridCardRecord(masterIndex) {
             const modal = document.getElementById('cinema-inspect-modal-frame');
             const inner = document.getElementById('cinema-modal-content-injector');
@@ -754,19 +747,9 @@
             modal.style.display = 'flex';
         }
 
-        function closeMovieInspectionModal() {
-            document.getElementById('cinema-inspect-modal-frame').style.display = 'none';
-        }
-
-        function activateInlineCinemaEdit(masterIndex) {
-            appState.cinemaRegistry[masterIndex]._isEditing = true;
-            inspectMovieGridCardRecord(masterIndex);
-        }
-
-        function cancelInlineCinemaEdit(masterIndex) {
-            delete appState.cinemaRegistry[masterIndex]._isEditing;
-            inspectMovieGridCardRecord(masterIndex);
-        }
+        function closeMovieInspectionModal() { document.getElementById('cinema-inspect-modal-frame').style.display = 'none'; }
+        function activateInlineCinemaEdit(masterIndex) { appState.cinemaRegistry[masterIndex]._isEditing = true; inspectMovieGridCardRecord(masterIndex); }
+        function cancelInlineCinemaEdit(masterIndex) { delete appState.cinemaRegistry[masterIndex]._isEditing; inspectMovieGridCardRecord(masterIndex); }
 
         async function saveInlineCinemaModifications(masterIndex) {
             let film = appState.cinemaRegistry[masterIndex];
@@ -780,26 +763,11 @@
             let updatedCats = []; document.querySelectorAll(`#edit-film-catgrid-${masterIndex} input:checked`).forEach(b => updatedCats.push(b.value));
             film.categories = updatedCats; delete film._isEditing;
             
-            renderCinemaCatalogDeck();
-            inspectMovieGridCardRecord(masterIndex);
-            await saveCloudState();
+            renderCinemaCatalogDeck(); inspectMovieGridCardRecord(masterIndex); await saveCloudState();
         }
 
-        async function toggleCinemaCheckboxLatchingModal(masterIndex) {
-            appState.cinemaRegistry[masterIndex].checked = !appState.cinemaRegistry[masterIndex].checked;
-            renderCinemaCatalogDeck();
-            inspectMovieGridCardRecord(masterIndex);
-            await saveCloudState();
-        }
-
-        async function deleteCinemaRegistryItemModal(masterIndex) {
-            if(confirm("Are you sure you want to remove this film?")) {
-                appState.cinemaRegistry.splice(masterIndex, 1);
-                renderCinemaCatalogDeck();
-                closeMovieInspectionModal();
-                await saveCloudState();
-            }
-        }
+        async function toggleCinemaCheckboxLatchingModal(masterIndex) { appState.cinemaRegistry[masterIndex].checked = !appState.cinemaRegistry[masterIndex].checked; renderCinemaCatalogDeck(); inspectMovieGridCardRecord(masterIndex); await saveCloudState(); }
+        async function deleteCinemaRegistryItemModal(masterIndex) { if(confirm("Are you sure you want to remove this film?")) { appState.cinemaRegistry.splice(masterIndex, 1); renderCinemaCatalogDeck(); closeMovieInspectionModal(); await saveCloudState(); } }
 
         function toggleActivePage(targetPage) {
             document.querySelectorAll('.page-nav-bar .page-nav-btn').forEach(b => b.classList.remove('active-page'));
@@ -1014,10 +982,21 @@
                 const checkDay = new Date(today); checkDay.setDate(today.getDate() + i); const dayOfWeek = checkDay.getDay(); if (currentMode === 'lunches' && (dayOfWeek === 0 || dayOfWeek === 6)) continue;
                 renderedCount++; const dateKey = checkDay.toISOString().split('T')[0]; const displayLabel = `${shortDayNames[checkDay.getDay()]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
                 const rFilled = (activeRyan[dateKey] || "").trim() !== ""; const bFilled = (activeBea[dateKey] || "").trim() !== ""; const explicitlyBothIn = activeBothIn[dateKey] || false;
+                
                 let columnTarget = null;
-                if (explicitlyBothIn) { columnTarget = "both"; } 
-                else if (currentMode === 'dinners') { if (rFilled && !bFilled) columnTarget = "bea"; else if (bFilled && !rFilled) columnTarget = "ryan"; } 
-                else { if (rFilled && !bFilled) columnTarget = "ryan"; else if (bFilled && !rFilled) columnTarget = "bea"; }
+
+                if (explicitlyBothIn) {
+                    columnTarget = "both";
+                } else if (currentMode === 'dinners') {
+                    // Dinners logic: Notes indicate cooking/staying home alone
+                    if (rFilled && !bFilled) columnTarget = "bea";
+                    else if (bFilled && !rFilled) columnTarget = "ryan";
+                } else {
+                    // INVERTED LUNCHES LOGIC MATRIX: If Ryan has a plan (e.g., Office notes filled), he does not need a lunch plan—so Bea needs to plan her meal!
+                    if (rFilled && !bFilled) columnTarget = "bea";
+                    else if (bFilled && !rFilled) columnTarget = "ryan";
+                }
+
                 if (columnTarget) { counters[columnTarget]++; buildSmartCardBlock(columnTarget, dateKey, displayLabel, selections); }
             }
             checkEmptyStates(counters);
