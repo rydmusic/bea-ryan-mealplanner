@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retro OS Meal Planner</title>
-    <!-- Open-Source Safe Mapping Asset Layout Rails -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;700&display=swap');
@@ -266,7 +265,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v77.4_PANTRY_HUB_INTEGRATED</div>
+        <div class="nav-logo">💾 FOOD_OS // v77.4_STABLE_INTEGRATED</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -274,14 +273,12 @@
         </div>
     </nav>
 
-    <!-- CORE SITE SWITCH BUTTON BAR -->
     <div class="page-nav-bar">
         <button id="page-btn-meal" class="page-nav-btn active-page" onclick="toggleActivePage('meal')">[ 💾 Meal Planner OS ]</button>
         <button id="page-btn-date" class="page-nav-btn" onclick="toggleActivePage('date')">[ ❤️ Date Nights ]</button>
         <button id="page-btn-film" class="page-nav-btn" onclick="toggleActivePage('film')">[ 🎬 Cinema Club OS ]</button>
     </div>
 
-    <!-- MAIN OS MEAL PLANNERS CONTAINER -->
     <div id="core-meal-planner-view">
         <main class="desktop-layout">
             <section class="retro-window full-width">
@@ -319,21 +316,6 @@
                 </div>
             </section>
 
-            <!-- NEW PANTRY INVENTORY MANAGEMENT MODULE WINDOW -->
-            <section class="retro-window full-width">
-                <div class="window-header yellow-variant">
-                    <span>Database_Manager: Pantry_Inventory_Hub.db</span>
-                    <span>✖</span>
-                </div>
-                <div class="window-body">
-                    <div class="search-bar-container">
-                        <input type="text" id="pantry-item-input" class="retro-input" placeholder="Type items currently in the house (e.g. Milk, Pasta, Eggs)...">
-                        <button onclick="addPantryItem()" class="retro-btn">Log Item...</button>
-                    </div>
-                    <ul class="shopping-list" id="pantry-inventory-list-anchor"></ul>
-                </div>
-            </section>
-
             <section class="retro-window full-width">
                 <div class="window-header blue-variant">
                     <span>System Error: Missing Ingredients</span>
@@ -349,7 +331,6 @@
                 </div>
             </section>
 
-            <!-- RECIPE MODULE WITH CRASH-PROOF LOCAL DISH ENGINE SEARCH -->
             <section class="retro-window full-width" id="recipe-module-window">
                 <div class="window-header orange-variant">
                     <span>Database_Explorer: Saved_Recipes.db & Local_AI_Suggester.exe</span>
@@ -357,11 +338,10 @@
                 </div>
                 <div class="window-body">
                     
-                    <!-- CRASH-PROOF LOCAL KITCHEN INGREDIENTS CONSOLE PANEL -->
                     <div style="background:rgba(0,0,0,0.03); border:2px dashed #000; border-radius:6px; padding:15px; margin-bottom:20px;">
-                        <h4 style="font-family:'Courier Prime',monospace; font-size:0.9rem; font-weight:bold; text-transform:uppercase; margin-bottom:5px;">💡 Native Ingredient Shuffler Engine</h4>
+                        <h4 style="font-family:'Courier Prime',monospace; font-size:0.9rem; font-weight:bold; text-transform:uppercase; margin-bottom:5px;">💡 Native Ingredient Shuffler Engine (Synced to Sheet 3)</h4>
                         <div class="search-bar-container" style="margin-bottom:10px;">
-                            <input type="text" id="api-ingredient-tags-input" class="retro-input" style="padding:8px; font-size:0.9rem;" placeholder="Type ingredients you have (e.g. onion, chicken, cream)...">
+                            <input type="text" id="api-ingredient-tags-input" class="retro-input" style="padding:8px; font-size:0.9rem;" placeholder="Your logged Sheet ingredients load automatically here on page boot...">
                             <button onclick="queryLocalIngredientMealSuggestion()" class="retro-btn" style="font-size:0.85rem; background:var(--folder-yellow);">[ 🔍 Suggest Meal ]</button>
                         </div>
                         <div id="api-suggestions-dynamic-output-rail"></div>
@@ -381,7 +361,6 @@
                 </div>
             </section>
 
-            <!-- APPLIANCE CABINET -->
             <div class="fridge-hardware-container full-width">
                 <div class="fridge-top-prop-shelf">
                     <div class="prop-bottle" title="Wine bottle"></div>
@@ -438,11 +417,9 @@
         </main>
     </div>
 
-    <!-- DATE NIGHT APP VIEWS CONTAINER -->
     <div id="core-date-night-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="date-night-grid">
-                <!-- LOCAL SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-orange);">📍 Local</div>
                     <div class="date-input-stack-group">
@@ -454,7 +431,6 @@
                     <ul class="shopping-list" id="date-local-list"></ul>
                 </div>
 
-                <!-- EAST LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-blue);">🧱 East LDN</div>
                     <div class="date-input-stack-group">
@@ -466,7 +442,6 @@
                     <ul class="shopping-list" id="date-east-list"></ul>
                 </div>
 
-                <!-- CENTRAL LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-pink);">🏛️ Central LDN</div>
                     <div class="date-input-stack-group">
@@ -479,7 +454,6 @@
                 </div>
             </div>
 
-            <!-- TELETRACT BLUEPRINT DECK -->
             <div class="map-terminal-frame">
                 <div class="window-header purple-variant" style="border-bottom:2px solid #000;">
                     <span>Radar_Plotter: Illustrated_London_Blueprint.exe</span>
@@ -491,12 +465,10 @@
         </main>
     </div>
 
-    <!-- THIRD PAGE APP CONTAINER: CINEMA POSTER GRID VAULT DECK -->
     <div id="core-cinema-club-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="cinema-layout-deck">
                 
-                <!-- CREATION INPUT BLOCK -->
                 <div class="date-night-column" style="height: max-content;">
                     <div class="date-column-title" style="color: var(--accent-orange);">🎬 Log New Movie</div>
                     <div class="date-input-stack-group" style="gap:6px; background:none; border:none; padding:0;">
@@ -524,7 +496,6 @@
                     </div>
                 </div>
 
-                <!-- COOPERATIVE INVENTORY VAULT MATRIX -->
                 <div class="retro-window" style="margin-bottom:0;">
                     <div class="window-header blue-variant">
                         <span>Movie_Vault // Poster_Matrix_Catalog.exe</span>
@@ -554,12 +525,10 @@
         </main>
     </div>
 
-    <!-- MODAL MANAGER ELEMENT BOX TRACK FOR POSTER OVERLAYS -->
     <div class="cinema-detail-modal-overlay" id="cinema-inspect-modal-frame" onclick="closeMovieInspectionModal()">
         <div class="cinema-detail-modal-window" onclick="event.stopPropagation()" id="cinema-modal-content-injector"></div>
     </div>
 
-    <!-- Leaflet processing library engine scripts hooks -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -616,22 +585,24 @@
             const outputAnchor = document.getElementById('api-suggestions-dynamic-output-rail');
             if (!inputEl || !outputAnchor) return;
 
-            const searchString = inputEl.value.toLowerCase().trim();
-            if (searchString === '') {
-                outputAnchor.innerHTML = `<p style="font-size:0.75rem; color:red; font-family:monospace;">Please enter keywords first...</p>`;
+            // Extract what ingredients we currently have inside our global house array
+            const houseStock = appState.foodInHouseList || [];
+            if (houseStock.length === 0) {
+                outputAnchor.innerHTML = `<p style="font-size:0.75rem; opacity:0.5; font-family:monospace;">Your 'Food in the house' sheet tab appears empty. Populate it first!</p>`;
                 return;
             }
 
-            const userIngredients = searchString.split(',').map(item => item.trim()).filter(item => item !== '');
             let scoreboards = [];
-
             staticRecipeDatabase.forEach(recipe => {
                 let matchesCount = 0;
                 let matchedItems = [];
                 let missingItems = [];
 
                 recipe.ingredients.forEach(ingName => {
-                    let found = userIngredients.some(userIng => ingName.includes(userIng) || userIng.includes(ingName));
+                    let found = houseStock.some(stockItem => {
+                        let sName = stockItem.toLowerCase();
+                        return ingName.includes(sName) || sName.includes(ingName);
+                    });
                     if (found) {
                         matchesCount++;
                         matchedItems.push(ingName);
@@ -653,7 +624,7 @@
             scoreboards.sort((a, b) => b.matchCount - a.matchCount);
 
             if (scoreboards.length === 0) {
-                outputAnchor.innerHTML = `<p style="font-size:0.75rem; opacity:0.5; font-family:monospace;">No matching recipe database hits found. Try different combinations!</p>`;
+                outputAnchor.innerHTML = `<p style="font-size:0.75rem; opacity:0.5; font-family:monospace;">No matching recipe database hits found based on current stock arrays.</p>`;
                 return;
             }
 
@@ -688,97 +659,6 @@
                     alert(`Cleanly injected missing parameters into your checklist matrix list!`);
                 }
             } catch(e) { console.error(e); }
-        }
-
-        /* PANTRY INVENTORY MODULE LOGIC TRACKS */
-        function renderPantryInventoryList() {
-            const anchor = document.getElementById('pantry-inventory-list-anchor');
-            if(!anchor) return; anchor.innerHTML = '';
-            
-            if(!appState.pantryInventory) appState.pantryInventory = [];
-
-            appState.pantryInventory.forEach((item, index) => {
-                const li = document.createElement('li');
-                li.className = 'grocery-item' + (item.checked ? ' checked' : '');
-                li.innerHTML = `
-                    <div class="retro-checkbox" onclick="togglePantryItemLatch(${index})"></div>
-                    <span class="item-text" onclick="togglePantryItemLatch(${index})">${item.name}</span>
-                    <button class="delete-btn" onclick="deletePantryItemRecord(${index})">⌫</button>
-                `;
-                anchor.appendChild(li);
-            });
-        }
-
-        async function addPantryItem() {
-            const input = document.getElementById('pantry-item-input');
-            if(!input) return;
-            const val = input.value.trim();
-            if(val !== '') {
-                if(!appState.pantryInventory) appState.pantryInventory = [];
-                appState.pantryInventory.push({ name: val, checked: false });
-                input.value = '';
-                renderPantryInventoryList();
-                await saveCloudState();
-            }
-        }
-
-        async function togglePantryItemLatch(index) {
-            appState.pantryInventory[index].checked = !appState.pantryInventory[index].checked;
-            renderPantryInventoryList();
-            await saveCloudState();
-        }
-
-        async function deletePantryItemRecord(index) {
-            appState.pantryInventory.splice(index, 1);
-            renderPantryInventoryList();
-            await saveCloudState();
-        }
-
-        function filterCinemaCatalogDeck(categoryKey) {
-            currentCinemaFilter = categoryKey;
-            document.querySelectorAll('.recipe-category-tabs .recipe-cat-btn').forEach(b => b.classList.remove('active-cat-tab'));
-            
-            const tabMap = {
-                'all': 'film-filter-all', 'Under 90mins': 'film-filter-under90', 'Sunday film': 'film-filter-sunday',
-                'Horror': 'film-filter-horror', 'Comedy': 'film-filter-comedy', 'Drama': 'film-filter-drama',
-                'Action': 'film-filter-action', 'Nostalgia': 'film-filter-nostalgia', 'Cute': 'film-filter-cute',
-                'Thriller': 'film-filter-thriller', 'Doc': 'film-filter-doc'
-            };
-            if(tabMap[categoryKey]) document.getElementById(tabMap[categoryKey]).classList.add('active-cat-tab');
-            renderCinemaCatalogDeck();
-        }
-
-        function renderCinemaCatalogDeck() {
-            const anchor = document.getElementById('cinema-catalog-list-anchor');
-            if (!anchor) return; anchor.innerHTML = '';
-            let sourceList = appState.cinemaRegistry || [];
-            let filteredList = sourceList.filter(film => currentCinemaFilter === 'all' || (film.categories && film.categories.includes(currentCinemaFilter)));
-
-            document.getElementById('cinema-vault-count-status').innerText = `${filteredList.length} FILMS LOADED`;
-            if (filteredList.length === 0) {
-                anchor.innerHTML = `<p style="font-size:0.85rem; opacity:0.4; text-align:center; padding:20px; width:100%; grid-column:span 4;">No film entries logged under this category track yet...</p>`;
-                return;
-            }
-
-            filteredList.forEach((film) => {
-                let masterIndex = sourceList.findIndex(f => f === film);
-                const li = document.createElement('li');
-                li.className = 'cinema-movie-grid-card' + (film.checked ? ' checked' : '');
-                
-                let pills = (film.categories || []).map(c => `<span class="category-pill-tag" style="font-size:0.55rem; padding:0 3px;">${c}</span>`).join('');
-                let posterBg = film.posterUrl ? film.posterUrl : '';
-                let ratingVal = film.imdbRating || 'N/A';
-
-                li.innerHTML = `
-                    <div class="cinema-grid-poster-frame" style="background-image:url('${posterBg}')"></div>
-                    <div class="grid-card-title">${film.name}</div>
-                    <div class="grid-card-meta-line">📅 ${film.year || 'N/A'} • ⭐ ${ratingVal}</div>
-                    <div class="cinema-grid-pills-row">${pills}</div>
-                `;
-                
-                li.onclick = () => inspectMovieGridCardRecord(masterIndex);
-                anchor.appendChild(li);
-            });
         }
 
         function inspectMovieGridCardRecord(masterIndex) {
@@ -1051,7 +931,7 @@
 
         function renderActiveMatrix() {
             const gridAnchor = document.getElementById('calendar-days-injector'); if(!gridAnchor) return; gridAnchor.innerHTML = '';
-            const Crane = new Date(); today = new Date(); today.setHours(0,0,0,0);
+            const today = new Date(); today.setHours(0,0,0,0);
             let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches; let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches; let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches; let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
             let loops = currentMode === 'dinners' ? 14 : 20; let renderedCount = 0;
             for (let i = 0; i < loops; i++) {
@@ -1206,13 +1086,13 @@
                         if (!appState.dateEast) appState.dateEast = [];
                         if (!appState.dateCentral) appState.dateCentral = [];
                         if (!appState.cinemaRegistry) appState.cinemaRegistry = [];
-                        if (!appState.pantryInventory) appState.pantryInventory = [];
+                        // Restored backup hook handles incoming Sheet 3 ingredient array records safely
+                        if (!appState.foodInHouseList) appState.foodInHouseList = [];
                     }
                 }
             } catch (err) { console.warn("Handshake latency."); }
             switchAppMode(currentMode);
             renderShoppingList();
-            renderPantryInventoryList();
             renderAllDateColumns();
             buildRecipeRegistryDeck();
             
