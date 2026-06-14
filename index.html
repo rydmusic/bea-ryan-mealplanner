@@ -236,24 +236,25 @@
         
         .map-vintage-paper-overlay-skin { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; box-shadow: inset 0 0 40px rgba(115, 87, 61, 0.12); mix-blend-mode: multiply; opacity: 0.7; background-image: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.05) 100%); }
 
-        /* CINEMA APP DECK MODULE SPECIFIC CSS RULES */
-        .cinema-layout-deck { display: grid; grid-template-columns: 1fr; gap: 25px; }
-        @media (min-width: 900px) { .cinema-layout-deck { grid-template-columns: 320px 1fr; } }
+        /* CINEMA APP MOVIE POSTER GRID FORMAT VISUAL OVERLAYS */
+        .cinema-poster-grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; list-style: none; padding: 5px; }
         
-        .film-poster-preview-box { width: 100%; max-width: 140px; height: 200px; border: 2px solid #000; background-size: cover; background-position: center; border-radius: 4px; box-shadow: 3px 3px 0 #000; background-color: #eee; margin-bottom: 8px; }
-        .category-pill-tag { display: inline-block; font-size: 0.62rem; font-weight: bold; background: #eee; border: 1px solid #000; padding: 1px 5px; border-radius: 3px; margin: 1px; text-transform: uppercase; font-family: 'Courier Prime', monospace; }
+        .cinema-movie-grid-card { background: white; border: 2px solid #000; border-radius: 6px; box-shadow: 3px 3px 0 #000; padding: 10px; display: flex; flex-direction: column; gap: 8px; position: relative; cursor: pointer; transition: transform 0.2s ease; }
+        .cinema-movie-grid-card:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 #000; }
+        .cinema-movie-grid-card.checked { background-color: #f0ede6; opacity: 0.65; }
+        .cinema-movie-grid-card.checked .grid-card-title { text-decoration: line-through; }
+
+        .cinema-grid-poster-frame { width: 100%; height: 210px; border: 2px solid #000; border-radius: 4px; background-size: cover; background-position: center; background-color: #eee; box-shadow: 1px 1px 0 #000; }
+        .grid-card-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.95rem; line-height: 1.2; color: #000; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .grid-card-meta-line { font-family: 'Courier Prime', monospace; font-size: 0.72rem; font-weight: bold; color: #555; }
         
-        .multi-select-category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; max-height: 120px; overflow-y: auto; border: 1px dashed #000; padding: 6px; border-radius: 4px; background: rgba(0,0,0,0.02); }
-        .category-checkbox-wrapper { display: flex; align-items: center; gap: 5px; font-size: 0.75rem; font-family: 'Courier Prime', monospace; font-weight: bold; }
-        .category-checkbox-wrapper input { width: 13px; height: 13px; cursor: pointer; }
+        .cinema-grid-pills-row { display: flex; flex-wrap: wrap; gap: 2px; margin-top: auto; max-height: 38px; overflow: hidden; }
 
-        .imdb-rating-pills-node { display: inline-flex; align-items: center; gap: 4px; font-family: 'Courier Prime', monospace; font-size: 0.72rem; font-weight: bold; color: #000; background: #f5c518; padding: 2px 6px; border: 1px solid #000; border-radius: 4px; width: max-content; margin-top: 3px; box-shadow: 1px 1px 0 #000; }
+        /* DETAILED COLLAPSIBLE MODAL DRAWER OVERLAYS FOR THE POSTER CARD SECTIONS */
+        .cinema-detail-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 2000; align-items: center; justify-content: center; padding: 15px; }
+        .cinema-detail-modal-window { background: var(--window-bg); border: 3px solid #000; border-radius: 8px; box-shadow: 8px 8px 0 #000; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; animation: modalPop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes modalPop { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        .leaflet-container { font-family: 'Courier Prime', monospace !important; background: #f2ebd4 !important; }
-        .leaflet-popup-content-wrapper { border: 2px solid #000; border-radius: 4px; box-shadow: 3px 3px 0 #000; background: var(--window-bg) !important; color: #000 !important; }
-        .leaflet-popup-tip { border: 2px solid #000; background: var(--window-bg) !important; }
-
-        /* LOCK BUTTON RETRO OS THEME DEFINITIONS */
         .lock-selection-btn { font-family: 'Courier Prime', monospace; font-size: 0.68rem; font-weight: bold; border: 2px solid #000; background: #fff; padding: 3px 8px; cursor: pointer; border-radius: 4px; box-shadow: 2px 2px 0 #000; text-transform: uppercase; margin-top: 2px; }
         .lock-selection-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 #000; }
         .locked-meal-display-box { font-family: 'Courier Prime', monospace; font-size: 0.85rem; font-weight: bold; background: #fdfdfd; border: 2px dashed #000; border-radius: 4px; padding: 8px; margin-top: 4px; line-height: 1.4; display: flex; flex-direction: column; gap: 5px; }
@@ -262,7 +263,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v76.6_STABLE_INTEGRATED</div>
+        <div class="nav-logo">💾 FOOD_OS // v77.0_CINEMA_GRID_PATCH</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -270,7 +271,7 @@
         </div>
     </nav>
 
-    <!-- CORE SITE PAGE NAVIGATION CONTROLS SWITCHBOARD SYSTEM -->
+    <!-- SITE SWITCHBOARD SYSTEM -->
     <div class="page-nav-bar">
         <button id="page-btn-meal" class="page-nav-btn active-page" onclick="toggleActivePage('meal')">[ 💾 Meal Planner OS ]</button>
         <button id="page-btn-date" class="page-nav-btn" onclick="toggleActivePage('date')">[ ❤️ Date Nights ]</button>
@@ -350,7 +351,7 @@
                 </div>
             </section>
 
-            <!-- RESTORED TALL STORAGE DRAWER CABINET FRAME -->
+            <!-- SMEG STORAGE ENCLOSURE CAB FRAME -->
             <div class="fridge-hardware-container full-width">
                 <div class="fridge-top-prop-shelf">
                     <div class="prop-bottle" title="Wine bottle"></div>
@@ -448,7 +449,7 @@
                 </div>
             </div>
 
-            <!-- ILLUSTRATED LONDON BLUEPRINT TELETRACT TERMINAL -->
+            <!-- LONDON BLUEPRINT TERM MAP PANELS -->
             <div class="map-terminal-frame">
                 <div class="window-header purple-variant" style="border-bottom:2px solid #000;">
                     <span>Radar_Plotter: Illustrated_London_Blueprint.exe</span>
@@ -460,20 +461,20 @@
         </main>
     </div>
 
-    <!-- THIRD PAGE APP CONTAINER: MULTI-GENRE COOPERATIVE MOVIES VAULT -->
+    <!-- THIRD PAGE APP CONTAINER: CINEMA POSTER GRID VAULT DECK Look look look LOOK[cite: 2] -->
     <div id="core-cinema-club-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="cinema-layout-deck">
                 
-                <!-- CREATION INPUT BLOCK -->
+                <!-- CREATION CONSOLE -->
                 <div class="date-night-column" style="height: max-content;">
                     <div class="date-column-title" style="color: var(--accent-orange);">🎬 Log New Movie</div>
                     <div class="date-input-stack-group" style="gap:6px; background:none; border:none; padding:0;">
                         <input type="text" id="film-input-title" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Film Name...">
                         <input type="text" id="film-input-year" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Year Released...">
                         <input type="text" id="film-input-runtime" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Running Time (e.g. 1h 52m)...">
-                        <input type="text" id="film-input-watchat" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Platform (Netflix, BBC iPlayer)...">
-                        <input type="text" id="film-input-poster" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Poster Cover Hyperlink Image URL...">
+                        <input type="text" id="film-input-watchat" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Platform (Netflix, Disney+)...">
+                        <input type="text" id="film-input-poster" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Poster Hyperlink Cover URL...">
                         <input type="text" id="film-input-imdb-manual" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="IMDb Rating (e.g., 8.2)...">
                         
                         <div style="font-size:0.7rem; font-weight:bold; margin-top:4px;">Select Categories (Check multiple):</div>
@@ -489,15 +490,14 @@
                             <label class="category-checkbox-wrapper"><input type="checkbox" value="Thriller"> Thriller</label>
                             <label class="category-checkbox-wrapper"><input type="checkbox" value="Doc"> Doc</label>
                         </div>
-                        
                         <button onclick="registerNewFilmToDatabase()" class="retro-btn" style="padding:6px 0; font-size:0.85rem; margin-top:5px; background:var(--together-purple);">+ Mount Film</button>
                     </div>
                 </div>
 
-                <!-- COOPERATIVE INVENTORY VAULT MATRIX -->
+                <!-- POSTER GRID CATALOG CONTAINER WINDOW FRAME[cite: 2] -->
                 <div class="retro-window" style="margin-bottom:0;">
                     <div class="window-header blue-variant">
-                        <span>Movie_Vault // Matrix_Index.exe</span>
+                        <span>Movie_Vault // Poster_Matrix_Catalog.exe</span>
                         <span id="cinema-vault-count-status" style="font-size:0.72rem;">0 MOVIES READY</span>
                     </div>
                     
@@ -516,7 +516,8 @@
                     </div>
 
                     <div class="window-body" style="padding:15px; background:#fff;">
-                        <ul class="shopping-list" id="cinema-catalog-list-anchor"></ul>
+                        <!-- REST_RAILS MULTI-COLUMN INTERACTIVE MOSTER GRID ANCHOR CONTAINER[cite: 2] -->
+                        <ul class="cinema-poster-grid-container" id="cinema-catalog-list-anchor"></ul>
                     </div>
                 </div>
 
@@ -524,7 +525,12 @@
         </main>
     </div>
 
-    <!-- Leaflet processing library engine scripts hooks -->
+    <!-- REWRITTEN MODAL MANAGER ELEMENT BOX TRACK FOR POSTER OVERLAYS -->
+    <div class="cinema-detail-modal-overlay" id="cinema-inspect-modal-frame" onclick="closeMovieInspectionModal()">
+        <div class="cinema-detail-modal-window" onclick="event.stopPropagation()" id="cinema-modal-content-injector"></div>
+    </div>
+
+    <!-- Leaflet mapping library engine scripts hooks -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -587,6 +593,214 @@
             freezerDrawer1: "", freezerDrawer2: "", freezerDrawer3: ""
         };
 
+        function shuffleFridgePolaroidMemory() {
+            if (ryanAndBeaPhotos.length === 0) return;
+            const randomIndex = Math.floor(Math.random() * ryanAndBeaPhotos.length);
+            const targetElement = document.querySelector('.polaroid-photo-frame');
+            if (targetElement) { targetElement.style.backgroundImage = `url('${ryanAndBeaPhotos[randomIndex]}')`; }
+        }
+
+        /* DYNAMIC REWRITTEN MULTI-COLUMN CINEMA CATALOG GRID DECK HANDLERS[cite: 2] */
+        async function registerNewFilmToDatabase() {
+            const titleEl = document.getElementById('film-input-title');
+            const yearEl = document.getElementById('film-input-year');
+            const runtimeEl = document.getElementById('film-input-runtime');
+            const watchEl = document.getElementById('film-input-watchat');
+            const posterEl = document.getElementById('film-input-poster');
+            const imdbEl = document.getElementById('film-input-imdb-manual');
+
+            const titleVal = titleEl.value.trim();
+            if (titleVal === '') return;
+
+            let selectedCategories = [];
+            document.querySelectorAll('.multi-select-category-grid input:checked').forEach(box => { selectedCategories.push(box.value); });
+
+            let newFilm = {
+                name: titleVal, 
+                year: yearEl.value.trim(), 
+                runtime: runtimeEl.value.trim(),
+                watchAt: watchEl.value.trim(), 
+                posterUrl: posterEl.value.trim(),
+                imdbRating: imdbEl.value.trim() || "N/A", 
+                categories: selectedCategories, 
+                checked: false
+            };
+
+            if (!appState.cinemaRegistry) appState.cinemaRegistry = [];
+            appState.cinemaRegistry.push(newFilm);
+
+            titleEl.value = ''; yearEl.value = ''; runtimeEl.value = ''; watchEl.value = ''; posterEl.value = ''; imdbEl.value = '';
+            document.querySelectorAll('.multi-select-category-grid input').forEach(b => b.checked = false);
+
+            renderCinemaCatalogDeck();
+            await saveCloudState();
+        }
+
+        function filterCinemaCatalogDeck(categoryKey) {
+            currentCinemaFilter = categoryKey;
+            document.querySelectorAll('.recipe-category-tabs .recipe-cat-btn').forEach(b => b.classList.remove('active-cat-tab'));
+            
+            const tabMap = {
+                'all': 'film-filter-all', 'Under 90mins': 'film-filter-under90', 'Sunday film': 'film-filter-sunday',
+                'Horror': 'film-filter-horror', 'Comedy': 'film-filter-comedy', 'Drama': 'film-filter-drama',
+                'Action': 'film-filter-action', 'Nostalgia': 'film-filter-nostalgia', 'Cute': 'film-filter-cute',
+                'Thriller': 'film-filter-thriller', 'Doc': 'film-filter-doc'
+            };
+            if(tabMap[categoryKey]) document.getElementById(tabMap[categoryKey]).classList.add('active-cat-tab');
+            renderCinemaCatalogDeck();
+        }
+
+        function renderCinemaCatalogDeck() {
+            const anchor = document.getElementById('cinema-catalog-list-anchor');
+            if (!anchor) return; anchor.innerHTML = '';
+            let sourceList = appState.cinemaRegistry || [];
+            let filteredList = sourceList.filter(film => currentCinemaFilter === 'all' || (film.categories && film.categories.includes(currentCinemaFilter)));
+
+            document.getElementById('cinema-vault-count-status').innerText = `${filteredList.length} FILMS TILED`;
+            if (filteredList.length === 0) {
+                anchor.innerHTML = `<p style="font-size:0.85rem; opacity:0.4; text-align:center; padding:20px; width:100%; grid-column:span 4;">No movies inside this grid track yet...</p>`;
+                return;
+            }
+
+            filteredList.forEach((film) => {
+                let masterIndex = sourceList.findIndex(f => f === film);
+                const li = document.createElement('li');
+                li.className = 'cinema-movie-grid-card' + (film.checked ? ' checked' : '');
+                
+                let pills = (film.categories || []).map(c => `<span class="category-pill-tag" style="font-size:0.55rem; padding:0 3px;">${c}</span>`).join('');
+                let posterBg = film.posterUrl ? film.posterUrl : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="%23eee"/><text x="50%" y="50%" font-family="monospace" font-size="10" dominant-baseline="middle" text-anchor="middle" fill="%23aaa">NO POSTER</text></svg>';
+                let ratingVal = film.imdbRating || 'N/A';
+
+                li.innerHTML = `
+                    <div class="cinema-grid-poster-frame" style="background-image:url('${posterBg}')"></div>
+                    <div class="grid-card-title">${film.name}</div>
+                    <div class="grid-card-meta-line">📅 ${film.year || 'N/A'} • ⭐ ${ratingVal}</div>
+                    <div class="cinema-grid-pills-row">${pills}</div>
+                `;
+                
+                li.onclick = () => inspectMovieGridCardRecord(masterIndex);
+                anchor.appendChild(li);
+            });
+        }
+
+        /* INTERACTIVE INSPECT MODAL LOGIC LOOP RAILS[cite: 2] */
+        function inspectMovieGridCardRecord(masterIndex) {
+            const modal = document.getElementById('cinema-inspect-modal-frame');
+            const inner = document.getElementById('cinema-modal-content-injector');
+            if(!modal || !inner) return;
+
+            let film = appState.cinemaRegistry[masterIndex];
+            let isEditing = film._isEditing || false;
+
+            if (isEditing) {
+                inner.innerHTML = `
+                    <div class="window-header orange-variant" style="border-radius:4px 4px 0 0;">
+                        <span>Edit_Matrix: Metadata_Config.exe</span>
+                        <span style="cursor:pointer;" onclick="closeMovieInspectionModal()">✖</span>
+                    </div>
+                    <div class="window-body" style="background:white; padding:20px; display:flex; flex-direction:column; gap:8px;">
+                        <input type="text" class="date-edit-mini-input" id="edit-film-title-${masterIndex}" value="${film.name}" placeholder="Movie Title...">
+                        <input type="text" class="date-edit-mini-input" id="edit-film-year-${masterIndex}" value="${film.year || ''}" placeholder="Year...">
+                        <input type="text" class="date-edit-mini-input" id="edit-film-run-${masterIndex}" value="${film.runtime || ''}" placeholder="Runtime...">
+                        <input type="text" class="date-edit-mini-input" id="edit-film-watch-${masterIndex}" value="${film.watchAt || ''}" placeholder="Watch Location...">
+                        <input type="text" class="date-edit-mini-input" id="edit-film-post-${masterIndex}" value="${film.posterUrl || ''}" placeholder="Poster Image URL...">
+                        <input type="text" class="date-edit-mini-input" id="edit-film-imdb-${masterIndex}" value="${film.imdbRating || ''}" placeholder="IMDb Rating...">
+                        
+                        <div style="font-size:0.65rem; font-weight:bold; margin-top:2px;">Edit Genres:</div>
+                        <div class="multi-select-category-grid" id="edit-film-catgrid-${masterIndex}">
+                            ${['Under 90mins', 'Sunday film', 'Horror', 'Comedy', 'Drama', 'Action', 'Nostalgia', 'Cute', 'Thriller', 'Doc'].map(cat => {
+                                let checked = film.categories && film.categories.includes(cat) ? 'checked' : '';
+                                return `<label class="category-checkbox-wrapper"><input type="checkbox" value="${cat}" ${checked}> ${cat}</label>`;
+                            }).join('')}
+                        </div>
+                        <div style="display:flex; gap:10px; margin-top:10px;">
+                            <button class="date-inline-edit-btn" style="background:#d4f1f9; padding:5px 12px;" onclick="saveInlineCinemaModifications(${masterIndex})">✅ Save</button>
+                            <button class="date-inline-edit-btn" style="padding:5px 12px;" onclick="cancelInlineCinemaEdit(${masterIndex})">Cancel</button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                let pills = (film.categories || []).map(c => `<span class="category-pill-tag">${c}</span>`).join('');
+                let posterBg = film.posterUrl ? film.posterUrl : '';
+                let ratingVal = film.imdbRating || 'N/A';
+
+                inner.innerHTML = `
+                    <div class="window-header blue-variant" style="border-radius:4px 4px 0 0;">
+                        <span>System_Inspector: ${film.name}</span>
+                        <span style="cursor:pointer;" onclick="closeMovieInspectionModal()">✖</span>
+                    </div>
+                    <div class="window-body" style="background:white; padding:20px; display:flex; flex-direction:column; gap:15px;">
+                        <div style="display:flex; gap:20px; flex-wrap:wrap;">
+                            ${posterBg ? `<img src="${posterBg}" style="width:130px; height:190px; border:2px solid #000; border-radius:4px; box-shadow:2px 2px 0 #000; object-fit:cover;">` : ''}
+                            <div style="flex:1; display:flex; flex-direction:column; gap:5px; font-family:'Courier Prime', monospace; font-size:0.85rem; font-weight:bold;">
+                                <div style="font-size:1.1rem; font-family:sans-serif; margin-bottom:5px;"><b>${film.name}</b></div>
+                                <div>📅 RELEASED: ${film.year || 'UNKNOWN'}</div>
+                                <div>⏱️ RUNTIME: ${film.runtime || 'UNSPECIFIED'}</div>
+                                <div>📺 WATCH AT: ${film.watchAt || 'NOT LOGGED'}</div>
+                                <div class="imdb-rating-pills-node">⭐ IMDb: ${ratingVal}/10</div>
+                            </div>
+                        </div>
+                        <div>${pills}</div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px dashed #ccc; padding-top:12px; margin-top:5px;">
+                            <div style="display:flex; gap:8px;">
+                                <button class="date-inline-edit-btn" style="padding:4px 12px;" onclick="activateInlineCinemaEdit(${masterIndex})">✏️ Edit</button>
+                                <button class="date-inline-edit-btn" style="background:${film.checked?'#ebdccb':'#d4f1f9'}; padding:4px 12px;" onclick="toggleCinemaCheckboxLatchingModal(${masterIndex})">${film.checked ? '🔄 Watch Again' : '✅ Mark Watched'}</button>
+                            </div>
+                            <button class="delete-btn" style="color:var(--accent-orange); font-weight:bold; font-size:0.85rem;" onclick="deleteCinemaRegistryItemModal(${masterIndex})">⌫ Delete</button>
+                        </div>
+                    </div>
+                `;
+            }
+            modal.style.display = 'flex';
+        }
+
+        function closeMovieInspectionModal() {
+            document.getElementById('cinema-inspect-modal-frame').style.display = 'none';
+        }
+
+        function activateInlineCinemaEdit(masterIndex) {
+            appState.cinemaRegistry[masterIndex]._isEditing = true;
+            inspectMovieGridCardRecord(masterIndex);
+        }
+
+        function cancelInlineCinemaEdit(masterIndex) {
+            delete appState.cinemaRegistry[masterIndex]._isEditing;
+            inspectMovieGridCardRecord(masterIndex);
+        }
+
+        async function saveInlineCinemaModifications(masterIndex) {
+            let film = appState.cinemaRegistry[masterIndex];
+            film.name = document.getElementById(`edit-film-title-${masterIndex}`).value.trim();
+            film.year = document.getElementById(`edit-film-year-${masterIndex}`).value.trim();
+            film.runtime = document.getElementById(`edit-film-run-${masterIndex}`).value.trim();
+            film.watchAt = document.getElementById(`edit-film-watch-${masterIndex}`).value.trim();
+            film.posterUrl = document.getElementById(`edit-film-post-${masterIndex}`).value.trim();
+            film.imdbRating = document.getElementById(`edit-film-imdb-${masterIndex}`).value.trim() || "N/A";
+            
+            let updatedCats = []; document.querySelectorAll(`#edit-film-catgrid-${masterIndex} input:checked`).forEach(b => updatedCats.push(b.value));
+            film.categories = updatedCats; delete film._isEditing;
+            
+            renderCinemaCatalogDeck();
+            inspectMovieGridCardRecord(masterIndex);
+            await saveCloudState();
+        }
+
+        async function toggleCinemaCheckboxLatchingModal(masterIndex) {
+            appState.cinemaRegistry[masterIndex].checked = !appState.cinemaRegistry[masterIndex].checked;
+            renderCinemaCatalogDeck();
+            inspectMovieGridCardRecord(masterIndex);
+            await saveCloudState();
+        }
+
+        async function deleteCinemaRegistryItemModal(masterIndex) {
+            if(confirm("Are you sure you want to remove this film?")) {
+                appState.cinemaRegistry.splice(masterIndex, 1);
+                renderCinemaCatalogDeck();
+                closeMovieInspectionModal();
+                await saveCloudState();
+            }
+        }
+
         function toggleActivePage(targetPage) {
             document.querySelectorAll('.page-nav-bar .page-nav-btn').forEach(b => b.classList.remove('active-page'));
             document.getElementById('core-meal-planner-view').style.display = 'none';
@@ -642,164 +856,6 @@
             leafletMapInstance.setView([lat, lng], 15, { animate: true });
             mapPinsLayerGroup.eachLayer(marker => { if (marker.getLatLng().lat === lat && marker.getLatLng().lng === lng) marker.openPopup(); });
         }
-
-        /* FILMS CORE HANDLERS AND BLUEPRINTS */
-        function registerNewFilmToDatabase() {
-            const titleEl = document.getElementById('film-input-title');
-            const yearEl = document.getElementById('film-input-year');
-            const runtimeEl = document.getElementById('film-input-runtime');
-            const watchEl = document.getElementById('film-input-watchat');
-            const posterEl = document.getElementById('film-input-poster');
-            const imdbEl = document.getElementById('film-input-imdb-manual');
-
-            const titleVal = titleEl.value.trim();
-            if (titleVal === '') return;
-
-            let selectedCategories = [];
-            document.querySelectorAll('.multi-select-category-grid input:checked').forEach(box => { selectedCategories.push(box.value); });
-
-            let newFilm = {
-                name: titleVal, year: yearEl.value.trim(), runtime: runtimeEl.value.trim(),
-                watchAt: watchEl.value.trim(), posterUrl: posterEl.value.trim(),
-                imdbRating: imdbEl.value.trim() || "N/A", categories: selectedCategories, checked: false
-            };
-
-            if (!appState.cinemaRegistry) appState.cinemaRegistry = [];
-            appState.cinemaRegistry.push(newFilm);
-
-            titleEl.value = ''; yearEl.value = ''; runtimeEl.value = ''; watchEl.value = ''; posterEl.value = ''; imdbEl.value = '';
-            document.querySelectorAll('.multi-select-category-grid input').forEach(b => b.checked = false);
-
-            renderCinemaCatalogDeck();
-            saveCloudState();
-        }
-
-        function filterCinemaCatalogDeck(categoryKey) {
-            currentCinemaFilter = categoryKey;
-            document.querySelectorAll('.recipe-category-tabs .recipe-cat-btn').forEach(b => b.classList.remove('active-cat-tab'));
-            
-            const tabMap = {
-                'all': 'film-filter-all', 'Under 90mins': 'film-filter-under90', 'Sunday film': 'film-filter-sunday',
-                'Horror': 'film-filter-horror', 'Comedy': 'film-filter-comedy', 'Drama': 'film-filter-drama',
-                'Action': 'film-filter-action', 'Nostalgia': 'film-filter-nostalgia', 'Cute': 'film-filter-cute',
-                'Thriller': 'film-filter-thriller', 'Doc': 'film-filter-doc'
-            };
-            if(tabMap[categoryKey]) document.getElementById(tabMap[categoryKey]).classList.add('active-cat-tab');
-            renderCinemaCatalogDeck();
-        }
-
-        function renderCinemaCatalogDeck() {
-            const anchor = document.getElementById('cinema-catalog-list-anchor');
-            if (!anchor) return; anchor.innerHTML = '';
-            let sourceList = appState.cinemaRegistry || [];
-            let filteredList = sourceList.filter(film => currentCinemaFilter === 'all' || (film.categories && film.categories.includes(currentCinemaFilter)));
-
-            document.getElementById('cinema-vault-count-status').innerText = `${filteredList.length} FILMS LOADED`;
-            if (filteredList.length === 0) {
-                anchor.innerHTML = `<p style="font-size:0.85rem; opacity:0.4; text-align:center; padding:20px;">No film entries logged under this category category track yet...</p>`;
-                return;
-            }
-
-            filteredList.forEach((film) => {
-                let masterIndex = sourceList.findIndex(f => f === film);
-                const li = document.createElement('li');
-                li.className = 'grocery-item' + (film.checked ? ' checked' : '');
-
-                let isEditing = film._isEditing || false;
-                let cardBodyHtml = "";
-
-                if (isEditing) {
-                    cardBodyHtml = `
-                        <div class="date-edit-fields-box" onclick="event.stopPropagation()">
-                            <input type="text" class="date-edit-mini-input" id="edit-film-title-${masterIndex}" value="${film.name}" placeholder="Movie Title...">
-                            <input type="text" class="date-edit-mini-input" id="edit-film-year-${masterIndex}" value="${film.year || ''}" placeholder="Year...">
-                            <input type="text" class="date-edit-mini-input" id="edit-film-run-${masterIndex}" value="${film.runtime || ''}" placeholder="Runtime...">
-                            <input type="text" class="date-edit-mini-input" id="edit-film-watch-${masterIndex}" value="${film.watchAt || ''}" placeholder="Watch Location...">
-                            <input type="text" class="date-edit-mini-input" id="edit-film-post-${masterIndex}" value="${film.posterUrl || ''}" placeholder="Poster Image URL...">
-                            
-                            <div style="font-size:0.65rem; font-weight:bold; margin-top:2px;">Edit Genres:</div>
-                            <div class="multi-select-category-grid" id="edit-film-catgrid-${masterIndex}">
-                                ${['Under 90mins', 'Sunday film', 'Horror', 'Comedy', 'Drama', 'Action', 'Nostalgia', 'Cute', 'Thriller', 'Doc'].map(cat => {
-                                    let checked = film.categories && film.categories.includes(cat) ? 'checked' : '';
-                                    return `<label class="category-checkbox-wrapper"><input type="checkbox" value="${cat}" ${checked}> ${cat}</label>`;
-                                }).join('')}
-                            </div>
-                            <div style="display:flex; gap:5px; margin-top:5px;">
-                                <button class="date-inline-edit-btn" style="background:#d4f1f9;" onclick="saveInlineCinemaModifications(${masterIndex})">✅ Save</button>
-                                <button class="date-inline-edit-btn" onclick="cancelInlineCinemaEdit(${masterIndex})">Cancel</button>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    let pills = (film.categories || []).map(c => `<span class="category-pill-tag">${c}</span>`).join('');
-                    let posterStyleHtml = film.posterUrl ? `<div class="film-poster-preview-box" style="background-image:url('${film.posterUrl}')"></div>` : `<div class="film-poster-preview-box" style="display:flex; align-items:center; justify-content:center; font-size:0.65rem; opacity:0.3; font-weight:bold;">NO IMAGE</div>`;
-                    let ratingVal = film.imdbRating || 'N/A';
-
-                    cardBodyHtml = `
-                        <div class="date-card-body-collapsible" id="collapsible-film-card-${masterIndex}">
-                            <div style="display:flex; gap:15px; flex-wrap:wrap;">
-                                ${posterStyleHtml}
-                                <div style="flex:1; display:flex; flex-direction:column; gap:4px; font-family:'Courier Prime', monospace; font-size:0.82rem; font-weight:bold;">
-                                    <div>📅 RELEASED: ${film.year || 'UNKNOWN'}</div>
-                                    <div>⏱️ RUNTIME: ${film.runtime || 'UNSPECIFIED'}</div>
-                                    <div>📺 WATCH AT: ${film.watchAt || 'NOT LOGGED'}</div>
-                                    <div class="imdb-rating-pills-node">⭐ IMDb: ${ratingVal}/10</div>
-                                    <div style="margin-top:6px;">${pills}</div>
-                                </div>
-                            </div>
-                            <div class="date-card-actions-row" style="margin-top:10px;">
-                                <button class="date-inline-edit-btn" onclick="event.stopPropagation(); activateInlineCinemaEdit(${masterIndex})">✏️ Edit</button>
-                                <button class="delete-btn" style="padding:0; font-size:0.85rem;" onclick="event.stopPropagation(); deleteCinemaRegistryItem(${masterIndex})">⌫ Delete</button>
-                            </div>
-                        </div>
-                    `;
-                }
-
-                li.innerHTML = `
-                    <div class="retro-checkbox" onclick="event.stopPropagation(); toggleCinemaCheckboxLatching(${masterIndex})"></div>
-                    <div class="date-item-row-wrapper">
-                        <div class="date-card-header-clickable" onclick="toggleCinemaCardView(${masterIndex})">
-                            <span><b>${film.name}</b> ${film.year ? `(${film.year})` : ''}</span>
-                            <span style="font-size:0.7rem; opacity:0.5;" id="film-arrow-indicator-${masterIndex}">▼</span>
-                        </div>
-                        ${cardBodyHtml}
-                    </div>
-                `;
-                anchor.appendChild(li);
-            });
-        }
-
-        function toggleCinemaCardView(masterIndex) {
-            const el = document.getElementById(`collapsible-film-card-${masterIndex}`);
-            const arrow = document.getElementById(`film-arrow-indicator-${masterIndex}`);
-            if(!el) return;
-            if (el.style.display === 'block') { el.style.display = 'none'; if(arrow) arrow.innerText = '▼'; }
-            else { el.style.display = 'block'; if(arrow) arrow.innerText = '▲'; }
-        }
-
-        function activateInlineCinemaEdit(masterIndex) {
-            appState.cinemaRegistry[masterIndex]._isEditing = true; renderCinemaCatalogDeck();
-            setTimeout(() => { const el = document.getElementById(`collapsible-film-card-${masterIndex}`); if(el) el.style.display = 'block'; }, 10);
-        }
-
-        function cancelInlineCinemaEdit(masterIndex) { delete appState.cinemaRegistry[masterIndex]._isEditing; renderCinemaCatalogDeck(); }
-
-        async function saveInlineCinemaModifications(masterIndex) {
-            let film = appState.cinemaRegistry[masterIndex];
-            film.name = document.getElementById(`edit-film-title-${masterIndex}`).value.trim();
-            film.year = document.getElementById(`edit-film-year-${masterIndex}`).value.trim();
-            film.runtime = document.getElementById(`edit-film-run-${masterIndex}`).value.trim();
-            film.watchAt = document.getElementById(`edit-film-watch-${masterIndex}`).value.trim();
-            film.posterUrl = document.getElementById(`edit-film-post-${masterIndex}`).value.trim();
-            film.imdbRating = document.getElementById(`edit-film-imdb-${masterIndex}`).value.trim() || "N/A";
-            
-            let updatedCats = []; document.querySelectorAll(`#edit-film-catgrid-${masterIndex} input:checked`).forEach(b => updatedCats.push(b.value));
-            film.categories = updatedCats; delete film._isEditing;
-            renderCinemaCatalogDeck(); await saveCloudState();
-        }
-
-        async function toggleCinemaCheckboxLatching(masterIndex) { appState.cinemaRegistry[masterIndex].checked = !appState.cinemaRegistry[masterIndex].checked; renderCinemaCatalogDeck(); await saveCloudState(); }
-        async function deleteCinemaRegistryItem(masterIndex) { appState.cinemaRegistry.splice(masterIndex, 1); renderCinemaCatalogDeck(); await saveCloudState(); }
 
         function renderAllDateColumns() {
             renderSingleDateColumn('local', appState.dateLocal || []);
@@ -968,63 +1024,24 @@
         }
 
         function buildSmartCardBlock(column, dateKey, label, selections) {
-            const container = document.getElementById(`container-${column}`);
-            if (!selections[dateKey]) { selections[dateKey] = { category: "", dish: "", locked: false }; }
-
-            const currentCat = selections[dateKey].category;
-            const currentDish = selections[dateKey].dish;
-            const isLocked = selections[dateKey].locked || false;
-
-            const block = document.createElement('div');
-            block.className = 'smart-day-block';
+            const container = document.getElementById(`container-${column}`); if (!selections[dateKey]) { selections[dateKey] = { category: "", dish: "", locked: false }; }
+            const currentCat = selections[dateKey].category; const currentDish = selections[dateKey].dish; const isLocked = selections[dateKey].locked || false;
+            const block = document.createElement('div'); block.className = 'smart-day-block';
             
             if (isLocked) {
-                // Render flat text with a manual edit latch button if state is currently confirmed[cite: 2]
                 let summaryText = currentDish ? `🍽️ ${currentDish}` : `📁 ${currentCat || 'Empty Option'}`;
                 if (currentCat === 'OTHER' && currentDish) summaryText = `📝 Alternative: ${currentDish}`;
-                
                 block.innerHTML = `
                     <div class="smart-day-title"><span>● ${label}</span></div>
                     <div class="locked-meal-display-box">
-                        <div>${summaryText}</div>
-                        <button class="lock-selection-btn" onclick="toggleMealLockLatching('${dateKey}', false)">✏️ Edit Selection</button>
+                        <div>${summaryText}</div><button class="lock-selection-btn" onclick="toggleMealLockLatching('${dateKey}', false)">✏️ Edit Selection</button>
                     </div>
                 `;
             } else {
-                // Standard active setup view panel option selectors rendering loops[cite: 2]
-                let headerOptionsHtml = `<option value="">-- Category --</option>`;
-                Object.keys(foodMenuDatabase).forEach(cat => {
-                    headerOptionsHtml += `<option value="${cat}" ${currentCat === cat ? 'selected' : ''}>${cat}</option>`;
-                });
-
-                let dishOptionsHtml = `<option value="">-- Option --</option>`;
-                let showOtherBox = currentCat === 'OTHER';
-                if (currentCat && currentCat !== 'OTHER' && foodMenuDatabase[currentCat]) {
-                    foodMenuDatabase[currentCat].forEach(dish => {
-                        dishOptionsHtml += `<option value="${dish}" ${currentDish === dish ? 'selected' : ''}>${dish}</option>`;
-                    });
-                }
-
+                let headerOptionsHtml = `<option value="">-- Category --</option>`; Object.keys(foodMenuDatabase).forEach(cat => { headerOptionsHtml += `<option value="${cat}" ${currentCat === cat ? 'selected' : ''}>${cat}</option>`; });
+                let dishOptionsHtml = `<option value="">-- Option --</option>`; let showOtherBox = currentCat === 'OTHER'; if (currentCat && currentCat !== 'OTHER' && foodMenuDatabase[currentCat]) { foodMenuDatabase[currentCat].forEach(dish => { dishOptionsHtml += `<option value="${dish}" ${currentDish === dish ? 'selected' : ''}>${dish}</option>`; }); }
                 block.innerHTML = `
-                    <div class="smart-day-title"><span>● ${label}</span></div>
-                    <div class="dropdown-stack-group">
-                        <div class="inline-selector-row">
-                            <select class="food-select-dropdown" onchange="handleHeaderChange('${dateKey}', this.value)">
-                                ${headerOptionsHtml}
-                            </select>
-                            <button class="dice-random-btn" onclick="rollRandomCategory('${dateKey}')">🎲</button>
-                        </div>
-                        
-                        <div class="inline-selector-row" id="dish-row-box-${dateKey}" style="display: ${showOtherBox ? 'none' : 'flex'};">
-                            <select class="food-select-dropdown" id="dish-drop-${dateKey}" onchange="handleDishChange('${dateKey}', this.value)">
-                                ${dishOptionsHtml}
-                            </select>
-                            <button class="dice-random-btn" onclick="rollRandomDish('${dateKey}')">🎲</button>
-                        </div>
-                        
-                        <input type="text" class="other-text-box" id="other-input-${dateKey}" style="display: ${showOtherBox ? 'block' : 'none'};" value="${showOtherBox ? currentDish : ''}" placeholder="Type alternative option..." oninput="handleDishChange('${dateKey}', this.value)">
-                        <button class="lock-selection-btn" style="background:#eefcfd; align-self:flex-start;" onclick="toggleMealLockLatching('${dateKey}', true)">🔒 LOCK IN</button>
-                    </div>
+                    <div class="smart-day-title"><span>● ${label}</span></div><div class="dropdown-stack-group"><div class="inline-selector-row"><select class="food-select-dropdown" onchange="handleHeaderChange('${dateKey}', this.value)">${headerOptionsHtml}</select><button class="dice-random-btn" onclick="rollRandomCategory('${dateKey}')">🎲</button></div><div class="inline-selector-row" id="dish-row-box-${dateKey}" style="display: ${showOtherBox ? 'none' : 'flex'};"><select class="food-select-dropdown" id="dish-drop-${dateKey}" onchange="handleDishChange('${dateKey}', this.value)">${dishOptionsHtml}</select><button class="dice-random-btn" onclick="rollRandomDish('${dateKey}')">🎲</button></div><input type="text" class="other-text-box" id="other-input-${dateKey}" style="display: ${showOtherBox ? 'block' : 'none'};" value="${showOtherBox ? currentDish : ''}" placeholder="Type alternative option..." oninput="handleDishChange('${dateKey}', this.value)"><button class="lock-selection-btn" style="background:#eefcfd; align-self:flex-start;" onclick="toggleMealLockLatching('${dateKey}', true)">🔒 LOCK IN</button></div>
                 `;
             }
             container.appendChild(block);
@@ -1032,11 +1049,7 @@
 
         async function toggleMealLockLatching(dateKey, lockStatus) {
             let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            if (selections[dateKey]) {
-                selections[dateKey].locked = lockStatus;
-                renderActiveMatrix();
-                await saveCloudState();
-            }
+            if (selections[dateKey]) { selections[dateKey].locked = lockStatus; renderActiveMatrix(); await saveCloudState(); }
         }
 
         function checkEmptyStates(counters) {
