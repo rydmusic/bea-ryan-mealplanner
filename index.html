@@ -138,7 +138,7 @@
         .recipe-close-btn { position: absolute; top: 15px; right: 15px; font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; background: #fff; border: 2px solid #000; padding: 2px 7px; border-radius: 4px; box-shadow: 2px 2px 0 #000; }
         .recipe-close-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 #000; }
 
-        /* SHOPPING LIST STRUCTURAL VISUAL SPECIFICATIONS */
+        /* SHOPPING LIST STYLE RULES */
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
         .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 15px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; white-space: nowrap; }
@@ -551,7 +551,7 @@
         ];
 
         function toggleActivePage(targetPage) {
-            document.querySelectorAll('.page-nav-btn').forEach(b => b.classList.remove('active-page'));
+            document.querySelectorAll('.page-nav-bar .page-nav-btn').forEach(b => b.classList.remove('active-page'));
             document.getElementById('core-meal-planner-view').style.display = 'none';
             document.getElementById('core-date-night-view').style.display = 'none';
             document.getElementById('core-cinema-club-view').style.display = 'none';
@@ -983,6 +983,17 @@
         document.getElementById('item-input').addEventListener('keypress', function(e) { if (e.key === 'Enter') addItem(); });
         async function toggleItem(index) { appState.shoppingList[index].checked = !appState.shoppingList[index].checked; renderShoppingList(); await saveCloudState(); }
         async function deleteItem(index) { appState.shoppingList.splice(index, 1); renderShoppingList(); await saveCloudState(); }
+
+        async function saveCellPlan(dateKey) {
+            let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches;
+            let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches;
+            let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches;
+            activeRyan[dateKey] = document.getElementById(`input-r-${dateKey}`).value.trim();
+            activeBea[dateKey] = document.getElementById(`input-b-${dateKey}`).value.trim();
+            activeBothIn[dateKey] = document.getElementById(`check-both-${dateKey}`).checked;
+            renderActiveMatrix();
+            await saveCloudState();
+        }
 
         loadCloudState();
     </script>
