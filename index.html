@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retro OS Meal Planner</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght=0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;700&display=swap');
 
         :root {
             --bg-color: #ebdccb;
@@ -53,7 +53,7 @@
         .calendar-days-grid { display: grid; grid-template-columns: repeat(2, 1fr); border-left: 1px solid #000; border-top: 1px solid #000; background: #fff; }
         .calendar-days-grid.lunch-mode-grid { grid-template-columns: repeat(2, 1fr); }
 
-        @media (min-width: 700px) {
+        @media (min-width: 750px) {
             .calendar-days-grid { grid-template-columns: repeat(4, 1fr); }
             .calendar-days-grid.lunch-mode-grid { grid-template-columns: repeat(5, 1fr); }
         }
@@ -98,9 +98,7 @@
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
         
         .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
-        
         .inline-selector-row { display: flex; gap: 5px; align-items: center; width: 100%; min-width: 0; }
-        
         .food-select-dropdown { flex: 1; border: 2px solid #000; border-radius: 4px; padding: 5px 3px; font-family: inherit; font-size: 0.75rem; background: #fff; outline: none; min-width: 0; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
         @media (min-width: 600px) { .food-select-dropdown { font-size: 0.8rem; padding: 5px; } }
         
@@ -128,9 +126,13 @@
         .recipe-tab-item:hover { background: rgba(0,0,0,0.05); }
         .recipe-tab-item.active-recipe-tab { background-color: var(--accent-orange); color: white; }
         
-        .recipe-viewer-panel { padding: 15px; overflow-y: auto; line-height: 1.6; background: #fff; }
+        /* ADJUSTED BY-DEFAULT HIDDEN PROFILE SCHEMES */
+        .recipe-viewer-panel { padding: 15px; overflow-y: auto; line-height: 1.6; background: #fff; display: none; position: relative; }
         @media (min-width: 750px) { .recipe-viewer-panel { padding: 25px; } }
         
+        .recipe-close-btn { position: absolute; top: 15px; right: 15px; font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; background: #fff; border: 2px solid #000; padding: 2px 7px; border-radius: 4px; box-shadow: 2px 2px 0 #000; }
+        .recipe-close-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 #000; }
+
         .recipe-meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 15px 0; font-family: 'Courier Prime', monospace; font-size: 0.75rem; font-weight: bold; }
         .recipe-meta-tag { background: #eee; border: 1px solid #000; padding: 2px 6px; border-radius: 3px; }
         .recipe-section-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 1rem; text-transform: uppercase; border-bottom: 2px dashed #000; margin: 18px 0 8px 0; padding-bottom: 2px; color: #000; }
@@ -139,7 +141,6 @@
 
         /* STANDALONE RECTANGULAR REFRIGERATOR ENCLOSURE (image_b3d845.jpg setup) */
         .fridge-hardware-container { width: 100%; max-width: 440px; margin: 50px auto; perspective: 1500px; padding: 10px; }
-        
         .fridge-top-prop-shelf { width: 100%; display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 4px; position: relative; z-index: 5; margin-bottom: -5px; padding-left: 30px; padding-right: 30px; }
         .prop-bottle { width: 32px; height: 75px; background: #4a533c; border: 3px solid #000; border-radius: 6px 6px 2px 2px; position: relative; }
         .prop-bottle::before { content: ''; position: absolute; top: -10px; left: 9px; width: 8px; height: 10px; background: #c69c6d; border: 2px solid #000; border-radius: 2px; }
@@ -174,7 +175,6 @@
         .magnet-item { position: absolute; border: 2px solid #000; box-shadow: 2px 2px 0px rgba(0,0,0,0.15); user-select: none; pointer-events: none; display: flex; align-items: center; justify-content: center; font-weight: bold; }
         .mag-lemon { top: 220px; right: 45px; width: 34px; height: 34px; background: #fff13a; border-radius: 50% 60% 50% 60%; transform: rotate(-15deg); font-size: 1.1rem; }
         
-        /* The Polaroid Magnet Framework Wrapper Container */
         .mag-polaroid { top: 180px; right: 25px; width: 68px; height: 82px; background: #fffdf5; border-radius: 2px; transform: rotate(10deg); box-shadow: 2px 2px 0 #000; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 5px 5px 0 5px; }
         .polaroid-photo-frame { width: 54px; height: 54px; border: 2px solid #000; background-size: cover; background-position: center; background-color: #6b5c58; transition: background-image 0.4s ease; }
         
@@ -270,9 +270,7 @@
 
                 <div class="recipe-browser-deck">
                     <ul class="recipe-sidebar-list" id="recipe-list-tabs-anchor"></ul>
-                    <div class="recipe-viewer-panel" id="recipe-content-panel">
-                        <p style="opacity:0.5; font-style:italic;">Select a recipe item from the system catalog list...</p>
-                    </div>
+                    <div class="recipe-viewer-panel" id="recipe-content-panel"></div>
                 </div>
             </div>
         </section>
@@ -328,7 +326,7 @@
                     
                     <div class="magnet-item mag-lemon"></div>
                     
-                    <!-- Polaroid Element: Displays your newly randomized Google Drive Photo Content live! -->
+                    <!-- Polaroid Element -->
                     <div class="magnet-item mag-polaroid">
                         <div class="polaroid-photo-frame"></div>
                     </div>
@@ -499,7 +497,7 @@
             document.getElementById('freezer-d2-input').value = appState.freezerDrawer2 || "";
             document.getElementById('freezer-d3-input').value = appState.freezerDrawer3 || "";
 
-            shuffleFridgePolaroidMemory(); // Fires the Google Drive direct image shuffler loop!
+            shuffleFridgePolaroidMemory();
         }
 
         async function saveCloudState() {
@@ -517,7 +515,7 @@
 
         function toggleFreezerDoor() {
             const door = document.getElementById("fridge-top-door-panel");
-            door.classList.toggle("door-swung-open");
+            if(door) door.classList.toggle("door-swung-open");
         }
 
         async function saveFreezerDrawer(drawerNum) {
@@ -542,10 +540,12 @@
             document.querySelectorAll('.recipe-cat-btn').forEach(btn => btn.classList.remove('active-cat-tab'));
             document.getElementById(`cat-tab-${category}`).classList.add('active-cat-tab');
             buildRecipeRegistryDeck();
+            closeRecipePanel();
         }
 
         function buildRecipeRegistryDeck() {
             const listAnchor = document.getElementById('recipe-list-tabs-anchor');
+            if(!listAnchor) return;
             listAnchor.innerHTML = '';
 
             const filteredRecipes = savedRecipesDatabase.filter(recipe => {
@@ -554,34 +554,26 @@
 
             filteredRecipes.forEach((recipe, index) => {
                 const li = document.createElement('li');
-                li.className = `recipe-tab-item ${index === 0 ? 'active-recipe-tab' : ''}`;
+                li.className = 'recipe-tab-item';
                 li.innerText = recipe.title;
                 li.onclick = function() {
                     document.querySelectorAll('.recipe-tab-item').forEach(el => el.classList.remove('active-recipe-tab'));
                     li.classList.add('active-recipe-tab');
                     displayRecipeProfile(recipe);
-                    
-                    if (window.innerWidth < 750) {
-                        document.getElementById('recipe-content-panel').scrollIntoView({ behavior: 'smooth' });
-                    }
                 };
                 listAnchor.appendChild(li);
             });
-
-            if (filteredRecipes.length > 0) {
-                displayRecipeProfile(filteredRecipes[0]);
-            } else {
-                document.getElementById('recipe-content-panel').innerHTML = `<p style="opacity:0.5; font-style:italic;">No entries logged here yet...</p>`;
-            }
         }
 
         function displayRecipeProfile(recipe) {
             const panel = document.getElementById('recipe-content-panel');
+            if(!panel) return;
             let ingHtml = recipe.ingredients.map(i => `<li>${i}</li>`).join('');
             let instHtml = recipe.instructions.map(i => `<li>${i}</li>`).join('');
 
             panel.innerHTML = `
-                <h3 style="font-size: 1.2rem; font-weight: bold; text-transform: uppercase;">${recipe.title}</h3>
+                <div class="recipe-close-btn" onclick="closeRecipePanel()">✖</div>
+                <h3 style="font-size: 1.2rem; font-weight: bold; text-transform: uppercase; padding-right: 40px;">${recipe.title}</h3>
                 <p style="font-size: 0.8rem; opacity: 0.7; margin-bottom: 4px;">Track: ${recipe.category.toUpperCase()}</p>
                 
                 <div class="recipe-meta-row">
@@ -596,6 +588,16 @@
                 <div class="recipe-section-title">Instructions</div>
                 <ol class="recipe-instructions-list">${instHtml}</ol>
             `;
+            panel.style.display = 'block';
+            if (window.innerWidth < 750) {
+                panel.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function closeRecipePanel() {
+            const panel = document.getElementById('recipe-content-panel');
+            if(panel) panel.style.display = 'none';
+            document.querySelectorAll('.recipe-tab-item').forEach(el => el.classList.remove('active-recipe-tab'));
         }
 
         function switchAppMode(targetMode) {
@@ -604,7 +606,7 @@
             document.getElementById('tab-lunches').classList.toggle('active-tab', targetMode === 'lunches');
             
             const gridEl = document.getElementById('calendar-days-injector');
-            gridEl.classList.toggle('lunch-mode-grid', targetMode === 'lunches');
+            if(gridEl) gridEl.classList.toggle('lunch-mode-grid', targetMode === 'lunches');
 
             if (targetMode === 'dinners') {
                 document.getElementById('router-header-title').innerText = "Intelligent_Router: Dinner_Router.exe";
@@ -622,6 +624,7 @@
 
         function renderActiveMatrix() {
             const gridAnchor = document.getElementById('calendar-days-injector');
+            if(!gridAnchor) return;
             gridAnchor.innerHTML = '';
 
             const today = new Date();
@@ -651,16 +654,12 @@
                 const dayName = shortDayNames[dayOfWeek];
                 const monthNum = targetDay.getMonth() + 1;
 
-                if (!activeRyan[dateKey]) activeRyan[dateKey] = "";
-                if (!activeBea[dateKey]) activeBea[dateKey] = "";
-                if (activeBothIn[dateKey] === undefined) activeBothIn[dateKey] = false;
-
                 const cell = document.createElement('div');
                 cell.className = 'calendar-day-cell';
                 
-                let rText = activeRyan[dateKey].trim();
-                let bText = activeBea[dateKey].trim();
-                let isBothIn = activeBothIn[dateKey];
+                let rText = (activeRyan[dateKey] || "").trim();
+                let bText = (activeBea[dateKey] || "").trim();
+                let isBothIn = activeBothIn[dateKey] || false;
 
                 let pillsHtml = "";
                 if (isBothIn) {
@@ -698,8 +697,23 @@
             calculateRouterEngine();
         }
 
+        async function saveCellPlan(dateKey) {
+            let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches;
+            let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches;
+            let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches;
+
+            activeRyan[dateKey] = document.getElementById(`input-r-${dateKey}`).value.trim();
+            activeBea[dateKey] = document.getElementById(`input-b-${dateKey}`).value.trim();
+            activeBothIn[dateKey] = document.getElementById(`check-both-${dateKey}`).checked;
+
+            renderActiveMatrix();
+            await saveCloudState();
+        }
+
         function calculateRouterEngine() {
-            document.getElementById('container-ryan').innerHTML = '';
+            const cr = document.getElementById('container-ryan');
+            if(!cr) return;
+            cr.innerHTML = '';
             document.getElementById('container-bea').innerHTML = '';
             document.getElementById('container-both').innerHTML = '';
 
@@ -796,6 +810,43 @@
             container.appendChild(block);
         }
 
+        async function handleHeaderChange(dateKey, category) {
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            selections[dateKey] = { category: category, dish: "" };
+            renderActiveMatrix();
+            await saveCloudState();
+        }
+
+        async function handleDishChange(dateKey, dishName) {
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            if (selections[dateKey]) { selections[dateKey].dish = dishName; }
+            await saveCloudState();
+        }
+
+        async function rollRandomCategory(dateKey) {
+            const categories = Object.keys(foodMenuDatabase).filter(cat => cat !== 'OTHER');
+            if (categories.length === 0) return;
+            const randomCat = categories[Math.floor(Math.random() * categories.length)];
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            selections[dateKey] = { category: randomCat, dish: "" };
+            renderActiveMatrix();
+            await saveCloudState();
+        }
+
+        async function rollRandomDish(dateKey) {
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            const currentCat = selections[dateKey] ? selections[dateKey].category : "";
+            if (!currentCat || currentCat === 'OTHER' || !foodMenuDatabase[currentCat] || foodMenuDatabase[currentCat].length === 0) {
+                alert("Please select a category block first before rolling an option!");
+                return;
+            }
+            const optionsList = foodMenuDatabase[currentCat];
+            const randomDish = optionsList[Math.floor(Math.random() * optionsList.length)];
+            selections[dateKey].dish = randomDish;
+            renderActiveMatrix();
+            await saveCloudState();
+        }
+
         function checkEmptyStates(counters) {
             let tag = currentMode === 'dinners' ? 'nights sorted!' : 'days sorted!';
             if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
@@ -805,6 +856,7 @@
 
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list');
+            if(!listEl) return;
             listEl.innerHTML = '';
             appState.shoppingList.forEach((item, index) => {
                 const li = document.createElement('li');
