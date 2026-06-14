@@ -102,7 +102,7 @@
         .tag-bea { background-color: var(--bea-pink); }
         .tag-both { background-color: var(--together-purple); }
 
-        .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px #000; position: relative; }
+        .smart-day-block { background: #ffffff; border: 2px solid var(--border-clr); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 3px 3px 0px var(--border-clr); position: relative; }
         .smart-day-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
         
         .dropdown-stack-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
@@ -258,7 +258,7 @@
         .lock-selection-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 #000; }
         .locked-meal-display-box { font-family: 'Courier Prime', monospace; font-size: 0.85rem; font-weight: bold; background: #fdfdfd; border: 2px dashed #000; border-radius: 4px; padding: 8px; margin-top: 4px; line-height: 1.4; display: flex; flex-direction: column; gap: 5px; }
 
-        /* API SUGGESTION CARD LOOK STYLES */
+        /* SUGGESTION CARD LOOK STYLES */
         .api-suggestion-card-block { background: #fffdf0; border: 2px solid #000; border-radius: 6px; padding: 12px; margin-top: 10px; box-shadow: 3px 3px 0 #000; display: flex; gap: 10px; }
         
         /* INDIVIDUAL ADD BUTTON AND CHIP ROWS */
@@ -370,7 +370,7 @@
                 </div>
             </section>
 
-            <!-- APPLIANCE DRAWER CABINET MODULE -->
+            <!-- RESTORED TALL STORAGE DRAWER CABINET FRAME -->
             <div class="fridge-hardware-container full-width">
                 <div class="fridge-top-prop-shelf">
                     <div class="prop-bottle" title="Wine bottle"></div>
@@ -412,7 +412,7 @@
                         <div class="fridge-door-face-elements-group">
                             <div class="smeg-brand-badge">SMEG</div>
                             <div class="fridge-door-horizontal-handle"></div>
-                            <div class="magnet-item mag-lemon"></div>
+                            <div class magnet-item mag-lemon></div>
                             <div class="magnet-item mag-polaroid">
                                 <div class="polaroid-photo-frame"></div>
                             </div>
@@ -560,61 +560,7 @@
 
         const cloudStorageUrl = "https://script.google.com/macros/s/AKfycbxzTv-Qrjsi0Fgd1S5DdBn8J0swaqIPNDOaJZXeKQ_EdsTtpS3w5MBlWAdpNhEf_82M/exec";
 
-        const ryanAndBeaPhotos = [
-            "https://drive.google.com/thumbnail?sz=w1000&id=1z6xx50Jr2jO-84vxG46b8bly2nBlKOrO",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1OOg8k7bjhJTIWSaJC5Hk-pE9YCtT6b99",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1MXFS7y0RH2AZ4OZ9xXAU6seeHlPKzf7p",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1pqsvqO-Y2WU8hKyw6vmB6hdz5Xvbzhsg",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1vJ717MI0I-cxGna4GQYCA8RHKMDDPRF6",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1DSh7mVadokMnxdxqQ4yvlEL49Mrc3PR0",
-            "https://drive.google.com/thumbnail?sz=w1000&id=17VPsm-E9Ui9qS2ryjta89v3utOz-wb8C",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1Owuuf9v2F0gi8_QfkctJcHYuViF3Lbzr",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1rDg37ImkueQ8NfeLKCm1jidfgtU6odkN",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1T9MCM6hjE8I5HCR9GHsCyJcTdv-syf-f",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1OXs3CW-_Q3kFPQYtRjrksFswVZy_Dbb8",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1QGkOHNV0aZdcINDrzLCiy-Sv_YKGOgAI",
-            "https://drive.google.com/thumbnail?sz=w1000&id=10Wrqv2gn6CsWvvHhugzud9bRWYm4uOWb",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1xykk-5jSDg3O8NpI4DVE_5pGa9Cm3Mkh",
-            "https://drive.google.com/thumbnail?sz=w1000&id=10Wrqv2gn6CsWvvHhugzud9bRWYm4uOWb",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1RhxxbCaDfRga0hvpNM6CgqM7Oycub5mh",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1BLUrxOxFCujMq93_k16ZJEyk0TMviEM3",
-            "https://drive.google.com/thumbnail?sz=w1000&id=1yTdpRQnqZ-Y2XsQo-P_scHKmTmoHoXgL"
-        ];
-
-        // LOCAL STATIC RECIPE INVENTORY ARCHITECTURE FOR DISH SUGGESTIONS FALLBACK MATRIX
-        let staticRecipeDatabase = [
-            {
-                id: "vodka-pasta", category: "dinners", title: "Penne with Vodka & Tomato Sauce", prep: "15 mins", cook: "45 mins", servings: "4",
-                ingredients: ["onion", "garlic", "chilli flakes", "oregano", "vodka", "plum tomatoes", "penne", "double cream", "parm"],
-                instructions: ["Sauté onion and garlic.", "Pour in vodka and cook down.", "Add tomatoes and bake."]
-            }
-        ];
-
-        let foodMenuDatabase = {
-            "PASTA": ["Bolognese", "Carbonara", "Sausage ragú", "Mac & cheese", "Tomato sauce of something", "Vegetable pasta (corgettes/tomato)", "Vodka", "Gnocchi bake", "Lasagne"],
-            "INT.": ["stir fry", "Chicken and rice", "Fajitas", "Curry (katsu/chickpea/lentil)", "Enchiladas"],
-            "MEAT": ["chicken shawarma", "Schnitzel", "Roast dinner", "Sausage and mash", "Chicken and chorizo stew", "Cod with breadcrumbs", "Pesto chicken", "Pork belly", "Steak"],
-            "VEGGIE": ["caesar salad", "Pasta Salad", "Halloumi something", "Chilli with beans", "Baked potato", "Mushroom risotto", "Spanakopita", "Noodle soup", "Beans"],
-            "GUILTY": ["Fish and chips", "Takeaway", "Burger", "Hot dogs", "Frozen pizza", "Freezer food picky bits"],
-            "OTHER": []
-        };
-
-        let appState = {
-            shoppingList: [{ name: 'Oat Milk', checked: false }],
-            dateLocal: [], dateEast: [], dateCentral: [], cinemaRegistry: [],
-            ryanDinners: {}, beaDinners: {}, bothInDinners: {}, dinnerSelections: {},
-            ryanLunches: {}, beaLunches: {}, bothInLunches: {}, lunchSelections: {},
-            freezerDrawer1: "", freezerDrawer2: "", freezerDrawer3: ""
-        };
-
-        function shuffleFridgePolaroidMemory() {
-            if (ryanAndBeaPhotos.length === 0) return;
-            const randomIndex = Math.floor(Math.random() * ryanAndBeaPhotos.length);
-            const targetElement = document.querySelector('.polaroid-photo-frame');
-            if (targetElement) { targetElement.style.backgroundImage = `url('${ryanAndBeaPhotos[randomIndex]}')`; }
-        }
-
-        /* LOCAL ROBUST RECIPE SUGGESTER MATCHING INTERNAL CONTROLS ENGINE */
+        // LOCAL RECONSTRUCTED SUGGESTION MATCHING MATRIX HOOKS
         function queryLocalIngredientMealSuggestion() {
             const inputEl = document.getElementById('api-ingredient-tags-input');
             const outputAnchor = document.getElementById('api-suggestions-dynamic-output-rail');
@@ -658,7 +604,7 @@
             scoreboards.sort((a, b) => b.matchCount - a.matchCount);
 
             if (scoreboards.length === 0) {
-                outputAnchor.innerHTML = `<p style="font-size:0.75rem; opacity:0.5; font-family:monospace;">No matching recipe database hits found. Try different combinations!</p>`;
+                outputAnchor.innerHTML = `<p style="font-size:0.75rem; opacity:0.4; font-family:monospace;">No matching recipe database hits found.</p>`;
                 return;
             }
 
@@ -834,62 +780,6 @@
         async function toggleCinemaCheckboxLatchingModal(masterIndex) { appState.cinemaRegistry[masterIndex].checked = !appState.cinemaRegistry[masterIndex].checked; renderCinemaCatalogDeck(); inspectMovieGridCardRecord(masterIndex); await saveCloudState(); }
         async function deleteCinemaRegistryItemModal(masterIndex) { if(confirm("Are you sure you want to remove this film?")) { appState.cinemaRegistry.splice(masterIndex, 1); renderCinemaCatalogDeck(); closeMovieInspectionModal(); await saveCloudState(); } }
 
-        function toggleActivePage(targetPage) {
-            document.querySelectorAll('.page-nav-bar .page-nav-btn').forEach(b => b.classList.remove('active-page'));
-            document.getElementById('core-meal-planner-view').style.display = 'none';
-            document.getElementById('core-date-night-view').style.display = 'none';
-            document.getElementById('core-cinema-club-view').style.display = 'none';
-
-            if (targetPage === 'meal') {
-                document.getElementById('page-btn-meal').classList.add('active-page');
-                document.getElementById('core-meal-planner-view').style.display = 'block';
-            } else if (targetPage === 'date') {
-                document.getElementById('page-btn-date').classList.add('active-page');
-                document.getElementById('core-date-night-view').style.display = 'block';
-                renderAllDateColumns();
-                setTimeout(initializeVintageLondonMap, 100);
-            } else if (targetPage === 'film') {
-                document.getElementById('page-btn-film').classList.add('active-page');
-                document.getElementById('core-cinema-club-view').style.display = 'block';
-                renderCinemaCatalogDeck();
-            }
-        }
-
-        function initializeVintageLondonMap() {
-            if (leafletMapInstance) { leafletMapInstance.invalidateSize(); return; }
-            leafletMapInstance = L.map('london-crt-viewscreen-map', { center: [51.5074, -0.1278], zoom: 12, zoomControl: true, scrollWheelZoom: false });
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(leafletMapInstance);
-            mapPinsLayerGroup = L.layerGroup().addTo(leafletMapInstance);
-            refreshPersistentPinsOnMap();
-        }
-
-        function refreshPersistentPinsOnMap() {
-            if (!mapPinsLayerGroup) return;
-            mapPinsLayerGroup.clearLayers();
-            const tracks = [
-                { data: appState.dateLocal || [], color: '#e15c32' },
-                { data: appState.dateEast || [], color: '#3283c4' },
-                { data: appState.dateCentral || [], color: '#f2a6b4' }
-            ];
-            tracks.forEach(track => {
-                track.data.forEach(item => {
-                    if (item.lat && item.lng) {
-                        const vintageRoundelIcon = L.divIcon({ className: 'custom-vintage-pin', html: `<div style="background:${track.color}; width:16px; height:14px; border:3px solid #000; border-radius:3px; position:relative; box-shadow:2px 2px 0px #000;"><div style="position:absolute; top:4px; left:-4px; width:18px; height:3px; background:#000;"></div></div>`, iconSize: [16, 14], iconAnchor: [8, 7] });
-                        let popupLabel = `<div style="font-family:'Courier Prime',monospace; font-size:0.8rem; line-height:1.4;"><b style="text-transform:uppercase; color:#e15c32;">${item.name}</b>`;
-                        if (item.notes) popupLabel += `<br><i>"${item.notes}"</i>`;
-                        popupLabel += `</div>`;
-                        L.marker([item.lat, item.lng], { icon: vintageRoundelIcon }).addTo(mapPinsLayerGroup).bindPopup(popupLabel);
-                    }
-                });
-            });
-        }
-
-        function triggerCameraGlide(lat, lng) {
-            if (!leafletMapInstance || !lat || !lng) return;
-            leafletMapInstance.setView([lat, lng], 15, { animate: true });
-            mapPinsLayerGroup.eachLayer(marker => { if (marker.getLatLng().lat === lat && marker.getLatLng().lng === lng) marker.openPopup(); });
-        }
-
         function filterRecipeCategory(category) { currentRecipeCategory = category; document.querySelectorAll('.recipe-cat-btn').forEach(btn => btn.classList.remove('active-cat-tab')); document.getElementById(`cat-tab-${category}`).classList.add('active-cat-tab'); buildRecipeRegistryDeck(); closeRecipePanel(); }
         function buildRecipeRegistryDeck() {
             const listAnchor = document.getElementById('recipe-list-tabs-anchor'); if(!listAnchor) return; listAnchor.innerHTML = '';
@@ -902,7 +792,6 @@
             if (filteredRecipes.length > 0) displayRecipeProfile(filteredRecipes[0]);
         }
 
-        style="display: block;"
         function displayRecipeProfile(recipe) {
             const panel = document.getElementById('recipe-content-panel'); if(!panel) return;
             let ingHtml = recipe.ingredients.map(i => `<li>${i}</li>`).join(''); 
@@ -1026,8 +915,6 @@
         async function toggleItem(index) { appState.shoppingList[index].checked = !appState.shoppingList[index].checked; renderShoppingList(); await saveCloudState(); }
         async function deleteItem(index) { appState.shoppingList.splice(index, 1); renderShoppingList(); await saveCloudState(); }
 
-        async function saveCloudState() { try { await fetch(cloudStorageUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(appState) }); } catch (e) { console.error(e); } }
-
         // AUTOMATED DEFLATTENED MASTER LIVE FEED LOADER ENGINE
         document.addEventListener('DOMContentLoaded', () => {
             fetch(cloudStorageUrl)
@@ -1092,7 +979,7 @@
                     
                     shuffleFridgePolaroidMemory();
                 }).catch(err => {
-                    console.error("Transmission breakdown. Running backup cache layout safely.", err);
+                    console.error("Transmission breakdown. Rolling back to native cache layout safely.", err);
                     switchAppMode(currentMode);
                     renderShoppingList();
                     buildRecipeRegistryDeck();
