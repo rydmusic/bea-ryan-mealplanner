@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retro OS Meal Planner</title>
-    <!-- Open-Source Safe Mapping Asset Layout Rails -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;700&display=swap');
@@ -265,7 +264,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v77.6_STABLE_INTEGRATED</div>
+        <div class="nav-logo">💾 FOOD_OS // v77.7_STABLE_INTEGRATED</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -273,14 +272,12 @@
         </div>
     </nav>
 
-    <!-- CORE SITE PAGE NAVIGATION CONTROLS SWITCHBOARD SYSTEM -->
     <div class="page-nav-bar">
         <button id="page-btn-meal" class="page-nav-btn active-page" onclick="toggleActivePage('meal')">[ 💾 Meal Planner OS ]</button>
         <button id="page-btn-date" class="page-nav-btn" onclick="toggleActivePage('date')">[ ❤️ Date Nights ]</button>
         <button id="page-btn-film" class="page-nav-btn" onclick="toggleActivePage('film')">[ 🎬 Cinema Club OS ]</button>
     </div>
 
-    <!-- MAIN OS MEAL PLANNERS CONTAINER -->
     <div id="core-meal-planner-view">
         <main class="desktop-layout">
             <section class="retro-window full-width">
@@ -333,7 +330,6 @@
                 </div>
             </section>
 
-            <!-- RECIPE MODULE WITH LOCAL INGREDIENTS SEARCH CONSOLE -->
             <section class="retro-window full-width" id="recipe-module-window">
                 <div class="window-header orange-variant">
                     <span>Database_Explorer: Saved_Recipes.db & Local_AI_Suggester.exe</span>
@@ -341,7 +337,6 @@
                 </div>
                 <div class="window-body">
                     
-                    <!-- LOCAL KITCHEN INGREDIENTS CONSOLE PANEL -->
                     <div style="background:rgba(0,0,0,0.03); border:2px dashed #000; border-radius:6px; padding:15px; margin-bottom:20px;">
                         <h4 style="font-family:'Courier Prime',monospace; font-size:0.9rem; font-weight:bold; text-transform:uppercase; margin-bottom:5px;">💡 Native Ingredient Shuffler Engine</h4>
                         <div class="search-bar-container" style="margin-bottom:10px;">
@@ -365,7 +360,6 @@
                 </div>
             </section>
 
-            <!-- APPLIANCE DRAWER CABINET MODULE -->
             <div class="fridge-hardware-container full-width">
                 <div class="fridge-top-prop-shelf">
                     <div class="prop-bottle" title="Wine bottle"></div>
@@ -403,7 +397,6 @@
                         </div>
                     </div>
 
-                    <!-- RE-ANCHORED DOOR WING CLICK ROUTE -->
                     <div class="fridge-door-wing" id="fridge-top-door-panel" onclick="toggleFreezerDoor()">
                         <div class="fridge-door-face-elements-group">
                             <div class="smeg-brand-badge">SMEG</div>
@@ -423,11 +416,9 @@
         </main>
     </div>
 
-    <!-- DATE NIGHT APP VIEWS CONTAINER -->
     <div id="core-date-night-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="date-night-grid">
-                <!-- LOCAL SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-orange);">📍 Local</div>
                     <div class="date-input-stack-group">
@@ -439,7 +430,6 @@
                     <ul class="shopping-list" id="date-local-list"></ul>
                 </div>
 
-                <!-- EAST LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-blue);">🧱 East LDN</div>
                     <div class="date-input-stack-group">
@@ -451,7 +441,6 @@
                     <ul class="shopping-list" id="date-east-list"></ul>
                 </div>
 
-                <!-- CENTRAL LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-pink);">🏛️ Central LDN</div>
                     <div class="date-input-stack-group">
@@ -464,7 +453,6 @@
                 </div>
             </div>
 
-            <!-- ILLUSTRATED LONDON BLUEPRINT TELETRACT TERMINAL -->
             <div class="map-terminal-frame">
                 <div class="window-header purple-variant" style="border-bottom:2px solid #000;">
                     <span>Radar_Plotter: Illustrated_London_Blueprint.exe</span>
@@ -476,12 +464,10 @@
         </main>
     </div>
 
-    <!-- THIRD PAGE APP CONTAINER: CINEMA POSTER GRID VAULT DECK -->
     <div id="core-cinema-club-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="cinema-layout-deck">
                 
-                <!-- CREATION INPUT BLOCK -->
                 <div class="date-night-column" style="height: max-content;">
                     <div class="date-column-title" style="color: var(--accent-orange);">🎬 Log New Movie</div>
                     <div class="date-input-stack-group" style="gap:6px; background:none; border:none; padding:0;">
@@ -509,7 +495,6 @@
                     </div>
                 </div>
 
-                <!-- COOPERATIVE INVENTORY VAULT MATRIX -->
                 <div class="retro-window" style="margin-bottom:0;">
                     <div class="window-header blue-variant">
                         <span>Movie_Vault // Poster_Matrix_Catalog.exe</span>
@@ -539,12 +524,10 @@
         </main>
     </div>
 
-    <!-- MODAL MANAGER ELEMENT BOX TRACK FOR POSTER OVERLAYS -->
     <div class="cinema-detail-modal-overlay" id="cinema-inspect-modal-frame" onclick="closeMovieInspectionModal()">
         <div class="cinema-detail-modal-window" onclick="event.stopPropagation()" id="cinema-modal-content-injector"></div>
     </div>
 
-    <!-- Leaflet processing library engine scripts hooks -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -602,13 +585,7 @@
             freezerDrawer1: "", freezerDrawer2: "", freezerDrawer3: ""
         };
 
-        function shuffleFridgePolaroidMemory() {
-            if (ryanAndBeaPhotos.length === 0) return;
-            const randomIndex = Math.floor(Math.random() * ryanAndBeaPhotos.length);
-            const targetElement = document.querySelector('.polaroid-photo-frame');
-            if (targetElement) { targetElement.style.backgroundImage = `url('${ryanAndBeaPhotos[randomIndex]}')`; }
-        }
-
+        /* LOCAL ROBUST RECIPE SUGGESTER MATCHING INTERNAL CONTROLS ENGINE */
         function queryLocalIngredientMealSuggestion() {
             const inputEl = document.getElementById('api-ingredient-tags-input');
             const outputAnchor = document.getElementById('api-suggestions-dynamic-output-rail');
@@ -828,62 +805,6 @@
         async function toggleCinemaCheckboxLatchingModal(masterIndex) { appState.cinemaRegistry[masterIndex].checked = !appState.cinemaRegistry[masterIndex].checked; renderCinemaCatalogDeck(); inspectMovieGridCardRecord(masterIndex); await saveCloudState(); }
         async function deleteCinemaRegistryItemModal(masterIndex) { if(confirm("Are you sure you want to remove this film?")) { appState.cinemaRegistry.splice(masterIndex, 1); renderCinemaCatalogDeck(); closeMovieInspectionModal(); await saveCloudState(); } }
 
-        function toggleActivePage(targetPage) {
-            document.querySelectorAll('.page-nav-bar .page-nav-btn').forEach(b => b.classList.remove('active-page'));
-            document.getElementById('core-meal-planner-view').style.display = 'none';
-            document.getElementById('core-date-night-view').style.display = 'none';
-            document.getElementById('core-cinema-club-view').style.display = 'none';
-
-            if (targetPage === 'meal') {
-                document.getElementById('page-btn-meal').classList.add('active-page');
-                document.getElementById('core-meal-planner-view').style.display = 'block';
-            } else if (targetPage === 'date') {
-                document.getElementById('page-btn-date').classList.add('active-page');
-                document.getElementById('core-date-night-view').style.display = 'block';
-                renderAllDateColumns();
-                setTimeout(initializeVintageLondonMap, 100);
-            } else if (targetPage === 'film') {
-                document.getElementById('page-btn-film').classList.add('active-page');
-                document.getElementById('core-cinema-club-view').style.display = 'block';
-                renderCinemaCatalogDeck();
-            }
-        }
-
-        function initializeVintageLondonMap() {
-            if (leafletMapInstance) { leafletMapInstance.invalidateSize(); return; }
-            leafletMapInstance = L.map('london-crt-viewscreen-map', { center: [51.5074, -0.1278], zoom: 12, zoomControl: true, scrollWheelZoom: false });
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(leafletMapInstance);
-            mapPinsLayerGroup = L.layerGroup().addTo(leafletMapInstance);
-            refreshPersistentPinsOnMap();
-        }
-
-        function refreshPersistentPinsOnMap() {
-            if (!mapPinsLayerGroup) return;
-            mapPinsLayerGroup.clearLayers();
-            const tracks = [
-                { data: appState.dateLocal || [], color: '#e15c32' },
-                { data: appState.dateEast || [], color: '#3283c4' },
-                { data: appState.dateCentral || [], color: '#f2a6b4' }
-            ];
-            tracks.forEach(track => {
-                track.data.forEach(item => {
-                    if (item.lat && item.lng) {
-                        const vintageRoundelIcon = L.divIcon({ className: 'custom-vintage-pin', html: `<div style="background:${track.color}; width:16px; height:14px; border:3px solid #000; border-radius:3px; position:relative; box-shadow:2px 2px 0px #000;"><div style="position:absolute; top:4px; left:-4px; width:18px; height:3px; background:#000;"></div></div>`, iconSize: [16, 14], iconAnchor: [8, 7] });
-                        let popupLabel = `<div style="font-family:'Courier Prime',monospace; font-size:0.8rem; line-height:1.4;"><b style="text-transform:uppercase; color:#e15c32;">${item.name}</b>`;
-                        if (item.notes) popupLabel += `<br><i>"${item.notes}"</i>`;
-                        popupLabel += `</div>`;
-                        L.marker([item.lat, item.lng], { icon: vintageRoundelIcon }).addTo(mapPinsLayerGroup).bindPopup(popupLabel);
-                    }
-                });
-            });
-        }
-
-        function triggerCameraGlide(lat, lng) {
-            if (!leafletMapInstance || !lat || !lng) return;
-            leafletMapInstance.setView([lat, lng], 15, { animate: true });
-            mapPinsLayerGroup.eachLayer(marker => { if (marker.getLatLng().lat === lat && marker.getLatLng().lng === lng) marker.openPopup(); });
-        }
-
         function filterRecipeCategory(category) { currentRecipeCategory = category; document.querySelectorAll('.recipe-cat-btn').forEach(btn => btn.classList.remove('active-cat-tab')); document.getElementById(`cat-tab-${category}`).classList.add('active-cat-tab'); buildRecipeRegistryDeck(); closeRecipePanel(); }
         function buildRecipeRegistryDeck() {
             const listAnchor = document.getElementById('recipe-list-tabs-anchor'); if(!listAnchor) return; listAnchor.innerHTML = '';
@@ -1019,9 +940,35 @@
         async function toggleItem(index) { appState.shoppingList[index].checked = !appState.shoppingList[index].checked; renderShoppingList(); await saveCloudState(); }
         async function deleteItem(index) { appState.shoppingList.splice(index, 1); renderShoppingList(); await saveCloudState(); }
 
+        async function registerNewFilmToDatabase() {
+            const titleEl = document.getElementById('film-input-title');
+            const yearEl = document.getElementById('film-input-year');
+            const runtimeEl = document.getElementById('film-input-runtime');
+            const watchEl = document.getElementById('film-input-watchat');
+            const posterEl = document.getElementById('film-input-poster');
+            const imdbEl = document.getElementById('film-input-imdb-manual');
+
+            const titleVal = titleEl.value.trim(); if (titleVal === '') return;
+            let selectedCategories = []; document.querySelectorAll('.multi-select-category-grid input:checked').forEach(box => selectedCategories.push(box.value));
+
+            let newFilm = {
+                name: titleVal, year: yearEl.value.trim(), runtime: runtimeEl.value.trim(),
+                watchAt: watchEl.value.trim(), posterUrl: posterEl.value.trim(),
+                imdbRating: imdbEl.value.trim() || "N/A", categories: selectedCategories, checked: false
+            };
+
+            if (!appState.cinemaRegistry) appState.cinemaRegistry = [];
+            appState.cinemaRegistry.push(newFilm);
+
+            titleEl.value = ''; yearEl.value = ''; runtimeEl.value = ''; watchEl.value = ''; posterEl.value = ''; imdbEl.value = '';
+            document.querySelectorAll('.multi-select-category-grid input').forEach(b => b.checked = false);
+
+            renderCinemaCatalogDeck(); await saveCloudState();
+        }
+
         async function saveCloudState() { try { await fetch(cloudStorageUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(appState) }); } catch (e) { console.error(e); } }
 
-        // AUTOMATED DEFLATTENED MASTER LIVE FEED LOADER ENGINE
+        // DEFLATTENED INITIAL STATE HANDSHAKE INITIALIZER PIPELINE
         document.addEventListener('DOMContentLoaded', () => {
             fetch(cloudStorageUrl)
                 .then(res => res.json())
@@ -1080,7 +1027,6 @@
                     document.getElementById('freezer-d1-input').value = appState.freezerDrawer1;
                     document.getElementById('freezer-d2-input').value = appState.freezerDrawer2;
                     document.getElementById('freezer-d3-input').value = appState.freezerDrawer3;
-                    
                     shuffleFridgePolaroidMemory();
                 }).catch(err => {
                     console.error("Connection breakdown. Running backup cache layout safely.", err);
