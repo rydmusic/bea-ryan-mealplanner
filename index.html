@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retro OS Meal Planner</title>
-    <!-- Open-Source Safe Mapping Asset Layout Rails -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;700&display=swap');
@@ -139,7 +138,7 @@
         .recipe-close-btn { position: absolute; top: 15px; right: 15px; font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; background: #fff; border: 2px solid #000; padding: 2px 7px; border-radius: 4px; box-shadow: 2px 2px 0 #000; }
         .recipe-close-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 #000; }
 
-        /* THEME GROCERY CARD DEFINITIONS (RESTORED CHECKBOX SYSTEM)[cite: 2] */
+        /* THEME GROCERY CARD DEFINITIONS (RESTORED CHECKBOX SYSTEM) */
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
         .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 15px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; white-space: nowrap; }
@@ -154,7 +153,7 @@
         .delete-btn { background: none; border: none; font-family: monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; padding: 0 5px; margin-left: auto; }
         .checker-banner { height: 16px; background-image: linear-gradient(45deg, #000 25%, transparent 25%), linear-gradient(-45deg, #000 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #000 75%), linear-gradient(-45deg, transparent 75%, #000 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; background-color: var(--accent-blue); border-bottom: 2px solid var(--border-clr); }
 
-        /* REFRIGERATOR ENCLOSURE HULL STYLINGS[cite: 2] */
+        /* REFRIGERATOR ENCLOSURE HULL STYLINGS */
         .fridge-hardware-container { width: 100%; max-width: 440px; margin: 50px auto; perspective: 1500px; padding: 10px; }
         .fridge-top-prop-shelf { width: 100%; display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 4px; position: relative; z-index: 5; margin-bottom: -5px; padding-left: 30px; padding-right: 30px; }
         .prop-bottle { width: 32px; height: 75px; background: #4a533c; border: 3px solid #000; border-radius: 6px 6px 2px 2px; position: relative; }
@@ -213,7 +212,7 @@
         
         .date-input-stack-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; background: rgba(0,0,0,0.02); padding: 10px; border: 1px dashed #000; border-radius: 4px; }
         
-        /* CARD MATRIX COLLAPSIBLE AND EDITABLE HOOKS[cite: 2] */
+        /* CARD MATRIX COLLAPSIBLE AND EDITABLE HOOKS */
         .date-item-row-wrapper { font-size: 0.72rem; display: flex; flex-direction: column; gap: 4px; text-decoration: none !important; width: 100%; }
         .date-card-header-clickable { font-weight: 700; font-size: 1rem; color: #000; cursor: pointer; display: flex; justify-content: space-between; align-items: center; width: 100%; padding-bottom: 2px; }
         .date-card-header-clickable:hover { color: var(--accent-orange); }
@@ -230,7 +229,7 @@
 
         .map-badge-link-pill { display: inline-flex; align-items: center; gap: 3px; font-size: 0.65rem; background: var(--folder-yellow); color: #000; padding: 1px 6px; border-radius: 3px; font-family: 'Courier Prime', monospace; font-weight: bold; width: max-content; border: 1px solid #000; cursor: pointer; box-shadow: 1px 1px 0 #000; }
 
-        /* VINTAGE MAP OVERLAYS[cite: 2] */
+        /* VINTAGE MAP OVERLAYS */
         .map-terminal-frame { background: var(--map-vintage-paper); border: 2px solid #000; border-radius: 8px; box-shadow: 6px 6px 0px #000; overflow: hidden; display: flex; flex-direction: column; margin-top: 10px; position: relative; }
         .crt-london-viewscreen { width: 100%; height: 440px; z-index: 1; }
         
@@ -271,7 +270,6 @@
         <button id="page-btn-film" class="page-nav-btn" onclick="toggleActivePage('film')">[ 🎬 Cinema Club OS ]</button>
     </div>
 
-    <!-- MAIN OS MEAL PLANNERS CONTAINER -->
     <div id="core-meal-planner-view">
         <main class="desktop-layout">
             <section class="retro-window full-width">
@@ -344,7 +342,6 @@
                 </div>
             </section>
 
-            <!-- APPLIANCE DRAWER CABINET MODULE -->
             <div class="fridge-hardware-container full-width">
                 <div class="fridge-top-prop-shelf">
                     <div class="prop-bottle" title="Wine bottle"></div>
@@ -401,11 +398,9 @@
         </main>
     </div>
 
-    <!-- DATE NIGHT APP VIEWS CONTAINER -->
     <div id="core-date-night-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="date-night-grid">
-                <!-- LOCAL SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-orange);">📍 Local</div>
                     <div class="date-input-stack-group">
@@ -417,7 +412,6 @@
                     <ul class="shopping-list" id="date-local-list"></ul>
                 </div>
 
-                <!-- EAST LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-blue);">🧱 East LDN</div>
                     <div class="date-input-stack-group">
@@ -429,7 +423,6 @@
                     <ul class="shopping-list" id="date-east-list"></ul>
                 </div>
 
-                <!-- CENTRAL LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-pink);">🏛️ Central LDN</div>
                     <div class="date-input-stack-group">
@@ -442,7 +435,6 @@
                 </div>
             </div>
 
-            <!-- ILLUSTRATED LONDON BLUEPRINT TELEMETRY FRAME -->
             <div class="map-terminal-frame">
                 <div class="window-header purple-variant" style="border-bottom:2px solid #000;">
                     <span>Radar_Plotter: Illustrated_London_Blueprint.exe</span>
@@ -454,12 +446,10 @@
         </main>
     </div>
 
-    <!-- THIRD PAGE APP CONTAINER: MULTI-GENRE COOPERATIVE MOVIES VAULT -->
     <div id="core-cinema-club-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="cinema-layout-deck">
                 
-                <!-- CREATION INPUT BLOCK -->
                 <div class="date-night-column" style="height: max-content;">
                     <div class="date-column-title" style="color: var(--accent-orange);">🎬 Log New Movie</div>
                     <div class="date-input-stack-group" style="gap:6px; background:none; border:none; padding:0;">
@@ -488,7 +478,6 @@
                     </div>
                 </div>
 
-                <!-- COOPERATIVE INVENTORY VAULT MATRIX -->
                 <div class="retro-window" style="margin-bottom:0;">
                     <div class="window-header blue-variant">
                         <span>Movie_Vault // Matrix_Index.exe</span>
@@ -518,7 +507,6 @@
         </main>
     </div>
 
-    <!-- Leaflet processing library engine scripts hooks -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -563,6 +551,15 @@
                 instructions: ["Sauté chopped shallots and celery in a tablespoon of groundnut oil for 10 minutes until soft. Add 5 cloves of chopped garlic, 1 finely chopped red chilli, and coriander stalks; fry for a couple more minutes.", "Make pickle: Mix sliced cucumber, sliced red chilli, rice wine vinegar, honey/sugar, and a pinch of salt. Set aside.", "Whisk toasted sesame oil, 1 tsp soy sauce, tomato purée, miso paste, kecap manis, and 2 tbsp soy sauce.", "Pour flavorings over the cooked veg, add drained black beans, and cook for a few minutes. Tip into a bowl.", "Put pan back over heat, add remaining groundnut oil, add cooked brown basmati rice and stir-fry for a few minutes until beginning to crisp. Tip in the black bean mixture, stir well and cook for another couple of minutes.", "Fry eggs in a separate large frying pan with a little oil. Stir sliced spring onions and coriander leaves into rice.", "Serve nasi goreng piled into bowls topped with a fried egg, cucumber pickle, and lime wedges."]
             }
         ];
+
+        let foodMenuDatabase = {
+            "PASTA": ["Bolognese", "Carbonara", "Sausage ragú", "Mac & cheese", "Tomato sauce of something", "Vegetable pasta (corgettes/tomato)", "Vodka", "Gnocchi bake", "Lasagne"],
+            "INT.": ["stir fry", "Chicken and rice", "Fajitas", "Curry (katsu/chickpea/lentil)", "Enchiladas"],
+            "MEAT": ["chicken shawarma", "Schnitzel", "Roast dinner", "Sausage and mash", "Chicken and chorizo stew", "Cod with breadcrumbs", "Pesto chicken", "Pork belly", "Steak"],
+            "VEGGIE": ["caesar salad", "Pasta Salad", "Halloumi something", "Chilli with beans", "Baked potato", "Mushroom risotto", "Spanakopita", "Noodle soup", "Beans"],
+            "GUILTY": ["Fish and chips", "Takeaway", "Burger", "Hot dogs", "Frozen pizza", "Freezer food picky bits"],
+            "OTHER": []
+        };
 
         function toggleActivePage(targetPage) {
             document.querySelectorAll('.page-nav-bar .page-nav-btn').forEach(b => b.classList.remove('active-page'));
@@ -752,6 +749,7 @@
             });
         }
 
+        // CORRECTED SYNTAX TO HIDE INLINE ERRORS ON THE EXPAND VIEWS LOOPS
         function toggleCinemaCardView(masterIndex) {
             const el = document.getElementById(`collapsible-film-card-${masterIndex}`);
             const arrow = document.getElementById(`film-arrow-indicator-${masterIndex}`);
@@ -829,19 +827,36 @@
 
         function cancelInlineDateEdit(targetId, index) { let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); delete targetArr[index]._isEditing; renderAllDateColumns(); }
 
+        // EXPLICIT FIXED LOGGED FIELDS POINTER REFERENCES REROUTED CLEANLY BELOW
         async function saveInlineDateModifications(targetId, index) {
-            let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); let item = targetArr[index];
+            let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); 
+            let item = targetArr[index];
+            
             const updatedName = document.getElementById(`edit-name-${targetId}-${index}`).value.trim();
-            const updatedNotes = document.getElementById(`edit-notes-${targetId}-${index}`).value.trim(); const updatedLoc = document.getElementById(`edit-loc-${targetId}-${index}`).value.trim();
-            if (updatedName === '') return; let addressChanged = item.location !== updatedLoc; item.name = updatedName; item.notes = updatedNotes; item.location = updatedLoc; delete item._isEditing;
+            const updatedNotes = document.getElementById(`edit-notes-${targetId}-${index}`).value.trim(); 
+            const updatedLoc = document.getElementById(`edit-loc-${targetId}-${index}`).value.trim();
+            
+            if (updatedName === '') return; 
+            let addressChanged = item.location !== updatedLoc; 
+            
+            item.name = updatedName; 
+            item.notes = updatedNotes; 
+            item.location = updatedLoc; 
+            delete item._isEditing;
+            
             renderAllDateColumns();
             if (updatedLoc !== '' && addressChanged) {
                 try {
                     let res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(updatedLoc + ", London")}`);
-                    let data = await res.json(); if (data && data.length > 0) { item.lat = parseFloat(data[0].lat); item.lng = parseFloat(data[0].lon); } else { item.lat = null; item.lng = null; }
+                    let data = await res.json(); 
+                    if (data && data.length > 0) { item.lat = parseFloat(data[0].lat); item.lng = parseFloat(data[0].lon); } 
+                    else { item.lat = null; item.lng = null; }
                 } catch(err) { console.warn(err); }
             } else if (updatedLoc === '') { item.lat = null; item.lng = null; }
-            renderAllDateColumns(); refreshPersistentPinsOnMap(); await saveCloudState();
+            
+            renderAllDateColumns(); 
+            refreshPersistentPinsOnMap(); 
+            await saveCloudState();
         }
 
         async function addDateIdea(targetId) {
@@ -966,13 +981,6 @@
             container.appendChild(block);
         }
 
-        function checkEmptyStates(counters) {
-            let tag = currentMode === 'dinners' ? 'nights sorted!' : 'days sorted!';
-            if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
-            if(counters.bea === 0) document.getElementById('container-bea').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
-            if(counters.both === 0) document.getElementById('container-both').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
-        }
-
         function renderShoppingList() {
             const listEl = document.getElementById('shopping-list'); if(!listEl) return; listEl.innerHTML = '';
             appState.shoppingList.forEach((item, index) => {
@@ -987,7 +995,6 @@
         async function toggleItem(index) { appState.shoppingList[index].checked = !appState.shoppingList[index].checked; renderShoppingList(); await saveCloudState(); }
         async function deleteItem(index) { appState.shoppingList.splice(index, 1); renderShoppingList(); await saveCloudState(); }
 
-        // EXPLICIT DATABASE STATE PERSISTENT ATTACHMENT MARCOS[cite: 2]
         async function handleHeaderChange(dateKey, category) {
             let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
             selections[dateKey] = { category: category, dish: "" };
@@ -1025,17 +1032,7 @@
             await saveCloudState();
         }
 
-        async function saveCellPlan(dateKey) {
-            let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches;
-            let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches;
-            let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches;
-            activeRyan[dateKey] = document.getElementById(`input-r-${dateKey}`).value.trim();
-            activeBea[dateKey] = document.getElementById(`input-b-${dateKey}`).value.trim();
-            activeBothIn[dateKey] = document.getElementById(`check-both-${dateKey}`).checked;
-            renderActiveMatrix();
-            await saveCloudState();
-        }
-
+        // FULL SHEET PARSING PIPELINE LIFECYCLE INITIALIZER ATTACHED SAFELY HERE
         async function loadCloudState() {
             try {
                 const response = await fetch(cloudStorageUrl);
