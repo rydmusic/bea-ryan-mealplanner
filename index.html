@@ -29,12 +29,17 @@
             body { padding: 30px; }
         }
 
-        .top-nav { display: flex; justify-content: space-between; align-items: center; border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 8px 20px; box-shadow: 4px 4px 0px var(--border-clr); margin-bottom: 30px; border-radius: 4px; }
+        .top-nav { display: flex; justify-content: space-between; align-items: center; border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 8px 20px; box-shadow: 4px 4px 0px var(--border-clr); margin-bottom: 20px; border-radius: 4px; }
         .nav-logo { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; }
         @media (min-width: 600px) { .nav-logo { font-size: 1.4rem; } }
         
         .window-controls-dummy { display: flex; gap: 8px; }
         .dot-control { width: 12px; height: 12px; border: 2px solid var(--border-clr); border-radius: 50%; background: white; }
+
+        /* CORE PAGE NAVIGATION SYSTEM Tabs */
+        .page-nav-bar { display: flex; gap: 12px; margin-bottom: 25px; }
+        .page-nav-btn { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.95rem; padding: 8px 16px; border: 2px solid #000; background: #fff; cursor: pointer; border-radius: 4px; box-shadow: 4px 4px 0px #000; text-transform: uppercase; }
+        .page-nav-btn.active-page { background-color: var(--accent-orange); color: #fff; transform: translate(2px, 2px); box-shadow: 1px 1px 0px #000; }
 
         .retro-window { background-color: var(--window-bg); border: 2px solid var(--border-clr); border-radius: 8px; box-shadow: 6px 6px 0px var(--border-clr); display: flex; flex-direction: column; overflow: hidden; margin-bottom: 30px; position: relative; }
         .window-header { background-color: var(--accent-pink); border-bottom: 2px solid var(--border-clr); padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; font-family: 'Courier Prime', monospace; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
@@ -42,6 +47,7 @@
         .window-header.orange-variant { background-color: var(--accent-orange); color: white; }
         .window-header.yellow-variant { background-color: var(--folder-yellow); }
         .window-header.freezer-variant { background-color: var(--smeg-orange); color: white; }
+        .window-header.purple-variant { background-color: var(--together-purple); }
         
         .window-body { padding: 15px; }
         @media (min-width: 600px) { .window-body { padding: 20px; } }
@@ -53,7 +59,7 @@
         .calendar-days-grid { display: grid; grid-template-columns: repeat(2, 1fr); border-left: 1px solid #000; border-top: 1px solid #000; background: #fff; }
         .calendar-days-grid.lunch-mode-grid { grid-template-columns: repeat(2, 1fr); }
 
-        @media (min-width: 700px) {
+        @media (min-width: 750px) {
             .calendar-days-grid { grid-template-columns: repeat(4, 1fr); }
             .calendar-days-grid.lunch-mode-grid { grid-template-columns: repeat(5, 1fr); }
         }
@@ -138,7 +144,7 @@
         .recipe-ingredients-list, .recipe-instructions-list { padding-left: 18px; font-size: 0.88rem; word-break: break-word; }
         .recipe-ingredients-list li, .recipe-instructions-list li { margin-bottom: 6px; }
 
-        /* FIXED THEME STYLES FOR THE SHOPPING CONTAINER CARD (image_a777fc.png variant) */
+        /* FIXED THEME STYLES FOR THE SHOPPING LIST COMPONENT */
         .search-bar-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .retro-input { flex: 1; border: 2px solid var(--border-clr); border-radius: 4px; padding: 10px; font-family: 'Courier Prime', monospace; font-size: 1rem; background-color: white; outline: none; min-width: 0; }
         .retro-btn { border: 2px solid var(--border-clr); background-color: var(--window-bg); padding: 0 15px; font-family: 'Courier Prime', monospace; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0px var(--border-clr); border-radius: 4px; white-space: nowrap; }
@@ -153,7 +159,7 @@
         .delete-btn { background: none; border: none; font-family: monospace; font-weight: bold; font-size: 1.1rem; cursor: pointer; padding: 0 5px; }
         .checker-banner { height: 16px; background-image: linear-gradient(45deg, #000 25%, transparent 25%), linear-gradient(-45deg, #000 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #000 75%), linear-gradient(-45deg, transparent 75%, #000 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; background-color: var(--accent-blue); border-bottom: 2px solid var(--border-clr); }
 
-        /* STANDALONE RECTANGULAR REFRIGERATOR ENCLOSURE */
+        /* REFRIGERATOR ENCLOSURE COMPONENTS */
         .fridge-hardware-container { width: 100%; max-width: 440px; margin: 50px auto; perspective: 1500px; padding: 10px; }
         .fridge-top-prop-shelf { width: 100%; display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 4px; position: relative; z-index: 5; margin-bottom: -5px; padding-left: 30px; padding-right: 30px; }
         .prop-bottle { width: 32px; height: 75px; background: #4a533c; border: 3px solid #000; border-radius: 6px 6px 2px 2px; position: relative; }
@@ -204,12 +210,18 @@
         .mag-pink-sticky { bottom: 195px; right: 40px; width: 44px; height: 42px; background: #ff9ec4; transform: rotate(-8deg); font-size: 0.5rem; padding: 4px; font-family: monospace; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .mag-bottom-doc { bottom: 60px; left: calc(50% - 35px); width: 75px; height: 85px; background: #ebdcb5; border-radius: 2px; transform: rotate(4deg); padding: 6px; font-family: monospace; font-size: 0.45rem; line-height: 1.4; letter-spacing: -0.5px; }
         .mag-bottom-doc::before { content: ''; position: absolute; top: -10px; left: calc(50% - 10px); width: 20px; height: 20px; background: #4a8cb2; border: 2px solid #000; border-radius: 50%; }
+
+        /* THREE SECTION DATE NIGHT SUB-ENGINE PLATFORMS */
+        .date-night-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media (min-width: 750px) { .date-night-grid { grid-template-columns: repeat(3, 1fr); } }
+        .date-night-column { background: #fffcf7; border: 2px solid #000; border-radius: 6px; padding: 15px; box-shadow: 4px 4px 0px #000; display: flex; flex-direction: column; gap: 15px; }
+        .date-column-title { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; text-align: center; border-bottom: 2px solid #000; padding-bottom: 5px; }
     </style>
 </head>
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v74.3_STABLE_RESTORATION</div>
+        <div class="nav-logo">💾 FOOD_OS // v74.6_DATE_NIGHT_PATCH</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -217,147 +229,190 @@
         </div>
     </nav>
 
-    <main class="desktop-layout">
+    <!-- CORE DESKTOP PAGE NAVIGATION TRIGGER DECK -->
+    <div class="page-nav-bar">
+        <button id="page-btn-meal" class="page-nav-btn active-page" onclick="toggleActivePage('meal')">[ 💾 Meal Planner OS ]</button>
+        <button id="page-btn-date" class="page-nav-btn" onclick="toggleActivePage('date')">[ ❤️ Date Night Planner ]</button>
+    </div>
 
-        <!-- WEEK TIMELINE BOARD -->
-        <section class="retro-window full-width">
-            <div class="window-header yellow-variant">
-                <span>User_Schedule: Rolling_Timeline_Matrix.exe</span>
-                <span>✖</span>
-            </div>
-            <div class="window-body calendar-dashboard-container">
-                <div class="app-tab-container">
-                    <button id="tab-dinners" class="tab-switch-btn active-tab" onclick="switchAppMode('dinners')">[ Dinners (Full Week) ]</button>
-                    <button id="tab-lunches" class="tab-switch-btn" onclick="switchAppMode('lunches')">[ Lunches (Mon-Fri) ]</button>
+    <!-- MAIN OS MEAL MATRIX CONTAINER -->
+    <div id="core-meal-planner-view">
+        <main class="desktop-layout">
+            <!-- WEEK TIMELINE BOARD -->
+            <section class="retro-window full-width">
+                <div class="window-header yellow-variant">
+                    <span>User_Schedule: Rolling_Timeline_Matrix.exe</span>
+                    <span>✖</span>
                 </div>
-                <div class="calendar-days-grid" id="calendar-days-injector"></div>
-            </div>
-        </section>
-
-        <!-- AUTOMATED ROUTER COLUMNS -->
-        <section class="retro-window full-width">
-            <div class="window-header orange-variant">
-                <span id="router-header-title">Intelligent_Router: Dinner_Router.exe</span>
-                <span>✖</span>
-            </div>
-            <div class="window-body smart-dinner-grid">
-                <div class="smart-column" id="col-ryan">
-                    <div class="column-header-tag tag-ryan" id="header-col-r">Ryan Nights In</div>
-                    <div id="container-ryan"></div>
-                </div>
-                <div class="smart-column" id="col-bea">
-                    <div class="column-header-tag tag-bea" id="header-col-b">Bea Nights In</div>
-                    <div id="container-bea"></div>
-                </div>
-                <div class="smart-column" id="col-both">
-                    <div class="column-header-tag tag-both" id="header-col-both">Nights In Together</div>
-                    <div id="container-both"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- GROCERY TRACKER -->
-        <section class="retro-window full-width">
-            <div class="window-header blue-variant">
-                <span>System Error: Missing Ingredients</span>
-                <span>✖</span>
-            </div>
-            <div class="checker-banner"></div>
-            <div class="window-body">
-                <div class="search-bar-container">
-                    <input type="text" id="item-input" class="retro-input" placeholder="Search / Add item...">
-                    <button onclick="addItem()" class="retro-btn">Enter...</button>
-                </div>
-                <ul class="shopping-list" id="shopping-list"></ul>
-            </div>
-        </section>
-
-        <!-- SAVED RECIPES WINDOW -->
-        <section class="retro-window full-width" id="recipe-module-window">
-            <div class="window-header orange-variant">
-                <span>Database_Explorer: Saved_Recipes.db</span>
-                <span>✖</span>
-            </div>
-            <div class="window-body">
-                <div class="recipe-category-tabs">
-                    <button id="cat-tab-all" class="recipe-cat-btn active-cat-tab" onclick="filterRecipeCategory('all')">ALL RECIPES</button>
-                    <button id="cat-tab-dinners" class="recipe-cat-btn" onclick="filterRecipeCategory('dinners')">DINNERS</button>
-                    <button id="cat-tab-breakfast" class="recipe-cat-btn" onclick="filterRecipeCategory('breakfast')">BREAKFAST</button>
-                    <button id="cat-tab-bakes" class="recipe-cat-btn" onclick="filterRecipeCategory('bakes')">BAKES</button>
-                </div>
-
-                <div class="recipe-browser-deck">
-                    <ul class="recipe-sidebar-list" id="recipe-list-tabs-anchor"></ul>
-                    <div class="recipe-viewer-panel" id="recipe-content-panel"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- FREEZER INVENTORY MODULE - STANDALONE TALL RECTANGULAR APPLIANCE HULL -->
-        <div class="fridge-hardware-container full-width">
-            
-            <div class="fridge-top-prop-shelf">
-                <div class="prop-bottle" title="Wine bottle"></div>
-                <div class="prop-candle-holder">
-                    <div class="prop-candle-stick"></div>
-                    <div class="prop-base-cup"></div>
-                </div>
-                <div class="prop-book-plant-stack">
-                    <div class="prop-plant-pot">
-                        <div class="prop-leaves-cluster"></div>
+                <div class="window-body calendar-dashboard-container">
+                    <div class="app-tab-container">
+                        <button id="tab-dinners" class="tab-switch-btn active-tab" onclick="switchAppMode('dinners')">[ Dinners (Full Week) ]</button>
+                        <button id="tab-lunches" class="tab-switch-btn" onclick="switchAppMode('lunches')">[ Lunches (Mon-Fri) ]</button>
                     </div>
-                    <div class="prop-book-ottolenghi">OTTOLENGHI</div>
+                    <div class="calendar-days-grid" id="calendar-days-injector"></div>
                 </div>
-            </div>
+            </section>
 
-            <div class="fridge-cabinet">
-                
-                <div class="fridge-freezer-zone">
-                    <!-- Drawer 1 -->
-                    <div class="freezer-drawer">
-                        <div class="drawer-lbl"><span>❄️ Drawer 1 (Top)</span><span id="d1-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
-                        <textarea class="freezer-textarea" id="freezer-d1-input" placeholder="Drawer 1 items..."></textarea>
-                        <div class="freezer-drawer-pullhandle"></div>
-                        <button class="freezer-save-btn" onclick="saveFreezerDrawer(1)">💾 Save</button>
+            <!-- AUTOMATED ROUTER COLUMNS -->
+            <section class="retro-window full-width">
+                <div class="window-header orange-variant">
+                    <span id="router-header-title">Intelligent_Router: Dinner_Router.exe</span>
+                    <span>✖</span>
+                </div>
+                <div class="window-body smart-dinner-grid">
+                    <div class="smart-column" id="col-ryan">
+                        <div class="column-header-tag tag-ryan" id="header-col-r">Ryan Nights In</div>
+                        <div id="container-ryan"></div>
                     </div>
-
-                    <!-- Drawer 2 -->
-                    <div class="freezer-drawer">
-                        <div class="drawer-lbl"><span>❄️ Drawer 2 (Middle)</span><span id="d2-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
-                        <textarea class="freezer-textarea" id="freezer-d2-input" placeholder="Drawer 2 items..."></textarea>
-                        <div class="freezer-drawer-pullhandle"></div>
-                        <button class="freezer-save-btn" onclick="saveFreezerDrawer(2)">💾 Save</button>
+                    <div class="smart-column" id="col-bea">
+                        <div class="column-header-tag tag-bea" id="header-col-b">Bea Nights In</div>
+                        <div id="container-bea"></div>
                     </div>
-
-                    <!-- Drawer 3 -->
-                    <div class="freezer-drawer">
-                        <div class="drawer-lbl"><span>❄️ Drawer 3 (Bottom)</span><span id="d3-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
-                        <textarea class="freezer-textarea" id="freezer-d3-input" placeholder="Drawer 3 items..."></textarea>
-                        <div class="freezer-drawer-pullhandle"></div>
-                        <button class="freezer-save-btn" onclick="saveFreezerDrawer(3)">💾 Save</button>
+                    <div class="smart-column" id="col-both">
+                        <div class="column-header-tag tag-both" id="header-col-both">Nights In Together</div>
+                        <div id="container-both"></div>
                     </div>
                 </div>
+            </section>
 
-                <div class="fridge-door-wing" id="fridge-top-door-panel" onclick="toggleFreezerDoor()">
-                    <!-- HIDES ENTIRE GROUP WHEN DOOR TRANSITIONS TO TRANS ROTATE -->
-                    <div class="fridge-door-face-elements-group">
-                        <div class="smeg-brand-badge">SMEG</div>
-                        <div class="fridge-door-horizontal-handle"></div>
-                        <div class="magnet-item mag-lemon"></div>
-                        <div class="magnet-item mag-polaroid">
-                            <div class="polaroid-photo-frame"></div>
+            <!-- GROCERY TRACKER -->
+            <section class="retro-window full-width">
+                <div class="window-header blue-variant">
+                    <span>System Error: Missing Ingredients</span>
+                    <span>✖</span>
+                </div>
+                <div class="checker-banner"></div>
+                <div class="window-body">
+                    <div class="search-bar-container">
+                        <input type="text" id="item-input" class="retro-input" placeholder="Search / Add item...">
+                        <button onclick="addItem()" class="retro-btn">Enter...</button>
+                    </div>
+                    <ul class="shopping-list" id="shopping-list"></ul>
+                </div>
+            </section>
+
+            <!-- SAVED RECIPES WINDOW -->
+            <section class="retro-window full-width" id="recipe-module-window">
+                <div class="window-header orange-variant">
+                    <span>Database_Explorer: Saved_Recipes.db</span>
+                    <span>✖</span>
+                </div>
+                <div class="window-body">
+                    <div class="recipe-category-tabs">
+                        <button id="cat-tab-all" class="recipe-cat-btn active-cat-tab" onclick="filterRecipeCategory('all')">ALL RECIPES</button>
+                        <button id="cat-tab-dinners" class="recipe-cat-btn" onclick="filterRecipeCategory('dinners')">DINNERS</button>
+                        <button id="cat-tab-breakfast" class="recipe-cat-btn" onclick="filterRecipeCategory('breakfast')">BREAKFAST</button>
+                        <button id="cat-tab-bakes" class="recipe-cat-btn" onclick="filterRecipeCategory('bakes')">BAKES</button>
+                    </div>
+
+                    <div class="recipe-browser-deck">
+                        <ul class="recipe-sidebar-list" id="recipe-list-tabs-anchor"></ul>
+                        <div class="recipe-viewer-panel" id="recipe-content-panel"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FREEZER INVENTORY MODULE -->
+            <div class="fridge-hardware-container full-width">
+                <div class="fridge-top-prop-shelf">
+                    <div class="prop-bottle" title="Wine bottle"></div>
+                    <div class="prop-candle-holder">
+                        <div class="prop-candle-stick"></div>
+                        <div class="prop-base-cup"></div>
+                    </div>
+                    <div class="prop-book-plant-stack">
+                        <div class="prop-plant-pot">
+                            <div class="prop-leaves-cluster"></div>
                         </div>
-                        <div class="magnet-item mag-croissant-note">⚡</div>
-                        <div class="magnet-item mag-chili-paper">---<br>---</div>
-                        <div class="magnet-item mag-pink-sticky">➔</div>
-                        <div class="magnet-item mag-bottom-doc">Menu:<br>• Peas<br>• Ice<br>• Pizza</div>
+                        <div class="prop-book-ottolenghi">OTTOLENGHI</div>
                     </div>
                 </div>
 
-            </div>
-        </div>
+                <div class="fridge-cabinet">
+                    <div class="fridge-freezer-zone">
+                        <div class="freezer-drawer">
+                            <div class="drawer-lbl"><span>❄️ Drawer 1 (Top)</span><span id="d1-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
+                            <textarea class="freezer-textarea" id="freezer-d1-input" placeholder="Drawer 1 items..."></textarea>
+                            <div class="freezer-drawer-pullhandle"></div>
+                            <button class="freezer-save-btn" onclick="saveFreezerDrawer(1)">💾 Save</button>
+                        </div>
+                        <div class="freezer-drawer">
+                            <div class="drawer-lbl"><span>❄️ Drawer 2 (Middle)</span><span id="d2-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
+                            <textarea class="freezer-textarea" id="freezer-d2-input" placeholder="Drawer 2 items..."></textarea>
+                            <div class="freezer-drawer-pullhandle"></div>
+                            <button class="freezer-save-btn" onclick="saveFreezerDrawer(2)">💾 Save</button>
+                        </div>
+                        <div class="freezer-drawer">
+                            <div class="drawer-lbl"><span>❄️ Drawer 3 (Bottom)</span><span id="d3-sync-status" style="font-size:0.6rem; opacity:0.6;"></span></div>
+                            <textarea class="freezer-textarea" id="freezer-d3-input" placeholder="Drawer 3 items..."></textarea>
+                            <div class="freezer-drawer-pullhandle"></div>
+                            <button class="freezer-save-btn" onclick="saveFreezerDrawer(3)">💾 Save</button>
+                        </div>
+                    </div>
 
-    </main>
+                    <div class="fridge-door-wing" id="fridge-top-door-panel" onclick="toggleFreezerDoor()">
+                        <div class="fridge-door-face-elements-group">
+                            <div class="smeg-brand-badge">SMEG</div>
+                            <div class="fridge-door-horizontal-handle"></div>
+                            <div class="magnet-item mag-lemon"></div>
+                            <div class="magnet-item mag-polaroid">
+                                <div class="polaroid-photo-frame"></div>
+                            </div>
+                            <div class="magnet-item mag-croissant-note">⚡</div>
+                            <div class="magnet-item mag-chili-paper">---<br>---</div>
+                            <div class="magnet-item mag-pink-sticky">➔</div>
+                            <div class="magnet-item mag-bottom-doc">Menu:<br>• Peas<br>• Ice<br>• Pizza</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- DATE NIGHT PLANNER APP PAGE (Hidden by default until clicked) -->
+    <div id="core-date-night-view" style="display: none;">
+        <main style="max-width: 1400px; margin: 0 auto;">
+            <section class="retro-window">
+                <div class="window-header purple-variant">
+                    <span>Date_Night_Matrix // Registry_Database.exe</span>
+                    <span>✖</span>
+                </div>
+                <div class="window-body date-night-grid">
+                    
+                    <!-- LOCAL SECTION -->
+                    <div class="date-night-column">
+                        <div class="date-column-title" style="color: var(--accent-orange);">📍 Local</div>
+                        <div class="search-bar-container">
+                            <input type="text" id="date-local-input" class="retro-input" placeholder="Add local idea...">
+                            <button onclick="addDateIdea('local')" class="retro-btn">Enter...</button>
+                        </div>
+                        <ul class="shopping-list" id="date-local-list"></ul>
+                    </div>
+
+                    <!-- EAST LDN SECTION -->
+                    <div class="date-night-column">
+                        <div class="date-column-title" style="color: var(--accent-blue);">🧱 East LDN</div>
+                        <div class="search-bar-container">
+                            <input type="text" id="date-east-input" class="retro-input" placeholder="Add East LDN idea...">
+                            <button onclick="addDateIdea('east')" class="retro-btn">Enter...</button>
+                        </div>
+                        <ul class="shopping-list" id="date-east-list"></ul>
+                    </div>
+
+                    <!-- CENTRAL LDN SECTION -->
+                    <div class="date-night-column">
+                        <div class="date-column-title" style="color: var(--accent-pink);">🏛️ Central LDN</div>
+                        <div class="search-bar-container">
+                            <input type="text" id="date-central-input" class="retro-input" placeholder="Add Central LDN idea...">
+                            <button onclick="addDateIdea('central')" class="retro-btn">Enter...</button>
+                        </div>
+                        <ul class="shopping-list" id="date-central-list"></ul>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+    </div>
 
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -366,7 +421,6 @@
 
         const cloudStorageUrl = "https://script.google.com/macros/s/AKfycbxzTv-Qrjsi0Fgd1S5DdBn8J0swaqIPNDOaJZXeKQ_EdsTtpS3w5MBlWAdpNhEf_82M/exec";
 
-        // THE 18 DIRECT B&R MEMORY DRIVE FILE PIPELINES
         const ryanAndBeaPhotos = [
             "https://drive.google.com/thumbnail?sz=w1000&id=1z6xx50Jr2jO-84vxG46b8bly2nBlKOrO",
             "https://drive.google.com/thumbnail?sz=w1000&id=1OOg8k7bjhJTIWSaJC5Hk-pE9YCtT6b99",
@@ -387,16 +441,6 @@
             "https://drive.google.com/thumbnail?sz=w1000&id=1BLUrxOxFCujMq93_k16ZJEyk0TMviEM3",
             "https://drive.google.com/thumbnail?sz=w1000&id=1yTdpRQnqZ-Y2XsQo-P_scHKmTmoHoXgL"
         ];
-
-        // UNIFIED AUTOMATIC SHUFFLER CORE HOOK
-        function shuffleFridgePolaroidMemory() {
-            if (ryanAndBeaPhotos.length === 0) return;
-            const randomIndex = Math.floor(Math.random() * ryanAndBeaPhotos.length);
-            const targetElement = document.querySelector('.polaroid-photo-frame');
-            if (targetElement) {
-                targetElement.style.backgroundImage = `url('${ryanAndBeaPhotos[randomIndex]}')`;
-            }
-        }
 
         const savedRecipesDatabase = [
             {
@@ -464,8 +508,12 @@
             "OTHER": []
         };
 
+        // INTEGRATED DATE NIGHT STRUCT ARRAY PARAMETERS
         let appState = {
             shoppingList: [{ name: 'Oat Milk', checked: false }],
+            dateLocal: [],
+            dateEast: [],
+            dateCentral: [],
             ryanDinners: {},
             beaDinners: {},
             bothInDinners: {},
@@ -479,6 +527,30 @@
             freezerDrawer3: ""
         };
 
+        function shuffleFridgePolaroidMemory() {
+            if (ryanAndBeaPhotos.length === 0) return;
+            const randomIndex = Math.floor(Math.random() * ryanAndBeaPhotos.length);
+            const targetElement = document.querySelector('.polaroid-photo-frame');
+            if (targetElement) {
+                targetElement.style.backgroundImage = `url('${ryanAndBeaPhotos[randomIndex]}')`;
+            }
+        }
+
+        // NAVIGATION SWITCH PLATFORM FOR SWITCHING MAIN COMPONENT VIEWS
+        function toggleActivePage(targetPage) {
+            document.querySelectorAll('.page-nav-btn').forEach(b => b.classList.remove('active-page'));
+            if (targetPage === 'meal') {
+                document.getElementById('page-btn-meal').classList.add('active-page');
+                document.getElementById('core-meal-planner-view').style.display = 'block';
+                document.getElementById('core-date-night-view').style.display = 'none';
+            } else {
+                document.getElementById('page-btn-date').classList.add('active-page');
+                document.getElementById('core-meal-planner-view').style.display = 'none';
+                document.getElementById('core-date-night-view').style.display = 'block';
+                renderAllDateColumns();
+            }
+        }
+
         async function loadCloudState() {
             try {
                 const response = await fetch(cloudStorageUrl);
@@ -489,6 +561,10 @@
                     }
                     if (payload.calendarState && payload.calendarState.shoppingList) {
                         appState = payload.calendarState;
+                        // Build structural defaults if missing from cloud data
+                        if (!appState.dateLocal) appState.dateLocal = [];
+                        if (!appState.dateEast) appState.dateEast = [];
+                        if (!appState.dateCentral) appState.dateCentral = [];
                     }
                 }
             } catch (err) {
@@ -496,6 +572,7 @@
             }
             switchAppMode(currentMode);
             renderShoppingList();
+            renderAllDateColumns();
             buildRecipeRegistryDeck();
             
             document.getElementById('freezer-d1-input').value = appState.freezerDrawer1 || "";
@@ -516,6 +593,63 @@
             } catch (e) {
                 console.error("Transmission fault.", e);
             }
+        }
+
+        /* INTERACTIVE DATE NIGHT COLUMN RENDERING LAYER ENGINE */
+        function renderAllDateColumns() {
+            renderSingleDateColumn('local', appState.dateLocal || []);
+            renderSingleDateColumn('east', appState.dateEast || []);
+            renderSingleDateColumn('central', appState.dateCentral || []);
+        }
+
+        function renderSingleDateColumn(targetId, listData) {
+            const listEl = document.getElementById(`date-${targetId}-list`);
+            if(!listEl) return;
+            listEl.innerHTML = '';
+            listData.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.className = 'grocery-item' + (item.checked ? ' checked' : '');
+                li.innerHTML = `
+                    <div class="retro-checkbox" onclick="toggleDateItem('${targetId}', ${index})"></div>
+                    <span class="item-text" onclick="toggleDateItem('${targetId}', ${index})">${item.name}</span>
+                    <button class="delete-btn" onclick="deleteDateItem('${targetId}', ${index})">⌫</button>
+                `;
+                listEl.appendChild(li);
+            });
+        }
+
+        async function addDateIdea(targetId) {
+            const input = document.getElementById(`date-${targetId}-input`);
+            if(!input) return;
+            const val = input.value.trim();
+            if (val !== '') {
+                if (targetId === 'local') appState.dateLocal.push({ name: val, checked: false });
+                if (targetId === 'east') appState.dateEast.push({ name: val, checked: false });
+                if (targetId === 'central') appState.dateCentral.push({ name: val, checked: false });
+                input.value = '';
+                renderAllDateColumns();
+                await saveCloudState();
+            }
+        }
+
+        // Attach keypress listeners to date input fields
+        ['local', 'east', 'central'].forEach(id => {
+            const el = document.getElementById(`date-${id}-input`);
+            if (el) el.addEventListener('keypress', function(e) { if (e.key === 'Enter') addDateIdea(id); });
+        });
+
+        async function toggleDateItem(targetId, index) {
+            let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral);
+            targetArr[index].checked = !targetArr[index].checked;
+            renderAllDateColumns();
+            await saveCloudState();
+        }
+
+        async function deleteDateItem(targetId, index) {
+            let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral);
+            targetArr.splice(index, 1);
+            renderAllDateColumns();
+            await saveCloudState();
         }
 
         function toggleFreezerDoor() {
@@ -659,16 +793,12 @@
                 const dayName = shortDayNames[dayOfWeek];
                 const monthNum = targetDay.getMonth() + 1;
 
-                if (!activeRyan[dateKey]) activeRyan[dateKey] = "";
-                if (!activeBea[dateKey]) activeBea[dateKey] = "";
-                if (activeBothIn[dateKey] === undefined) activeBothIn[dateKey] = false;
-
                 const cell = document.createElement('div');
                 cell.className = 'calendar-day-cell';
                 
-                let rText = activeRyan[dateKey].trim();
-                let bText = activeBea[dateKey].trim();
-                let isBothIn = activeBothIn[dateKey];
+                let rText = (activeRyan[dateKey] || "").trim();
+                let bText = (activeBea[dateKey] || "").trim();
+                let isBothIn = activeBothIn[dateKey] || false;
 
                 let pillsHtml = "";
                 if (isBothIn) {
@@ -706,8 +836,23 @@
             calculateRouterEngine();
         }
 
+        async function saveCellPlan(dateKey) {
+            let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches;
+            let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches;
+            let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches;
+
+            activeRyan[dateKey] = document.getElementById(`input-r-${dateKey}`).value.trim();
+            activeBea[dateKey] = document.getElementById(`input-b-${dateKey}`).value.trim();
+            activeBothIn[dateKey] = document.getElementById(`check-both-${dateKey}`).checked;
+
+            renderActiveMatrix();
+            await saveCloudState();
+        }
+
         function calculateRouterEngine() {
-            document.getElementById('container-ryan').innerHTML = '';
+            const cr = document.getElementById('container-ryan');
+            if(!cr) return;
+            cr.innerHTML = '';
             document.getElementById('container-bea').innerHTML = '';
             document.getElementById('container-both').innerHTML = '';
 
@@ -802,50 +947,6 @@
                 </div>
             `;
             container.appendChild(block);
-        }
-
-        async function handleHeaderChange(dateKey, category) {
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            selections[dateKey] = { category: category, dish: "" };
-            renderActiveMatrix();
-            await saveCloudState();
-        }
-
-        async function handleDishChange(dateKey, dishName) {
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            if (selections[dateKey]) { selections[dateKey].dish = dishName; }
-            await saveCloudState();
-        }
-
-        async function rollRandomCategory(dateKey) {
-            const categories = Object.keys(foodMenuDatabase).filter(cat => cat !== 'OTHER');
-            if (categories.length === 0) return;
-            const randomCat = categories[Math.floor(Math.random() * categories.length)];
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            selections[dateKey] = { category: randomCat, dish: "" };
-            renderActiveMatrix();
-            await saveCloudState();
-        }
-
-        async function rollRandomDish(dateKey) {
-            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            const currentCat = selections[dateKey] ? selections[dateKey].category : "";
-            if (!currentCat || currentCat === 'OTHER' || !foodMenuDatabase[currentCat] || foodMenuDatabase[currentCat].length === 0) {
-                alert("Please select a category block first before rolling an option!");
-                return;
-            }
-            const optionsList = foodMenuDatabase[currentCat];
-            const randomDish = optionsList[Math.floor(Math.random() * optionsList.length)];
-            selections[dateKey].dish = randomDish;
-            renderActiveMatrix();
-            await saveCloudState();
-        }
-
-        function checkEmptyStates(counters) {
-            let tag = currentMode === 'dinners' ? 'nights sorted!' : 'days sorted!';
-            if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
-            if(counters.bea === 0) document.getElementById('container-bea').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
-            if(counters.both === 0) document.getElementById('container-both').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
         }
 
         function renderShoppingList() {
