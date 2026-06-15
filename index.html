@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retro OS Meal Planner</title>
-    <!-- Open-Source Safe Mapping Asset Layout Rails -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;700&display=swap');
@@ -325,6 +324,16 @@
                     <div class="smart-column" id="col-both">
                         <div class="column-header-tag tag-both" id="header-col-both">Nights In Together</div>
                         <div id="container-both"></div>
+                    </div>
+
+                    <!-- NEW DYNAMIC LUNCH OFFICE COLUMNS -->
+                    <div class="smart-column" id="col-ryan-office" style="display: none;">
+                        <div class="column-header-tag tag-ryan" style="background:#aed6f1;" id="header-col-r-off">Ryan Office</div>
+                        <div id="container-ryan-office"></div>
+                    </div>
+                    <div class="smart-column" id="col-bea-office" style="display: none;">
+                        <div class="column-header-tag tag-bea" style="background:#f5b7b1;" id="header-col-b-off">Bea Office</div>
+                        <div id="container-bea-office"></div>
                     </div>
                 </div>
             </section>
@@ -1074,14 +1083,29 @@
         function closeRecipePanel() { const panel = document.getElementById('recipe-content-panel'); if(panel) panel.style.display = 'none'; document.querySelectorAll('.recipe-tab-item').forEach(el => el.classList.remove('active-recipe-tab')); }
 
         function switchAppMode(targetMode) {
-            currentMode = targetMode; document.getElementById('tab-dinners').classList.toggle('active-tab', targetMode === 'dinners'); document.getElementById('tab-lunches').classList.toggle('active-tab', targetMode === 'lunches');
-            const gridEl = document.getElementById('calendar-days-injector'); if(gridEl) gridEl.classList.toggle('lunch-mode-grid', targetMode === 'lunches');
+            currentMode = targetMode; 
+            document.getElementById('tab-dinners').classList.toggle('active-tab', targetMode === 'dinners'); 
+            document.getElementById('tab-lunches').classList.toggle('active-tab', targetMode === 'lunches');
+            const gridEl = document.getElementById('calendar-days-injector'); 
+            if(gridEl) gridEl.classList.toggle('lunch-mode-grid', targetMode === 'lunches');
+            
+            const rOff = document.getElementById('col-ryan-office');
+            const bOff = document.getElementById('col-bea-office');
+
             if (targetMode === 'dinners') {
                 document.getElementById('router-header-title').innerText = "Intelligent_Router: Dinner_Router.exe";
-                document.getElementById('header-col-r').innerText = "Ryan Nights In"; document.getElementById('header-col-b').innerText = "Bea Nights In"; document.getElementById('header-col-both').innerText = "Nights In Together";
+                document.getElementById('header-col-r').innerText = "Ryan Nights In"; 
+                document.getElementById('header-col-b').innerText = "Bea Nights In"; 
+                document.getElementById('header-col-both').innerText = "Nights In Together";
+                if(rOff) rOff.style.display = 'none';
+                if(bOff) bOff.style.display = 'none';
             } else {
                 document.getElementById('router-header-title').innerText = "Intelligent_Router: Lunch_Router.exe";
-                document.getElementById('header-col-r').innerText = "Ryan WFH"; document.getElementById('header-col-b').innerText = "Bea WFH"; document.getElementById('header-col-both').innerText = "Both Home/WFH Lunches";
+                document.getElementById('header-col-r').innerText = "Ryan WFH"; 
+                document.getElementById('header-col-b').innerText = "Bea WFH"; 
+                document.getElementById('header-col-both').innerText = "Both Home/WFH Lunches";
+                if(rOff) rOff.style.display = 'block';
+                if(bOff) bOff.style.display = 'block';
             }
             renderActiveMatrix();
         }
@@ -1089,15 +1113,27 @@
         function renderActiveMatrix() {
             const gridAnchor = document.getElementById('calendar-days-injector'); if(!gridAnchor) return; gridAnchor.innerHTML = '';
             const today = new Date(); today.setHours(0,0,0,0);
-            let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches; let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches; let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches; let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            let loops = currentMode === 'dinners' ? 14 : 20; let renderedCount = 0;
+            let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches; 
+            let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches; 
+            let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches; 
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            let loops = currentMode === 'dinners' ? 14 : 20; 
+            let renderedCount = 0;
+            
             for (let i = 0; i < loops; i++) {
                 if (currentMode === 'dinners' && renderedCount >= 14) break; if (currentMode === 'lunches' && renderedCount >= 10) break;
                 const targetDay = new Date(today); targetDay.setDate(today.getDate() + i); const dayOfWeek = targetDay.getDay();
                 if (currentMode === 'lunches' && (dayOfWeek === 0 || dayOfWeek === 6)) continue;
-                renderedCount++; const dateKey = targetDay.toISOString().split('T')[0]; const dayNum = targetDay.getDate(); const dayName = shortDayNames[dayOfWeek]; const monthNum = targetDay.getMonth() + 1;
+                renderedCount++; 
+                const dateKey = targetDay.toISOString().split('T')[0]; 
+                const dayNum = targetDay.getDate(); 
+                const dayName = shortDayNames[dayOfWeek]; 
+                const monthNum = targetDay.getMonth() + 1;
+                
                 const cell = document.createElement('div'); cell.className = 'calendar-day-cell';
-                let rText = (activeRyan[dateKey] || "").trim(); let bText = (activeBea[dateKey] || "").trim(); let isBothIn = activeBothIn[dateKey] || false;
+                let rText = (activeRyan[dateKey] || "").trim(); 
+                let bText = (activeBea[dateKey] || "").trim(); 
+                let isBothIn = activeBothIn[dateKey] || false;
                 
                 let pillsHtml = "";
                 let overlayHtml = "";
@@ -1113,6 +1149,10 @@
                         <input type="text" class="overlay-input-item" id="input-b-${dateKey}" value="${bText}" placeholder="Bea notes...">
                         <div class="both-in-checkbox-row"><input type="checkbox" id="check-both-${dateKey}" ${isBothIn ? 'checked' : ''}><label for="check-both-${dateKey}">Mark "Both In"</label></div>
                     `;
+                    
+                    if (selections[dateKey] && selections[dateKey].dish) { 
+                        pillsHtml += `<div class="cell-event-pill" style="background:#eefcfd;border-color:var(--accent-blue);">🍽️ ${selections[dateKey].dish}</div>`; 
+                    }
                 } else {
                     if (rText) pillsHtml += `<div class="cell-event-pill pill-ryan">R: ${rText}</div>`;
                     if (bText) pillsHtml += `<div class="cell-event-pill pill-bea">B: ${bText}</div>`;
@@ -1129,9 +1169,19 @@
                         </select>
                         <input type="hidden" id="check-both-${dateKey}" value="false">
                     `;
+                    
+                    ['both', 'ryan', 'bea', 'ryan-office', 'bea-office'].forEach(col => {
+                        let sKey = (col === 'both') ? dateKey : dateKey + '-' + col;
+                        if (selections[sKey] && selections[sKey].dish) {
+                            let prefix = "";
+                            if (col === 'ryan') prefix = "R (WFH): ";
+                            if (col === 'bea') prefix = "B (WFH): ";
+                            if (col === 'ryan-office') prefix = "R (Off): ";
+                            if (col === 'bea-office') prefix = "B (Off): ";
+                            pillsHtml += `<div class="cell-event-pill" style="background:#eefcfd;border-color:var(--accent-blue);">🍽️ ${prefix}${selections[sKey].dish}</div>`;
+                        }
+                    });
                 }
-
-                if (selections[dateKey] && selections[dateKey].dish) { pillsHtml += `<div class="cell-event-pill" style="background:#eefcfd;border-color:var(--accent-blue);">🍽️ ${selections[dateKey].dish}</div>`; }
                 
                 cell.innerHTML = `
                     <div class="cell-date-num"><span>● ${dayName}</span><span>${dayNum}/${monthNum}</span></div>${pillsHtml}
@@ -1146,39 +1196,74 @@
         }
 
         function calculateRouterEngine() {
-            const cr = document.getElementById('container-ryan'); if(!cr) return; cr.innerHTML = ''; document.getElementById('container-bea').innerHTML = ''; document.getElementById('container-both').innerHTML = '';
-            const today = new Date(); today.setHours(0,0,0,0); let counters = { ryan: 0, bea: 0, both: 0 };
-            let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches; let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches; let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches; let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            const cr = document.getElementById('container-ryan'); if(!cr) return; 
+            cr.innerHTML = ''; 
+            document.getElementById('container-bea').innerHTML = ''; 
+            document.getElementById('container-both').innerHTML = '';
+            if(document.getElementById('container-ryan-office')) document.getElementById('container-ryan-office').innerHTML = '';
+            if(document.getElementById('container-bea-office')) document.getElementById('container-bea-office').innerHTML = '';
+
+            const today = new Date(); today.setHours(0,0,0,0); 
+            let counters = { ryan: 0, bea: 0, both: 0, 'ryan-office': 0, 'bea-office': 0 };
+            
+            let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches; 
+            let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches; 
+            let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches; 
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
             let renderedCount = 0;
             
             for (let i = 0; i < 20; i++) {
                 if (currentMode === 'dinners' && renderedCount >= 14) break; if (currentMode === 'lunches' && renderedCount >= 10) break;
                 const checkDay = new Date(today); checkDay.setDate(today.getDate() + i); const dayOfWeek = checkDay.getDay(); if (currentMode === 'lunches' && (dayOfWeek === 0 || dayOfWeek === 6)) continue;
-                renderedCount++; const dateKey = checkDay.toISOString().split('T')[0]; const displayLabel = `${shortDayNames[checkDay.getDay()]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
+                renderedCount++; 
+                const dateKey = checkDay.toISOString().split('T')[0]; 
+                const displayLabel = `${shortDayNames[checkDay.getDay()]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
                 
-                let columnTarget = null;
                 if (currentMode === 'dinners') {
-                    const rFilled = (activeRyan[dateKey] || "").trim() !== ""; const bFilled = (activeBea[dateKey] || "").trim() !== ""; const explicitlyBothIn = activeBothIn[dateKey] || false;
+                    const rFilled = (activeRyan[dateKey] || "").trim() !== ""; 
+                    const bFilled = (activeBea[dateKey] || "").trim() !== ""; 
+                    const explicitlyBothIn = activeBothIn[dateKey] || false;
+                    
+                    let columnTarget = null;
                     if (explicitlyBothIn) { columnTarget = "both"; } 
                     else if (rFilled && !bFilled) { columnTarget = "bea"; } 
                     else if (bFilled && !rFilled) { columnTarget = "ryan"; } 
+                    
+                    if (columnTarget) { 
+                        counters[columnTarget]++; 
+                        buildSmartCardBlock(columnTarget, dateKey, displayLabel, selections, dateKey); 
+                    }
                 } else {
                     const rVal = (activeRyan[dateKey] || "").trim();
                     const bVal = (activeBea[dateKey] || "").trim();
-                    if (rVal === 'WFH' && bVal === 'WFH') { columnTarget = "both"; }
-                    else if (rVal === 'Office' && bVal !== 'Office') { columnTarget = "ryan"; }
-                    else if (bVal === 'Office' && rVal !== 'Office') { columnTarget = "bea"; }
-                    else if (rVal !== '' || bVal !== '') { columnTarget = "both"; }
+                    
+                    let targets = [];
+                    if (rVal === 'WFH' && bVal === 'WFH') {
+                        targets.push('both');
+                    } else {
+                        if (rVal === 'WFH') targets.push('ryan');
+                        if (rVal === 'Office') targets.push('ryan-office');
+                        if (bVal === 'WFH') targets.push('bea');
+                        if (bVal === 'Office') targets.push('bea-office');
+                    }
+                    
+                    targets.forEach(col => {
+                        counters[col]++;
+                        let selKey = (col === 'both') ? dateKey : dateKey + '-' + col;
+                        buildSmartCardBlock(col, dateKey, displayLabel, selections, selKey);
+                    });
                 }
-                
-                if (columnTarget) { counters[columnTarget]++; buildSmartCardBlock(columnTarget, dateKey, displayLabel, selections); }
             }
             checkEmptyStates(counters);
         }
 
-        function buildSmartCardBlock(column, dateKey, label, selections) {
-            const container = document.getElementById(`container-${column}`); if (!selections[dateKey]) { selections[dateKey] = { category: "", dish: "", locked: false }; }
-            const currentCat = selections[dateKey].category; const currentDish = selections[dateKey].dish; const isLocked = selections[dateKey].locked || false;
+        function buildSmartCardBlock(column, dateKey, label, selections, selKey) {
+            selKey = selKey || dateKey;
+            const container = document.getElementById(`container-${column}`); 
+            if (!selections[selKey]) { selections[selKey] = { category: "", dish: "", locked: false }; }
+            const currentCat = selections[selKey].category; 
+            const currentDish = selections[selKey].dish; 
+            const isLocked = selections[selKey].locked || false;
             const block = document.createElement('div'); block.className = 'smart-day-block';
             
             if (isLocked) {
@@ -1187,22 +1272,22 @@
                 block.innerHTML = `
                     <div class="smart-day-title"><span>● ${label}</span></div>
                     <div class="locked-meal-display-box">
-                        <div>${summaryText}</div><button class="lock-selection-btn" onclick="toggleMealLockLatching('${dateKey}', false)">✏️ Edit Selection</button>
+                        <div>${summaryText}</div><button class="lock-selection-btn" onclick="toggleMealLockLatching('${selKey}', false)">✏️ Edit Selection</button>
                     </div>
                 `;
             } else {
                 let headerOptionsHtml = `<option value="">-- Category --</option>`; Object.keys(foodMenuDatabase).forEach(cat => { headerOptionsHtml += `<option value="${cat}" ${currentCat === cat ? 'selected' : ''}>${cat}</option>`; });
                 let dishOptionsHtml = `<option value="">-- Option --</option>`; let showOtherBox = currentCat === 'OTHER'; if (currentCat && currentCat !== 'OTHER' && foodMenuDatabase[currentCat]) { foodMenuDatabase[currentCat].forEach(dish => { dishOptionsHtml += `<option value="${dish}" ${currentDish === dish ? 'selected' : ''}>${dish}</option>`; }); }
                 block.innerHTML = `
-                    <div class="smart-day-title"><span>● ${label}</span></div><div class="dropdown-stack-group"><div class="inline-selector-row"><select class="food-select-dropdown" onchange="handleHeaderChange('${dateKey}', this.value)">${headerOptionsHtml}</select><button class="dice-random-btn" onclick="rollRandomCategory('${dateKey}')">🎲</button></div><div class="inline-selector-row" id="dish-row-box-${dateKey}" style="display: ${showOtherBox ? 'none' : 'flex'};"><select class="food-select-dropdown" id="dish-drop-${dateKey}" onchange="handleDishChange('${dateKey}', this.value)">${dishOptionsHtml}</select><button class="dice-random-btn" onclick="rollRandomDish('${dateKey}')">🎲</button></div><input type="text" class="other-text-box" id="other-input-${dateKey}" style="display: ${showOtherBox ? 'block' : 'none'};" value="${showOtherBox ? currentDish : ''}" placeholder="Type alternative option..." oninput="handleDishChange('${dateKey}', this.value)"><button class="lock-selection-btn" style="background:#eefcfd; align-self:flex-start;" onclick="toggleMealLockLatching('${dateKey}', true)">🔒 LOCK IN</button></div>
+                    <div class="smart-day-title"><span>● ${label}</span></div><div class="dropdown-stack-group"><div class="inline-selector-row"><select class="food-select-dropdown" onchange="handleHeaderChange('${selKey}', this.value)">${headerOptionsHtml}</select><button class="dice-random-btn" onclick="rollRandomCategory('${selKey}')">🎲</button></div><div class="inline-selector-row" id="dish-row-box-${selKey}" style="display: ${showOtherBox ? 'none' : 'flex'};"><select class="food-select-dropdown" id="dish-drop-${selKey}" onchange="handleDishChange('${selKey}', this.value)">${dishOptionsHtml}</select><button class="dice-random-btn" onclick="rollRandomDish('${selKey}')">🎲</button></div><input type="text" class="other-text-box" id="other-input-${selKey}" style="display: ${showOtherBox ? 'block' : 'none'};" value="${showOtherBox ? currentDish : ''}" placeholder="Type alternative option..." oninput="handleDishChange('${selKey}', this.value)"><button class="lock-selection-btn" style="background:#eefcfd; align-self:flex-start;" onclick="toggleMealLockLatching('${selKey}', true)">🔒 LOCK IN</button></div>
                 `;
             }
             container.appendChild(block);
         }
 
-        async function toggleMealLockLatching(dateKey, lockStatus) {
+        async function toggleMealLockLatching(selKey, lockStatus) {
             let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            if (selections[dateKey]) { selections[dateKey].locked = lockStatus; renderActiveMatrix(); await saveCloudState(); }
+            if (selections[selKey]) { selections[selKey].locked = lockStatus; renderActiveMatrix(); await saveCloudState(); }
         }
 
         function checkEmptyStates(counters) {
@@ -1210,6 +1295,11 @@
             if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
             if(counters.bea === 0) document.getElementById('container-bea').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
             if(counters.both === 0) document.getElementById('container-both').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
+            
+            if (currentMode === 'lunches') {
+                if(counters['ryan-office'] === 0) document.getElementById('container-ryan-office').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
+                if(counters['bea-office'] === 0) document.getElementById('container-bea-office').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
+            }
         }
 
         function renderShoppingList() {
@@ -1225,39 +1315,39 @@
         async function toggleItem(index) { appState.shoppingList[index].checked = !appState.shoppingList[index].checked; renderShoppingList(); await saveCloudState(); }
         async function deleteItem(index) { appState.shoppingList.splice(index, 1); renderShoppingList(); await saveCloudState(); }
 
-        async function handleHeaderChange(dateKey, category) {
+        async function handleHeaderChange(selKey, category) {
             let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            selections[dateKey] = { category: category, dish: "", locked: false };
+            selections[selKey] = { category: category, dish: "", locked: false };
             renderActiveMatrix();
             await saveCloudState();
         }
 
-        async function handleDishChange(dateKey, dishName) {
+        async function handleDishChange(selKey, dishName) {
             let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            if (selections[dateKey]) { selections[dateKey].dish = dishName; }
+            if (selections[selKey]) { selections[selKey].dish = dishName; }
             await saveCloudState();
         }
 
-        async function rollRandomCategory(dateKey) {
+        async function rollRandomCategory(selKey) {
             const categories = Object.keys(foodMenuDatabase).filter(cat => cat !== 'OTHER');
             if (categories.length === 0) return;
             const randomCat = categories[Math.floor(Math.random() * categories.length)];
             let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            selections[dateKey] = { category: randomCat, dish: "", locked: false };
+            selections[selKey] = { category: randomCat, dish: "", locked: false };
             renderActiveMatrix();
             await saveCloudState();
         }
 
-        async function rollRandomDish(dateKey) {
+        async function rollRandomDish(selKey) {
             let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
-            const currentCat = selections[dateKey] ? selections[dateKey].category : "";
+            const currentCat = selections[selKey] ? selections[selKey].category : "";
             if (!currentCat || currentCat === 'OTHER' || !foodMenuDatabase[currentCat] || foodMenuDatabase[currentCat].length === 0) {
                 alert("Please select a category block first before rolling an option!");
                 return;
             }
             const optionsList = foodMenuDatabase[currentCat];
             const randomDish = optionsList[Math.floor(Math.random() * optionsList.length)];
-            selections[dateKey].dish = randomDish;
+            selections[selKey].dish = randomDish;
             renderActiveMatrix();
             await saveCloudState();
         }
@@ -1267,8 +1357,11 @@
             let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches;
             let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches;
             
-            activeRyan[dateKey] = document.getElementById(`input-r-${dateKey}`).value.trim();
-            activeBea[dateKey] = document.getElementById(`input-b-${dateKey}`).value.trim();
+            let rInput = document.getElementById(`input-r-${dateKey}`);
+            let bInput = document.getElementById(`input-b-${dateKey}`);
+            
+            if(rInput) activeRyan[dateKey] = rInput.value.trim();
+            if(bInput) activeBea[dateKey] = bInput.value.trim();
             
             let bothCheckbox = document.getElementById(`check-both-${dateKey}`);
             if(bothCheckbox && bothCheckbox.type === 'checkbox') {
