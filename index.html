@@ -1423,37 +1423,37 @@
                         if (typeof parsedState === 'string') {
                             try { parsedState = JSON.parse(parsedState); } catch(e) { console.error(e); }
                         }
-                        Object.assign(appState, parsedState);
+                        
+                        // Carefully merge saved state directly so we don't break pointers
+                        appState.shoppingList = parsedState.shoppingList || [];
+                        appState.dateLocal = parsedState.dateLocal || [];
+                        appState.dateEast = parsedState.dateEast || [];
+                        appState.dateCentral = parsedState.dateCentral || [];
+                        appState.cinemaRegistry = parsedState.cinemaRegistry || [];
+                        
+                        appState.ryanDinners = parsedState.ryanDinners || {};
+                        appState.beaDinners = parsedState.beaDinners || {};
+                        appState.bothInDinners = parsedState.bothInDinners || {};
+                        appState.dinnerSelections = parsedState.dinnerSelections || {};
+                        
+                        appState.ryanLunches = parsedState.ryanLunches || {};
+                        appState.beaLunches = parsedState.beaLunches || {};
+                        appState.bothInLunches = parsedState.bothInLunches || {};
+                        appState.lunchSelections = parsedState.lunchSelections || {};
+
+                        appState.freezerDrawer1 = parsedState.freezerDrawer1 || "";
+                        appState.freezerDrawer2 = parsedState.freezerDrawer2 || "";
+                        appState.freezerDrawer3 = parsedState.freezerDrawer3 || "";
                     }
-
-                    appState.shoppingList = appState.shoppingList || [];
-                    appState.dateLocal = appState.dateLocal || [];
-                    appState.dateEast = appState.dateEast || [];
-                    appState.dateCentral = appState.dateCentral || [];
-                    appState.cinemaRegistry = appState.cinemaRegistry || [];
-                    
-                    appState.ryanDinners = appState.ryanDinners || {};
-                    appState.beaDinners = appState.beaDinners || {};
-                    appState.bothInDinners = appState.bothInDinners || {};
-                    appState.dinnerSelections = appState.dinnerSelections || {};
-                    
-                    appState.ryanLunches = appState.ryanLunches || {};
-                    appState.beaLunches = appState.beaLunches || {};
-                    appState.bothInLunches = appState.bothInLunches || {};
-                    appState.lunchSelections = appState.lunchSelections || {};
-
-                    appState.freezerDrawer1 = appState.freezerDrawer1 || "";
-                    appState.freezerDrawer2 = appState.freezerDrawer2 || "";
-                    appState.freezerDrawer3 = appState.freezerDrawer3 || "";
 
                     switchAppMode(currentMode);
                     renderShoppingList();
                     renderAllDateColumns();
                     buildRecipeRegistryDeck();
                     
-                    document.getElementById('freezer-d1-input').value = appState.freezerDrawer1;
-                    document.getElementById('freezer-d2-input').value = appState.freezerDrawer2;
-                    document.getElementById('freezer-d3-input').value = appState.freezerDrawer3;
+                    document.getElementById('freezer-d1-input').value = appState.freezerDrawer1 || "";
+                    document.getElementById('freezer-d2-input').value = appState.freezerDrawer2 || "";
+                    document.getElementById('freezer-d3-input').value = appState.freezerDrawer3 || "";
                     
                     shuffleFridgePolaroidMemory();
                 }).catch(err => {
