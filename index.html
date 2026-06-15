@@ -264,7 +264,7 @@
         .locked-meal-display-box { font-family: 'Courier Prime', monospace; font-size: 0.85rem; font-weight: bold; background: #fdfdfd; border: 2px dashed #000; border-radius: 4px; padding: 8px; margin-top: 4px; line-height: 1.4; display: flex; flex-direction: column; gap: 5px; }
 
         /* SUGGESTION CARD LOOK STYLES */
-        .api-suggestion-card-block { background: #fffdf0; border: 2px solid #000; border-radius: 6px; padding: 12px; margin-top: 10px; box-shadow: 3px 3px 0 #000; display: flex; gap: 10px; }
+        .api-suggestion-card-block { background: #fffdf0; border: 2px solid #000; border-radius: 6px; padding: 12px; margin-top: 10px; box-shadow: 3px 3px 0 #000; display: flex; flex-direction: column; gap: 10px; }
         
         /* INDIVIDUAL ADD BUTTON AND CHIP ROWS */
         .api-ing-chip-row { display: flex; align-items: center; justify-content: space-between; background: #ffffff; border: 1px solid #000; padding: 4px 8px; border-radius: 4px; font-family: 'Courier Prime', monospace; font-size: 0.72rem; }
@@ -275,7 +275,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v77.9_STABLE_MASTER</div>
+        <div class="nav-logo">💾 FOOD_OS // v77.9_AUTOFILL_PATCH</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -283,14 +283,12 @@
         </div>
     </nav>
 
-    <!-- CORE SITE PAGE NAVIGATION CONTROLS SWITCHBOARD SYSTEM -->
     <div class="page-nav-bar">
         <button id="page-btn-meal" class="page-nav-btn active-page" onclick="toggleActivePage('meal')">[ 💾 Meal Planner OS ]</button>
         <button id="page-btn-date" class="page-nav-btn" onclick="toggleActivePage('date')">[ ❤️ Date Nights ]</button>
         <button id="page-btn-film" class="page-nav-btn" onclick="toggleActivePage('film')">[ 🎬 Cinema Club OS ]</button>
     </div>
 
-    <!-- MAIN OS MEAL PLANNERS CONTAINER -->
     <div id="core-meal-planner-view">
         <main class="desktop-layout">
             <section class="retro-window full-width">
@@ -326,7 +324,6 @@
                         <div id="container-both"></div>
                     </div>
 
-                    <!-- NEW DYNAMIC LUNCH OFFICE COLUMNS -->
                     <div class="smart-column" id="col-ryan-office" style="display: none;">
                         <div class="column-header-tag tag-ryan" style="background:#aed6f1;" id="header-col-r-off">Ryan Office</div>
                         <div id="container-ryan-office"></div>
@@ -353,7 +350,6 @@
                 </div>
             </section>
 
-            <!-- RECIPE MODULE WITH LOCAL INGREDIENTS SEARCH CONSOLE -->
             <section class="retro-window full-width" id="recipe-module-window">
                 <div class="window-header orange-variant">
                     <span>Database_Explorer: Saved_Recipes.db & Local_AI_Suggester.exe</span>
@@ -361,7 +357,6 @@
                 </div>
                 <div class="window-body">
                     
-                    <!-- LOCAL KITCHEN INGREDIENTS CONSOLE PANEL -->
                     <div style="background:rgba(0,0,0,0.03); border:2px dashed #000; border-radius:6px; padding:15px; margin-bottom:20px;">
                         <h4 style="font-family:'Courier Prime',monospace; font-size:0.9rem; font-weight:bold; text-transform:uppercase; margin-bottom:5px;">💡 Native Ingredient Shuffler Engine</h4>
                         <div class="search-bar-container" style="margin-bottom:10px;">
@@ -385,7 +380,6 @@
                 </div>
             </section>
 
-            <!-- APPLIANCE DRAWER CABINET MODULE -->
             <div class="fridge-hardware-container full-width">
                 <div class="fridge-top-prop-shelf">
                     <div class="prop-bottle" title="Wine bottle"></div>
@@ -423,7 +417,6 @@
                         </div>
                     </div>
 
-                    <!-- RE-ANCHORED DOOR WING CLICK ROUTE -->
                     <div class="fridge-door-wing" id="fridge-top-door-panel" onclick="toggleFreezerDoor()">
                         <div class="fridge-door-face-elements-group">
                             <div class="smeg-brand-badge">SMEG</div>
@@ -443,11 +436,9 @@
         </main>
     </div>
 
-    <!-- DATE NIGHT APP VIEWS CONTAINER -->
     <div id="core-date-night-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="date-night-grid">
-                <!-- LOCAL SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-orange);">📍 Local</div>
                     <div class="date-input-stack-group">
@@ -459,7 +450,6 @@
                     <ul class="shopping-list" id="date-local-list"></ul>
                 </div>
 
-                <!-- EAST LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-blue);">🧱 East LDN</div>
                     <div class="date-input-stack-group">
@@ -471,7 +461,6 @@
                     <ul class="shopping-list" id="date-east-list"></ul>
                 </div>
 
-                <!-- CENTRAL LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-pink);">🏛️ Central LDN</div>
                     <div class="date-input-stack-group">
@@ -484,7 +473,6 @@
                 </div>
             </div>
 
-            <!-- ILLUSTRATED LONDON BLUEPRINT TELETRACT TERMINAL -->
             <div class="map-terminal-frame">
                 <div class="window-header purple-variant" style="border-bottom:2px solid #000;">
                     <span>Radar_Plotter: Illustrated_London_Blueprint.exe</span>
@@ -496,17 +484,20 @@
         </main>
     </div>
 
-    <!-- THIRD PAGE APP CONTAINER: CINEMA POSTER GRID VAULT DECK -->
     <div id="core-cinema-club-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="cinema-layout-deck">
                 
-                <!-- CREATION INPUT BLOCK -->
                 <div class="date-night-column" style="height: max-content;">
                     <div class="date-column-title" style="color: var(--accent-orange);">🎬 Log New Movie</div>
                     <div class="date-input-stack-group" style="gap:6px; background:none; border:none; padding:0;">
-                        <input type="text" id="film-input-title" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Film Name...">
-                        <input type="text" id="film-input-year" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Year Released...">
+                        
+                        <div style="display:flex; gap:5px; margin-bottom: 2px;">
+                            <input type="text" id="film-input-title" class="retro-input" style="padding:6px; font-size:0.82rem; flex:1;" placeholder="Film Name...">
+                            <input type="text" id="film-input-year" class="retro-input" style="padding:6px; font-size:0.82rem; width:70px;" placeholder="Year...">
+                            <button onclick="autoFillFilmData(event)" class="retro-btn" style="padding:0 8px; font-size:0.75rem; background:#d4f1f9; box-shadow:2px 2px 0 #000;" title="Auto-fill Metadata">🔍 Fill</button>
+                        </div>
+                        
                         <input type="text" id="film-input-runtime" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Running Time (e.g. 1h 52m)...">
                         <input type="text" id="film-input-watchat" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Platform (Netflix, Disney+)...">
                         <input type="text" id="film-input-poster" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Poster Cover Hyperlink Image URL...">
@@ -529,7 +520,6 @@
                     </div>
                 </div>
 
-                <!-- COOPERATIVE INVENTORY VAULT MATRIX -->
                 <div class="retro-window" style="margin-bottom:0;">
                     <div class="window-header blue-variant">
                         <span>Movie_Vault // Poster_Matrix_Catalog.exe</span>
@@ -559,12 +549,10 @@
         </main>
     </div>
 
-    <!-- MODAL MANAGER ELEMENT BOX TRACK FOR POSTER OVERLAYS -->
     <div class="cinema-detail-modal-overlay" id="cinema-inspect-modal-frame" onclick="closeMovieInspectionModal()">
         <div class="cinema-detail-modal-window" onclick="event.stopPropagation()" id="cinema-modal-content-injector"></div>
     </div>
 
-    <!-- Leaflet processing library engine scripts hooks -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -916,92 +904,6 @@
 
         async function toggleCinemaCheckboxLatchingModal(masterIndex) { appState.cinemaRegistry[masterIndex].checked = !appState.cinemaRegistry[masterIndex].checked; renderCinemaCatalogDeck(); inspectMovieGridCardRecord(masterIndex); await saveCloudState(); }
         async function deleteCinemaRegistryItemModal(masterIndex) { if(confirm("Are you sure you want to remove this film?")) { appState.cinemaRegistry.splice(masterIndex, 1); renderCinemaCatalogDeck(); closeMovieInspectionModal(); await saveCloudState(); } }
-
-        function toggleActivePage(targetPage) {
-            document.querySelectorAll('.page-nav-bar .page-nav-btn').forEach(b => b.classList.remove('active-page'));
-            document.getElementById('core-meal-planner-view').style.display = 'none';
-            document.getElementById('core-date-night-view').style.display = 'none';
-            document.getElementById('core-cinema-club-view').style.display = 'none';
-
-            if (targetPage === 'meal') {
-                document.getElementById('page-btn-meal').classList.add('active-page');
-                document.getElementById('core-meal-planner-view').style.display = 'block';
-            } else if (targetPage === 'date') {
-                document.getElementById('page-btn-date').classList.add('active-page');
-                document.getElementById('core-date-night-view').style.display = 'block';
-                renderAllDateColumns();
-                setTimeout(initializeVintageLondonMap, 100);
-            } else if (targetPage === 'film') {
-                document.getElementById('page-btn-film').classList.add('active-page');
-                document.getElementById('core-cinema-club-view').style.display = 'block';
-                renderCinemaCatalogDeck();
-            }
-        }
-
-        function initializeVintageLondonMap() {
-            if (leafletMapInstance) { leafletMapInstance.invalidateSize(); return; }
-            let mapEl = document.getElementById('london-crt-viewscreen-map');
-            if (!mapEl) return;
-            leafletMapInstance = L.map('london-crt-viewscreen-map', { center: [51.5074, -0.1278], zoom: 12, zoomControl: true, scrollWheelZoom: false });
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(leafletMapInstance);
-            mapPinsLayerGroup = L.layerGroup().addTo(leafletMapInstance);
-            refreshPersistentPinsOnMap();
-        }
-
-        function refreshPersistentPinsOnMap() {
-            if (!mapPinsLayerGroup) return;
-            mapPinsLayerGroup.clearLayers();
-            const tracks = [
-                { data: appState.dateLocal || [], color: '#e15c32' },
-                { data: appState.dateEast || [], color: '#3283c4' },
-                { data: appState.dateCentral || [], color: '#f2a6b4' }
-            ];
-            tracks.forEach(track => {
-                track.data.forEach(item => {
-                    if (item.lat && item.lng) {
-                        const vintageRoundelIcon = L.divIcon({ className: 'custom-vintage-pin', html: `<div style="background:${track.color}; width:16px; height:14px; border:3px solid #000; border-radius:3px; position:relative; box-shadow:2px 2px 0px #000;"><div style="position:absolute; top:4px; left:-4px; width:18px; height:3px; background:#000;"></div></div>`, iconSize: [16, 14], iconAnchor: [8, 7] });
-                        let popupLabel = `<div style="font-family:'Courier Prime',monospace; font-size:0.8rem; line-height:1.4;"><b style="text-transform:uppercase; color:#e15c32;">${item.name}</b>`;
-                        if (item.notes) popupLabel += `<br><i>"${item.notes}"</i>`;
-                        popupLabel += `</div>`;
-                        L.marker([item.lat, item.lng], { icon: vintageRoundelIcon }).addTo(mapPinsLayerGroup).bindPopup(popupLabel);
-                    }
-                });
-            });
-        }
-
-        function triggerCameraGlide(lat, lng) {
-            if (!leafletMapInstance || !lat || !lng) return;
-            leafletMapInstance.setView([lat, lng], 15, { animate: true });
-            mapPinsLayerGroup.eachLayer(marker => { if (marker.getLatLng().lat === lat && marker.getLatLng().lng === lng) marker.openPopup(); });
-        }
-
-        function renderAllDateColumns() {
-            renderSingleDateColumn('local', appState.dateLocal || []);
-            renderSingleDateColumn('east', appState.dateEast || []);
-            renderSingleDateColumn('central', appState.dateCentral || []);
-        }
-
-        function renderSingleDateColumn(targetId, listData) {
-            const listEl = document.getElementById(`date-${targetId}-list`); if(!listEl) return; listEl.innerHTML = '';
-            listData.forEach((item, index) => {
-                const li = document.createElement('li'); li.className = 'grocery-item' + (item.checked ? ' checked' : '');
-                let notesHtml = item.notes ? `<div class="date-notes-subtext">${item.notes}</div>` : "";
-                let addressHtml = item.location ? `<div class="date-address-subtext">🏠 ${item.location}</div>` : "";
-                let radarButtonHtml = (item.lat && item.lng) ? `<div class="map-badge-link-pill" onclick="event.stopPropagation(); triggerCameraGlide(${item.lat}, ${item.lng})">CNTR 🗺️</div>` : "";
-                let isEditing = item._isEditing || false; let wrapperHtml = "";
-
-                if (isEditing) {
-                    wrapperHtml = `<div class="date-edit-fields-box" onclick="event.stopPropagation()"><input type="text" class="date-edit-mini-input" id="edit-name-${targetId}-${index}" value="${item.name}"><input type="text" class="date-edit-mini-input" id="edit-notes-${targetId}-${index}" value="${item.notes || ''}"><input type="text" class="date-edit-mini-input" id="edit-loc-${targetId}-${index}" value="${item.location || ''}"><div style="display:flex; gap:5px; margin-top:3px;"><button class="date-inline-edit-btn" style="background:#d4f1f9;" onclick="saveInlineDateModifications('${targetId}', ${index})">✅ Save</button><button class="date-inline-edit-btn" onclick="cancelInlineDateEdit('${targetId}', ${index})">Cancel</button></div></div>`;
-                } else {
-                    wrapperHtml = `<div class="date-card-body-collapsible" id="collapsible-card-${targetId}-${index}">${notesHtml}${addressHtml}<div class="date-card-actions-row">${radarButtonHtml}<button class="date-inline-edit-btn" onclick="event.stopPropagation(); activateInlineDateEdit('${targetId}', ${index})">✏️ Edit</button><button class="delete-btn" style="padding:0; font-size:0.85rem;" onclick="event.stopPropagation(); deleteDateItem('${targetId}', ${index})">⌫ Delete</button></div></div>`;
-                }
-                li.innerHTML = `
-                    <div class="retro-checkbox" onclick="event.stopPropagation(); toggleDateItem('${targetId}', ${index})"></div>
-                    <div class="date-item-row-wrapper"><div class="date-card-header-clickable" onclick="toggleCardCollapseView('${targetId}', ${index})"><span>${item.name}</span><span style="font-size:0.7rem; opacity:0.5;" id="arrow-indicator-${targetId}-${index}">▼</span></div>${wrapperHtml}</div>
-                `;
-                listEl.appendChild(li);
-            });
-        }
 
         function toggleCardCollapseView(targetId, index) {
             const el = document.getElementById(`collapsible-card-${targetId}-${index}`); const arrow = document.getElementById(`arrow-indicator-${targetId}-${index}`); if(!el) return;
@@ -1398,6 +1300,101 @@
             document.querySelectorAll('.multi-select-category-grid input').forEach(b => b.checked = false);
 
             renderCinemaCatalogDeck(); await saveCloudState();
+        }
+
+        /* NEW: OMDB Auto-Fill Function */
+        async function autoFillFilmData(event) {
+            const titleEl = document.getElementById('film-input-title');
+            const yearEl = document.getElementById('film-input-year');
+            const titleVal = titleEl.value.trim();
+            const yearVal = yearEl.value.trim();
+
+            if (!titleVal) {
+                alert("Please type a Film Name first!");
+                return;
+            }
+
+            const btn = event.currentTarget;
+            const originalText = btn.innerText;
+            btn.innerText = "⏳...";
+
+            try {
+                // Using an open educational OMDB API key
+                const res = await fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(titleVal)}&y=${encodeURIComponent(yearVal)}&apikey=trilogy`);
+                const data = await res.json();
+
+                if (data.Response === "True") {
+                    if (data.Runtime && data.Runtime !== "N/A") document.getElementById('film-input-runtime').value = data.Runtime;
+                    if (data.imdbRating && data.imdbRating !== "N/A") document.getElementById('film-input-imdb-manual').value = data.imdbRating;
+                    if (data.Poster && data.Poster !== "N/A") document.getElementById('film-input-poster').value = data.Poster;
+                    if (data.Year && !yearVal) document.getElementById('film-input-year').value = data.Year;
+                } else {
+                    alert("Couldn't find that film. Try adding the release year to help the search!");
+                }
+            } catch (e) {
+                console.error("OMDB API Error:", e);
+                alert("Network error fetching film data.");
+            }
+            
+            btn.innerText = originalText;
+        }
+
+        function toggleActivePage(targetPage) {
+            document.querySelectorAll('.page-nav-bar .page-nav-btn').forEach(b => b.classList.remove('active-page'));
+            document.getElementById('core-meal-planner-view').style.display = 'none';
+            document.getElementById('core-date-night-view').style.display = 'none';
+            document.getElementById('core-cinema-club-view').style.display = 'none';
+
+            if (targetPage === 'meal') {
+                document.getElementById('page-btn-meal').classList.add('active-page');
+                document.getElementById('core-meal-planner-view').style.display = 'block';
+            } else if (targetPage === 'date') {
+                document.getElementById('page-btn-date').classList.add('active-page');
+                document.getElementById('core-date-night-view').style.display = 'block';
+                renderAllDateColumns();
+                setTimeout(initializeVintageLondonMap, 100);
+            } else if (targetPage === 'film') {
+                document.getElementById('page-btn-film').classList.add('active-page');
+                document.getElementById('core-cinema-club-view').style.display = 'block';
+                renderCinemaCatalogDeck();
+            }
+        }
+
+        function initializeVintageLondonMap() {
+            if (leafletMapInstance) { leafletMapInstance.invalidateSize(); return; }
+            let mapEl = document.getElementById('london-crt-viewscreen-map');
+            if (!mapEl) return;
+            leafletMapInstance = L.map('london-crt-viewscreen-map', { center: [51.5074, -0.1278], zoom: 12, zoomControl: true, scrollWheelZoom: false });
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(leafletMapInstance);
+            mapPinsLayerGroup = L.layerGroup().addTo(leafletMapInstance);
+            refreshPersistentPinsOnMap();
+        }
+
+        function refreshPersistentPinsOnMap() {
+            if (!mapPinsLayerGroup) return;
+            mapPinsLayerGroup.clearLayers();
+            const tracks = [
+                { data: appState.dateLocal || [], color: '#e15c32' },
+                { data: appState.dateEast || [], color: '#3283c4' },
+                { data: appState.dateCentral || [], color: '#f2a6b4' }
+            ];
+            tracks.forEach(track => {
+                track.data.forEach(item => {
+                    if (item.lat && item.lng) {
+                        const vintageRoundelIcon = L.divIcon({ className: 'custom-vintage-pin', html: `<div style="background:${track.color}; width:16px; height:14px; border:3px solid #000; border-radius:3px; position:relative; box-shadow:2px 2px 0px #000;"><div style="position:absolute; top:4px; left:-4px; width:18px; height:3px; background:#000;"></div></div>`, iconSize: [16, 14], iconAnchor: [8, 7] });
+                        let popupLabel = `<div style="font-family:'Courier Prime',monospace; font-size:0.8rem; line-height:1.4;"><b style="text-transform:uppercase; color:#e15c32;">${item.name}</b>`;
+                        if (item.notes) popupLabel += `<br><i>"${item.notes}"</i>`;
+                        popupLabel += `</div>`;
+                        L.marker([item.lat, item.lng], { icon: vintageRoundelIcon }).addTo(mapPinsLayerGroup).bindPopup(popupLabel);
+                    }
+                });
+            });
+        }
+
+        function triggerCameraGlide(lat, lng) {
+            if (!leafletMapInstance || !lat || !lng) return;
+            leafletMapInstance.setView([lat, lng], 15, { animate: true });
+            mapPinsLayerGroup.eachLayer(marker => { if (marker.getLatLng().lat === lat && marker.getLatLng().lng === lng) marker.openPopup(); });
         }
 
         async function saveCloudState() { 
