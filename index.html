@@ -276,7 +276,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v77.8_STABLE_MASTER</div>
+        <div class="nav-logo">💾 FOOD_OS // v77.9_STABLE_MASTER</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -683,6 +683,11 @@
             if (targetElement) { targetElement.style.backgroundImage = `url('${ryanAndBeaPhotos[randomIndex]}')`; }
         }
 
+        function toggleFreezerDoor() {
+            const door = document.getElementById("fridge-top-door-panel");
+            if(door) door.classList.toggle("door-swung-open");
+        }
+
         function queryLocalIngredientMealSuggestion() {
             const inputEl = document.getElementById('api-ingredient-tags-input');
             const outputAnchor = document.getElementById('api-suggestions-dynamic-output-rail');
@@ -926,6 +931,8 @@
 
         function initializeVintageLondonMap() {
             if (leafletMapInstance) { leafletMapInstance.invalidateSize(); return; }
+            let mapEl = document.getElementById('london-crt-viewscreen-map');
+            if (!mapEl) return;
             leafletMapInstance = L.map('london-crt-viewscreen-map', { center: [51.5074, -0.1278], zoom: 12, zoomControl: true, scrollWheelZoom: false });
             L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(leafletMapInstance);
             mapPinsLayerGroup = L.layerGroup().addTo(leafletMapInstance);
@@ -1035,7 +1042,6 @@
         async function toggleDateItem(targetId, index) { let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); targetArr[index].checked = !targetArr[index].checked; renderAllDateColumns(); await saveCloudState(); }
         async function deleteDateItem(targetId, index) { let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); targetArr.splice(index, 1); renderAllDateColumns(); refreshPersistentPinsOnMap(); await saveCloudState(); }
 
-        function toggleFreezerDoor() { const door = document.getElementById("fridge-top-door-panel"); if(door) door.classList.toggle("door-swung-open"); }
         async function saveFreezerDrawer(drawerNum) {
             const statusIndicator = document.getElementById(`d${drawerNum}-sync-status`); statusIndicator.innerText = "⏳ Saving..."; const txtVal = document.getElementById(`freezer-d${drawerNum}-input`).value;
             if (drawerNum === 1) appState.freezerDrawer1 = txtVal; if (drawerNum === 2) appState.freezerDrawer2 = txtVal; if (drawerNum === 3) appState.freezerDrawer3 = txtVal;
@@ -1075,7 +1081,7 @@
                 document.getElementById('header-col-r').innerText = "Ryan Nights In"; document.getElementById('header-col-b').innerText = "Bea Nights In"; document.getElementById('header-col-both').innerText = "Nights In Together";
             } else {
                 document.getElementById('router-header-title').innerText = "Intelligent_Router: Lunch_Router.exe";
-                document.getElementById('header-col-r').innerText = "Ryan In Office"; document.getElementById('header-col-b').innerText = "Bea In Office"; document.getElementById('header-col-both').innerText = "Both Home/WFH Lunches";
+                document.getElementById('header-col-r').innerText = "Ryan WFH"; document.getElementById('header-col-b').innerText = "Bea WFH"; document.getElementById('header-col-both').innerText = "Both Home/WFH Lunches";
             }
             renderActiveMatrix();
         }
@@ -1092,16 +1098,48 @@
                 renderedCount++; const dateKey = targetDay.toISOString().split('T')[0]; const dayNum = targetDay.getDate(); const dayName = shortDayNames[dayOfWeek]; const monthNum = targetDay.getMonth() + 1;
                 const cell = document.createElement('div'); cell.className = 'calendar-day-cell';
                 let rText = (activeRyan[dateKey] || "").trim(); let bText = (activeBea[dateKey] || "").trim(); let isBothIn = activeBothIn[dateKey] || false;
+                
                 let pillsHtml = "";
-                if (isBothIn) { pillsHtml += `<div class="cell-event-pill pill-both-in">🔒 BOTH IN</div>`; } 
-                else {
-                    let prefixR = currentMode === 'dinners' ? 'R Out' : 'R Office'; let prefixB = currentMode === 'dinners' ? 'B Out' : 'B Office';
-                    if (rText) pillsHtml += `<div class="cell-event-pill pill-ryan">${prefixR}: ${rText}</div>`; if (bText) pillsHtml += `<div class="cell-event-pill pill-bea">${prefixB}: ${bText}</div>`;
+                let overlayHtml = "";
+
+                if (currentMode === 'dinners') {
+                    if (isBothIn) { pillsHtml += `<div class="cell-event-pill pill-both-in">🔒 BOTH IN</div>`; } 
+                    else {
+                        if (rText) pillsHtml += `<div class="cell-event-pill pill-ryan">R Out: ${rText}</div>`; 
+                        if (bText) pillsHtml += `<div class="cell-event-pill pill-bea">B Out: ${bText}</div>`;
+                    }
+                    overlayHtml = `
+                        <input type="text" class="overlay-input-item" id="input-r-${dateKey}" value="${rText}" placeholder="Ryan notes...">
+                        <input type="text" class="overlay-input-item" id="input-b-${dateKey}" value="${bText}" placeholder="Bea notes...">
+                        <div class="both-in-checkbox-row"><input type="checkbox" id="check-both-${dateKey}" ${isBothIn ? 'checked' : ''}><label for="check-both-${dateKey}">Mark "Both In"</label></div>
+                    `;
+                } else {
+                    if (rText) pillsHtml += `<div class="cell-event-pill pill-ryan">R: ${rText}</div>`;
+                    if (bText) pillsHtml += `<div class="cell-event-pill pill-bea">B: ${bText}</div>`;
+                    overlayHtml = `
+                        <select class="overlay-input-item" id="input-r-${dateKey}">
+                            <option value="" ${rText === '' ? 'selected' : ''}>Ryan: No Plan</option>
+                            <option value="WFH" ${rText === 'WFH' ? 'selected' : ''}>Ryan: WFH</option>
+                            <option value="Office" ${rText === 'Office' ? 'selected' : ''}>Ryan: Office</option>
+                        </select>
+                        <select class="overlay-input-item" id="input-b-${dateKey}">
+                            <option value="" ${bText === '' ? 'selected' : ''}>Bea: No Plan</option>
+                            <option value="WFH" ${bText === 'WFH' ? 'selected' : ''}>Bea: WFH</option>
+                            <option value="Office" ${bText === 'Office' ? 'selected' : ''}>Bea: Office</option>
+                        </select>
+                        <input type="hidden" id="check-both-${dateKey}" value="false">
+                    `;
                 }
+
                 if (selections[dateKey] && selections[dateKey].dish) { pillsHtml += `<div class="cell-event-pill" style="background:#eefcfd;border-color:var(--accent-blue);">🍽️ ${selections[dateKey].dish}</div>`; }
+                
                 cell.innerHTML = `
                     <div class="cell-date-num"><span>● ${dayName}</span><span>${dayNum}/${monthNum}</span></div>${pillsHtml}
-                    <div class="cell-hover-overlay"><div style="font-size:0.72rem; font-weight:bold; text-transform:uppercase;">Edit [${dayName} ${dayNum}/${monthNum}]:</div><input type="text" class="overlay-input-item" id="input-r-${dateKey}" value="${rText}" placeholder="Ryan notes..."><input type="text" class="overlay-input-item" id="input-b-${dateKey}" value="${bText}" placeholder="Bea notes..."><div class="both-in-checkbox-row"><input type="checkbox" id="check-both-${dateKey}" ${isBothIn ? 'checked' : ''}><label for="check-both-${dateKey}">Mark "Both In"</label></div><button class="overlay-action-btn" onclick="saveCellPlan('${dateKey}')">Save Parameters</button></div>
+                    <div class="cell-hover-overlay">
+                        <div style="font-size:0.72rem; font-weight:bold; text-transform:uppercase;">Edit [${dayName} ${dayNum}/${monthNum}]:</div>
+                        ${overlayHtml}
+                        <button class="overlay-action-btn" onclick="saveCellPlan('${dateKey}')">Save Parameters</button>
+                    </div>
                 `; gridAnchor.appendChild(cell);
             }
             calculateRouterEngine();
@@ -1112,16 +1150,26 @@
             const today = new Date(); today.setHours(0,0,0,0); let counters = { ryan: 0, bea: 0, both: 0 };
             let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches; let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches; let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches; let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
             let renderedCount = 0;
+            
             for (let i = 0; i < 20; i++) {
                 if (currentMode === 'dinners' && renderedCount >= 14) break; if (currentMode === 'lunches' && renderedCount >= 10) break;
                 const checkDay = new Date(today); checkDay.setDate(today.getDate() + i); const dayOfWeek = checkDay.getDay(); if (currentMode === 'lunches' && (dayOfWeek === 0 || dayOfWeek === 6)) continue;
                 renderedCount++; const dateKey = checkDay.toISOString().split('T')[0]; const displayLabel = `${shortDayNames[checkDay.getDay()]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
-                const rFilled = (activeRyan[dateKey] || "").trim() !== ""; const bFilled = (activeBea[dateKey] || "").trim() !== ""; const explicitlyBothIn = activeBothIn[dateKey] || false;
                 
                 let columnTarget = null;
-                if (explicitlyBothIn) { columnTarget = "both"; } 
-                else if (currentMode === 'dinners') { if (rFilled && !bFilled) columnTarget = "bea"; else if (bFilled && !rFilled) columnTarget = "ryan"; } 
-                else { if (rFilled && !bFilled) columnTarget = "bea"; else if (bFilled && !rFilled) columnTarget = "ryan"; }
+                if (currentMode === 'dinners') {
+                    const rFilled = (activeRyan[dateKey] || "").trim() !== ""; const bFilled = (activeBea[dateKey] || "").trim() !== ""; const explicitlyBothIn = activeBothIn[dateKey] || false;
+                    if (explicitlyBothIn) { columnTarget = "both"; } 
+                    else if (rFilled && !bFilled) { columnTarget = "bea"; } 
+                    else if (bFilled && !rFilled) { columnTarget = "ryan"; } 
+                } else {
+                    const rVal = (activeRyan[dateKey] || "").trim();
+                    const bVal = (activeBea[dateKey] || "").trim();
+                    if (rVal === 'WFH' && bVal === 'WFH') { columnTarget = "both"; }
+                    else if (rVal === 'Office' && bVal !== 'Office') { columnTarget = "ryan"; }
+                    else if (bVal === 'Office' && rVal !== 'Office') { columnTarget = "bea"; }
+                    else if (rVal !== '' || bVal !== '') { columnTarget = "both"; }
+                }
                 
                 if (columnTarget) { counters[columnTarget]++; buildSmartCardBlock(columnTarget, dateKey, displayLabel, selections); }
             }
@@ -1218,9 +1266,17 @@
             let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches;
             let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches;
             let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches;
+            
             activeRyan[dateKey] = document.getElementById(`input-r-${dateKey}`).value.trim();
             activeBea[dateKey] = document.getElementById(`input-b-${dateKey}`).value.trim();
-            activeBothIn[dateKey] = document.getElementById(`check-both-${dateKey}`).checked;
+            
+            let bothCheckbox = document.getElementById(`check-both-${dateKey}`);
+            if(bothCheckbox && bothCheckbox.type === 'checkbox') {
+                activeBothIn[dateKey] = bothCheckbox.checked;
+            } else {
+                activeBothIn[dateKey] = false;
+            }
+            
             renderActiveMatrix();
             await saveCloudState();
         }
@@ -1256,7 +1312,7 @@
                 await fetch(cloudStorageUrl, { 
                     method: 'POST', 
                     mode: 'no-cors', 
-                    headers: { 'Content-Type': 'application/json' }, 
+                    headers: { 'Content-Type': 'text/plain' }, 
                     body: JSON.stringify(appState) 
                 }); 
             } catch (e) { 
@@ -1264,44 +1320,51 @@
             } 
         }
 
-        // DEFLATTENED INITIAL STATE HANDSHAKE INITIALIZER PIPELINE
         document.addEventListener('DOMContentLoaded', () => {
             fetch(cloudStorageUrl)
                 .then(res => res.json())
                 .then(payload => {
-                    if (payload.menuDatabase && Object.keys(payload.menuDatabase).length > 1) { foodMenuDatabase = payload.menuDatabase; }
+                    if (payload.menuDatabase && Object.keys(payload.menuDatabase).length > 1) { 
+                        foodMenuDatabase = payload.menuDatabase; 
+                    }
 
                     if (payload.calendarState) {
-                        appState = payload.calendarState;
-                        if (!appState.shoppingList) appState.shoppingList = [];
-                        if (!appState.dateLocal) appState.dateLocal = [];
-                        if (!appState.dateEast) appState.dateEast = [];
-                        if (!appState.dateCentral) appState.dateCentral = [];
-                        if (!appState.cinemaRegistry) appState.cinemaRegistry = [];
-                        
-                        if (!appState.ryanDinners) appState.ryanDinners = {};
-                        if (!appState.beaDinners) appState.beaDinners = {};
-                        if (!appState.bothInDinners) appState.bothInDinners = {};
-                        if (!appState.dinnerSelections) appState.dinnerSelections = {};
-                        
-                        if (!appState.ryanLunches) appState.ryanLunches = {};
-                        if (!appState.beaLunches) appState.beaLunches = {};
-                        if (!appState.bothInLunches) appState.bothInLunches = {};
-                        if (!appState.lunchSelections) appState.lunchSelections = {};
-
-                        if (!appState.freezerDrawer1) appState.freezerDrawer1 = "";
-                        if (!appState.freezerDrawer2) appState.freezerDrawer2 = "";
-                        if (!appState.freezerDrawer3) appState.freezerDrawer3 = "";
+                        let parsedState = payload.calendarState;
+                        if (typeof parsedState === 'string') {
+                            try { parsedState = JSON.parse(parsedState); } catch(e) { console.error(e); }
+                        }
+                        Object.assign(appState, parsedState);
                     }
+
+                    appState.shoppingList = appState.shoppingList || [];
+                    appState.dateLocal = appState.dateLocal || [];
+                    appState.dateEast = appState.dateEast || [];
+                    appState.dateCentral = appState.dateCentral || [];
+                    appState.cinemaRegistry = appState.cinemaRegistry || [];
+                    
+                    appState.ryanDinners = appState.ryanDinners || {};
+                    appState.beaDinners = appState.beaDinners || {};
+                    appState.bothInDinners = appState.bothInDinners || {};
+                    appState.dinnerSelections = appState.dinnerSelections || {};
+                    
+                    appState.ryanLunches = appState.ryanLunches || {};
+                    appState.beaLunches = appState.beaLunches || {};
+                    appState.bothInLunches = appState.bothInLunches || {};
+                    appState.lunchSelections = appState.lunchSelections || {};
+
+                    appState.freezerDrawer1 = appState.freezerDrawer1 || "";
+                    appState.freezerDrawer2 = appState.freezerDrawer2 || "";
+                    appState.freezerDrawer3 = appState.freezerDrawer3 || "";
 
                     switchAppMode(currentMode);
                     renderShoppingList();
                     renderAllDateColumns();
                     buildRecipeRegistryDeck();
                     
-                    document.getElementById('freezer-d1-input').value = appState.freezerDrawer1 || "";
-                    document.getElementById('freezer-d2-input').value = appState.freezerDrawer2 || "";
-                    document.getElementById('freezer-d3-input').value = appState.freezerDrawer3 || "";
+                    document.getElementById('freezer-d1-input').value = appState.freezerDrawer1;
+                    document.getElementById('freezer-d2-input').value = appState.freezerDrawer2;
+                    document.getElementById('freezer-d3-input').value = appState.freezerDrawer3;
+                    
                     shuffleFridgePolaroidMemory();
                 }).catch(err => {
                     console.error("Connection breakdown. Running backup cache layout safely.", err);
