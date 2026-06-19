@@ -275,7 +275,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-logo">💾 FOOD_OS // v77.5_STABLE_INTEGRATED</div>
+        <div class="nav-logo">💾 FOOD_OS // v77.9_AUTOFILL_PATCH</div>
         <div class="window-controls-dummy">
             <div class="dot-control"></div>
             <div class="dot-control"></div>
@@ -283,12 +283,14 @@
         </div>
     </nav>
 
+    <!-- CORE SITE PAGE NAVIGATION CONTROLS SWITCHBOARD SYSTEM -->
     <div class="page-nav-bar">
         <button id="page-btn-meal" class="page-nav-btn active-page" onclick="toggleActivePage('meal')">[ 💾 Meal Planner OS ]</button>
         <button id="page-btn-date" class="page-nav-btn" onclick="toggleActivePage('date')">[ ❤️ Date Nights ]</button>
         <button id="page-btn-film" class="page-nav-btn" onclick="toggleActivePage('film')">[ 🎬 Cinema Club OS ]</button>
     </div>
 
+    <!-- MAIN OS MEAL PLANNERS CONTAINER -->
     <div id="core-meal-planner-view">
         <main class="desktop-layout">
             <section class="retro-window full-width">
@@ -323,6 +325,16 @@
                         <div class="column-header-tag tag-both" id="header-col-both">Nights In Together</div>
                         <div id="container-both"></div>
                     </div>
+
+                    <!-- LUNCH OFFICE COLUMNS -->
+                    <div class="smart-column" id="col-ryan-office" style="display: none;">
+                        <div class="column-header-tag tag-ryan" style="background:#aed6f1;" id="header-col-r-off">Ryan Office</div>
+                        <div id="container-ryan-office"></div>
+                    </div>
+                    <div class="smart-column" id="col-bea-office" style="display: none;">
+                        <div class="column-header-tag tag-bea" style="background:#f5b7b1;" id="header-col-b-off">Bea Office</div>
+                        <div id="container-bea-office"></div>
+                    </div>
                 </div>
             </section>
 
@@ -341,6 +353,7 @@
                 </div>
             </section>
 
+            <!-- RECIPE MODULE WITH LOCAL INGREDIENTS SEARCH CONSOLE -->
             <section class="retro-window full-width" id="recipe-module-window">
                 <div class="window-header orange-variant">
                     <span>Database_Explorer: Saved_Recipes.db & Local_AI_Suggester.exe</span>
@@ -348,6 +361,7 @@
                 </div>
                 <div class="window-body">
                     
+                    <!-- LOCAL KITCHEN INGREDIENTS CONSOLE PANEL -->
                     <div style="background:rgba(0,0,0,0.03); border:2px dashed #000; border-radius:6px; padding:15px; margin-bottom:20px;">
                         <h4 style="font-family:'Courier Prime',monospace; font-size:0.9rem; font-weight:bold; text-transform:uppercase; margin-bottom:5px;">💡 Native Ingredient Shuffler Engine</h4>
                         <div class="search-bar-container" style="margin-bottom:10px;">
@@ -371,6 +385,7 @@
                 </div>
             </section>
 
+            <!-- APPLIANCE DRAWER CABINET MODULE -->
             <div class="fridge-hardware-container full-width">
                 <div class="fridge-top-prop-shelf">
                     <div class="prop-bottle" title="Wine bottle"></div>
@@ -408,6 +423,7 @@
                         </div>
                     </div>
 
+                    <!-- DOOR WING CLICK ROUTE -->
                     <div class="fridge-door-wing" id="fridge-top-door-panel" onclick="toggleFreezerDoor()">
                         <div class="fridge-door-face-elements-group">
                             <div class="smeg-brand-badge">SMEG</div>
@@ -427,9 +443,11 @@
         </main>
     </div>
 
+    <!-- DATE NIGHT APP VIEWS CONTAINER -->
     <div id="core-date-night-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="date-night-grid">
+                <!-- LOCAL SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-orange);">📍 Local</div>
                     <div class="date-input-stack-group">
@@ -441,6 +459,7 @@
                     <ul class="shopping-list" id="date-local-list"></ul>
                 </div>
 
+                <!-- EAST LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-blue);">🧱 East LDN</div>
                     <div class="date-input-stack-group">
@@ -452,6 +471,7 @@
                     <ul class="shopping-list" id="date-east-list"></ul>
                 </div>
 
+                <!-- CENTRAL LDN SECTION CONTAINER -->
                 <div class="date-night-column">
                     <div class="date-column-title" style="color: var(--accent-pink);">🏛️ Central LDN</div>
                     <div class="date-input-stack-group">
@@ -464,6 +484,7 @@
                 </div>
             </div>
 
+            <!-- ILLUSTRATED LONDON BLUEPRINT TELETRACT TERMINAL -->
             <div class="map-terminal-frame">
                 <div class="window-header purple-variant" style="border-bottom:2px solid #000;">
                     <span>Radar_Plotter: Illustrated_London_Blueprint.exe</span>
@@ -475,15 +496,23 @@
         </main>
     </div>
 
+    <!-- THIRD PAGE APP CONTAINER: CINEMA POSTER GRID VAULT DECK -->
     <div id="core-cinema-club-view" style="display: none;">
         <main style="max-width: 1400px; margin: 0 auto; padding: 0 10px;">
             <div class="cinema-layout-deck">
                 
+                <!-- CREATION INPUT BLOCK -->
                 <div class="date-night-column" style="height: max-content;">
                     <div class="date-column-title" style="color: var(--accent-orange);">🎬 Log New Movie</div>
                     <div class="date-input-stack-group" style="gap:6px; background:none; border:none; padding:0;">
-                        <input type="text" id="film-input-title" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Film Name...">
-                        <input type="text" id="film-input-year" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Year Released...">
+                        
+                        <!-- ADDED OMDb AUTO-FILL METADATA BUTTON ROW -->
+                        <div style="display:flex; gap:5px; margin-bottom: 2px;">
+                            <input type="text" id="film-input-title" class="retro-input" style="padding:6px; font-size:0.82rem; flex:1;" placeholder="Film Name...">
+                            <input type="text" id="film-input-year" class="retro-input" style="padding:6px; font-size:0.82rem; width:70px;" placeholder="Year...">
+                            <button onclick="autoFillFilmData(event)" class="retro-btn" style="padding:0 8px; font-size:0.75rem; background:#d4f1f9; box-shadow:2px 2px 0 #000;" title="Auto-fill Metadata">🔍 Fill</button>
+                        </div>
+                        
                         <input type="text" id="film-input-runtime" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Running Time (e.g. 1h 52m)...">
                         <input type="text" id="film-input-watchat" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Platform (Netflix, Disney+)...">
                         <input type="text" id="film-input-poster" class="retro-input" style="padding:6px; font-size:0.82rem;" placeholder="Poster Cover Hyperlink Image URL...">
@@ -506,6 +535,7 @@
                     </div>
                 </div>
 
+                <!-- COOPERATIVE INVENTORY VAULT MATRIX -->
                 <div class="retro-window" style="margin-bottom:0;">
                     <div class="window-header blue-variant">
                         <span>Movie_Vault // Poster_Matrix_Catalog.exe</span>
@@ -535,10 +565,12 @@
         </main>
     </div>
 
+    <!-- MODAL MANAGER ELEMENT BOX TRACK FOR POSTER OVERLAYS -->
     <div class="cinema-detail-modal-overlay" id="cinema-inspect-modal-frame" onclick="closeMovieInspectionModal()">
         <div class="cinema-detail-modal-window" onclick="event.stopPropagation()" id="cinema-modal-content-injector"></div>
     </div>
 
+    <!-- Leaflet processing library engine scripts hooks -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -549,6 +581,26 @@
         let mapPinsLayerGroup = null;
 
         const cloudStorageUrl = "https://script.google.com/macros/s/AKfycbxzTv-Qrjsi0Fgd1S5DdBn8J0swaqIPNDOaJZXeKQ_EdsTtpS3w5MBlWAdpNhEf_82M/exec";
+        const recipeSheetUrl = "https://docs.google.com/spreadsheets/d/1aIvbe8UOUy-5xYfX5GjNnTlgmDHXT8jdWfWtkgrwK1g/gviz/tq?tqx=out:json&sheet=Recipes";
+
+        let staticRecipeDatabase = [];
+
+        let foodMenuDatabase = {
+            "PASTA": ["Bolognese", "Carbonara", "Sausage ragú", "Mac & cheese", "Tomato sauce of something", "Vegetable pasta (corgettes/tomato)", "Vodka", "Gnocchi bake", "Lasagne"],
+            "INT.": ["stir fry", "Chicken and rice", "Fajitas", "Curry (katsu/chickpea/lentil)", "Enchiladas"],
+            "MEAT": ["chicken shawarma", "Schnitzel", "Roast dinner", "Sausage and mash", "Chicken and chorizo stew", "Cod with breadcrumbs", "Pesto chicken", "Pork belly", "Steak"],
+            "VEGGIE": ["caesar salad", "Pasta Salad", "Halloumi something", "Chilli with beans", "Baked potato", "Mushroom risotto", "Spanakopita", "Noodle soup", "Beans"],
+            "GUILTY": ["Fish and chips", "Takeaway", "Burger", "Hot dogs", "Frozen pizza", "Freezer food picky bits"],
+            "OTHER": []
+        };
+
+        let appState = {
+            shoppingList: [{ name: 'Oat Milk', checked: false }],
+            dateLocal: [], dateEast: [], dateCentral: [], cinemaRegistry: [],
+            ryanDinners: {}, beaDinners: {}, bothInDinners: {}, dinnerSelections: {},
+            ryanLunches: {}, beaLunches: {}, bothInLunches: {}, lunchSelections: {},
+            freezerDrawer1: "", freezerDrawer2: "", freezerDrawer3: ""
+        };
 
         const ryanAndBeaPhotos = [
             "https://drive.google.com/thumbnail?sz=w1000&id=1z6xx50Jr2jO-84vxG46b8bly2nBlKOrO",
@@ -570,31 +622,6 @@
             "https://drive.google.com/thumbnail?sz=w1000&id=1BLUrxOxFCujMq93_k16ZJEyk0TMviEM3",
             "https://drive.google.com/thumbnail?sz=w1000&id=1yTdpRQnqZ-Y2XsQo-P_scHKmTmoHoXgL"
         ];
-
-        let staticRecipeDatabase = [
-            {
-                id: "vodka-pasta", category: "dinners", title: "Penne with Vodka & Tomato Sauce", prep: "15 mins", cook: "45 mins", servings: "4",
-                ingredients: ["onion", "garlic", "chilli flakes", "oregano", "vodka", "plum tomatoes", "penne", "double cream", "parm"],
-                instructions: ["Sauté onion and garlic.", "Pour in vodka and cook down.", "Add tomatoes and bake."]
-            }
-        ];
-
-        let foodMenuDatabase = {
-            "PASTA": ["Bolognese", "Carbonara", "Sausage ragú", "Mac & cheese", "Tomato sauce of something", "Vegetable pasta (corgettes/tomato)", "Vodka", "Gnocchi bake", "Lasagne"],
-            "INT.": ["stir fry", "Chicken and rice", "Fajitas", "Curry (katsu/chickpea/lentil)", "Enchiladas"],
-            "MEAT": ["chicken shawarma", "Schnitzel", "Roast dinner", "Sausage and mash", "Chicken and chorizo stew", "Cod with breadcrumbs", "Pesto chicken", "Pork belly", "Steak"],
-            "VEGGIE": ["caesar salad", "Pasta Salad", "Halloumi something", "Chilli with beans", "Baked potato", "Mushroom risotto", "Spanakopita", "Noodle soup", "Beans"],
-            "GUILTY": ["Fish and chips", "Takeaway", "Burger", "Hot dogs", "Frozen pizza", "Freezer food picky bits"],
-            "OTHER": []
-        };
-
-        let appState = {
-            shoppingList: [{ name: 'Oat Milk', checked: false }],
-            dateLocal: [], dateEast: [], dateCentral: [], cinemaRegistry: [],
-            ryanDinners: {}, beaDinners: {}, bothInDinners: {}, dinnerSelections: {},
-            ryanLunches: {}, beaLunches: {}, bothInLunches: {}, lunchSelections: {},
-            freezerDrawer1: "", freezerDrawer2: "", freezerDrawer3: ""
-        };
 
         function shuffleFridgePolaroidMemory() {
             if (ryanAndBeaPhotos.length === 0) return;
@@ -832,65 +859,7 @@
         async function toggleCinemaCheckboxLatchingModal(masterIndex) { appState.cinemaRegistry[masterIndex].checked = !appState.cinemaRegistry[masterIndex].checked; renderCinemaCatalogDeck(); inspectMovieGridCardRecord(masterIndex); await saveCloudState(); }
         async function deleteCinemaRegistryItemModal(masterIndex) { if(confirm("Are you sure you want to remove this film?")) { appState.cinemaRegistry.splice(masterIndex, 1); renderCinemaCatalogDeck(); closeMovieInspectionModal(); await saveCloudState(); } }
 
-        function toggleActivePage(targetPage) {
-            document.querySelectorAll('.page-nav-bar .page-nav-btn').forEach(b => b.classList.remove('active-page'));
-            document.getElementById('core-meal-planner-view').style.display = 'none';
-            document.getElementById('core-date-night-view').style.display = 'none';
-            document.getElementById('core-cinema-club-view').style.display = 'none';
-
-            if (targetPage === 'meal') {
-                document.getElementById('page-btn-meal').classList.add('active-page');
-                document.getElementById('core-meal-planner-view').style.display = 'block';
-            } else if (targetPage === 'date') {
-                document.getElementById('page-btn-date').classList.add('active-page');
-                document.getElementById('core-date-night-view').style.display = 'block';
-                renderAllDateColumns();
-                setTimeout(initializeVintageLondonMap, 100);
-            } else if (targetPage === 'film') {
-                document.getElementById('page-btn-film').classList.add('active-page');
-                document.getElementById('core-cinema-club-view').style.display = 'block';
-                renderCinemaCatalogDeck();
-            }
-        }
-
         // --- MAP & DATE NIGHT FUNCTIONS ---
-        function initializeVintageLondonMap() {
-            if (leafletMapInstance) { leafletMapInstance.invalidateSize(); return; }
-            let mapEl = document.getElementById('london-crt-viewscreen-map');
-            if (!mapEl) return;
-            leafletMapInstance = L.map('london-crt-viewscreen-map', { center: [51.5074, -0.1278], zoom: 12, zoomControl: true, scrollWheelZoom: false });
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(leafletMapInstance);
-            mapPinsLayerGroup = L.layerGroup().addTo(leafletMapInstance);
-            refreshPersistentPinsOnMap();
-        }
-
-        function refreshPersistentPinsOnMap() {
-            if (!mapPinsLayerGroup) return;
-            mapPinsLayerGroup.clearLayers();
-            const tracks = [
-                { data: appState.dateLocal || [], color: '#e15c32' },
-                { data: appState.dateEast || [], color: '#3283c4' },
-                { data: appState.dateCentral || [], color: '#f2a6b4' }
-            ];
-            tracks.forEach(track => {
-                track.data.forEach(item => {
-                    if (item.lat && item.lng) {
-                        const vintageRoundelIcon = L.divIcon({ className: 'custom-vintage-pin', html: `<div style="background:${track.color}; width:16px; height:14px; border:3px solid #000; border-radius:3px; position:relative; box-shadow:2px 2px 0px #000;"><div style="position:absolute; top:4px; left:-4px; width:18px; height:3px; background:#000;"></div></div>`, iconSize: [16, 14], iconAnchor: [8, 7] });
-                        let popupLabel = `<div style="font-family:'Courier Prime',monospace; font-size:0.8rem; line-height:1.4;"><b style="text-transform:uppercase; color:#e15c32;">${item.name}</b>`;
-                        if (item.notes) popupLabel += `<br><i>"${item.notes}"</i>`;
-                        popupLabel += `</div>`;
-                        L.marker([item.lat, item.lng], { icon: vintageRoundelIcon }).addTo(mapPinsLayerGroup).bindPopup(popupLabel);
-                    }
-                });
-            });
-        }
-
-        function triggerCameraGlide(lat, lng) {
-            if (!leafletMapInstance || !lat || !lng) return;
-            leafletMapInstance.setView([lat, lng], 15, { animate: true });
-            mapPinsLayerGroup.eachLayer(marker => { if (marker.getLatLng().lat === lat && marker.getLatLng().lng === lng) marker.openPopup(); });
-        }
-
         function renderAllDateColumns() {
             renderSingleDateColumn('local', appState.dateLocal || []);
             renderSingleDateColumn('east', appState.dateEast || []);
@@ -967,6 +936,43 @@
         async function toggleDateItem(targetId, index) { let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); targetArr[index].checked = !targetArr[index].checked; renderAllDateColumns(); await saveCloudState(); }
         async function deleteDateItem(targetId, index) { let targetArr = targetId === 'local' ? appState.dateLocal : (targetId === 'east' ? appState.dateEast : appState.dateCentral); targetArr.splice(index, 1); renderAllDateColumns(); refreshPersistentPinsOnMap(); await saveCloudState(); }
 
+        function initializeVintageLondonMap() {
+            if (leafletMapInstance) { leafletMapInstance.invalidateSize(); return; }
+            let mapEl = document.getElementById('london-crt-viewscreen-map');
+            if (!mapEl) return;
+            leafletMapInstance = L.map('london-crt-viewscreen-map', { center: [51.5074, -0.1278], zoom: 12, zoomControl: true, scrollWheelZoom: false });
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(leafletMapInstance);
+            mapPinsLayerGroup = L.layerGroup().addTo(leafletMapInstance);
+            refreshPersistentPinsOnMap();
+        }
+
+        function refreshPersistentPinsOnMap() {
+            if (!mapPinsLayerGroup) return;
+            mapPinsLayerGroup.clearLayers();
+            const tracks = [
+                { data: appState.dateLocal || [], color: '#e15c32' },
+                { data: appState.dateEast || [], color: '#3283c4' },
+                { data: appState.dateCentral || [], color: '#f2a6b4' }
+            ];
+            tracks.forEach(track => {
+                track.data.forEach(item => {
+                    if (item.lat && item.lng) {
+                        const vintageRoundelIcon = L.divIcon({ className: 'custom-vintage-pin', html: `<div style="background:${track.color}; width:16px; height:14px; border:3px solid #000; border-radius:3px; position:relative; box-shadow:2px 2px 0px #000;"><div style="position:absolute; top:4px; left:-4px; width:18px; height:3px; background:#000;"></div></div>`, iconSize: [16, 14], iconAnchor: [8, 7] });
+                        let popupLabel = `<div style="font-family:'Courier Prime',monospace; font-size:0.8rem; line-height:1.4;"><b style="text-transform:uppercase; color:#e15c32;">${item.name}</b>`;
+                        if (item.notes) popupLabel += `<br><i>"${item.notes}"</i>`;
+                        popupLabel += `</div>`;
+                        L.marker([item.lat, item.lng], { icon: vintageRoundelIcon }).addTo(mapPinsLayerGroup).bindPopup(popupLabel);
+                    }
+                });
+            });
+        }
+
+        function triggerCameraGlide(lat, lng) {
+            if (!leafletMapInstance || !lat || !lng) return;
+            leafletMapInstance.setView([lat, lng], 15, { animate: true });
+            mapPinsLayerGroup.eachLayer(marker => { if (marker.getLatLng().lat === lat && marker.getLatLng().lng === lng) marker.openPopup(); });
+        }
+
         async function saveFreezerDrawer(drawerNum) {
             const statusIndicator = document.getElementById(`d${drawerNum}-sync-status`); statusIndicator.innerText = "⏳ Saving..."; const txtVal = document.getElementById(`freezer-d${drawerNum}-input`).value;
             if (drawerNum === 1) appState.freezerDrawer1 = txtVal; if (drawerNum === 2) appState.freezerDrawer2 = txtVal; if (drawerNum === 3) appState.freezerDrawer3 = txtVal;
@@ -1005,17 +1011,24 @@
             document.getElementById('tab-lunches').classList.toggle('active-tab', targetMode === 'lunches');
             const gridEl = document.getElementById('calendar-days-injector'); 
             if(gridEl) gridEl.classList.toggle('lunch-mode-grid', targetMode === 'lunches');
+            
+            const rOff = document.getElementById('col-ryan-office');
+            const bOff = document.getElementById('col-bea-office');
 
             if (targetMode === 'dinners') {
                 document.getElementById('router-header-title').innerText = "Intelligent_Router: Dinner_Router.exe";
                 document.getElementById('header-col-r').innerText = "Ryan Nights In"; 
                 document.getElementById('header-col-b').innerText = "Bea Nights In"; 
                 document.getElementById('header-col-both').innerText = "Nights In Together";
+                if(rOff) rOff.style.display = 'none';
+                if(bOff) bOff.style.display = 'none';
             } else {
                 document.getElementById('router-header-title').innerText = "Intelligent_Router: Lunch_Router.exe";
-                document.getElementById('header-col-r').innerText = "Ryan In Office"; 
-                document.getElementById('header-col-b').innerText = "Bea In Office"; 
+                document.getElementById('header-col-r').innerText = "Ryan WFH"; 
+                document.getElementById('header-col-b').innerText = "Bea WFH"; 
                 document.getElementById('header-col-both').innerText = "Both Home/WFH Lunches";
+                if(rOff) rOff.style.display = 'block';
+                if(bOff) bOff.style.display = 'block';
             }
             renderActiveMatrix();
         }
@@ -1048,21 +1061,49 @@
                 let pillsHtml = "";
                 let overlayHtml = "";
 
-                if (isBothIn) { pillsHtml += `<div class="cell-event-pill pill-both-in">🔒 BOTH IN</div>`; } 
-                else {
-                    let prefixR = currentMode === 'dinners' ? 'R Out' : 'R Office'; let prefixB = currentMode === 'dinners' ? 'B Out' : 'B Office';
-                    if (rText) pillsHtml += `<div class="cell-event-pill pill-ryan">${prefixR}: ${rText}</div>`; 
-                    if (bText) pillsHtml += `<div class="cell-event-pill pill-bea">${prefixB}: ${bText}</div>`;
-                }
-
-                overlayHtml = `
-                    <input type="text" class="overlay-input-item" id="input-r-${dateKey}" value="${rText}" placeholder="Ryan notes...">
-                    <input type="text" class="overlay-input-item" id="input-b-${dateKey}" value="${bText}" placeholder="Bea notes...">
-                    <div class="both-in-checkbox-row"><input type="checkbox" id="check-both-${dateKey}" ${isBothIn ? 'checked' : ''}><label for="check-both-${dateKey}">Mark "Both In"</label></div>
-                `;
+                if (currentMode === 'dinners') {
+                    if (isBothIn) { pillsHtml += `<div class="cell-event-pill pill-both-in">🔒 BOTH IN</div>`; } 
+                    else {
+                        if (rText) pillsHtml += `<div class="cell-event-pill pill-ryan">R Out: ${rText}</div>`; 
+                        if (bText) pillsHtml += `<div class="cell-event-pill pill-bea">B Out: ${bText}</div>`;
+                    }
+                    overlayHtml = `
+                        <input type="text" class="overlay-input-item" id="input-r-${dateKey}" value="${rText}" placeholder="Ryan notes...">
+                        <input type="text" class="overlay-input-item" id="input-b-${dateKey}" value="${bText}" placeholder="Bea notes...">
+                        <div class="both-in-checkbox-row"><input type="checkbox" id="check-both-${dateKey}" ${isBothIn ? 'checked' : ''}><label for="check-both-${dateKey}">Mark "Both In"</label></div>
+                    `;
                     
-                if (selections[dateKey] && selections[dateKey].dish) { 
-                    pillsHtml += `<div class="cell-event-pill" style="background:#eefcfd;border-color:var(--accent-blue);">🍽️ ${selections[dateKey].dish}</div>`; 
+                    if (selections[dateKey] && selections[dateKey].dish) { 
+                        pillsHtml += `<div class="cell-event-pill" style="background:#eefcfd;border-color:var(--accent-blue);">🍽️ ${selections[dateKey].dish}</div>`; 
+                    }
+                } else {
+                    if (rText) pillsHtml += `<div class="cell-event-pill pill-ryan">R: ${rText}</div>`;
+                    if (bText) pillsHtml += `<div class="cell-event-pill pill-bea">B: ${bText}</div>`;
+                    overlayHtml = `
+                        <select class="overlay-input-item" id="input-r-${dateKey}">
+                            <option value="" ${rText === '' ? 'selected' : ''}>Ryan: No Plan</option>
+                            <option value="WFH" ${rText === 'WFH' ? 'selected' : ''}>Ryan: WFH</option>
+                            <option value="Office" ${rText === 'Office' ? 'selected' : ''}>Ryan: Office</option>
+                        </select>
+                        <select class="overlay-input-item" id="input-b-${dateKey}">
+                            <option value="" ${bText === '' ? 'selected' : ''}>Bea: No Plan</option>
+                            <option value="WFH" ${bText === 'WFH' ? 'selected' : ''}>Bea: WFH</option>
+                            <option value="Office" ${bText === 'Office' ? 'selected' : ''}>Bea: Office</option>
+                        </select>
+                        <input type="hidden" id="check-both-${dateKey}" value="false">
+                    `;
+                    
+                    ['both', 'ryan', 'bea', 'ryan-office', 'bea-office'].forEach(col => {
+                        let sKey = (col === 'both') ? dateKey : dateKey + '-' + col;
+                        if (selections[sKey] && selections[sKey].dish) {
+                            let prefix = "";
+                            if (col === 'ryan') prefix = "R (WFH): ";
+                            if (col === 'bea') prefix = "B (WFH): ";
+                            if (col === 'ryan-office') prefix = "R (Off): ";
+                            if (col === 'bea-office') prefix = "B (Off): ";
+                            pillsHtml += `<div class="cell-event-pill" style="background:#eefcfd;border-color:var(--accent-blue);">🍽️ ${prefix}${selections[sKey].dish}</div>`;
+                        }
+                    });
                 }
                 
                 cell.innerHTML = `
@@ -1082,9 +1123,11 @@
             cr.innerHTML = ''; 
             document.getElementById('container-bea').innerHTML = ''; 
             document.getElementById('container-both').innerHTML = '';
+            if(document.getElementById('container-ryan-office')) document.getElementById('container-ryan-office').innerHTML = '';
+            if(document.getElementById('container-bea-office')) document.getElementById('container-bea-office').innerHTML = '';
 
             const today = new Date(); today.setHours(0,0,0,0); 
-            let counters = { ryan: 0, bea: 0, both: 0 };
+            let counters = { ryan: 0, bea: 0, both: 0, 'ryan-office': 0, 'bea-office': 0 };
             
             let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches; 
             let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches; 
@@ -1099,18 +1142,39 @@
                 const dateKey = checkDay.toISOString().split('T')[0]; 
                 const displayLabel = `${shortDayNames[checkDay.getDay()]} ${checkDay.getDate().toString().padStart(2, '0')}/${(checkDay.getMonth()+1).toString().padStart(2, '0')}`;
                 
-                const rFilled = (activeRyan[dateKey] || "").trim() !== ""; 
-                const bFilled = (activeBea[dateKey] || "").trim() !== ""; 
-                const explicitlyBothIn = activeBothIn[dateKey] || false;
-                
-                let columnTarget = null;
-                if (explicitlyBothIn) { columnTarget = "both"; } 
-                else if (rFilled && !bFilled) { columnTarget = "bea"; } 
-                else if (bFilled && !rFilled) { columnTarget = "ryan"; } 
-                
-                if (columnTarget) { 
-                    counters[columnTarget]++; 
-                    buildSmartCardBlock(columnTarget, dateKey, displayLabel, selections, dateKey); 
+                if (currentMode === 'dinners') {
+                    const rFilled = (activeRyan[dateKey] || "").trim() !== ""; 
+                    const bFilled = (activeBea[dateKey] || "").trim() !== ""; 
+                    const explicitlyBothIn = activeBothIn[dateKey] || false;
+                    
+                    let columnTarget = null;
+                    if (explicitlyBothIn) { columnTarget = "both"; } 
+                    else if (rFilled && !bFilled) { columnTarget = "bea"; } 
+                    else if (bFilled && !rFilled) { columnTarget = "ryan"; } 
+                    
+                    if (columnTarget) { 
+                        counters[columnTarget]++; 
+                        buildSmartCardBlock(columnTarget, dateKey, displayLabel, selections, dateKey); 
+                    }
+                } else {
+                    const rVal = (activeRyan[dateKey] || "").trim();
+                    const bVal = (activeBea[dateKey] || "").trim();
+                    
+                    let targets = [];
+                    if (rVal === 'WFH' && bVal === 'WFH') {
+                        targets.push('both');
+                    } else {
+                        if (rVal === 'WFH') targets.push('ryan');
+                        if (rVal === 'Office') targets.push('ryan-office');
+                        if (bVal === 'WFH') targets.push('bea');
+                        if (bVal === 'Office') targets.push('bea-office');
+                    }
+                    
+                    targets.forEach(col => {
+                        counters[col]++;
+                        let selKey = (col === 'both') ? dateKey : dateKey + '-' + col;
+                        buildSmartCardBlock(col, dateKey, displayLabel, selections, selKey);
+                    });
                 }
             }
             checkEmptyStates(counters);
@@ -1154,10 +1218,216 @@
             if(counters.ryan === 0) document.getElementById('container-ryan').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
             if(counters.bea === 0) document.getElementById('container-bea').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
             if(counters.both === 0) document.getElementById('container-both').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
+            
+            if (currentMode === 'lunches') {
+                if(counters['ryan-office'] === 0) document.getElementById('container-ryan-office').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
+                if(counters['bea-office'] === 0) document.getElementById('container-bea-office').innerHTML = `<p style='font-size:0.8rem;opacity:0.4;text-align:center;'>All ${tag}</p>`;
+            }
         }
 
-        // --- HANDSHAKE SCRIPT ---
+        async function saveCellPlan(dateKey) {
+            let activeRyan = currentMode === 'dinners' ? appState.ryanDinners : appState.ryanLunches;
+            let activeBea = currentMode === 'dinners' ? appState.beaDinners : appState.beaLunches;
+            let activeBothIn = currentMode === 'dinners' ? appState.bothInDinners : appState.bothInLunches;
+            
+            let rInput = document.getElementById(`input-r-${dateKey}`);
+            let bInput = document.getElementById(`input-b-${dateKey}`);
+            
+            if(rInput) activeRyan[dateKey] = rInput.value.trim();
+            if(bInput) activeBea[dateKey] = bInput.value.trim();
+            
+            let bothCheckbox = document.getElementById(`check-both-${dateKey}`);
+            if(bothCheckbox && bothCheckbox.type === 'checkbox') {
+                activeBothIn[dateKey] = bothCheckbox.checked;
+            } else {
+                activeBothIn[dateKey] = false;
+            }
+            
+            renderActiveMatrix();
+            await saveCloudState();
+        }
+
+        async function autoFillFilmData(event) {
+            const titleEl = document.getElementById('film-input-title');
+            const yearEl = document.getElementById('film-input-year');
+            const titleVal = titleEl.value.trim();
+            const yearVal = yearEl.value.trim();
+
+            if (!titleVal) {
+                alert("Please type a Film Name first!");
+                return;
+            }
+
+            const btn = event.currentTarget;
+            const originalText = btn.innerText;
+            btn.innerText = "⏳...";
+
+            try {
+                const res = await fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(titleVal)}&y=${encodeURIComponent(yearVal)}&apikey=trilogy`);
+                const data = await res.json();
+
+                if (data.Response === "True") {
+                    if (data.Runtime && data.Runtime !== "N/A") document.getElementById('film-input-runtime').value = data.Runtime;
+                    if (data.imdbRating && data.imdbRating !== "N/A") document.getElementById('film-input-imdb-manual').value = data.imdbRating;
+                    if (data.Poster && data.Poster !== "N/A") document.getElementById('film-input-poster').value = data.Poster;
+                    if (data.Year && !yearVal) document.getElementById('film-input-year').value = data.Year;
+                } else {
+                    alert("Couldn't find that film. Try adding the release year to help the search!");
+                }
+            } catch (e) {
+                console.error("OMDB API Error:", e);
+                alert("Network error fetching film data.");
+            }
+            
+            btn.innerText = originalText;
+        }
+
+        async function registerNewFilmToDatabase() {
+            const titleEl = document.getElementById('film-input-title');
+            const yearEl = document.getElementById('film-input-year');
+            const runtimeEl = document.getElementById('film-input-runtime');
+            const watchEl = document.getElementById('film-input-watchat');
+            const posterEl = document.getElementById('film-input-poster');
+            const imdbEl = document.getElementById('film-input-imdb-manual');
+
+            const titleVal = titleEl.value.trim(); if (titleVal === '') return;
+            let selectedCategories = []; document.querySelectorAll('.multi-select-category-grid input:checked').forEach(box => selectedCategories.push(box.value));
+
+            let newFilm = {
+                name: titleVal, year: yearEl.value.trim(), runtime: runtimeEl.value.trim(),
+                watchAt: watchEl.value.trim(), posterUrl: posterEl.value.trim(),
+                imdbRating: imdbEl.value.trim() || "N/A", categories: selectedCategories, checked: false
+            };
+
+            if (!appState.cinemaRegistry) appState.cinemaRegistry = [];
+            appState.cinemaRegistry.push(newFilm);
+
+            titleEl.value = ''; yearEl.value = ''; runtimeEl.value = ''; watchEl.value = ''; posterEl.value = ''; imdbEl.value = '';
+            document.querySelectorAll('.multi-select-category-grid input').forEach(b => b.checked = false);
+
+            renderCinemaCatalogDeck(); await saveCloudState();
+        }
+
+        async function handleHeaderChange(selKey, category) {
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            selections[selKey] = { category: category, dish: "", locked: false };
+            renderActiveMatrix();
+            await saveCloudState();
+        }
+
+        async function handleDishChange(selKey, dishName) {
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            if (selections[selKey]) { selections[selKey].dish = dishName; }
+            await saveCloudState();
+        }
+
+        async function rollRandomCategory(selKey) {
+            const categories = Object.keys(foodMenuDatabase).filter(cat => cat !== 'OTHER');
+            if (categories.length === 0) return;
+            const randomCat = categories[Math.floor(Math.random() * categories.length)];
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            selections[selKey] = { category: randomCat, dish: "", locked: false };
+            renderActiveMatrix();
+            await saveCloudState();
+        }
+
+        async function rollRandomDish(selKey) {
+            let selections = currentMode === 'dinners' ? appState.dinnerSelections : appState.lunchSelections;
+            const currentCat = selections[selKey] ? selections[selKey].category : "";
+            if (!currentCat || currentCat === 'OTHER' || !foodMenuDatabase[currentCat] || foodMenuDatabase[currentCat].length === 0) {
+                alert("Please select a category block first before rolling an option!");
+                return;
+            }
+            const optionsList = foodMenuDatabase[currentCat];
+            const randomDish = optionsList[Math.floor(Math.random() * optionsList.length)];
+            selections[selKey].dish = randomDish;
+            renderActiveMatrix();
+            await saveCloudState();
+        }
+
+        function renderShoppingList() {
+            const listEl = document.getElementById('shopping-list'); if(!listEl) return; listEl.innerHTML = '';
+            appState.shoppingList.forEach((item, index) => {
+                const li = document.createElement('li'); li.className = 'grocery-item' + (item.checked ? ' checked' : '');
+                li.innerHTML = `<div class="retro-checkbox" onclick="toggleItem(${index})"></div><span class="item-text" onclick="toggleItem(${index})">${item.name}</span><button class="delete-btn" onclick="deleteItem(${index})">⌫</button>`; listEl.appendChild(li);
+            });
+        }
+
+        async function addItem() { const input = document.getElementById('item-input'); const val = input.value.trim(); if (val !== '') { appState.shoppingList.push({ name: val, checked: false }); input.value = ''; renderShoppingList(); await saveCloudState(); } }
+        document.getElementById('item-input').addEventListener('keypress', function(e) { if (e.key === 'Enter') addItem(); });
+        async function toggleItem(index) { appState.shoppingList[index].checked = !appState.shoppingList[index].checked; renderShoppingList(); await saveCloudState(); }
+        async function deleteItem(index) { appState.shoppingList.splice(index, 1); renderShoppingList(); await saveCloudState(); }
+
+        function toggleActivePage(targetPage) {
+            document.querySelectorAll('.page-nav-bar .page-nav-btn').forEach(b => b.classList.remove('active-page'));
+            document.getElementById('core-meal-planner-view').style.display = 'none';
+            document.getElementById('core-date-night-view').style.display = 'none';
+            document.getElementById('core-cinema-club-view').style.display = 'none';
+
+            if (targetPage === 'meal') {
+                document.getElementById('page-btn-meal').classList.add('active-page');
+                document.getElementById('core-meal-planner-view').style.display = 'block';
+            } else if (targetPage === 'date') {
+                document.getElementById('page-btn-date').classList.add('active-page');
+                document.getElementById('core-date-night-view').style.display = 'block';
+                renderAllDateColumns();
+                setTimeout(initializeVintageLondonMap, 100);
+            } else if (targetPage === 'film') {
+                document.getElementById('page-btn-film').classList.add('active-page');
+                document.getElementById('core-cinema-club-view').style.display = 'block';
+                renderCinemaCatalogDeck();
+            }
+        }
+
+        async function saveCloudState() { 
+            try { 
+                await fetch(cloudStorageUrl, { 
+                    method: 'POST', 
+                    mode: 'no-cors', 
+                    headers: { 'Content-Type': 'text/plain' }, 
+                    body: JSON.stringify(appState) 
+                }); 
+            } catch (e) { 
+                console.error(e); 
+            } 
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            fetch(recipeSheetUrl)
+                .then(res => res.text())
+                .then(text => {
+                    const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S\w]+)\);?/);
+                    if (match && match[1]) {
+                        const json = JSON.parse(match[1]);
+                        let parsedFeed = [];
+                        if (json.table && json.table.rows) {
+                            json.table.rows.forEach(row => {
+                                if (row.c && row.c[2] && row.c[2].v) {
+                                    let id = row.c[0] && row.c[0].v ? String(row.c[0].v) : String(row.c[2].v).toLowerCase().replace(/[^a-z0-9]/g, '-');
+                                    let cat = row.c[1] && row.c[1].v ? String(row.c[1].v).toLowerCase() : 'dinners';
+                                    let title = String(row.c[2].v).trim();
+                                    let prep = row.c[3] && row.c[3].v ? String(row.c[3].v) : '10 mins';
+                                    let cook = row.c[4] && row.c[4].v ? String(row.c[4].v) : '20 mins';
+                                    let servings = row.c[5] && row.c[5].v ? String(row.c[5].v) : '2';
+                                    
+                                    let ingRaw = row.c[6] && row.c[6].v ? String(row.c[6].v) : '';
+                                    let instRaw = row.c[7] && row.c[7].v ? String(row.c[7].v) : '';
+                                    
+                                    let ingArr = ingRaw ? ingRaw.split(/\r?\n|\r/).map(s => s.trim()).filter(s => s !== '') : [];
+                                    let instArr = instRaw ? instRaw.split(/\r?\n|\r/).map(s => s.trim()).filter(s => s !== '') : [];
+                                    
+                                    parsedFeed.push({ id: id, category: cat, title: title, prep: prep, cook: cook, servings: servings, ingredients: ingArr, instructions: instArr });
+                                }
+                            });
+                        }
+                        if (parsedFeed.length > 0) { 
+                            staticRecipeDatabase = parsedFeed; 
+                            buildRecipeRegistryDeck();
+                        }
+                    }
+                })
+                .catch(err => console.error("Sheet read error:", err));
+
             fetch(cloudStorageUrl)
                 .then(res => res.json())
                 .then(payload => {
@@ -1165,27 +1435,44 @@
                         foodMenuDatabase = payload.menuDatabase; 
                     }
 
-                    // Strict parsing from exact file reference that worked in index (5)
-                    if (payload.calendarState && payload.calendarState.shoppingList) {
-                        appState = payload.calendarState;
-                        if (!appState.dateLocal) appState.dateLocal = [];
-                        if (!appState.dateEast) appState.dateEast = [];
-                        if (!appState.dateCentral) appState.dateCentral = [];
-                        if (!appState.cinemaRegistry) appState.cinemaRegistry = [];
+                    let src = payload.calendarState ? payload.calendarState : payload;
+                    
+                    if (typeof src === 'string') {
+                        try { src = JSON.parse(src); } catch(e) { console.error(e); }
                     }
+
+                    appState.shoppingList = src.shoppingList || [];
+                    appState.dateLocal = src.dateLocal || [];
+                    appState.dateEast = src.dateEast || [];
+                    appState.dateCentral = src.dateCentral || [];
+                    appState.cinemaRegistry = src.cinemaRegistry || [];
+                    
+                    appState.ryanDinners = src.ryanDinners || {};
+                    appState.beaDinners = src.beaDinners || {};
+                    appState.bothInDinners = src.bothInDinners || {};
+                    appState.dinnerSelections = src.dinnerSelections || {};
+                    
+                    appState.ryanLunches = src.ryanLunches || {};
+                    appState.beaLunches = src.beaLunches || {};
+                    appState.bothInLunches = src.bothInLunches || {};
+                    appState.lunchSelections = src.lunchSelections || {};
+
+                    appState.freezerDrawer1 = src.freezerDrawer1 || payload.freezerDrawer1 || "";
+                    appState.freezerDrawer2 = src.freezerDrawer2 || payload.freezerDrawer2 || "";
+                    appState.freezerDrawer3 = src.freezerDrawer3 || payload.freezerDrawer3 || "";
 
                     switchAppMode(currentMode);
                     renderShoppingList();
-                    renderAllDateColumns();
+                    if (typeof renderAllDateColumns === 'function') renderAllDateColumns();
                     buildRecipeRegistryDeck();
                     
-                    document.getElementById('freezer-d1-input').value = appState.freezerDrawer1 || "";
-                    document.getElementById('freezer-d2-input').value = appState.freezerDrawer2 || "";
-                    document.getElementById('freezer-d3-input').value = appState.freezerDrawer3 || "";
+                    document.getElementById('freezer-d1-input').value = appState.freezerDrawer1;
+                    document.getElementById('freezer-d2-input').value = appState.freezerDrawer2;
+                    document.getElementById('freezer-d3-input').value = appState.freezerDrawer3;
                     
                     shuffleFridgePolaroidMemory();
                 }).catch(err => {
-                    console.error("Handshake fail, rolling back safely.", err);
+                    console.error("Connection breakdown. Running backup cache layout safely.", err);
                     switchAppMode(currentMode);
                     renderShoppingList();
                     buildRecipeRegistryDeck();
